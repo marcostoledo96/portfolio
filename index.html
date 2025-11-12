@@ -11,19 +11,18 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/styles.css" />
-    <!-- Favicon con formatos múltiples para mejor compatibilidad -->
     <link rel="icon" type="image/x-icon" href="./img/mt.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="./img/mt.ico" />
-    <!-- Lucide icons -->
+    <!-- Cargo los iconos de Lucide que uso en todo el sitio -->
     <script defer src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body class="oscuro">
-    <!-- Sidebar (desktop) -->
+    <!-- Barra lateral fija para pantallas grandes -->
     <aside id="barra-lateral" class="barra-lateral">
       <div class="barra-lateral__interior">
-        <!-- Profile image -->
+        <!-- Foto frontal que uso en redes -->
         <div class="perfil">
-          <!-- Corregido atributo height mal cerrado y añadido loading correcto -->
+          <!-- Deje arreglado el height y el loading para que cargue prolijo -->
           <img
             src="./img/Foto_Perfil.jpg"
             alt="Marcos Toledo"
@@ -32,13 +31,13 @@
             loading="eager"
           />
         </div>
-        <!-- Name -->
+        <!-- Nombre completo al costado -->
         <p class="mb-4 nombre-lateral" aria-label="Marcos Ezequiel Toledo">
           <span class="nombre-lateral__nombre">Marcos Ezequiel</span>
           <span class="nombre-lateral__apellido">Toledo</span>
         </p>
 
-        <!-- Menu -->
+        <!-- Menu principal con las secciones clave -->
         <nav class="navegacion">
           <ul>
             <li>
@@ -79,7 +78,7 @@
           </ul>
         </nav>
 
-        <!-- Dark mode toggle -->
+        <!-- Boton personal para alternar entre modo claro y oscuro -->
         <button
           id="alternarTemaBarra"
           class="alternar-tema alternar-tema--barra"
@@ -99,7 +98,7 @@
       </div>
     </aside>
 
-    <!-- Mobile header -->
+    <!-- Encabezado compacto para mobile -->
     <header class="encabezado-movil">
       <div class="logo-circulo pequeno"><span>MT</span></div>
       <div class="acciones-moviles">
@@ -131,7 +130,7 @@
       </div>
     </header>
 
-    <!-- Mobile drawer -->
+    <!-- Panel deslizable que abre el menu en mobile -->
     <div id="cajon-movil" class="cajon-movil" hidden>
       <nav class="navegacion-cajon">
         <ul>
@@ -174,9 +173,9 @@
       </nav>
     </div>
 
-    <!-- Main content -->
+      <!-- Contenido principal del portfolio -->
     <main id="contenido" class="contenido">
-      <!-- Hero / About -->
+      <!-- Bloque hero donde cuento quien soy -->
       <section id="sobre-mi" class="seccion centrado">
         <div class="contenedor texto-centro">
           <h1 class="mb-4">
@@ -239,14 +238,14 @@
         </div>
       </section>
 
-      <!-- Tech Skills -->
+      <!-- Seccion de habilidades tecnicas -->
       <section id="habilidades-tecnicas" class="seccion alterno">
         <div class="contenedor">
           <h2 class="mb-12 texto-centro">
             <span class="texto-acento">Habilidades</span> Técnicas
           </h2>
           <div class="rejilla rejilla-2 md:rejilla-3 lg:rejilla-5">
-            <!-- Items renderizados manualmente para mantener HTML puro -->
+            <!-- Prefiero escribir estos items a mano para seguir con HTML puro -->
             <div class="tarjeta-habilidad">
               <div class="emoji-habilidad">
                 <img src="./img/HTML.png" alt="html" />
@@ -323,7 +322,7 @@
         </div>
       </section>
 
-      <!-- Soft Skills -->
+      <!-- Seccion de habilidades blandas -->
       <section id="habilidades-blandas" class="seccion">
         <div class="contenedor">
           <h2 class="mb-12 texto-centro">
@@ -373,7 +372,7 @@
         </div>
       </section>
 
-      <!-- Experience -->
+      <!-- Experiencia profesional -->
       <section id="experiencia" class="seccion alterno">
         <div class="contenedor narrow">
           <h2 class="mb-12 texto-centro">
@@ -468,7 +467,7 @@
         </div>
       </section>
 
-      <!-- Education -->
+      <!-- Educacion y formacion -->
       <section id="educacion" class="seccion">
         <div class="contenedor">
           <h2 class="mb-12 texto-centro">
@@ -520,7 +519,7 @@
         </div>
       </section>
 
-      <!-- Portfolio -->
+      <!-- Trabajos destacados del portfolio -->
       <section id="portafolio" class="seccion alterno">
         <div class="contenedor">
           <h2 class="mb-12 texto-centro">
@@ -654,7 +653,7 @@
         </div>
       </section>
 
-      <!-- Contact -->
+      <!-- Formulario de contacto real -->
       <section id="contacto" class="seccion">
         <div class="contenedor narrow">
           <h2 class="texto-centro mb-4">
@@ -743,7 +742,7 @@
       </section>
     </main>
 
-    <!-- Footer -->
+    <!-- footer -->
     <footer class="pie">
       <p>© 2025 Marcos Toledo. Todos los derechos reservados.</p>
     </footer>
