@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toledo Marcos Ezequiel</title>
+    <meta name="description" content="Portfolio de Marcos Ezequiel Toledo" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <!-- Favicon con formatos múltiples para mejor compatibilidad -->
+    <link rel="icon" type="image/x-icon" href="./img/mt.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="./img/mt.ico" />
+    <!-- Lucide icons -->
+    <script defer src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="oscuro">
+    <!-- Sidebar (desktop) -->
+    <aside id="barra-lateral" class="barra-lateral">
+      <div class="barra-lateral__interior">
+        <!-- Profile image -->
+        <div class="perfil">
+          <!-- Corregido atributo height mal cerrado y añadido loading correcto -->
+          <img
+            src="./img/Foto_Perfil.jpg"
+            alt="Marcos Toledo"
+            width="512"
+            height="512"
+            loading="eager"
+          />
+        </div>
+        <!-- Name -->
+        <p class="mb-4 nombre-lateral" aria-label="Marcos Ezequiel Toledo">
+          <span class="nombre-lateral__nombre">Marcos Ezequiel</span>
+          <span class="nombre-lateral__apellido">Toledo</span>
+        </p>
+
+        <!-- Menu -->
+        <nav class="navegacion">
+          <ul>
+            <li>
+              <button class="enlace-nav" data-target="sobre-mi">
+                <i data-lucide="home"></i><span>Sobre mí</span>
+              </button>
+            </li>
+            <li>
+              <button class="enlace-nav" data-target="habilidades-tecnicas">
+                <i data-lucide="code"></i><span>Habilidades Técnicas</span>
+              </button>
+            </li>
+            <li>
+              <button class="enlace-nav" data-target="habilidades-blandas">
+                <i data-lucide="brain"></i><span>Habilidades Blandas</span>
+              </button>
+            </li>
+            <li>
+              <button class="enlace-nav" data-target="experiencia">
+                <i data-lucide="briefcase"></i><span>Experiencia</span>
+              </button>
+            </li>
+            <li>
+              <button class="enlace-nav" data-target="educacion">
+                <i data-lucide="graduation-cap"></i><span>Educación</span>
+              </button>
+            </li>
+            <li>
+              <button class="enlace-nav" data-target="portafolio">
+                <i data-lucide="folder-open"></i><span>Portafolio</span>
+              </button>
+            </li>
+            <li>
+              <button class="enlace-nav" data-target="contacto">
+                <i data-lucide="mail"></i><span>Contacto</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Dark mode toggle -->
+        <button
+          id="alternarTemaBarra"
+          class="alternar-tema alternar-tema--barra"
+          type="button"
+          role="switch"
+          aria-checked="false"
+          aria-label="Cambiar tema"
+        >
+          <span class="alternar-tema__icon alternar-tema__icon--sun" aria-hidden="true">
+            <i data-lucide="sun"></i>
+          </span>
+          <span class="alternar-tema__icon alternar-tema__icon--moon" aria-hidden="true">
+            <i data-lucide="moon"></i>
+          </span>
+          <span class="alternar-tema__thumb" aria-hidden="true"></span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Mobile header -->
+    <header class="encabezado-movil">
+      <div class="logo-circulo pequeno"><span>MT</span></div>
+      <div class="acciones-moviles">
+        <button
+          id="alternarTemaMovil"
+          class="alternar-tema alternar-tema--movil pequeno"
+          type="button"
+          role="switch"
+          aria-checked="false"
+          aria-label="Cambiar tema"
+        >
+          <span class="alternar-tema__icon alternar-tema__icon--sun" aria-hidden="true">
+            <i data-lucide="sun"></i>
+          </span>
+          <span class="alternar-tema__icon alternar-tema__icon--moon" aria-hidden="true">
+            <i data-lucide="moon"></i>
+          </span>
+          <span class="alternar-tema__thumb" aria-hidden="true"></span>
+        </button>
+        <button
+          id="alternarMenuMovil"
+          class="boton-icono"
+          aria-expanded="false"
+          aria-controls="cajon-movil"
+          aria-label="Abrir menú"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div id="cajon-movil" class="cajon-movil" hidden>
+      <nav class="navegacion-cajon">
+        <ul>
+          <li>
+            <button class="enlace-cajon" data-target="sobre-mi">
+              Sobre mí
+            </button>
+          </li>
+          <li>
+            <button class="enlace-cajon" data-target="habilidades-tecnicas">
+              Habilidades Técnicas
+            </button>
+          </li>
+          <li>
+            <button class="enlace-cajon" data-target="habilidades-blandas">
+              Habilidades Blandas
+            </button>
+          </li>
+          <li>
+            <button class="enlace-cajon" data-target="experiencia">
+              Experiencia
+            </button>
+          </li>
+          <li>
+            <button class="enlace-cajon" data-target="educacion">
+              Educación
+            </button>
+          </li>
+          <li>
+            <button class="enlace-cajon" data-target="portafolio">
+              Portafolio
+            </button>
+          </li>
+          <li>
+            <button class="enlace-cajon" data-target="contacto">
+              Contacto
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <main id="contenido" class="contenido">
+      <!-- Hero / About -->
+      <section id="sobre-mi" class="seccion centrado">
+        <div class="contenedor texto-centro">
+          <h1 class="mb-4">
+            Marcos Ezequiel <span class="texto-acento">Toledo</span>
+          </h1>
+          <h3 class="mb-6 texto-acento">
+            <span id="escrito" aria-live="polite"></span
+            ><span class="cursor-tecleado" aria-hidden="true">|</span>
+          </h3>
+          <p class="lead mb-8">
+            Estudiante avanzado de la carrera Técnico Superior en Desarrollo de
+            Software, con experiencia en testing web, desarrollo de aplicaciones
+            y soporte técnico.
+            <br />
+            <br />
+            Apasionado por la tecnología, la calidad del software y la
+            automatización de procesos. Cuento con conocimientos en HTML, CSS,
+            JavaScript, Node.js, Express, SQL, Java (en aprendizaje) y
+            metodologías ágiles bajo el marco Scrum.
+            <br />
+            <br />
+            Me destaco por mi responsabilidad, comunicación efectiva y
+            aprendizaje autónomo orientado a resultados.
+          </p>
+          <div class="sociales">
+            <a
+              class="boton-social"
+              href="https://github.com/marcostoledo96"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <i data-lucide="github"></i>
+            </a>
+            <a
+              class="boton-social"
+              href="https://linkedin.com/in/marcos-ezequiel-toledo"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <i data-lucide="linkedin"></i>
+            </a>
+            <a
+              class="boton-social"
+              href="mailto:marcostoledo96@gmail.com"
+              aria-label="Email"
+            >
+              <i data-lucide="mail"></i>
+            </a>
+            <a
+              class="boton-social"
+              href="./doc/CV_ToledoMarcos_IT.pdf"
+              download="CV_ToledoMarcos_IT.pdf"
+              aria-label="Descargar CV"
+            >
+              <i data-lucide="download"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Skills -->
+      <section id="habilidades-tecnicas" class="seccion alterno">
+        <div class="contenedor">
+          <h2 class="mb-12 texto-centro">
+            <span class="texto-acento">Habilidades</span> Técnicas
+          </h2>
+          <div class="rejilla rejilla-2 md:rejilla-3 lg:rejilla-5">
+            <!-- Items renderizados manualmente para mantener HTML puro -->
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/HTML.png" alt="html" />
+              </div>
+              <h4>HTML</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/CSS.png" alt="css" />
+              </div>
+              <h4>CSS</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/js.png" alt="js" />
+              </div>
+              <h4>JavaScript</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/java.png" alt="java" />
+              </div>
+              <h4>Java</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/sql.png" alt="sql" />
+              </div>
+              <h4>MySQL</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/React-Logo-PNG.png" alt="react" />
+              </div>
+              <h4>React</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/UML_logo.png" alt="uml" />
+              </div>
+              <h4>UML</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/git.png" alt="git" />
+              </div>
+              <h4>Git</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/PhpMyAdmin_logo.svg" alt="php" />
+              </div>
+              <h4>PHP MyAdmin</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/nodejs.png" alt="nodejs" />
+              </div>
+              <h4>Node.js</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/figma.svg" alt="figma" />
+              </div>
+              <h4>Figma</h4>
+            </div>
+            <div class="tarjeta-habilidad">
+              <div class="emoji-habilidad">
+                <img src="./img/jira.png" alt="jira" />
+              </div>
+              <h4>Jira</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Soft Skills -->
+      <section id="habilidades-blandas" class="seccion">
+        <div class="contenedor">
+          <h2 class="mb-12 texto-centro">
+            <span class="texto-acento">Habilidades</span> Blandas
+          </h2>
+          <div class="rejilla rejilla-1 md:rejilla-2 lg:rejilla-3">
+            <div class="tarjeta-blanda">
+              <div class="icono-circulo"><i data-lucide="users"></i></div>
+              <h4>Liderazgo y trabajo en equipo</h4>
+              <p>
+                Coordinación efectiva y colaboración en proyectos
+                multidisciplinarios
+              </p>
+            </div>
+            <div class="tarjeta-blanda">
+              <div class="icono-circulo">
+                <i data-lucide="message-circle"></i>
+              </div>
+              <h4>Comunicación asertiva</h4>
+              <p>Capacidad de transmitir ideas de forma clara y profesional</p>
+            </div>
+            <div class="tarjeta-blanda">
+              <div class="icono-circulo"><i data-lucide="lightbulb"></i></div>
+              <h4>Resolución de problemas</h4>
+              <p>
+                Análisis crítico y soluciones creativas ante desafíos técnicos
+              </p>
+            </div>
+            <div class="tarjeta-blanda">
+              <div class="icono-circulo"><i data-lucide="calendar"></i></div>
+              <h4>Organización y planificación</h4>
+              <p>Gestión eficiente del tiempo y priorización de tareas</p>
+            </div>
+            <div class="tarjeta-blanda">
+              <div class="icono-circulo"><i data-lucide="book-open"></i></div>
+              <h4>Aprendizaje autónomo</h4>
+              <p>
+                Actualización constante en nuevas tecnologías y metodologías
+              </p>
+            </div>
+            <div class="tarjeta-blanda">
+              <div class="icono-circulo"><i data-lucide="target"></i></div>
+              <h4>Atención al detalle</h4>
+              <p>Precisión en testing y desarrollo de soluciones de calidad</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section id="experiencia" class="seccion alterno">
+        <div class="contenedor narrow">
+          <h2 class="mb-12 texto-centro">
+            <span class="texto-acento">Experiencia</span> Profesional
+          </h2>
+          <div class="linea-tiempo">
+            <div class="linea-tiempo-trazo"></div>
+            <article class="tarjeta-experiencia">
+              <div class="punto-tiempo"></div>
+              <div class="cuerpo-tarjeta">
+                <div class="cabecera">
+                  <div class="icono-circulo">
+                    <i data-lucide="briefcase"></i>
+                  </div>
+                  <div class="meta">
+                    <h3>AEROTEST</h3>
+                    <p class="tenue">Consultorio y Laboratorio Médico</p>
+                    <div class="fila-etiquetas">
+                      <div class="etiqueta">
+                        <i data-lucide="map-pin" class="icono-sm"></i
+                        ><span>Belgrano, CABA</span>
+                      </div>
+                      <div class="etiqueta">
+                        <i data-lucide="calendar" class="icono-sm"></i
+                        ><span>Enero 2022 – Actualidad</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="roles">
+                  <h4>Roles:</h4>
+                  <div class="fichas">
+                    <span class="ficha">Tester Web</span>
+                    <span class="ficha">Soporte Técnico IT</span>
+                    <span class="ficha">Desarrollo de Chatbot</span>
+                    <span class="ficha">Desarrollo de App Web</span>
+                  </div>
+                </div>
+
+                <div class="respons">
+                  <h4>Responsabilidades:</h4>
+                  <ul class="vinetas">
+                    <li>
+                      Ejecución de pruebas funcionales y no funcionales en el
+                      sitio web
+                      <a href="https://aerotest.com.ar/">aerotest.com.ar</a>,
+                      identificando y documentando más de 30 errores que
+                      optimizaron los procesos administrativos.
+                    </li>
+                    <li>
+                      Implementación de un chatbot automatizado con más de 40
+                      respuestas preconfiguradas, reduciendo los tiempos de
+                      atención en un 80 %.
+                    </li>
+                    <li>
+                      Chatbot desarrollado con una aplicación de terceros,
+                      actualmente en proceso de integración con la API oficial
+                      de Meta (WhatsApp Cloud API).
+                    </li>
+                    <li>
+                      Desarrollo de una aplicación web de gestión de historias
+                      clínicas con PostgreSQL, incluyendo roles de usuario,
+                      login, CRUD de pacientes y consultas.
+                    </li>
+                    <li>
+                      Elaboración de material instructivo para el personal, con
+                      guías sobre herramientas informáticas y prácticas que
+                      mejoran la productividad y los tiempos de trabajo.
+                    </li>
+                    <li>
+                      Capacitación técnica a más de 10 personas en herramientas
+                      digitales.
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="techs">
+                  <h4>Tecnologías:</h4>
+                  <div class="fichas contorno">
+                    <span class="ficha">HTML</span>
+                    <span class="ficha">CSS</span>
+                    <span class="ficha">JavaScript</span>
+                    <span class="ficha">Node.js</span>
+                    <span class="ficha">MySQL</span>
+                    <span class="ficha">Jira</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section id="educacion" class="seccion">
+        <div class="contenedor">
+          <h2 class="mb-12 texto-centro">
+            <span class="texto-acento">Educación</span>
+          </h2>
+          <div class="rejilla md:rejilla-2">
+            <div class="tarjeta-educacion">
+              <div class="fondo-decoracion"></div>
+              <div class="icono-circulo">
+                <i data-lucide="graduation-cap"></i>
+              </div>
+              <h3>Técnico Superior en Desarrollo de Software</h3>
+              <h4 class="tenue">IFTS Nº16</h4>
+              <p class="tenue mb-4" style="line-height: 1.6;">
+                Prácticas Profesionalizantes orientadas al desarrollo de soluciones para el ámbito
+                sanitario.
+              </p>
+              <div class="fila-entre">
+                <span class="insignia informacion">En curso</span>
+                <span class="tenue">2024 – Actualidad</span>
+              </div>
+              <div class="divisor"></div>
+              <div class="fila-entre">
+                <span>Promedio actual:</span>
+                <span class="strong texto-acento text-2xl">9.32</span>
+              </div>
+            </div>
+
+            <div class="tarjeta-educacion">
+              <div class="fondo-decoracion"></div>
+              <div class="icono-circulo"><i data-lucide="award"></i></div>
+              <h3>Técnico Superior en Radiología</h3>
+              <h4 class="tenue">Instituto Superior de Ciencias de la Salud</h4>
+              <p class="tenue mb-4" style="line-height: 1.6;">
+                Amplios conocimientos del ámbito hospitalario, ideal para exprimir y
+                desarrollar nuevas ideas que mejoren la calidad del servicio.
+              </p>
+              <div class="fila-entre">
+                <span class="insignia exito">Completado</span>
+                <span class="tenue">Finalizado</span>
+              </div>
+              <div class="divisor"></div>
+              <div class="fila-entre">
+                <span>Promedio final:</span>
+                <span class="strong texto-acento text-2xl">8.28</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio -->
+      <section id="portafolio" class="seccion alterno">
+        <div class="contenedor">
+          <h2 class="mb-12 texto-centro">
+            <span class="texto-acento">Portafolio</span>
+          </h2>
+          <div class="rejilla md:rejilla-2 lg:rejilla-3">
+            <div class="tarjeta-proyecto">
+              <div class="portada-proyecto">
+                <img
+                  src="./img/historias-clinicas.png"
+                  alt="Historias clínicas"
+                />
+              </div>
+              <div class="p-6">
+                <div class="fila-entre mb-3">
+                  <h3>Historias Clínicas</h3>
+                  <span class="insignia informacion">Online</span>
+                </div>
+                <p class="tenue mb-4">
+                  MVP para gestión de historias clínicas: registro de pacientes,
+                  carga y consulta de información médica y administración
+                  general. Enfoque en simplicidad y flujo claro para uso
+                  cotidiano.
+                </p>
+                <div class="fichas contorno mb-4">
+                  <span class="ficha">HTML</span>
+                  <span class="ficha">CSS</span>
+                  <span class="ficha">JavaScript</span>
+                  <span class="ficha">Node.js</span>
+                  <span class="ficha">PostgreSQL</span>
+                </div>
+                <div class="pila-6">
+                  <a
+                    class="boton primario w-full"
+                    href="https://mvp-historias-clinicas.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i data-lucide="external-link"></i>
+                    Ver sitio
+                  </a>
+                  <a
+                    class="boton w-full"
+                    href="https://github.com/marcostoledo96/mvp_historias-clinicas"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i data-lucide="github"></i>
+                    Ver en GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="tarjeta-proyecto">
+              <div class="portada-proyecto">
+                <img
+                  src="./img/candyland.png"
+                  alt="CandyLand - Tienda de dulces"
+                />
+              </div>
+              <div class="p-6">
+                <div class="fila-entre mb-3">
+                  <h3>CandyLand</h3>
+                  <span class="insignia informacion">Online</span>
+                </div>
+                <p class="tenue mb-4">
+                  Tienda de dulces con catálogo navegable, detalles de producto
+                  y flujo de compra simple. Foco en UI limpia y experiencia
+                  rápida.
+                </p>
+                <div class="fichas contorno mb-4">
+                  <span class="ficha">React</span>
+                  <span class="ficha">Node.js</span>
+                  <span class="ficha">PostgreSQL</span>
+                </div>
+                <div class="pila-6">
+                  <a
+                    class="boton primario w-full"
+                    href="https://candy-land-mvp.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i data-lucide="external-link"></i>
+                    Ver sitio
+                  </a>
+                  <a
+                    class="boton w-full"
+                    href="https://github.com/marcostoledo96/candyLand-mvp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i data-lucide="github"></i>
+                    Ver en GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="tarjeta-proyecto">
+              <div class="portada-proyecto">
+                <img src="./img/juegos.jpeg" alt="Explorador de juegos" />
+              </div>
+              <div class="p-6">
+                <div class="fila-entre mb-3">
+                  <h3>Explorador de Juegos</h3>
+                  <span class="insignia informacion">En producción</span>
+                </div>
+                <p class="tenue">
+                  Aplicación para descubrir juegos con búsqueda y filtrado por
+                  categorías, fichas con detalles y navegación simple.
+                  Actualmente en producción activa.
+                </p>
+                <div class="fichas contorno mb-4">
+                  <span class="ficha">HTML</span>
+                  <span class="ficha">CSS</span>
+                  <span class="ficha">JavaScript</span>
+                </div>
+                <a
+                  class="boton w-full"
+                  href="https://github.com/marcostoledo96/explorador_juegos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i data-lucide="github"></i>
+                  Ver en GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contacto" class="seccion">
+        <div class="contenedor narrow">
+          <h2 class="texto-centro mb-4">
+            <span class="texto-acento">Contacto</span>
+          </h2>
+          <p class="texto-centro tenue mb-12">
+            ¿Tenés un proyecto en mente? ¡Hablemos!
+          </p>
+
+          <div class="rejilla lg:rejilla-2 gap-12">
+            <form id="formContacto" class="tarjeta p-8">
+              <div class="campo">
+                <label for="name">Nombre</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Tu nombre"
+                  required
+                />
+              </div>
+              <div class="campo">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="tu@email.com"
+                  required
+                />
+              </div>
+              <div class="campo">
+                <label for="message">Mensaje</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Tu mensaje..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="boton primario w-full">
+                Enviar Mensaje
+                <i data-lucide="send"></i>
+              </button>
+            </form>
+
+            <div class="contacto-info">
+              <h3 class="mb-6">Conectemos</h3>
+              <p class="tenue mb-8">
+                Estoy siempre abierto a discutir nuevos proyectos, ideas
+                creativas o oportunidades para formar parte de tu visión.
+              </p>
+
+              <div class="pila-6">
+                <a
+                  class="bloque-contacto"
+                  href="https://github.com/marcostoledo96"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="icono-circulo"><i data-lucide="github"></i></div>
+                  <div>
+                    <h4>GitHub</h4>
+                    <p class="tenue">@marcostoledo96</p>
+                  </div>
+                </a>
+                <a
+                  class="bloque-contacto"
+                  href="https://linkedin.com/in/marcos-ezequiel-toledo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="icono-circulo">
+                    <i data-lucide="linkedin"></i>
+                  </div>
+                  <div>
+                    <h4>LinkedIn</h4>
+                    <p class="tenue">Marcos Ezequiel Toledo</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pie">
+      <p>© 2025 Marcos Toledo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="./js/script.js" defer></script>
+  </body>
+</html>
