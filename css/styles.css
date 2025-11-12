@@ -31,7 +31,7 @@ body.claro {
   background: var(--color-fondo-claro);
 }
 
-/* Mejora general de calidad de imÃ¡genes */
+/* Mejora general de calidad de imagenes */
 img {
   max-width: 100%;
   height: auto;
@@ -62,7 +62,7 @@ body.claro .tenue { color: #667085; }
 .w-full { width: 100%; }
 .p-6 { padding: 1.5rem; }
 
-/* Texto de acento â€” se adapta al tema (asÃ­ lo prefiero) */
+/* Texto de acento se adapta al tema (asi lo prefiero) */
 .texto-acento { color: var(--color-acento); }
 body.claro .texto-acento { color: var(--color-primario); }
 
@@ -128,7 +128,7 @@ body.claro .seccion.alterno { background: #ffffff; }
   display: block; 
   border-radius: 50%; 
   border: 4px solid #fff;
-  /* Mantener calidad sin distorsiÃ³n */
+  /* Mantener calidad sin distorsion */
   image-rendering: auto;
   /* Evitar transformaciones que puedan suavizar la imagen */
   -webkit-transform: none;
@@ -259,15 +259,15 @@ body.claro .alternar-tema--movil .alternar-tema__thumb {
   box-shadow: 0 6px 14px rgba(14,30,64,.35);
 }
 
-/* Asegurar que el botÃ³n de tema sea visible en todas las resoluciones */
+/* Asegurar que el boton de tema sea visible en todas las resoluciones */
 @media (max-width: 1023px) {
   .barra-lateral .alternar-tema {
-    /* El botÃ³n ya estÃ¡ disponible en el header mÃ³vil, no necesitamos duplicarlo */
+    /* El boton ya estÃ¡ disponible en el header movil, no necesitamos duplicarlo */
     display: none;
   }
 }
 
-/* ========== Encabezado mÃ³vil y cajÃ³n (para navegaciÃ³n en pantallas chicas) ========== */
+/* ========== Encabezado movil y cajon (para navegacion en pantallas chicas) ========== */
 .encabezado-movil { 
   position: fixed; 
   inset: 0 0 auto 0; 
@@ -352,7 +352,7 @@ body.claro .enlace-cajon:hover { background: #f2f4f7; color: var(--color-primari
     gap: 20px; 
   }
   
-  /* Hacer el perfil un poco mÃ¡s grande en desktop */
+  /* Hacer el perfil un poco mas grande en desktop */
   .perfil { 
     width: 188px; 
     height: 188px; 
@@ -444,7 +444,7 @@ body.claro .tarjeta-blanda { background: #fff; }
 .icono-sm { width: 16px; height: 16px; }
 .icono-lg { width: 64px; height: 64px; }
 
-/* LÃ­nea de tiempo de experiencia (me gusta asÃ­ en desktop) */
+/* Li­nea de tiempo de experiencia (me gusta asi­ en desktop) */
 .linea-tiempo { position: relative; }
 .linea-tiempo-trazo { position: absolute; left: 32px; top: 0; bottom: 0; width: 2px; background: var(--color-acento); display: none; }
 @media (min-width: 768px) { .linea-tiempo-trazo { display: block; } }
@@ -460,7 +460,7 @@ body.claro .cuerpo-tarjeta { background: #f8fafc; }
 .etiqueta { display: inline-flex; align-items: center; gap: 6px; color: #cbd5e1; }
 body.claro .etiqueta { color: #475467; }
 
-/* Secciones de experiencia: roles, responsabilidades, tecnologÃ­as */
+/* Secciones de experiencia: roles, responsabilidades, tecnologi­as */
 .roles, .respons, .techs { 
   margin-top: 14px; 
   padding-top: 10px; 
@@ -523,7 +523,7 @@ body.claro .fichas.contorno .ficha { border-color: var(--color-primario); color:
 .divisor { height: 1px; background: rgba(255,255,255,.12); margin: 16px 0; }
 body.claro .divisor { background: #e5e7eb; }
 
-/* EducaciÃ³n (tarjetas con un deco suave en esquina) */
+/* Educacion (tarjetas con un deco suave en esquina) */
 .tarjeta-educacion { position: relative; border-radius: var(--radio); padding: 32px; background: rgba(255,255,255,.06); box-shadow: var(--sombra); overflow: hidden; }
 body.claro .tarjeta-educacion { background: #fff; }
 .tarjeta-educacion .fondo-decoracion { position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: var(--color-acento); filter: blur(40px); opacity: .25; }
@@ -537,7 +537,7 @@ body.claro .tarjeta-proyecto { background: #f8fafc; }
 .portada-proyecto.marcador { background: rgba(255,255,255,.08); }
 .emoji { font-size: 3rem; }
 
-/* Ajustes responsivos especÃ­ficos para portafolio */
+/* Ajustes responsivos especi­ficos para portafolio */
 @media (max-width: 800px) {
   .portada-proyecto { height: 170px; }
 }
@@ -553,10 +553,10 @@ body.claro .tarjeta-proyecto { background: #f8fafc; }
   .portada-proyecto { height: 160px; }
 }
 
-/* TÃ­tulos de proyecto: forzar una lÃ­nea y ajustar tamaÃ±o dinÃ¡mico */
+/* Ti­tulos de proyecto: forzar una li­nea y ajustar tamaño dinamico */
 .tarjeta-proyecto h3 { 
   font-size: clamp(.95rem, 3.2vw, 1.25rem);
-  /* Mostrar siempre el tÃ­tulo completo: permitir saltos y ajustes */
+  /* Mostrar siempre el ti­tulo completo: permitir saltos y ajustes */
   white-space: normal;
   overflow: visible;
   text-overflow: clip;
@@ -568,21 +568,23 @@ body.claro .tarjeta-proyecto { background: #f8fafc; }
   min-width: 0;
 }
 
-/* El contenedor de tÃ­tulo + insignia puede envolver cuando no entra en una sola lÃ­nea */
+/* El contenedor de ti­tulo + insignia puede envolver cuando no entra en una sola li­nea */
 .tarjeta-proyecto .fila-entre {
   flex-wrap: wrap;
 }
 
-/* Texto descriptivo debajo del tÃ­tulo: asegurar que no se pegue a la imagen ni se superponga */
+/* Texto descriptivo debajo del ti­tulo: asegurar que no se pegue a la imagen ni se superponga */
 .tarjeta-proyecto .p-6 { position:relative; z-index:1; background:transparent; padding-top: 16px; }
 
-/* ProtecciÃ³n contra cualquier solapamiento accidental si una imagen se sale del flujo */
-/* Eliminado overlay innecesario que podÃ­a interferir con el apilado */
+/* Proteccion contra cualquier solapamiento accidental si una imagen se sale del flujo */
+/* Eliminado overlay innecesario que podi­a interferir con el apilado */
 
 /* Contacto */
+.gap-12 { gap: 3rem; }
+.contacto-info { display: flex; flex-direction: column; justify-content: center; }
 .campo { margin-bottom: 16px; }
-.campo label { display: block; margin-bottom: 8px; }
-.campo input, .campo textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(10,22,40,.8); color: #fff; outline: none; transition: border-color .2s ease, background .2s ease; }
+.campo label { display: block; margin-bottom: 8px; font-weight: 500; }
+.campo input, .campo textarea { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.18); background: rgba(10,22,40,.8); color: #fff; outline: none; transition: border-color .2s ease, background .2s ease; font-size: 1rem; }
 .campo input::placeholder, .campo textarea::placeholder { color: #94a3b8; }
 .campo input:focus, .campo textarea:focus { border-color: var(--color-acento); }
 body.claro .campo input, body.claro .campo textarea { background: #f2f4f7; color: var(--color-primario); border-color: #e5e7eb; }
@@ -602,13 +604,13 @@ body.claro .bloque-contacto { background: #fff; }
 .boton.primario { background: var(--color-acento); color: #fff; box-shadow: var(--sombra-sm); }
 .boton.primario:hover { filter: brightness(.95); }
 
-/* Pie de pÃ¡gina */
+/* Pie de pagina */
 .pie { padding: 32px 16px; text-align: center; border-top: 1px solid rgba(255,255,255,.16); color: #94a3b8; }
 body.claro .pie { color: #667085; border-top-color: #e5e7eb; background: #fff; }
 
 /* Enlace activo en tema claro */
 
-/* Transiciones (dejo todo suave para que se sienta mÃ¡s pulido) */
+/* Transiciones (dejo todo suave para que se sienta mas pulido) */
 .seccion, .tarjeta, .tarjeta-habilidad, .tarjeta-blanda, .tarjeta-educacion, .tarjeta-proyecto, .bloque-contacto { transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease; }
 .vinetas { margin: 0; padding-left: 1.25rem; display: grid; gap: 6px; }
 
@@ -644,11 +646,11 @@ body.claro .pie { color: #667085; border-top-color: #e5e7eb; background: #fff; }
   #habilidades-tecnicas .rejilla-2,
   #habilidades-tecnicas .md\:rejilla-3,
   #habilidades-tecnicas .lg\:rejilla-5 { grid-template-columns: 1fr !important; }
-  /* Reducir ligeramente el tamaÃ±o del tÃ­tulo dentro de la tarjeta para prevenir desbordes en nombres largos */
+  /* Reducir ligeramente el tamaño del titulo dentro de la tarjeta para prevenir desbordes en nombres largos */
   #habilidades-tecnicas .tarjeta-habilidad h4 { font-size: .88rem; }
 }
 
-/* Mejoras para anchuras muy pequeÃ±as (<350px) */
+/* Mejoras para anchuras muy pequeñas (<350px) */
 @media (max-width: 350px) {
   .seccion { padding: 56px 16px; }
   h1 { font-size: clamp(1.8rem, 9vw, 2.2rem); }
@@ -666,13 +668,13 @@ body.claro .pie { color: #667085; border-top-color: #e5e7eb; background: #fff; }
   .campo input, .campo textarea { padding: 10px 12px; }
   .encabezado-movil { padding: 0 16px; }
   .cajon-movil { width: 100%; }
-  /* Ajuste adicional a tÃ­tulo de skill para asegurar encaje dentro del card */
+  /* Ajuste adicional a titulo de skill para asegurar encaje dentro del card */
   #habilidades-tecnicas .tarjeta-habilidad h4 { font-size: .83rem; }
 }
-/* Ajustes extremos para pantallas ultra pequeÃ±as (<300px) */
+/* Ajustes extremos para pantallas ultra pequeñas (<300px) */
 @media (max-width: 300px) {
   .seccion { padding: 52px 12px; }
-  /* Skills: 1 columna y menor separaciÃ³n para que todas las tarjetas entren */
+  /* Skills: 1 columna y menor separacion para que todas las tarjetas entren */
   #habilidades-tecnicas .rejilla { gap: 16px; }
   #habilidades-tecnicas .tarjeta-habilidad h4 { font-size: .85rem; }
   h1 { font-size: clamp(1.6rem, 10vw, 2rem); line-height:1.15; }
