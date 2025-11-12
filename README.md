@@ -72,7 +72,6 @@ Portfolio-2.0/
 - Los mensajes del formulario se notifican con un componente ligero que se destruye solo para no ensuciar el DOM.
 
 ## Proximos pasos
-- Conectar el backend a un servicio como Vercel o Railway y exponer una URL publica definitiva.
 - Agregar tests ligeros para el JavaScript (scroll y formulario) usando Vitest o similar.
 - Automatizar el build con un bundler pequeno si en algun momento necesito dividir componentes.
 
