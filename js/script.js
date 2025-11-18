@@ -7,9 +7,19 @@ const qsa = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel)); // S
 typeof window !== "undefined" &&
   (function () {
     const cuerpo = document.body;
+    
     // Recupero el tema guardado para respetar preferencia del usuario.
     const temaGuardado = localStorage.getItem("tema");
-    if (temaGuardado === "claro") cuerpo.classList.add("claro"); // Si estaba en claro la última vez, aplico la clase.
+    
+    // NUEVO: Si no hay tema guardado, el default es "claro" (body ya tiene class="claro" en HTML)
+    // Si el tema guardado es "oscuro", quito la clase "claro"
+    // Si el tema guardado es "claro", me aseguro que tenga la clase "claro"
+    if (temaGuardado === "oscuro") {
+      cuerpo.classList.remove("claro");
+    } else if (temaGuardado === "claro" || !temaGuardado) {
+      // Modo claro por defecto (el HTML ya tiene class="claro", solo me aseguro)
+      cuerpo.classList.add("claro");
+    }
 
     const botonBarra = qs("#alternarTemaBarra"); // Botón dentro de la barra lateral (desktop)
     const botonMovil = qs("#alternarTemaMovil"); // Botón en el encabezado móvil
