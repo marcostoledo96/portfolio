@@ -1094,7 +1094,7 @@ body.claro .pie { color: #667085; border-top-color: #e5e7eb; background: #fff; }
 .vinetas { margin: 0; padding-left: 1.25rem; display: grid; gap: 6px; }
 
 /* Cursor del subtítulo animado del hero (simple y sutil) */
-.cursor-tecleado { display: inline-block; margin-left: 2px; color: var(--color-acento); }
+.cursor-tecleado { display: inline-block; margin-left: 2px; color: inherit; transition: color .2s ease; }
 
 /* Animaciones para notificaciones del formulario */
 @keyframes slideIn {

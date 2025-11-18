@@ -1,5 +1,9 @@
 # Backend del Portfolio - Formulario de Contacto
 
+Visita mi sitio: https://marcostoledo.cv
+
+Contacto: marcostoledo96@gmail.com
+
 Backend en Node.js con Express para manejar el envío de mensajes del formulario de contacto de tu portfolio.
 
 ## 🚀 Configuración Rápida

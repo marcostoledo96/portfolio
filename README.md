@@ -1,4 +1,8 @@
-# Portfolio 2.0
+# Portfolio
+
+Visita mi sitio: https://marcostoledo.cv
+
+Contacto: marcostoledo96@gmail.com
 
 Construi esta version de mi portfolio para mostrar quien soy, que tecnologias domino y como trabajo cuando tengo que cuidar cada detalle. Todo el sitio esta hecho a mano con HTML, CSS y JavaScript puro, sin frameworks. Preferi enfocarme en la experiencia, la accesibilidad y el rendimiento, y dejar el codigo lo suficientemente claro como para poder mantenerlo yo mismo en el tiempo.
 
@@ -32,7 +36,7 @@ Portfolio-2.0/
 1. Clonar o descargar el repositorio.
 2. Abrir `index.html` directo en el navegador **o** levantar un servidor estatico:
    ```powershell
-   # dentro de Portfolio-2.0
+   # dentro de Portfolio
    python -m http.server 8080
    ```
 3. Navegar a `http://localhost:8080`.
@@ -70,10 +74,6 @@ Portfolio-2.0/
 - El toggle de tema usa accesibilidad nativa (`role="switch"` + `aria-checked`) y mantiene la posicion visual del "thumb" sincronizada con el estado real.
 - El drawer movil bloquea el scroll del body cuando esta abierto y se puede cerrar tocando fuera o con el boton.
 - Los mensajes del formulario se notifican con un componente ligero que se destruye solo para no ensuciar el DOM.
-
-## Proximos pasos
-- Agregar tests ligeros para el JavaScript (scroll y formulario) usando Vitest o similar.
-- Automatizar el build con un bundler pequeno si en algun momento necesito dividir componentes.
 
 ---
 Hecho con paciencia y mucho cafe por Marcos Ezequiel Toledo.
