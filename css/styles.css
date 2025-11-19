@@ -55,12 +55,18 @@
   box-sizing: border-box; 
 }
 
-html, body { height:100%; max-width:100%; overflow-x:hidden; }
+html, body { 
+  height: 100%; 
+  max-width: 100%; 
+  overflow-x: hidden; 
+}
 
-/* Prevenir overscroll bounce blanco en móviles */
+/* Prevenir overscroll bounce y efectos visuales en móviles */
 html {
   overscroll-behavior: none;
-  background: var(--body-dark-bg-start);
+  /* Mismo gradiente que body para evitar cualquier diferencia visual */
+  background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
+  background-attachment: fixed;
 }
 
 body {
@@ -71,7 +77,10 @@ body {
   background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
   background-attachment: fixed; /* Mantiene el gradiente fijo durante scroll */
   transition: background .3s ease, color .3s ease;
-  overscroll-behavior-y: none; /* Elimina bounce en móviles */
+  overscroll-behavior: none; /* Elimina bounce en móviles */
+  /* Solución más agresiva: evitar que se vea cualquier fondo del html */
+  min-height: 100vh;
+  min-height: 100dvh; /* Usa dynamic viewport height para móviles */
 }
 
 body.claro {
@@ -82,6 +91,7 @@ body.claro {
 
 html.claro {
   background: var(--color-fondo-claro);
+  background-attachment: fixed;
 }
 
 /* Mejora general de calidad de imagenes */
