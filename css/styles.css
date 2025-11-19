@@ -55,39 +55,36 @@
   box-sizing: border-box; 
 }
 
-html, body {
-  height: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  overscroll-behavior: contain; /* reduce el bounce sin romper scroll interno */
-  background: var(--body-dark-bg-start); /* color solido base para evitar flashes */
+html, body { 
+  height: 100%; 
+  max-width: 100%; 
+  overflow-x: hidden; 
+}
+
+html {
+  overscroll-behavior: none;
+  background: var(--body-dark-bg-start);
 }
 
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif;
   color: var(--color-texto-oscuro);
-  transition: color .3s ease;
-  min-height: 100svh; /* viewport estable en navegadores modernos */
-  min-height: 100dvh; /* fallback dinámico */
-  position: relative;
-}
-
-/* Capa fija de fondo para evitar artefactos al hacer scroll rápido en móvil */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
   background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
-  will-change: transform; /* asegura composición estable */
+  background-attachment: fixed;
+  transition: background .3s ease, color .3s ease;
+  overscroll-behavior: none;
+  min-height: 100vh;
 }
 
-body.claro { color: var(--color-primario); }
-body.claro::before { background: var(--color-fondo-claro); }
+body.claro {
+  color: var(--color-primario);
+  background: var(--color-fondo-claro);
+}
 
-html.claro { background: var(--color-fondo-claro); }
+html.claro {
+  background: var(--color-fondo-claro);
+}
 
 /* Mejora general de calidad de imagenes */
 img {
@@ -126,11 +123,7 @@ body.claro .tenue { color: #667085; }
 body.claro .texto-acento { color: var(--color-primario); }
 
 /* ========== Layout (estructura general de las secciones) ========== */
-.seccion { 
-  padding: 80px 24px; 
-  position: relative;
-  z-index: 1;
-}
+.seccion { padding: 80px 24px; }
 .seccion.alterno { 
   /* Modo oscuro: fondo sutil con borde superior para mejor distinción */
   background: rgba(53, 167, 255, 0.03);
