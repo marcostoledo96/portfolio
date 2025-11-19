@@ -56,17 +56,31 @@
 }
 
 html, body { height:100%; max-width:100%; overflow-x:hidden; }
+
+/* Prevenir overscroll bounce blanco en móviles */
+html {
+  overscroll-behavior: none;
+  background: var(--body-dark-bg-start);
+}
+
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif;
   color: var(--color-texto-oscuro);
   /* Fondo mejorado en modo oscuro que harmoniza con la nueva sidebar */
   background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
+  background-attachment: fixed; /* Mantiene el gradiente fijo durante scroll */
   transition: background .3s ease, color .3s ease;
+  overscroll-behavior-y: none; /* Elimina bounce en móviles */
 }
 
 body.claro {
   color: var(--color-primario);
+  background: var(--color-fondo-claro);
+  background-attachment: fixed;
+}
+
+html.claro {
   background: var(--color-fondo-claro);
 }
 

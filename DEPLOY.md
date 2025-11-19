@@ -39,11 +39,11 @@ git push -u origin main
 
 ### Variables de entorno que uso
 
-| Name | Value | Environment |
-|------|-------|-------------|
-| EMAIL_USER | marcostoledo96@gmail.com | Production |
-| EMAIL_PASS | contraseña de aplicación de Gmail | Production |
-| PORT | 3000 | Production |
+| Name       | Value                             | Environment |
+|------------|-----------------------------------|-------------|
+| EMAIL_USER | tuemail@gmail.com                 | Production  |
+| EMAIL_PASS | contraseña de aplicación de Gmail | Production  |
+| PORT       | 3000                              | Production  |
 
 Con eso Vercel crea automáticamente la Serverless Function `/api/contact`.
 

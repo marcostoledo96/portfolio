@@ -117,6 +117,17 @@ cd backend; npm install; $env:EMAIL_USER="tu@mail.com"; $env:EMAIL_PASS="tu_pass
 - Añadir pruebas unitarias mínimas para el backend (supertest) y linters.
 - Mejorar accesibilidad: manejo del foco visible en teclado y roles ARIA más completos.
 
+**Fix importante: recuadro blanco en scroll móvil (resuelto)**
+- **Problema**: En móviles reales (no en DevTools), al scrollear aparecía un flash/recuadro blanco semitransparente.
+- **Causa**: El efecto de "overscroll bounce" de navegadores móviles mostraba el color de fondo por defecto (blanco) porque el gradiente del `body` no cubría el área de overscroll.
+- **Solución aplicada**:
+  1. Añadí `overscroll-behavior: none;` al `html` para desactivar el bounce.
+  2. Añadí `overscroll-behavior-y: none;` al `body` para eliminar completamente el efecto en el eje Y.
+  3. Añadí `background-attachment: fixed;` al gradiente del `body` para que quede fijo durante el scroll.
+  4. Puse un color de fondo sólido en el `html` (`background: var(--body-dark-bg-start)`) como fallback.
+  5. Actualicé `js/script.js` para que también aplique la clase `claro` al elemento `<html>`, no solo al `<body>`.
+- **Resultado**: El recuadro blanco desapareció en móviles y el scroll se siente más sólido.
+
 Si querés, puedo:
 - Añadir el parpadeo del cursor ahora.
 - Incluir el `prefers-color-scheme` como opción por defecto (respetar sistema en primera visita).

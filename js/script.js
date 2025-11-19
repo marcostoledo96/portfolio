@@ -7,6 +7,7 @@ const qsa = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel)); // S
 typeof window !== "undefined" &&
   (function () {
     const cuerpo = document.body;
+    const html = document.documentElement;
     
     // Recupero el tema guardado para respetar preferencia del usuario.
     const temaGuardado = localStorage.getItem("tema");
@@ -16,9 +17,11 @@ typeof window !== "undefined" &&
     // Si el tema guardado es "claro", me aseguro que tenga la clase "claro"
     if (temaGuardado === "oscuro") {
       cuerpo.classList.remove("claro");
+      html.classList.remove("claro");
     } else if (temaGuardado === "claro" || !temaGuardado) {
       // Modo claro por defecto (el HTML ya tiene class="claro", solo me aseguro)
       cuerpo.classList.add("claro");
+      html.classList.add("claro");
     }
 
     const botonBarra = qs("#alternarTemaBarra"); // Botón dentro de la barra lateral (desktop)
@@ -34,6 +37,7 @@ typeof window !== "undefined" &&
     const alternarTema = () => {
       // Alterno la clase "claro" en <body>. toggle devuelve true si la agregó.
       const esClaro = cuerpo.classList.toggle("claro");
+      html.classList.toggle("claro");
       // Persisto la preferencia para futuras visitas.
       localStorage.setItem("tema", esClaro ? "claro" : "oscuro");
       // Mantengo el estado visual del interruptor sincronizado.
