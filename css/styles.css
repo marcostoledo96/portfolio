@@ -126,7 +126,11 @@ body.claro .tenue { color: #667085; }
 body.claro .texto-acento { color: var(--color-primario); }
 
 /* ========== Layout (estructura general de las secciones) ========== */
-.seccion { padding: 80px 24px; }
+.seccion { 
+  padding: 80px 24px; 
+  position: relative;
+  z-index: 1;
+}
 .seccion.alterno { 
   /* Modo oscuro: fondo sutil con borde superior para mejor distinción */
   background: rgba(53, 167, 255, 0.03);
@@ -724,6 +728,7 @@ body.claro .tarjeta-blanda:hover {
   margin-bottom: 12px; 
   box-shadow: var(--sombra-sm);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0; /* evita estiramiento en flex containers */
 }
 
 /* Iconos circulares: fondo celeste, color adaptativo según tema */
