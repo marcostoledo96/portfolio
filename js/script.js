@@ -108,28 +108,52 @@ typeof window !== "undefined" &&
 
       if (!elementos.length) return;
 
-      let ultimoActivo = null;
       const io = new IntersectionObserver(
         (entries) => {
-          // Busco la entrada visible con mayor ratio
-          const visibles = entries.filter((e) => e.isIntersecting);
-          if (!visibles.length) return;
-          visibles.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-          const candidata = visibles[0];
-          const id = candidata.target.getAttribute("id");
-          if (id && id !== ultimoActivo) {
-            ultimoActivo = id;
-            establecerActivo(id);
-          }
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              establecerActivo(entry.target.id);
+            }
+          });
         },
         {
-          // Un umbral medio: cuando ~60% está a la vista la consideramos activa
-          threshold: [0.6],
+          threshold: 0.6,
         }
       );
 
       // Observo todas las secciones relevantes
       elementos.forEach(({ el }) => io.observe(el));
+
+      // Fix: Observar el footer para activar "contacto" al llegar al final
+      // Esto soluciona el caso donde la sección es muy alta y no llega al 60% de visibilidad
+      const footer = qs("footer");
+      if (footer) {
+        new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) establecerActivo("contacto");
+          },
+          { threshold: 0.1 }
+        ).observe(footer);
+      }
+
+      // Sentinel específico en la parte superior de la sección contacto para activarla temprano
+      // Evita que "portafolio" siga activo cuando apenas comienza contacto pero aún no llega al 60%.
+      const sentinelContacto = qs("#contacto .sentinel-contacto");
+      if (sentinelContacto) {
+        new IntersectionObserver(
+          (entries) => {
+            const e = entries[0];
+            if (e.isIntersecting) {
+              establecerActivo("contacto");
+            }
+          },
+          {
+            // Con rootMargin reduzco el área inferior para que se active apenas el sentinel entra.
+            rootMargin: "0px 0px -85% 0px",
+            threshold: 0,
+          }
+        ).observe(sentinelContacto);
+      }
     };
     observarSecciones();
 
