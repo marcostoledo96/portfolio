@@ -55,44 +55,39 @@
   box-sizing: border-box; 
 }
 
-html, body { 
-  height: 100%; 
-  max-width: 100%; 
-  overflow-x: hidden; 
-}
-
-/* Prevenir overscroll bounce y efectos visuales en móviles */
-html {
-  overscroll-behavior: none;
-  /* Mismo gradiente que body para evitar cualquier diferencia visual */
-  background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
-  background-attachment: fixed;
+html, body {
+  height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: contain; /* reduce el bounce sin romper scroll interno */
+  background: var(--body-dark-bg-start); /* color solido base para evitar flashes */
 }
 
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif;
   color: var(--color-texto-oscuro);
-  /* Fondo mejorado en modo oscuro que harmoniza con la nueva sidebar */
+  transition: color .3s ease;
+  min-height: 100svh; /* viewport estable en navegadores modernos */
+  min-height: 100dvh; /* fallback dinámico */
+  position: relative;
+}
+
+/* Capa fija de fondo para evitar artefactos al hacer scroll rápido en móvil */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
-  background-attachment: fixed; /* Mantiene el gradiente fijo durante scroll */
-  transition: background .3s ease, color .3s ease;
-  overscroll-behavior: none; /* Elimina bounce en móviles */
-  /* Solución más agresiva: evitar que se vea cualquier fondo del html */
-  min-height: 100vh;
-  min-height: 100dvh; /* Usa dynamic viewport height para móviles */
+  will-change: transform; /* asegura composición estable */
 }
 
-body.claro {
-  color: var(--color-primario);
-  background: var(--color-fondo-claro);
-  background-attachment: fixed;
-}
+body.claro { color: var(--color-primario); }
+body.claro::before { background: var(--color-fondo-claro); }
 
-html.claro {
-  background: var(--color-fondo-claro);
-  background-attachment: fixed;
-}
+html.claro { background: var(--color-fondo-claro); }
 
 /* Mejora general de calidad de imagenes */
 img {

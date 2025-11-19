@@ -118,11 +118,17 @@ cd backend; npm install; $env:EMAIL_USER="tu@mail.com"; $env:EMAIL_PASS="tu_pass
 - Mejorar accesibilidad: manejo del foco visible en teclado y roles ARIA más completos.
 
 **Fix importante: recuadro blanco en scroll móvil (resuelto)**
-- **Problema**: En móviles reales (no en DevTools), al scrollear aparecía un flash/recuadro blanco semitransparente.
-- **Causa**: El efecto de "overscroll bounce" de navegadores móviles mostraba el color de fondo por defecto (blanco) porque el gradiente del `body` no cubría el área de overscroll.
-- **Solución aplicada**:
-  1. Añadí `overscroll-behavior: none;` al `html` para desactivar el bounce.
-  2. Añadí `overscroll-behavior-y: none;` al `body` para eliminar completamente el efecto en el eje Y.
+ - **Problema inicial**: En móviles reales (no en DevTools) aparecía un flash/recuadro blanco o azul tenue al hacer scroll rápido hacia abajo.
+ - **Causa real**: El uso de `background-attachment: fixed` sobre el gradiente del `body` y `html` generaba un glitch de repintado en algunos navegadores móviles durante el cambio de altura del viewport (colapso/expansión de la barra). El navegador mostraba un área sin pintar (fallback blanco) antes de recomponer el gradiente.
+ - **Primer intento**: Desactivar overscroll y igualar fondo de `html` y `body`. Mejoró pero seguía apareciendo el artefacto en algunos scrolls rápidos.
+ - **Solución final estable**:
+   1. Eliminé todos los `background-attachment: fixed`.
+   2. Dejé `html, body` con un color sólido oscuro base para evitar cualquier flash (fallback inmediato).
+   3. Creé una capa fija con pseudo-elemento: `body::before { position: fixed; inset:0; background: gradiente; z-index:-1; }`.
+   4. Hice que en modo claro `body.claro::before` cambie a fondo claro.
+   5. Usé `min-height: 100svh` y `100dvh` para estabilidad de viewport en móviles modernos.
+   6. Ajusté `overscroll-behavior: contain;` en root para reducir bounce sin romper scroll interno.
+ - **Resultado**: El fondo ya no parpadea ni muestra recuadros blancos/azules al hacer scroll rápido en móvil.
   3. Añadí `background-attachment: fixed;` al gradiente del `body` para que quede fijo durante el scroll.
   4. Puse un color de fondo sólido en el `html` (`background: var(--body-dark-bg-start)`) como fallback.
   5. Actualicé `js/script.js` para que también aplique la clase `claro` al elemento `<html>`, no solo al `<body>`.
