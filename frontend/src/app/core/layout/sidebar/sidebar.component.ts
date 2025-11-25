@@ -1,25 +1,29 @@
-// SidebarComponent: barra lateral fija para pantallas grandes (desktop).
+﻿// SidebarComponent: barra lateral fija para pantallas grandes (desktop).
 // Acá muestro la foto de perfil, nombre, navegación y el toggle de tema.
 // Escucho cambios del ThemeService para sincronizar el botón de tema.
 // La navegación usa scroll suave para ir a cada sección.
 
-import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ThemeService, Theme } from '../../services/theme.service';
 
 declare const lucide: any;
 
+type IdleCb = (cb: () => void) => void;
+
 @Component({
     selector: 'app-sidebar',
     standalone: false,
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    styleUrls: ['./sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit, OnDestroy {
     temaActual: Theme = 'oscuro';
     seccionActiva: string = 'sobre-mi';
     private destruir$ = new Subject<void>();
     private observador: IntersectionObserver | null = null;
+    private iconosPendientes = false;
 
     constructor(
         private servicioTema: ThemeService,
@@ -33,10 +37,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destruir$))
             .subscribe((tema: Theme) => {
                 this.temaActual = tema;
-                // Re-renderizo los iconos de Lucide cuando cambia el tema
-                if (typeof lucide !== 'undefined') {
-                    setTimeout(() => lucide.createIcons(), 0);
-                }
+                this.programarIconos();
+                this.cdr.markForCheck();
             });
 
         // Inicializo el IntersectionObserver después de que el DOM esté listo
@@ -46,18 +48,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
     // Espero a que las secciones estén en el DOM antes de configurar el observer
     private esperarSeccionesYConfigurarObservador(): void {
         let intentos = 0;
-        const maxIntentos = 20; // 2 segundos máximo (20 * 100ms)
+        const maxIntentos = 10;
 
         const intervalo = setInterval(() => {
             const secciones = document.querySelectorAll('section[id]');
 
             if (secciones.length > 0) {
                 clearInterval(intervalo);
-                console.log(`Secciones cargadas: ${secciones.length}`);
                 this.configurarObservadorInterseccion();
             } else if (intentos >= maxIntentos) {
                 clearInterval(intervalo);
-                console.error('No se encontraron secciones después de 2 segundos');
             }
 
             intentos++;
@@ -77,8 +77,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private configurarObservadorInterseccion(): void {
         const opciones = {
             root: null,
-            rootMargin: '-10% 0px -70% 0px',
-            threshold: 0.1
+            rootMargin: '-20% 0px -30% 0px',
+            threshold: 0.25
         };
 
         this.observador = new IntersectionObserver((entradas: IntersectionObserverEntry[]) => {
@@ -107,13 +107,28 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
         // Observo todas las secciones
         const secciones = document.querySelectorAll('section[id]');
-        console.log(`Secciones observadas: ${secciones.length}`);
-        
         secciones.forEach(seccion => {
             if (this.observador) {
                 this.observador.observe(seccion);
             }
         });
+    }
+
+    private programarIconos(): void {
+        if (this.iconosPendientes || typeof lucide === 'undefined') {
+            return;
+        }
+        this.iconosPendientes = true;
+        const renderizar = () => {
+            lucide.createIcons();
+            this.iconosPendientes = false;
+        };
+        const idle = (window as any).requestIdleCallback as IdleCb;
+        if (idle) {
+            idle(renderizar);
+        } else {
+            setTimeout(renderizar, 0);
+        }
     }
 
     // Verifico si una sección está activa

@@ -1,9 +1,9 @@
 // HomeComponent: este es el componente principal del portfolio.
-// Acá puse todas las secciones (sobre mí, habilidades, experiencia, etc.)
-// El efecto de texto animado lo hago con setTimeout recursivo.
+// Acá puse todas las secciones (sobre mí, habilidades, experiencia, etc.).
+// El efecto de texto animado lo hago con un solo intervalo para reducir timers.
 // También está el formulario de contacto integrado.
 
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApiService } from '../../core/services/api.service';
 import { NotificationService } from '../../core/services/notification.service';
@@ -14,9 +14,10 @@ declare const lucide: any;
     selector: 'app-home',
     standalone: false,
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     formularioContacto: FormGroup;
     enviando = false;
 
@@ -34,11 +35,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private indiceLetra = 0;
     private borrando = false;
     private temporizador: any;
+    private iconosPendientes = false;
+    private intervaloTyped: any;
+    private readonly TICK_MS = 45;
+    private pausaRestante = 0;
 
     constructor(
         private constructorFormularios: FormBuilder,
         private servicioApi: ApiService,
-        private servicioNotificaciones: NotificationService
+        private servicioNotificaciones: NotificationService,
+        private cdr: ChangeDetectorRef
     ) {
         // Armo el formulario con sus validaciones
         this.formularioContacto = this.constructorFormularios.group({
@@ -49,62 +55,79 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        // Cargo los iconos de Lucide
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+        this.programarIconos();
     }
 
     ngAfterViewInit(): void {
-        // Arranco la animación del subtítulo con un delay para evitar el error NG0100
-        setTimeout(() => {
-            this.animarTexto();
-        }, 0);
-
-        // Vuelvo a renderizar los iconos por las dudas
-        setTimeout(() => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        }, 100);
+        // Arranco la animación del subtítulo con un solo intervalo
+        this.iniciarAnimacionTexto();
+        // Vuelvo a renderizar los iconos de forma diferida
+        this.programarIconos();
     }
 
     ngOnDestroy(): void {
-        // Limpio el timeout para no dejar procesos colgados
+        // Limpio timers para no dejar procesos colgados
         if (this.temporizador) {
             clearTimeout(this.temporizador);
         }
+        if (this.intervaloTyped) {
+            clearInterval(this.intervaloTyped);
+        }
     }
 
-    // Animación tipo "typed" para el subtítulo (escribir y borrar)
-    private animarTexto(): void {
-        const fraseActual = this.frases[this.indiceFraseActual];
+    // Animación tipo "typed" para el subtítulo (escribir y borrar) usando un solo intervalo
+    private iniciarAnimacionTexto(): void {
+        if (this.intervaloTyped) {
+            clearInterval(this.intervaloTyped);
+        }
+        const esperaEscritura = 1400;
+        const esperaCambio = 400;
 
-        if (!this.borrando) {
-            // Modo escritura: voy agregando letras
-            this.subtituloAnimado = fraseActual.substring(0, this.indiceLetra + 1);
-            this.indiceLetra++;
-
-            if (this.indiceLetra === fraseActual.length) {
-                // Terminé de escribir, ahora espero y empiezo a borrar
-                this.borrando = true;
-                this.temporizador = setTimeout(() => this.animarTexto(), 1200);
-            } else {
-                this.temporizador = setTimeout(() => this.animarTexto(), 60);
+        this.intervaloTyped = setInterval(() => {
+            if (this.pausaRestante > 0) {
+                this.pausaRestante -= this.TICK_MS;
+                return;
             }
+
+            const fraseActual = this.frases[this.indiceFraseActual];
+
+            if (!this.borrando) {
+                this.subtituloAnimado = fraseActual.substring(0, this.indiceLetra + 1);
+                this.indiceLetra++;
+                this.cdr.markForCheck();
+
+                if (this.indiceLetra === fraseActual.length) {
+                    this.borrando = true;
+                    this.pausaRestante = esperaEscritura;
+                }
+            } else {
+                this.subtituloAnimado = fraseActual.substring(0, this.indiceLetra - 1);
+                this.indiceLetra--;
+                this.cdr.markForCheck();
+
+                if (this.indiceLetra === 0) {
+                    this.borrando = false;
+                    this.indiceFraseActual = (this.indiceFraseActual + 1) % this.frases.length;
+                    this.pausaRestante = esperaCambio;
+                }
+            }
+        }, this.TICK_MS);
+    }
+
+    private programarIconos(): void {
+        if (this.iconosPendientes || typeof lucide === 'undefined') {
+            return;
+        }
+        this.iconosPendientes = true;
+        const renderizar = () => {
+            lucide.createIcons();
+            this.iconosPendientes = false;
+        };
+        const idle = (window as any).requestIdleCallback;
+        if (idle) {
+            idle(renderizar);
         } else {
-            // Modo borrado: voy quitando letras
-            this.subtituloAnimado = fraseActual.substring(0, this.indiceLetra - 1);
-            this.indiceLetra--;
-
-            if (this.indiceLetra === 0) {
-                // Terminé de borrar, paso a la siguiente frase
-                this.borrando = false;
-                this.indiceFraseActual = (this.indiceFraseActual + 1) % this.frases.length;
-                this.temporizador = setTimeout(() => this.animarTexto(), 500);
-            } else {
-                this.temporizador = setTimeout(() => this.animarTexto(), 40);
-            }
+            setTimeout(renderizar, 0);
         }
     }
 
@@ -141,11 +164,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
                     this.servicioNotificaciones.showSuccess('¡Mensaje enviado con éxito! Te responderé pronto.');
                     this.formularioContacto.reset();
                     // Recargo los iconos después de resetear
-                    setTimeout(() => {
-                        if (typeof lucide !== 'undefined') {
-                            lucide.createIcons();
-                        }
-                    }, 100);
+                    this.programarIconos();
                 } else {
                     this.servicioNotificaciones.showError(respuesta.message || 'Error al enviar el mensaje.');
                 }
@@ -159,3 +178,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
         });
     }
 }
+

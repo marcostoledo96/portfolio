@@ -1,18 +1,17 @@
 // ============================================================================
 // STYLES.SCSS - ESTILOS GLOBALES DEL PORTFOLIO
 // ============================================================================
-// Este archivo contiene todos los estilos de mi portfolio en Angular v20.
-// Decidí mantenerlo concatenado en un solo lugar para facilitar la lectura,
-// aunque más adelante podría modularizarlo por componente si lo necesito.
-// 
-// Estructura:
-// 1. Variables CSS (colores, tamaños, sombras)
-// 2. Reset y base (html, body, tipografía)
-// 3. Layout principal (secciones, contenedores)
-// 4. Sidebar desktop (barra lateral fija)
-// 5. Header y drawer móvil
-// 6. Componentes (cards, botones, formularios)
-// 7. Responsive (breakpoints y ajustes)
+// Dejo todo en un único archivo para ubicar rápido cada sección. ÍNDICE:
+// [01-Variables] colores, tamaños, sombras
+// [02-Base] reset, tipografía, utilitarias
+// [03-Layout] secciones y contenedores
+// [04-Sidebar] barra lateral desktop
+// [05-Header-Drawer] encabezado y cajón móvil
+// [06-Secciones] hero, habilidades, blandas, experiencia, educación, portafolio, contacto
+// [07-Componentes] botones, cards, fichas, badges, timeline, etc.
+// [08-Responsive] breakpoints y ajustes finos
+// [09-Notificaciones] estilos de toasts
+// Uso separadores con el mismo tag para que con Ctrl+F los encuentre fácil.
 // ============================================================================
 
 // ============================================================================

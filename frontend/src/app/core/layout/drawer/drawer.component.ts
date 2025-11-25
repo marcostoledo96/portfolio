@@ -1,22 +1,28 @@
-// DrawerComponent: panel deslizable lateral que muestra el menú en mobile.
+﻿// DrawerComponent: panel deslizable lateral que muestra el menú en mobile.
 // Yo controlo su estado desde DrawerService y cierro el drawer cuando el usuario
 // selecciona una sección o hace clic fuera del panel.
 
-import { Component, OnInit, OnDestroy, HostListener, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DrawerService } from '../../services/drawer.service';
+
+type IdleCb = (cb: () => void) => void;
+
+declare const lucide: any;
 
 @Component({
     selector: 'app-drawer',
     standalone: false,
     templateUrl: './drawer.component.html',
-    styleUrls: ['./drawer.component.scss']
+    styleUrls: ['./drawer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawerComponent implements OnInit, OnDestroy {
     estaAbierto = false;
     seccionActiva: string = 'sobre-mi';
     private destroy$ = new Subject<void>();
     private observador: IntersectionObserver | null = null;
+    private iconosPendientes = false;
 
     constructor(
         private drawerService: DrawerService,
@@ -32,11 +38,9 @@ export class DrawerComponent implements OnInit, OnDestroy {
             .subscribe((abierto: boolean) => {
                 this.estaAbierto = abierto;
                 // Agrego o quito la clase en body para bloquear scroll cuando el drawer está abierto
-                if (abierto) {
-                    document.body.classList.add('drawer-open');
-                } else {
-                    document.body.classList.remove('drawer-open');
-                }
+                document.body.classList.toggle('drawer-open', abierto);
+                this.cdr.markForCheck();
+                this.programarIconos();
             });
 
         // Inicializo el IntersectionObserver después de que el DOM esté listo
@@ -46,7 +50,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
     // Espero a que las secciones estén en el DOM antes de configurar el observer
     private esperarSeccionesYConfigurarObservador(): void {
         let intentos = 0;
-        const maxIntentos = 20;
+        const maxIntentos = 10;
 
         const intervaloChequeo = setInterval(() => {
             const secciones = document.querySelectorAll('section[id]');
@@ -76,8 +80,8 @@ export class DrawerComponent implements OnInit, OnDestroy {
     private configurarObservadorInterseccion(): void {
         const opciones = {
             root: null,
-            rootMargin: '-10% 0px -70% 0px',
-            threshold: 0.1
+            rootMargin: '-20% 0px -30% 0px',
+            threshold: 0.25
         };
 
         this.observador = new IntersectionObserver((entradas: IntersectionObserverEntry[]) => {
@@ -111,6 +115,23 @@ export class DrawerComponent implements OnInit, OnDestroy {
                 this.observador.observe(seccion);
             }
         });
+    }
+
+    private programarIconos(): void {
+        if (this.iconosPendientes || typeof lucide === 'undefined') {
+            return;
+        }
+        this.iconosPendientes = true;
+        const renderizar = () => {
+            lucide.createIcons();
+            this.iconosPendientes = false;
+        };
+        const idle = (window as any).requestIdleCallback as IdleCb;
+        if (idle) {
+            idle(renderizar);
+        } else {
+            setTimeout(renderizar, 0);
+        }
     }
 
     // Verifico si una sección está activa
