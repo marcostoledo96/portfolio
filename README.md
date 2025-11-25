@@ -1,79 +1,71 @@
-# Portfolio
+﻿# Portfolio - Angular v20
 
-Visita mi sitio: https://marcostoledo.cv
+Es mi portfolio personal construido con Angular 20 como single page. Lo uso para mostrar quién soy, qué tecnologías manejo y cómo trabajo. Mantengo la arquitectura lo más simple posible: un solo módulo de aplicación y los componentes declarados directo en `AppModule`.
 
-Contacto: marcostoledo96@gmail.com
+## Qué incluye
+- Barra lateral fija en desktop y drawer en mobile para navegar por secciones.
+- Modo claro/oscuro persistente con toggle accesible.
+- Hero con texto animado tipo “typed” y enlaces a redes.
+- Secciones de habilidades, experiencia, educación y proyectos con tarjetas y microinteracciones.
+- Formulario de contacto real: valida datos, muestra toasts y envía a la función serverless `/api/contact`.
+- Assets propios (foto, logos de tecnologías, CV en PDF) servidos desde `/assets`.
 
-Construi esta version de mi portfolio para mostrar quien soy, que tecnologias domino y como trabajo cuando tengo que cuidar cada detalle. Todo el sitio esta hecho a mano con HTML, CSS y JavaScript puro, sin frameworks. Preferi enfocarme en la experiencia, la accesibilidad y el rendimiento, y dejar el codigo lo suficientemente claro como para poder mantenerlo yo mismo en el tiempo.
+## Pensado para vos (recruiter o visitante)
+- Navegación simple: todo está en una sola página, los botones llevan a cada sección con scroll suave.
+- Rápido de revisar: textos cortos, tarjetas claras y links directos a proyectos y redes.
+- Contacto real: el formulario envía un correo usando mi función serverless, sin depender de un backend externo.
 
-## Que vas a encontrar
-- **Barra lateral fija** en desktop con mi foto, navegacion contextual y un interruptor de tema que funciona como toggle con sol/luna.
-- **Modo oscuro/claro** persistente (localStorage) sin parpadeos y con estilos especificos para que la barra lateral mantenga siempre mi paleta oscura.
-- **Drawer movil** con animacion y control de foco para navegar comodo desde el telefono.
-- **Hero vivo** con titulo animado, resaltado de mi nombre y links a redes.
-- **Secciones de habilidades, experiencia, educacion y proyectos** diseniadas como tarjetas con microinteracciones y grillas responsive.
-- **Formulario de contacto real** que valida datos en el cliente, muestra notificaciones y envia la informacion a mi backend Node/Express.
+## Stack y arquitectura
+- **Framework:** Angular 20 + TypeScript.
+- **Estado y utilidades:** BehaviorSubject para tema, drawer y notificaciones; HttpClient para la API.
+- **Estilos:** SCSS único en `styles.scss`, fuentes Inter y Poppins, íconos Lucide por CDN.
+- **API de contacto:** función serverless en `api/index.js` (Vercel) con `express-validator` y `nodemailer`.
+- **Sin backend local separado:** todo se resuelve con la función `/api/contact` y el frontend en `frontend/`.
 
-## Stack y dependencias
-- **Frontend:** HTML semantico, CSS modularizado en `css/styles.css`, JavaScript organizado en `js/script.js`.
-- **Fuentes:** Inter y Poppins cargadas via Google Fonts.
-- **Iconografia:** Lucide desde CDN, inicializado en `script.js` cada vez que cambio un icono dinamico.
-- **Backend opcional:** carpeta `backend/` con un microservicio en Express que usa Nodemailer para reenviar los mensajes del formulario a mi correo.
-
-## Estructura del repositorio
+## Estructura del repo
 ```
-Portfolio-2.0/
-|-- css/styles.css        # Variables, layout, componentes y media queries
-|-- js/script.js          # Scroll suave, menu activo, drawer, toggle de tema y formulario
-|-- img/                  # Fotografia y assets
-|-- backend/              # API para el formulario de contacto
-|-- doc/CV_ToledoMarcos.pdf  # CV en PDF
-\-- index.html            # Todas las secciones del sitio
+Portfolio-a/
+├─ frontend/                   # App Angular
+│  ├─ src/app/
+│  │  ├─ core/layout/          # Sidebar, mobile header, drawer
+│  │  ├─ core/services/        # ThemeService, DrawerService, ApiService, NotificationService
+│  │  ├─ features/home/        # HomeComponent con todas las secciones y el formulario
+│  │  ├─ app.module.ts         # Declaro todos los componentes
+│  │  ├─ app-routing.module.ts # Ruta única a HomeComponent
+│  │  └─ app.component.ts      # Layout principal
+│  ├─ assets/                  # img/, doc/ (CV), favicon
+│  ├─ styles.scss              # Estilos globales y temas
+│  └─ index.html               # Entry point Angular
+├─ api/index.js                # Función serverless /api/contact
+├─ vercel.json                 # Build y rewrites para Vercel
+├─ GUIA.md                     # Nota técnica para mí
+└─ README.md                   # Este archivo
 ```
 
-## Como correrlo en local
-### Frontend
-1. Clonar o descargar el repositorio.
-2. Abrir `index.html` directo en el navegador **o** levantar un servidor estatico:
-   ```powershell
-   # dentro de Portfolio
-   python -m http.server 8080
-   ```
-3. Navegar a `http://localhost:8080`.
+## Cómo correrlo en local
+1) Instalar dependencias del frontend:
+```powershell
+cd frontend
+npm install
+```
+2) Levantar en dev:
+```powershell
+npm start   # alias de ng serve
+```
+3) Abrir http://localhost:4200
 
-### Backend (opcional pero recomendado para el formulario)
-1. Ir a la carpeta `backend`.
-   ```powershell
-   cd backend
-   npm install
-   ```
-2. Copiar `.env.example` a `.env` y completar:
-   ```env
-   PORT=3000
-   FRONTEND_URL=http://127.0.0.1:8080   # o la URL donde sirvo el front
-   EMAIL_USER=tu_correo@gmail.com
-   EMAIL_PASS=contrasena_de_aplicacion
-   ```
-3. Conseguir una contrasena de aplicacion de Gmail (2FA activado) y colocarla en `EMAIL_PASS`.
-4. Levantar el servidor:
-   ```powershell
-   npm run dev   # o npm start
-   ```
-5. Por defecto el frontend envia los datos a `http://localhost:3000/api/contact`. Si lo despliego, solo cambio la URL en `js/script.js`.
+## API de contacto
+- Endpoint: `POST /api/contact`.
+- Se espera `{ name, email, message }`.
+- Env vars en Vercel: `EMAIL_USER`, `EMAIL_PASS` (contraseña de aplicación de Gmail).
+- La respuesta devuelve `success` y `message`; en errores envío mensajes claros al usuario.
 
-## Flujo del formulario de contacto
-1. El usuario completa nombre, email y mensaje.
-2. `script.js` valida que los campos no esten vacios y deshabilita el boton mientras envia los datos.
-3. Hago un `fetch` al endpoint `/api/contact` del backend.
-4. El backend valida, arma un correo HTML y lo envia con Nodemailer usando mis credenciales seguras.
-5. Si todo sale bien, muestro un toast de exito y limpio el formulario; si algo falla, aviso con un mensaje de error amigable.
+## Build y deploy
+- Build prod local: `cd frontend && npm run build` (salida en `frontend/dist/portfolio-frontend/browser`).
+- Vercel usa `vercel.json` para: `buildCommand: "cd frontend && npm run build"`, output `frontend/dist/portfolio-frontend/browser`, rewrite `/api/:path* -> /api` y fallback a `index.html` para el router.
 
-## Detalles que cuide
-- Los estados activos del menu cambian con scroll y funcionan igual en escritorio y movil.
-- La animacion del subtitulo del hero esta escrita desde cero para poder ajustar velocidades y tiempos muertos.
-- El toggle de tema usa accesibilidad nativa (`role="switch"` + `aria-checked`) y mantiene la posicion visual del "thumb" sincronizada con el estado real.
-- El drawer movil bloquea el scroll del body cuando esta abierto y se puede cerrar tocando fuera o con el boton.
-- Los mensajes del formulario se notifican con un componente ligero que se destruye solo para no ensuciar el DOM.
-
----
-Hecho con paciencia y mucho cafe por Marcos Ezequiel Toledo.
+## Cómo probar rápido
+- Cambiar de tema con el switch (sol/luna) y verificar que persiste al recargar.
+- Abrir/cerrar el drawer en mobile y navegar a secciones; el scroll es suave.
+- Enviar el formulario con datos válidos e inválidos y ver los toasts de éxito/error.
+- Revisar que las imágenes y el CV en `assets/` cargan correctamente.
