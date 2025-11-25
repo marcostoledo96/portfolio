@@ -1052,6 +1052,13 @@ body.claro .tarjeta {
     color: var(--color-primario);
 }
 
+// Hover con más contraste en modo claro
+body.claro .tarjeta-habilidad:hover {
+    background: #e6f4ff;
+    color: var(--color-primario);
+    box-shadow: 0 12px 28px rgba(14, 30, 64, 0.18);
+}
+
 body.claro .tarjeta-habilidad {
     background: #f2f4f7;
 }
