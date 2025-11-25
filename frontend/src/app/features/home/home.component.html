@@ -39,7 +39,8 @@
                 rel="noopener noreferrer" aria-label="LinkedIn" data-tooltip="Ir a LinkedIn">
                 <i data-lucide="linkedin"></i>
             </a>
-            <a class="boton-social" href="mailto:marcostoledo96@gmail.com" aria-label="Email" data-tooltip="Enviar email">
+            <a class="boton-social" href="mailto:marcostoledo96@gmail.com" aria-label="Email"
+                data-tooltip="Enviar email">
                 <i data-lucide="mail"></i>
             </a>
             <a class="boton-social" href="assets/doc/CV_ToledoMarcos_IT.pdf" download="CV_ToledoMarcos_IT.pdf"
@@ -57,101 +58,21 @@
             <span class="texto-acento">Habilidades</span> Técnicas
         </h2>
         <div class="rejilla rejilla-2 md:rejilla-3 lg:rejilla-5">
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/HTML.png" alt="html" />
+            <div class="tarjeta-habilidad tarjeta-habilidad--flip" *ngFor="let hab of habilidadesTecnicas"
+                [class.volteada]="estaVolteada(hab.nombre)" (click)="alternarTarjeta(hab.nombre)"
+                [attr.aria-pressed]="estaVolteada(hab.nombre)" role="button" tabindex="0"
+                (keyup.enter)="alternarTarjeta(hab.nombre)" (keyup.space)="alternarTarjeta(hab.nombre)">
+                <div class="tarjeta-habilidad__interior">
+                    <div class="tarjeta-habilidad__cara tarjeta-habilidad__cara--frente">
+                        <div class="emoji-habilidad">
+                            <img loading="lazy" decoding="async" [src]="hab.img" [alt]="hab.alt" />
+                        </div>
+                        <h4>{{ hab.nombre }}</h4>
+                    </div>
+                    <div class="tarjeta-habilidad__cara tarjeta-habilidad__cara--dorso">
+                        <p class="nivel-valor">Nivel {{ hab.nivel }}</p>
+                    </div>
                 </div>
-                <h4>HTML</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/CSS.png" alt="css" />
-                </div>
-                <h4>CSS</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/js.png" alt="js" />
-                </div>
-                <h4>JavaScript</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/typescript.png" alt="typescript" />
-                </div>
-                <h4>TypeScript</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/angular.png" alt="angular" />
-                </div>
-                <h4>Angular</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/nodejs.png" alt="nodejs" />
-                </div>
-                <h4>Node.js</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/express.png" alt="express" />
-                </div>
-                <h4>Express</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/java.png" alt="java" />
-                </div>
-                <h4>Java</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/React-Logo-PNG.webp" alt="react" />
-                </div>
-                <h4>React</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/git.png" alt="git" />
-                </div>
-                <h4>Git</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/sql.png" alt="sql" />
-                </div>
-                <h4>MySQL</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/postgresql.svg" alt="postgresql" />
-                </div>
-                <h4>PostgreSQL</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/PhpMyAdmin_logo.svg" alt="php" />
-                </div>
-                <h4>PHP MyAdmin</h4>
-            </div>
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/UML_logo.png" alt="uml" />
-                </div>
-                <h4>UML</h4>
-            </div>
-            <!-- <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/figma.svg" alt="figma" />
-                </div>
-                <h4>Figma</h4>
-            </div> -->
-            <div class="tarjeta-habilidad">
-                <div class="emoji-habilidad">
-                    <img loading="lazy" decoding="async" src="assets/img/jira.png" alt="jira" />
-                </div>
-                <h4>Jira</h4>
             </div>
         </div>
     </div>
@@ -174,23 +95,30 @@
                 </p>
             </div>
             <div class="tarjeta-blanda">
-                <div class="icono-circulo">
-                    <i data-lucide="message-circle"></i>
-                </div>
-                <h4>Comunicación asertiva</h4>
-                <p>
-                    Explico decisiones técnicas sin vueltas y adapto el mensaje
-                    según la audiencia para que todos tengamos el mismo mapa de
-                    ruta.
-                </p>
-            </div>
-            <div class="tarjeta-blanda">
                 <div class="icono-circulo"><i data-lucide="lightbulb"></i></div>
                 <h4>Resolución de problemas</h4>
                 <p>
                     Analizo escenarios complejos y propongo soluciones pragmáticas
                     sin perder de vista el impacto en negocio y en las personas
                     usuarias.
+                </p>
+            </div>
+            <div class="tarjeta-blanda">
+                <div class="icono-circulo">
+                    <i data-lucide="heart-handshake"></i>
+                </div>
+                <h4>Voluntariado: Grupo Scout</h4>
+                <p>
+                    Dirigente de grupos juveniles de 11 a 17 años. Formando valores, liderazgo, planificación de
+                    tareas y gestión de equipos.
+                </p>
+            </div>
+            <div class="tarjeta-blanda">
+                <div class="icono-circulo"><i data-lucide="target"></i></div>
+                <h4>Atención al detalle</h4>
+                <p>
+                    Cuido cada entrega con foco en testing, accesibilidad y
+                    experiencia real de quienes usan el producto.
                 </p>
             </div>
             <div class="tarjeta-blanda">
@@ -207,14 +135,6 @@
                 <p>
                     Me capacito de forma continua y llevo esas mejoras al equipo sin
                     esperar a la próxima capacitación formal.
-                </p>
-            </div>
-            <div class="tarjeta-blanda">
-                <div class="icono-circulo"><i data-lucide="target"></i></div>
-                <h4>Atención al detalle</h4>
-                <p>
-                    Cuido cada entrega con foco en testing, accesibilidad y
-                    experiencia real de quienes usan el producto.
                 </p>
             </div>
         </div>
@@ -376,7 +296,8 @@
         <div class="rejilla md:rejilla-2 lg:rejilla-3">
             <div class="tarjeta-proyecto">
                 <div class="portada-proyecto">
-                    <img loading="lazy" decoding="async" src="assets/img/historias-clinicas.webp" alt="Historias clínicas" />
+                    <img loading="lazy" decoding="async" src="assets/img/historias-clinicas.webp"
+                        alt="Historias clínicas" />
                 </div>
                 <div class="p-6">
                     <h3 class="mb-3">Historias Clínicas</h3>
@@ -412,7 +333,8 @@
 
             <div class="tarjeta-proyecto">
                 <div class="portada-proyecto">
-                    <img loading="lazy" decoding="async" src="assets/img/candyland.webp" alt="CandyLand - Tienda de dulces" />
+                    <img loading="lazy" decoding="async" src="assets/img/candyland.webp"
+                        alt="CandyLand - Tienda de dulces" />
                 </div>
                 <div class="p-6">
                     <h3 class="mb-3">Tienda CandyLand</h3>
@@ -485,7 +407,8 @@
 
             <div class="tarjeta-proyecto">
                 <div class="portada-proyecto">
-                    <img loading="lazy" decoding="async" src="assets/img/sanpaholmes.webp" alt="SanpaHolmes - Tienda digital de menú de comida" />
+                    <img loading="lazy" decoding="async" src="assets/img/sanpaholmes.webp"
+                        alt="SanpaHolmes - Tienda digital de menú de comida" />
                 </div>
                 <div class="p-6">
                     <h3 class="mb-3">Tienda SanpaHolmes</h3>
@@ -521,7 +444,8 @@
 
             <div class="tarjeta-proyecto">
                 <div class="portada-proyecto">
-                    <img loading="lazy" decoding="async" src="assets/img/iftslogo.webp" alt="IFTS N°26 - Sitio Web Oficial" />
+                    <img loading="lazy" decoding="async" src="assets/img/iftslogo.webp"
+                        alt="IFTS N°26 - Sitio Web Oficial" />
                 </div>
                 <div class="p-6">
                     <h3 class="mb-3">IFTS N°26 - Sitio Web Oficial</h3>
@@ -686,4 +610,3 @@
 <footer class="pie">
     <p>© 2025 Marcos Toledo. Todos los derechos reservados.</p>
 </footer>
-

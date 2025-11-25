@@ -1,95 +1,90 @@
 ﻿# GUIA COMPLETA del Portfolio (nota personal)
 
-La escribo para acordarme cómo está armado mi portfolio en Angular 20. Todo está en un solo módulo (`AppModule`) y un solo feature (`HomeComponent`). No uso módulos intermedios: declaro los componentes directamente en el módulo principal para mantenerlo simple.
+Actualizo esta guía con los cambios recientes:
+- Arquitectura simple (un solo AppModule, HomeComponent como feature principal).
+- Tarjetas de habilidades técnicas con efecto flip y un único ítem volteado a la vez.
+- Ajustes responsive en habilidades, blandas, educación y contacto.
 
-## Estructura de carpetas
+## Estructura de carpetas (resumen)
 ```
 frontend/
-├─ src/main.ts                 # Bootstrap de Angular
-├─ src/index.html              # HTML base + Lucide CDN
-├─ src/styles.scss             # Estilos globales, variables y temas
 ├─ src/app/
-│  ├─ app.module.ts            # Declaro AppComponent + layout + Home
-│  ├─ app-routing.module.ts    # Ruta '' -> HomeComponent
-│  ├─ app.component.ts|html|scss# Shell: sidebar + header móvil + drawer + router-outlet
+│  ├─ app.module.ts              # Declaro AppComponent + layout + Home
+│  ├─ app-routing.module.ts      # Ruta '' -> HomeComponent
+│  ├─ app.component.*            # Shell: sidebar + header móvil + drawer + router-outlet
 │  ├─ core/
-│  │  ├─ layout/
-│  │  │  ├─ sidebar/           # Nav desktop + toggle de tema + observer de sección
-│  │  │  ├─ mobile-header/     # Header compacto con toggle tema y botón del drawer
-│  │  │  └─ drawer/            # Menú móvil con scroll suave y cierre al click afuera
-│  │  └─ services/
-│  │     ├─ theme.service.ts   # Clase/BehaviorSubject para tema claro/oscuro
-│  │     ├─ drawer.service.ts  # Estado del drawer (open/close)
-│  │     ├─ api.service.ts     # POST /api/contact + manejo de errores
-│  │     └─ notification.service.ts # Lista de toasts (exito/error/info)
-│  └─ features/home/
-│     ├─ home.component.ts|html|scss # Todas las secciones + formulario
-│     └─ (sin módulo propio)
-└─ api/index.js                # Función serverless de contacto
+│  │  ├─ layout/                 # Sidebar, MobileHeader, Drawer
+│  │  └─ services/               # ThemeService, DrawerService, ApiService, NotificationService
+│  └─ features/home/             # HomeComponent (todas las secciones + formulario + habilidades)
+│     ├─ home.component.ts
+│     ├─ home.component.html
+│     └─ home.component.scss
+├─ src/assets/img/               # Logos y portadas (incluye versiones WebP)
+├─ src/styles.scss               # Estilos globales + responsive
+└─ api/index.js                  # Función serverless /api/contact
 ```
 
-## Flujo de arranque
-1. `src/main.ts` hace bootstrap de `AppModule`.
-2. `AppModule` declara AppComponent, Home y los componentes de layout; importa HttpClientModule, ReactiveFormsModule y AppRoutingModule.
-3. `AppRoutingModule` tiene una sola ruta: `path: ''` -> `HomeComponent`.
-4. `AppComponent` arma el layout: `<app-sidebar>`, `<app-mobile-header>`, `<app-drawer>` y el `<router-outlet>`.
+## Cambios recientes
+1) **Habilidades técnicas con flip**
+   - Lista declarada en `home.component.ts` como `habilidadesTecnicas` (nombre, img, alt, nivel).
+   - Vista en `home.component.html`: `*ngFor` genera cada tarjeta; click/Enter/Espacio la voltea.
+   - Estado en `home.component.ts`: `tarjetaVolteada` garantiza que solo una tarjeta esté girada.
+   - Estilos en `home.component.scss`: bloque `.tarjeta-habilidad--flip` y estado `.volteada` (resaltado, color hover). Texto de dorso: “Nivel {{hab.nivel}}” sin leyendas extra.
 
-## Componentes clave
-- **SidebarComponent:** usa `IntersectionObserver` para marcar la sección activa mientras hago scroll. Toggle de tema conectado a `ThemeService`. En desktop.
-- **DrawerComponent:** escucha `DrawerService`, bloquea scroll del body cuando está abierto y se cierra al hacer click fuera o al navegar. También observa secciones para resaltar la activa.
-- **MobileHeaderComponent:** header simple para mobile con toggle de tema y botón que alterna el drawer.
-- **HomeComponent:** contiene todo el contenido. Hace la animación “typed” con `setTimeout`, renderiza secciones y maneja el formulario reactivo (`FormBuilder`, `Validators`). Al enviar, llama a `ApiService.sendContactMessage` y muestra toasts con `NotificationService`.
+2) **Responsive** (mobile <= 768px)
+   - Habilidades técnicas: 2 columnas, tarjetas más compactas.
+   - Habilidades blandas y Educación: 1 tarjeta por fila para legibilidad.
+   - Contacto: padding lateral reducido y grid a 1 columna para evitar cortes.
+   - Ajustes extra <= 400px/350px mantienen legibilidad en pantallas muy chicas.
 
-## Servicios
-- **ThemeService:** `BehaviorSubject<Theme>` (`claro`|`oscuro`). Aplica la clase `claro` en `<body>` y `<html>` y persiste en `localStorage` bajo la clave `tema`. Métodos: `alternarTema()`, `establecerTema()`, `obtenerTemaActual()`.
-- **DrawerService:** `BehaviorSubject<boolean>` para el estado del drawer. Métodos: `abrir()`, `cerrar()`, `alternar()`, `estaAbierto()`.
-- **ApiService:** `sendContactMessage(datos)` hace POST a `${environment.apiUrl}/contact` con headers JSON y captura errores. El método `manejarError` arma un mensaje legible y hace `throwError`.
-- **NotificationService:** mantiene una lista de notificaciones en un `BehaviorSubject`. Métodos de conveniencia `showSuccess`, `showError`, `showInfo`; cada notificación se borra sola a los 5s o manualmente con `eliminarNotificacion(id)`.
+3) **Animación del subtítulo**
+   - En `home.component.ts`: `TICK_MS`, `esperaEscritura`, `esperaCambio` controlan la velocidad del “typed”.
+   - Uso de `ChangeDetectionStrategy.OnPush` y `ChangeDetectorRef.markForCheck()` para que el texto se actualice.
 
-## Estilos y tema
-- Uso un solo `styles.scss` con variables CSS, fondos degradados y reglas para `body.claro`. El toggle solo agrega/quita la clase `claro` en `<body>` y `<html>`.
-- Los componentes de layout tienen sus propios `.scss` pero heredan colores/variables globales.
+4) **Observer de secciones**
+   - Sidebar y Drawer: `rootMargin` y `threshold` ajustados para detectar “portafolio” correctamente.
 
-## API serverless
-- Archivo: `api/index.js`.
-- Valido `name`, `email`, `message` con `express-validator` y armo un mail con `nodemailer` usando `EMAIL_USER` y `EMAIL_PASS` (contraseña de aplicación de Gmail).
-- Respondo `{ success: true/false, message }` y devuelvo 400 con mensajes claros si faltan datos.
+## Cómo editar habilidades técnicas
+- Archivo: `frontend/src/app/features/home/home.component.ts`.
+- Propiedad: `habilidadesTecnicas: { nombre, img, alt, nivel }[]`.
+- Las imágenes están en `frontend/src/assets/img/` (se usan rutas relativas `assets/img/...`).
+- El nivel se muestra en el dorso (“Nivel <valor>”).
+- Solo una tarjeta queda volteada a la vez (`tarjetaVolteada`).
 
-## Bloques de código que me importa recordar
-- Ruta única:
+## Estilos globales
+- `src/styles.scss`: único archivo con índice al inicio para ubicar rápido cada bloque.
+  - [01] Variables, [02] Base/Utilitarias, [03] Layout, [04] Sidebar, [05] Header/Drawer,
+    [06] Secciones (hero, habilidades, blandas, experiencia, educación, portafolio, contacto),
+    [07] Componentes (cards, fichas, botones), [08] Responsive, [09] Notificaciones.
+- Overrides responsive incluyen ajustes de grillas y contenedores para mobile.
+
+## Snippets útiles
+- Flip de tarjeta (estado único):
 ```ts
-const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: '**', redirectTo: '' }
-];
-```
-- Animación typed en `HomeComponent` (concepto):
-```ts
-private animarTexto() {
-  const frase = this.frases[this.indiceFraseActual];
-  // escribo o borro con setTimeout, alternando bandera this.borrando
+// home.component.ts
+alternarTarjeta(nombre: string) {
+  this.tarjetaVolteada = this.tarjetaVolteada === nombre ? null : nombre;
+  this.cdr.markForCheck();
 }
 ```
-- Envío de formulario:
-```ts
-this.api.sendContactMessage(this.formularioContacto.value).subscribe({
-  next: r => r.success ? this.notif.showSuccess('Mensaje enviado') : this.notif.showError(r.message || 'Error'),
-  error: () => this.notif.showError('Error de conexión')
-});
+- Template de tarjeta:
+```html
+<div class="tarjeta-habilidad--flip" [class.volteada]="estaVolteada(hab.nombre)" (click)="alternarTarjeta(hab.nombre)">
+  <div class="tarjeta-habilidad__cara--frente">...</div>
+  <div class="tarjeta-habilidad__cara--dorso">Nivel {{ hab.nivel }}</div>
+</div>
 ```
-- Drawer abierto/cerrado:
+- Ajustes de velocidad “typed”:
 ```ts
-this.drawerService.drawerAbierto$
-  .subscribe(abierto => document.body.classList.toggle('drawer-open', abierto));
-```
-- Toggle de tema:
-```ts
-this.themeService.alternarTema();
+// home.component.ts
+private readonly TICK_MS = 45;      // intervalo de escritura/borrado
+const esperaEscritura = 900;        // pausa al terminar frase
+const esperaCambio = 320;           // pausa al cambiar frase
 ```
 
-## Checklist rápido cuando toco algo
-- Si sumo un componente nuevo, lo declaro en `AppModule` (no hay módulos feature extra).
-- Si agrego assets, van a `frontend/src/assets/img` o `doc` y las rutas son relativas `assets/...`.
-- Si cambio el formulario, mantener validaciones en `HomeComponent` y en `api/index.js`.
-- Si toco estilos globales, revisar tanto `body` como `body.claro`.
-- Antes de deploy: `cd frontend && npm run build` y probar `/api/contact` con las env vars cargadas.
+## Checklist rápido
+- Si agrego/quito habilidades: actualizar `habilidadesTecnicas` y asegurar que la imagen exista en `assets/img`.
+- Si cambio estilos globales: respetar el índice y los bloques en `styles.scss` para ubicar rápido.
+- Si toco el typed: ajustar `TICK_MS`, `esperaEscritura`, `esperaCambio` en `home.component.ts`.
+- Si el observer no detecta una sección: revisar `rootMargin`/`threshold` en sidebar/drawer.
+

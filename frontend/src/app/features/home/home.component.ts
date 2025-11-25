@@ -39,6 +39,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private intervaloTyped: any;
     private readonly TICK_MS = 45;
     private pausaRestante = 0;
+    // Lista de habilidades técnicas con nivel de dominio
+    habilidadesTecnicas = [
+        { nombre: 'HTML', img: 'assets/img/HTML.png', alt: 'html', nivel: 'Intermedio' },
+        { nombre: 'CSS', img: 'assets/img/CSS.png', alt: 'css', nivel: 'Intermedio' },
+        { nombre: 'JavaScript', img: 'assets/img/js.png', alt: 'js', nivel: 'Intermedio' },
+        { nombre: 'TypeScript', img: 'assets/img/typescript.png', alt: 'typescript', nivel: 'Intermedio' },
+        { nombre: 'Angular', img: 'assets/img/angular.png', alt: 'angular', nivel: 'Intermedio' },
+        { nombre: 'Node.js', img: 'assets/img/nodejs.png', alt: 'nodejs', nivel: 'Intermedio' },
+        { nombre: 'Express', img: 'assets/img/express.png', alt: 'express', nivel: 'Intermedio' },
+        { nombre: 'Java', img: 'assets/img/java.png', alt: 'java', nivel: 'Básico' },
+        { nombre: 'React', img: 'assets/img/React-Logo-PNG.webp', alt: 'react', nivel: 'Básico' },
+        { nombre: 'Git', img: 'assets/img/git.png', alt: 'git', nivel: 'Intermedio' },
+        { nombre: 'SQL', img: 'assets/img/sql.png', alt: 'sql', nivel: 'Intermedio' },
+        { nombre: 'PostgreSQL', img: 'assets/img/postgresql.svg', alt: 'postgresql', nivel: 'Intermedio' },
+        { nombre: 'PHP MyAdmin', img: 'assets/img/PhpMyAdmin_logo.svg', alt: 'phpmyadmin', nivel: 'Intermedio' },
+        { nombre: 'UML', img: 'assets/img/UML_logo.png', alt: 'uml', nivel: 'Intermedio' },
+        { nombre: 'Jira', img: 'assets/img/jira.png', alt: 'jira', nivel: 'Intermedio' }
+    ];
+    tarjetaVolteada: string | null = null;
 
     constructor(
         private constructorFormularios: FormBuilder,
@@ -177,5 +196,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         });
     }
-}
 
+    // Volteo de tarjetas de habilidades
+    alternarTarjeta(nombre: string): void {
+        this.tarjetaVolteada = this.tarjetaVolteada === nombre ? null : nombre;
+        this.cdr.markForCheck();
+    }
+
+    estaVolteada(nombre: string): boolean {
+        return this.tarjetaVolteada === nombre;
+    }
+}
