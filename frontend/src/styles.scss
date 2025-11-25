@@ -218,10 +218,12 @@ p {
 
     // Fondo alterno sutil para diferenciar secciones visualmente
     &.alterno {
-        background: rgba(0, 0, 0, 0.15);  // Oscurece levemente en modo oscuro
+        background: rgba(53, 167, 255, 0.03);
+        border-top: 1px solid rgba(53, 167, 255, 0.1);
 
         body.claro & {
-            background: rgba(0, 0, 0, 0.02);  // Muy sutil en modo claro
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
         }
     }
 }
