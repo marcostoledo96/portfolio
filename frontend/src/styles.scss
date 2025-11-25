@@ -1,0 +1,2126 @@
+// ============================================================================
+// STYLES.SCSS - ESTILOS GLOBALES DEL PORTFOLIO
+// ============================================================================
+// Este archivo contiene todos los estilos de mi portfolio en Angular v20.
+// Decidí mantenerlo concatenado en un solo lugar para facilitar la lectura,
+// aunque más adelante podría modularizarlo por componente si lo necesito.
+// 
+// Estructura:
+// 1. Variables CSS (colores, tamaños, sombras)
+// 2. Reset y base (html, body, tipografía)
+// 3. Layout principal (secciones, contenedores)
+// 4. Sidebar desktop (barra lateral fija)
+// 5. Header y drawer móvil
+// 6. Componentes (cards, botones, formularios)
+// 7. Responsive (breakpoints y ajustes)
+// ============================================================================
+
+// ============================================================================
+// 1. VARIABLES CSS
+// ============================================================================
+// Acá defino todas las variables de color, espaciado y efectos que uso
+// en toda la aplicación. Esto me permite cambiar el tema fácilmente.
+
+:root {
+    // Colores principales del portfolio
+    --color-primario: #0E1E40;          // Azul oscuro para textos y fondos
+    --color-acento: #00AEEF;            // Azul claro para botones y enlaces
+    --color-fondo-claro: #f8f9fa;       // Fondo gris claro (modo claro)
+    --color-fondo-oscuro: #0a1628;      // Fondo azul oscuro (modo oscuro)
+    --color-texto-claro: #2c3e50;       // Texto para modo claro
+    --color-texto-oscuro: #ffffff;      // Texto para modo oscuro
+
+    // Bordes y sombras que uso en las cards
+    --radio: 16px;                      // Border radius estándar
+    --radio-lg: 24px;                   // Border radius grande
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.2);      // Sombra pronunciada
+    --sombra-sm: 0 6px 16px rgba(0, 0, 0, 0.12);   // Sombra sutil
+
+    // Ancho de la barra lateral en desktop
+    --sidebar-width: 256px;
+
+    // Paleta para modo CLARO (sidebar, header, drawer)
+    // La sidebar siempre mantiene colores oscuros, incluso en modo claro
+    --sidebar-light-bg: #0E1E40;
+    --sidebar-light-text: #ffffff;
+    --sidebar-light-text-secondary: rgba(255, 255, 255, 0.7);
+    --sidebar-light-hover: rgba(255, 255, 255, 0.12);
+    --sidebar-light-active-bg: #00AEEF;
+    --sidebar-light-active-text: #ffffff;
+    --sidebar-light-accent: #00AEEF;
+
+    // Paleta para modo OSCURO (sidebar, header, drawer)
+    --sidebar-dark-bg: #031426;
+    --sidebar-dark-text: #FCFCFC;
+    --sidebar-dark-text-secondary: #b8c5d6;
+    --sidebar-dark-hover: rgba(53, 167, 255, 0.15);
+    --sidebar-dark-active-bg: #35A7FF;
+    --sidebar-dark-active-text: #031426;
+    --sidebar-dark-accent: #35A7FF;
+    --sidebar-dark-border: rgba(53, 167, 255, 0.2);
+
+    // Colores del degradado de fondo en modo oscuro
+    --body-dark-bg-start: #031426;
+    --body-dark-bg-end: #063360;
+}
+
+// ============================================================================
+// 2. RESET Y BASE
+// ============================================================================
+// Estilos base para resetear navegadores y definir la tipografía principal.
+
+// Aplico box-sizing a todos los elementos para facilitar el cálculo de tamaños
+* {
+    box-sizing: border-box;
+}
+
+// HTML y Body ocupan toda la altura de la pantalla
+html,
+body {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;  // Evito scroll horizontal
+}
+
+// El HTML tiene el fondo base para evitar flashes
+html {
+    overscroll-behavior: none;  // Sin efecto de rebote en móviles
+    background: var(--body-dark-bg-start);
+
+    // En modo claro cambio el fondo
+    &.claro {
+        background: var(--color-fondo-claro);
+    }
+}
+
+// El Body tiene el degradado principal y la tipografía
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif;
+    color: var(--color-texto-oscuro);
+    background: linear-gradient(135deg, var(--body-dark-bg-start) 0%, var(--body-dark-bg-end) 100%);
+    background-attachment: fixed;  // El degradado no se mueve al hacer scroll
+    transition: background 0.3s ease, color 0.3s ease;
+    overscroll-behavior: none;
+    min-height: 100vh;
+
+    // En modo claro uso fondo sólido claro
+    &.claro {
+        color: var(--color-primario);
+        background: var(--color-fondo-claro);
+    }
+}
+
+// Optimizo las imágenes para evitar problemas de renderizado
+img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: auto;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+// ============================================================================
+// 2.1 TIPOGRAFÍA
+// ============================================================================
+// Defino los estilos de los títulos con tamaños responsive usando clamp().
+
+h1, h2, h3, h4 {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);  // Se adapta al ancho de pantalla
+    line-height: 1.2;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+    line-height: 1.3;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+    line-height: 1.4;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.5;
+}
+
+p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;  // Espaciado cómodo para lectura
+}
+
+// ============================================================================
+// 2.2 CLASES UTILITARIAS
+// ============================================================================
+// Clases helper que uso en el HTML para espaciado y estilos rápidos.
+
+.lead {
+    font-size: 1.05rem;
+    max-width: 48rem;
+    margin-inline: auto;
+}
+
+.tenue {
+    color: rgba(255, 255, 255, 0.75);
+
+    body.claro & {
+        color: #667085;
+    }
+}
+
+.texto-centro {
+    text-align: center;
+}
+
+// Márgenes verticales
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.25rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mt-12 { margin-top: 3rem; }
+
+// Tamaños y dimensiones
+.text-2xl { font-size: 1.5rem; }
+.w-full { width: 100%; }
+
+// Padding
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+
+// Color de acento que cambia según el tema
+.texto-acento {
+    color: var(--color-acento);
+
+    body.claro & {
+        color: var(--color-primario);
+    }
+}
+
+// ============================================================================
+// 3. LAYOUT PRINCIPAL
+// ============================================================================
+// Estructura general de las secciones y contenedores del portfolio.
+
+.seccion {
+    padding: 80px 24px;  // Espaciado generoso arriba y abajo
+
+    // Fondo alterno sutil para diferenciar secciones visualmente
+    &.alterno {
+        background: rgba(0, 0, 0, 0.15);  // Oscurece levemente en modo oscuro
+
+        body.claro & {
+            background: rgba(0, 0, 0, 0.02);  // Muy sutil en modo claro
+        }
+    }
+}
+
+// Centrado vertical para la sección hero
+.centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 64px);  // Resto el alto del header móvil
+}
+
+// Contenedores con ancho máximo para mantener la lectura cómoda
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    // Variante más angosta para contenido de texto
+    &.narrow,
+    &.estrecho {
+        max-width: 900px;
+    }
+}
+
+// ============================================================================
+// 4. SIDEBAR DESKTOP (Barra Lateral Fija)
+// ============================================================================
+// La barra lateral que se ve en pantallas grandes (>1024px).
+// Contiene mi foto, nombre, navegación y botón de tema.
+
+.barra-lateral {
+    position: fixed;
+    inset: 0 auto 0 0;  // Fijo a la izquierda de la pantalla
+    width: var(--sidebar-width);
+    background: var(--sidebar-dark-bg);
+    color: var(--sidebar-dark-text);
+    box-shadow: var(--sombra);
+    z-index: 40;
+    display: none;  // Oculto por defecto (solo visible en desktop)
+
+    // En modo claro también mantiene colores oscuros
+    body.claro & {
+        background: var(--sidebar-light-bg);
+        color: var(--sidebar-light-text);
+    }
+
+    // Contenedor interior con flexbox vertical
+    &__interior {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        padding: 28px 14px;
+        gap: 14px;
+    }
+}
+
+// Logo circular con mis iniciales
+.logo-circulo {
+    width: 80px;
+    height: 80px;
+    border-radius: 30%;
+    background: #35A7FF;
+    display: grid;
+    place-items: center;
+    color: #000000;
+    font-weight: 1000;
+    font-size: 2rem;
+    box-shadow: var(--sombra-sm);
+
+    body.claro & {
+        background: #35A7FF;
+        color: #ffffff;
+    }
+
+    // Variante pequeña para el header móvil
+    &.pequeno {
+        width: 48px;
+        height: 48px;
+        font-size: 1rem;
+    }
+}
+
+// Foto de perfil circular
+.perfil {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        image-rendering: auto;
+        -webkit-transform: none;
+        transform: none;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+}
+
+.nombre-lateral {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    gap: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+// ============================================================================
+// SECCIÓN: NOMBRE Y APELLIDO EN SIDEBAR
+// ============================================================================
+// Acá muestro mi nombre completo en formato vertical dentro del sidebar.
+// El nombre va más chico y sutil, mientras que el apellido es el protagonista
+// con letras grandes y en color acento para llamar la atención.
+
+.nombre-lateral__nombre {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--sidebar-dark-text-secondary);
+}
+
+body.claro .nombre-lateral__nombre {
+    color: var(--sidebar-light-text-secondary);
+}
+
+.nombre-lateral__apellido {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--sidebar-dark-accent);
+    letter-spacing: 0.08em;
+}
+
+body.claro .nombre-lateral__apellido {
+    color: var(--sidebar-light-accent);
+}
+
+// ============================================================================
+// SECCIÓN: NAVEGACIÓN DEL SIDEBAR
+// ============================================================================
+// Este es el menú principal que uso para navegar entre secciones.
+// Cada enlace tiene un ícono + texto, y se destaca visualmente cuando está activo
+// o cuando paso el mouse por encima. El efecto de "levantarse" le da dinamismo.
+
+.navegacion {
+    width: 100%;
+    padding: 0 8px;
+    margin-top: 8px;
+}
+
+.navegacion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+}
+
+// Cada enlace del menú
+.enlace-nav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: var(--sidebar-dark-text-secondary);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+body.claro .enlace-nav {
+    color: #e5e7eb;
+}
+
+// Efecto hover: se levanta 1px y cambia de color
+.enlace-nav:hover {
+    background: var(--sidebar-dark-hover);
+    color: var(--sidebar-dark-text);
+    transform: translateY(-1px);
+}
+
+body.claro .enlace-nav:hover {
+    background: var(--sidebar-light-hover);
+    color: var(--sidebar-light-text);
+}
+
+// Cuando el enlace corresponde a la sección activa
+.enlace-nav.activo {
+    background: var(--sidebar-dark-active-bg);
+    color: var(--sidebar-dark-active-text);
+    box-shadow: var(--sombra-sm);
+}
+
+body.claro .enlace-nav.activo {
+    background: var(--sidebar-light-active-bg);
+    color: var(--sidebar-light-active-text);
+}
+
+// ============================================================================
+// SECCIÓN: BOTÓN ALTERNAR TEMA (TOGGLE)
+// ============================================================================
+// Este botón permite cambiar entre tema oscuro y claro.
+// Uso variables CSS custom para poder ajustar fácilmente el tamaño del toggle.
+// El "thumb" (círculo interior) se mueve con una animación suave.
+
+.alternar-tema {
+    --toggle-width: 74px;
+    --toggle-height: 36px;
+    --toggle-thumb: 28px;
+    --toggle-gap: 8px;
+    --toggle-padding: 12px;
+    --toggle-offset: 4px;
+    width: var(--toggle-width);
+    height: var(--toggle-height);
+    border-radius: var(--toggle-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--toggle-gap);
+    padding: 0 var(--toggle-padding);
+    background: rgba(255, 255, 255, 0.14);
+    color: inherit;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), var(--sombra-sm);
+}
+
+.alternar-tema:hover {
+    transform: translateY(-1px);
+}
+
+.alternar-tema:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.65);
+    outline-offset: 2px;
+}
+
+.alternar-tema.pequeno {
+    --toggle-width: 60px;
+    --toggle-height: 30px;
+    --toggle-thumb: 24px;
+    --toggle-gap: 6px;
+    --toggle-padding: 10px;
+    --toggle-offset: 3px;
+}
+
+.alternar-tema__icon {
+    display: grid;
+    place-items: center;
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+}
+
+.alternar-tema__icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.alternar-tema__thumb {
+    position: absolute;
+    top: 50%;
+    left: var(--toggle-offset);
+    width: var(--toggle-thumb);
+    height: var(--toggle-thumb);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: left 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.alternar-tema[aria-checked="true"] .alternar-tema__thumb {
+    left: calc(100% - (var(--toggle-thumb) + var(--toggle-offset)));
+}
+
+.alternar-tema[aria-checked="true"] .alternar-tema__icon--sun,
+.alternar-tema[aria-checked="false"] .alternar-tema__icon--moon {
+    opacity: 1;
+}
+
+.alternar-tema[aria-checked="true"] .alternar-tema__icon--moon,
+.alternar-tema[aria-checked="false"] .alternar-tema__icon--sun {
+    opacity: 0.3;
+}
+
+.alternar-tema--barra {
+    margin-top: auto;
+    color: var(--sidebar-dark-text);
+}
+
+body.claro .alternar-tema--barra {
+    color: var(--sidebar-light-text);
+}
+
+.alternar-tema--barra .alternar-tema__thumb {
+    background: var(--sidebar-dark-active-bg);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.45);
+}
+
+body.claro .alternar-tema--barra .alternar-tema__thumb {
+    background: var(--sidebar-light-accent);
+    box-shadow: 0 6px 16px rgba(0, 174, 239, 0.45);
+}
+
+.alternar-tema--movil {
+    color: inherit;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+body.claro .alternar-tema--movil {
+    background: rgba(14, 30, 64, 0.16);
+    color: var(--color-primario);
+}
+
+body.claro .alternar-tema--movil .alternar-tema__thumb {
+    background: var(--color-primario);
+    box-shadow: 0 6px 14px rgba(14, 30, 64, 0.35);
+}
+
+@media (max-width: 1023px) {
+    .barra-lateral .alternar-tema {
+        display: none;
+    }
+}
+
+// Encabezado movil y cajon
+.encabezado-movil {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    background: var(--sidebar-dark-bg);
+    color: var(--sidebar-dark-text);
+    z-index: 50;
+    box-shadow: var(--sombra-sm);
+    backdrop-filter: blur(10px);
+}
+
+body.claro .encabezado-movil {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-primario);
+}
+
+.acciones-moviles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.boton-icono {
+    background: transparent;
+    color: inherit;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.boton-icono:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+body.claro .boton-icono:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.cajon-movil {
+    position: fixed;
+    inset: 64px 0 0 auto;
+    width: 260px;
+    background: var(--sidebar-dark-bg);
+    color: var(--sidebar-dark-text);
+    box-shadow: var(--sombra);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.cajon-movil.abierto {
+    transform: translateX(0);
+}
+
+body.claro .cajon-movil {
+    background: #fff;
+    color: var(--color-primario);
+}
+
+.drawer-open {
+    overflow: hidden;
+}
+
+.drawer-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+}
+
+.navegacion-cajon ul {
+    list-style: none;
+    padding: 16px;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.enlace-cajon {
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: inherit;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.enlace-cajon:hover {
+    background: var(--sidebar-dark-hover);
+    color: var(--sidebar-dark-text);
+}
+
+body.claro .enlace-cajon:hover {
+    background: #f2f4f7;
+    color: var(--color-primario);
+}
+
+.perfil-movil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 16px;
+    border-bottom: 1px solid var(--sidebar-dark-border);
+}
+
+body.claro .perfil-movil {
+    border-bottom: 1px solid rgba(14, 30, 64, 0.1);
+}
+
+.perfil-movil img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--sidebar-dark-active-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 12px;
+}
+
+body.claro .perfil-movil img {
+    border: 3px solid var(--sidebar-light-accent);
+}
+
+.perfil-movil .nombre-movil {
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--sidebar-dark-text);
+}
+
+body.claro .perfil-movil .nombre-movil {
+    color: var(--color-primario);
+}
+
+.perfil-movil .nombre-movil .apellido-movil {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 2px;
+    color: var(--sidebar-dark-accent);
+}
+
+body.claro .perfil-movil .nombre-movil .apellido-movil {
+    color: var(--sidebar-light-accent);
+}
+
+// ============================================================================
+// SECCIÓN: CONTENIDO PRINCIPAL
+// ============================================================================
+// Esta es el área donde se muestran todas las secciones del portfolio.
+// En desktop, se desplaza a la derecha del sidebar.
+// En móvil, ocupa todo el ancho y tiene padding-top por el header fijo.
+
+.contenido {
+    padding-top: 64px;
+}
+
+// ============================================================================
+// RESPONSIVE: MEDIA QUERIES PARA SIDEBAR/DRAWER
+// ============================================================================
+// Controlo cuándo mostrar el sidebar fijo vs el header móvil con drawer.
+// Breakpoint principal: 1024px (tablet landscape / desktop pequeño)
+
+@media (max-width: 1023px) {
+    .barra-lateral {
+        display: none;
+    }
+
+    .contenido {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .barra-lateral {
+        display: block;
+    }
+
+    .encabezado-movil {
+        display: none;
+    }
+
+    .contenido {
+        margin-left: var(--sidebar-width);
+        padding-top: 0;
+    }
+
+    .pie {
+        width: 100%;
+    }
+
+    .barra-lateral__interior {
+        padding: 40px 20px 32px;
+        gap: 20px;
+    }
+
+    .perfil {
+        width: 188px;
+        height: 188px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .encabezado-movil {
+        padding: 0 32px;
+    }
+
+    .acciones-moviles {
+        gap: 16px;
+    }
+}
+
+@media (max-height: 740px) {
+    .barra-lateral__interior {
+        padding: 20px 12px;
+        gap: 10px;
+    }
+
+    .perfil {
+        width: 162px;
+        height: 162px;
+    }
+
+    .navegacion {
+        margin-top: 4px;
+    }
+
+    .navegacion ul {
+        gap: 6px;
+    }
+
+    .enlace-nav {
+        padding: 10px 12px;
+        grid-template-columns: 22px 1fr;
+        gap: 10px;
+    }
+
+    .enlace-nav i {
+        width: 22px;
+        height: 22px;
+    }
+
+    .enlace-nav span {
+        font-size: 0.95rem;
+    }
+
+    #barra-lateral .mb-4 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-height: 660px) {
+    .barra-lateral__interior {
+        padding: 16px 10px;
+        gap: 8px;
+    }
+
+    .perfil {
+        width: 138px;
+        height: 138px;
+    }
+
+    .logo-circulo {
+        width: 72px;
+        height: 72px;
+        font-size: 1.6rem;
+    }
+
+    .navegacion ul {
+        gap: 4px;
+    }
+
+    .enlace-nav {
+        padding: 8px 10px;
+        grid-template-columns: 20px 1fr;
+        gap: 8px;
+    }
+
+    .enlace-nav i {
+        width: 20px;
+        height: 20px;
+    }
+
+    .enlace-nav span {
+        font-size: 0.9rem;
+    }
+
+    #barra-lateral .mb-4 {
+        font-size: 0.95rem;
+    }
+}
+
+// ============================================================================
+// COMPONENTES REUTILIZABLES
+// ============================================================================
+// A partir de acá defino estilos para componentes que uso en varias secciones:
+// - Botones sociales (LinkedIn, GitHub, Email)
+// - Tarjetas (habilidades, proyectos, experiencia, educación)
+// - Fichas/chips (tecnologías)
+// - Insignias/badges (estados)
+// Todos tienen versiones para tema oscuro y claro.
+
+// Componentes
+.sociales {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+// ============================================================================
+// SECCIÓN: BOTONES SOCIALES (LinkedIn, GitHub, Email, etc.)
+// ============================================================================
+// Son círculos con íconos que llevan a mis redes sociales.
+// Tienen tooltips que aparecen al hacer hover mostrando el nombre de la red.
+// Al pasar el mouse, los botones se elevan y cambian de color.
+
+.boton-social {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--color-primario);
+    background: #fff;
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    position: relative;
+}
+
+.boton-social::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+body.claro .boton-social::after {
+    background: rgba(255, 255, 255, 0.98);
+    color: var(--color-primario);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.boton-social:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+body.claro .boton-social {
+    background: var(--color-primario);
+    color: #fff;
+}
+
+.boton-social:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra);
+    background: var(--color-acento);
+    color: #fff;
+}
+
+.rejilla {
+    display: grid;
+    gap: 32px;
+    justify-items: center;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.rejilla-1 {
+    grid-template-columns: 1fr;
+}
+
+.rejilla-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.md\:rejilla-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.md\:rejilla-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.lg\:rejilla-5 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 768px) {
+    .md\:rejilla-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .md\:rejilla-3 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\:rejilla-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .lg\:rejilla-5 {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .lg\:rejilla-5 {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+// Centrado especial con flex para habilidades técnicas
+#habilidades-tecnicas .rejilla {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.tarjeta {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-sm);
+}
+
+body.claro .tarjeta {
+    background: #fff;
+}
+
+// ============================================================================
+// SECCIÓN: TARJETAS DE HABILIDADES TÉCNICAS
+// ============================================================================
+// Estas tarjetas muestran cada tecnología que manejo (HTML, CSS, Angular, etc.)
+// Tienen tamaño fijo (150x150px) y al pasar el mouse se elevan y cambian a blanco.
+// Uso flex para centrar el contenido (ícono + nombre) dentro de cada tarjeta.
+
+.tarjeta-habilidad {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radio);
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tarjeta-habilidad:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    color: var(--color-primario);
+}
+
+body.claro .tarjeta-habilidad {
+    background: #f2f4f7;
+}
+
+.emoji-habilidad {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 100%;
+}
+
+.tarjeta-habilidad img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    filter: grayscale(30%);
+    opacity: 0.75;
+    transition: opacity 0.2s, filter 0.2s, transform 0.2s;
+    display: block;
+}
+
+.tarjeta-habilidad h4 {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    color: inherit;
+    word-break: break-word;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    margin-top: 12px;
+    line-height: 1.3;
+    min-height: 2.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta-habilidad:hover img {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.05);
+}
+
+// Tarjetas de habilidades blandas
+.tarjeta-blanda {
+    border-radius: var(--radio);
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: default;
+    min-width: 0;
+}
+
+.tarjeta-blanda:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(53, 167, 255, 0.2);
+    background: rgba(53, 167, 255, 0.08);
+}
+
+body.claro .tarjeta-blanda {
+    background: #fff;
+}
+
+body.claro .tarjeta-blanda:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(14, 30, 64, 0.15);
+    background: #f8fafc;
+}
+
+.icono-circulo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #35A7FF;
+    color: #000000;
+    margin-bottom: 12px;
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
+}
+
+body.claro .icono-circulo {
+    background: #35A7FF;
+    color: #ffffff;
+}
+
+.icono-sm {
+    width: 16px;
+    height: 16px;
+}
+
+.icono-lg {
+    width: 64px;
+    height: 64px;
+}
+
+// Línea de tiempo de experiencia
+.linea-tiempo {
+    position: relative;
+}
+
+.linea-tiempo-trazo {
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-acento);
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .linea-tiempo-trazo {
+        display: block;
+    }
+}
+
+.tarjeta-experiencia {
+    position: relative;
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    .tarjeta-experiencia {
+        margin-left: 64px;
+    }
+}
+
+.punto-tiempo {
+    position: absolute;
+    left: -16px;
+    top: 24px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-acento);
+    border: 4px solid var(--color-fondo-oscuro);
+    display: none;
+}
+
+body.claro .punto-tiempo {
+    border-color: #fff;
+}
+
+@media (min-width: 768px) {
+    .punto-tiempo {
+        display: block;
+    }
+}
+
+.cuerpo-tarjeta {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radio);
+    padding: 24px;
+    box-shadow: var(--sombra);
+}
+
+body.claro .cuerpo-tarjeta {
+    background: #f8fafc;
+}
+
+.cabecera {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.meta .fila-etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #cbd5e1;
+}
+
+body.claro .etiqueta {
+    color: #475467;
+}
+
+.roles,
+.respons,
+.techs {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.claro .roles,
+body.claro .respons,
+body.claro .techs {
+    border-top-color: #e5e7eb;
+}
+
+.roles h4,
+.respons h4,
+.techs h4 {
+    margin-bottom: 6px;
+    font-size: 1.05rem;
+    color: var(--color-acento);
+}
+
+body.claro .roles h4,
+body.claro .respons h4,
+body.claro .techs h4 {
+    color: var(--color-primario);
+}
+
+.respons .vinetas {
+    margin-top: 8px;
+}
+
+.respons .vinetas li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.respons .vinetas li:last-child {
+    margin-bottom: 0;
+}
+
+.respons .vinetas li a {
+    color: var(--color-acento);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    padding-bottom: 1px;
+}
+
+.respons .vinetas li a:hover {
+    border-bottom-color: var(--color-acento);
+    color: #89d8ff;
+}
+
+body.claro .respons .vinetas li a {
+    color: var(--color-primario);
+}
+
+body.claro .respons .vinetas li a:hover {
+    border-bottom-color: var(--color-primario);
+    color: var(--color-acento);
+}
+
+// ============================================================================
+// SECCIÓN: FICHAS (CHIPS/TAGS) E INSIGNIAS (BADGES)
+// ============================================================================
+// Las fichas son etiquetas pequeñas para mostrar tecnologías usadas en proyectos.
+// Las insignias sirven para indicar estados (online/offline, completado, etc.)
+// Ambas tienen efectos hover y variantes de color según su propósito.
+
+// Chips y etiquetas
+.fichas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ficha {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    background: rgba(0, 174, 239, 0.16);
+    color: #89d8ff;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.ficha:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: rgba(53, 167, 255, 0.25);
+    color: #FCFCFC;
+    box-shadow: 0 4px 12px rgba(53, 167, 255, 0.3);
+}
+
+body.claro .ficha {
+    background: rgba(14, 30, 64, 0.12);
+    color: var(--color-primario);
+}
+
+body.claro .ficha:hover {
+    background: rgba(14, 30, 64, 0.2);
+    color: var(--color-primario);
+    box-shadow: 0 4px 12px rgba(14, 30, 64, 0.2);
+}
+
+.fichas.contorno .ficha {
+    background: transparent;
+    border: 1px solid var(--color-acento);
+    color: #fff;
+}
+
+.fichas.contorno .ficha:hover {
+    background: rgba(53, 167, 255, 0.15);
+    border-color: #35A7FF;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(53, 167, 255, 0.3);
+}
+
+body.claro .fichas.contorno .ficha {
+    border-color: var(--color-primario);
+    color: var(--color-primario);
+}
+
+body.claro .fichas.contorno .ficha:hover {
+    background: rgba(14, 30, 64, 0.08);
+    border-color: var(--color-acento);
+    box-shadow: 0 4px 12px rgba(14, 30, 64, 0.2);
+}
+
+.insignia {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: #384e72;
+    color: #cbd5e1;
+}
+
+// Insignias para ESTADO (online/offline) - AZUL
+.insignia.insignia-online {
+    background: rgba(0, 174, 239, 0.16);
+    color: #89d8ff;
+}
+
+.insignia.insignia-offline {
+    background: rgba(100, 116, 139, 0.16);
+    color: #cbd5e1;
+}
+
+// Insignias para PROGRESO (completado/en desarrollo/pausado) - VERDE
+.insignia.insignia-completado {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.insignia.insignia-desarrollo {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.insignia.insignia-pausado {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+// Insignias para MODALIDAD (individual/en grupo) - GRIS
+.insignia.insignia-individual {
+    background: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+}
+
+.insignia.insignia-grupo {
+    background: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+}
+
+// Clases legacy para compatibilidad (deprecadas)
+.insignia.informacion {
+    background: rgba(0, 174, 239, 0.16);
+    color: #89d8ff;
+}
+
+.insignia.exito {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+// Contenedor para alinear insignias a la izquierda
+.fila-insignias {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.fila-entre {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.divisor {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 16px 0;
+}
+
+body.claro .divisor {
+    background: #e5e7eb;
+}
+
+.strong {
+    font-weight: 600;
+}
+
+// Educación
+.tarjeta-educacion {
+    position: relative;
+    border-radius: var(--radio);
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: default;
+    min-width: 0;
+}
+
+.tarjeta-educacion:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(53, 167, 255, 0.25);
+    background: rgba(53, 167, 255, 0.08);
+}
+
+.tarjeta-educacion:hover .icono-circulo {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+body.claro .tarjeta-educacion {
+    background: #fff;
+}
+
+body.claro .tarjeta-educacion:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(14, 30, 64, 0.15);
+    background: #f8fafc;
+}
+
+.tarjeta-educacion .fondo-decoracion {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--color-acento);
+    filter: blur(40px);
+    opacity: 0.25;
+}
+
+// Portfolio (proyectos)
+.tarjeta-proyecto {
+    border-radius: var(--radio);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 0;
+}
+
+body.claro .tarjeta-proyecto {
+    background: #f8fafc;
+}
+
+.portada-proyecto {
+    height: 192px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.portada-proyecto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.portada-proyecto.degradado {
+    background: linear-gradient(135deg, var(--color-acento), var(--color-primario));
+    color: #fff;
+}
+
+.portada-proyecto.marcador {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.emoji {
+    font-size: 3rem;
+}
+
+@media (max-width: 800px) {
+    .portada-proyecto {
+        height: 170px;
+    }
+}
+
+@media (max-width: 640px) {
+
+    #portafolio .rejilla,
+    #portafolio .md\:rejilla-2,
+    #portafolio .lg\:rejilla-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .portada-proyecto {
+        height: 150px;
+    }
+}
+
+@media (max-width: 520px) {
+
+    #portafolio .rejilla,
+    #portafolio .md\:rejilla-2,
+    #portafolio .lg\:rejilla-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .portada-proyecto {
+        height: 180px;
+    }
+}
+
+@media (max-width: 400px) {
+    .portada-proyecto {
+        height: 160px;
+    }
+}
+
+.tarjeta-proyecto h3 {
+    font-size: clamp(0.95rem, 3.2vw, 1.25rem);
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.tarjeta-proyecto .p-6 {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    padding-top: 16px;
+}
+
+// Contacto
+.gap-12 {
+    gap: 3rem;
+}
+
+.contacto-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.campo {
+    margin-bottom: 16px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(10, 22, 40, 0.8);
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    font-size: 1rem;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: #94a3b8;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    border-color: var(--color-acento);
+}
+
+body.claro .campo input,
+body.claro .campo textarea {
+    background: #f2f4f7;
+    color: var(--color-primario);
+    border-color: #e5e7eb;
+}
+
+body.claro .campo input:focus,
+body.claro .campo textarea:focus {
+    border-color: var(--color-primario);
+}
+
+#formContacto {
+    padding: clamp(32px, 4vw, 52px);
+}
+
+@media (max-width: 640px) {
+    #formContacto {
+        padding: 26px;
+    }
+}
+
+.bloque-contacto {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: var(--sombra-sm);
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.bloque-contacto:hover {
+    transform: translateY(-5px) translateX(5px);
+    background: rgba(53, 167, 255, 0.1);
+    box-shadow: 0 15px 30px rgba(53, 167, 255, 0.25);
+    border-color: rgba(53, 167, 255, 0.4);
+}
+
+.bloque-contacto:hover .icono-circulo {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 20px rgba(53, 167, 255, 0.4);
+}
+
+body.claro .bloque-contacto {
+    background: #fff;
+}
+
+body.claro .bloque-contacto:hover {
+    background: #f8fafc;
+    box-shadow: 0 15px 30px rgba(14, 30, 64, 0.15);
+    border-color: var(--color-acento);
+}
+
+.pila-6 {
+    display: grid;
+    gap: 24px;
+}
+
+.pila-contacto {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .pila-contacto {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+// Botones
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.boton.primario {
+    background: #35A7FF;
+    color: #000000;
+    box-shadow: var(--sombra-sm);
+}
+
+.boton.primario i {
+    color: #000000;
+}
+
+.boton.primario:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(53, 167, 255, 0.4);
+    background: #35A7FF;
+}
+
+body.claro .boton.primario {
+    background: #35A7FF;
+    color: #ffffff;
+}
+
+body.claro .boton.primario i {
+    color: #ffffff;
+}
+
+body.claro .boton.primario:hover {
+    box-shadow: 0 15px 35px rgba(53, 167, 255, 0.3);
+}
+
+.boton:not(.primario) {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(53, 167, 255, 0.3);
+    color: #35A7FF;
+}
+
+.boton:not(.primario):hover {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(53, 167, 255, 0.15);
+    border-color: #35A7FF;
+    box-shadow: 0 10px 25px rgba(53, 167, 255, 0.2);
+    color: #FCFCFC;
+}
+
+body.claro .boton:not(.primario) {
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+}
+
+body.claro .boton:not(.primario):hover {
+    background: var(--color-primario);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(14, 30, 64, 0.2);
+}
+
+// Pie de página
+.pie {
+    padding: 32px 16px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    color: #94a3b8;
+}
+
+body.claro .pie {
+    color: #667085;
+    border-top-color: #e5e7eb;
+    background: #fff;
+}
+
+// Transiciones
+.seccion,
+.tarjeta,
+.tarjeta-habilidad,
+.tarjeta-blanda,
+.tarjeta-educacion,
+.tarjeta-proyecto,
+.bloque-contacto {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.vinetas {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 6px;
+}
+
+// Animaciones
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+// Ajustes responsive
+@media (max-width: 400px) {
+
+    #habilidades-tecnicas .rejilla,
+    #habilidades-tecnicas .rejilla-2,
+    #habilidades-tecnicas .md\:rejilla-3,
+    #habilidades-tecnicas .lg\:rejilla-5 {
+        grid-template-columns: 1fr !important;
+    }
+
+    #habilidades-tecnicas .tarjeta-habilidad h4 {
+        font-size: 0.88rem;
+    }
+}
+
+// ============================================================================
+// RESPONSIVE: PANTALLAS MUY PEQUEÑAS (< 350px)
+// ============================================================================
+// Para teléfonos con pantallas muy angostas, reduzco aún más los tamaños
+// de fuente y espaciados. Es importante que todo sea legible incluso en
+// dispositivos pequeños como el iPhone SE o Galaxy Fold.
+
+@media (max-width: 350px) {
+    .seccion {
+        padding: 56px 16px;
+    }
+
+    h1 {
+        font-size: clamp(1.8rem, 9vw, 2.2rem);
+    }
+
+    h2 {
+        font-size: clamp(1.35rem, 7.5vw, 1.85rem);
+    }
+
+    h3 {
+        font-size: clamp(1.05rem, 6vw, 1.4rem);
+    }
+
+    .lead {
+        font-size: 0.92rem;
+    }
+
+    .sociales {
+        gap: 12px;
+    }
+
+    .boton-social {
+        width: 46px;
+        height: 46px;
+    }
+
+    .tarjeta-habilidad {
+        padding: 16px;
+    }
+
+    .tarjeta-habilidad img {
+        width: 46px;
+        height: 46px;
+    }
+
+    .emoji-habilidad {
+        font-size: 2rem;
+    }
+
+    .tarjeta-blanda {
+        padding: 20px;
+    }
+
+    .tarjeta-educacion {
+        padding: 24px;
+    }
+
+    .tarjeta-proyecto .p-6 {
+        padding: 20px;
+    }
+
+    .campo input,
+    .campo textarea {
+        padding: 10px 12px;
+    }
+
+    .encabezado-movil {
+        padding: 0 16px;
+    }
+
+    .cajon-movil {
+        width: 100%;
+    }
+
+    #habilidades-tecnicas .tarjeta-habilidad h4 {
+        font-size: 0.83rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .seccion {
+        padding: 52px 12px;
+    }
+
+    #habilidades-tecnicas .rejilla {
+        gap: 16px;
+    }
+
+    #habilidades-tecnicas .tarjeta-habilidad h4 {
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: clamp(1.6rem, 10vw, 2rem);
+        line-height: 1.15;
+    }
+
+    .rejilla,
+    .rejilla-2,
+    .md\:rejilla-2,
+    .md\:rejilla-3,
+    .lg\:rejilla-3,
+    .lg\:rejilla-5 {
+        grid-template-columns: 1fr !important;
+    }
+
+    h2 {
+        font-size: clamp(1.25rem, 8vw, 1.6rem);
+    }
+
+    h3 {
+        font-size: clamp(0.95rem, 6.5vw, 1.2rem);
+    }
+
+    .lead {
+        font-size: 0.85rem;
+    }
+
+    .sociales {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .boton-social {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tarjeta-habilidad {
+        padding: 14px;
+    }
+
+    .tarjeta-habilidad img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .emoji-habilidad {
+        font-size: 1.7rem;
+    }
+
+    .tarjeta-blanda,
+    .tarjeta-educacion,
+    .tarjeta-proyecto {
+        padding: 20px;
+    }
+
+    .tarjeta-proyecto .p-6 {
+        padding: 16px;
+    }
+
+    .campo input,
+    .campo textarea {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .boton.primario {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .acciones-moviles {
+        gap: 8px;
+    }
+
+    .encabezado-movil {
+        padding: 0 12px;
+        height: 58px;
+    }
+
+    .alternar-tema.pequeno {
+        --toggle-width: 52px;
+        --toggle-height: 26px;
+        --toggle-thumb: 20px;
+        --toggle-padding: 6px;
+        --toggle-gap: 4px;
+        --toggle-offset: 3px;
+    }
+
+    .boton-icono {
+        width: 36px;
+        height: 36px;
+    }
+
+    .icono-circulo {
+        width: 56px;
+        height: 56px;
+    }
+
+    .icono-lg {
+        width: 56px;
+        height: 56px;
+    }
+
+    .fichas {
+        gap: 6px;
+    }
+
+    .ficha {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+
+    .vinetas {
+        padding-left: 1rem;
+    }
+
+    .p-6 {
+        padding: 1.25rem;
+    }
+
+    .pila-6 {
+        gap: 20px;
+    }
+
+    body,
+    .contenedor,
+    .contenido {
+        overflow-x: hidden;
+    }
+
+    #habilidades-tecnicas .tarjeta-habilidad h4 {
+        font-size: 0.78rem;
+        overflow-wrap: anywhere;
+        hyphens: auto;
+    }
+}
+
+// ============================================================================
+// SECCIÓN: NOTIFICACIONES
+// ============================================================================
+// Contenedor para mostrar notificaciones/toasts en la esquina inferior derecha.
+// Las notificaciones se apilan verticalmente con un gap entre ellas.
+// Por ahora no está implementado el componente, pero dejo los estilos listos.
+
+.notificaciones-contenedor {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+}

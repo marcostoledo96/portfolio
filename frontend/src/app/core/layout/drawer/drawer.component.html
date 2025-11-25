@@ -1,0 +1,60 @@
+<!-- Drawer: panel deslizable para mobile -->
+<div id="cajon-movil" class="cajon-movil" [class.abierto]="estaAbierto" [attr.hidden]="!estaAbierto ? true : null">
+
+    <!-- Foto de perfil en mobile -->
+    <div class="perfil-movil">
+        <img src="assets/img/Foto_Perfil.jpg" alt="Marcos Toledo" width="96" height="96" loading="eager" />
+        <p class="nombre-movil">
+            Marcos Ezequiel
+            <span class="apellido-movil">Toledo</span>
+        </p>
+    </div>
+
+    <!-- Navegación del cajón -->
+    <nav class="navegacion-cajon">
+        <ul>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('sobre-mi')"
+                    (click)="irASeccion('sobre-mi')">
+                    Sobre mí
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('habilidades-tecnicas')"
+                    (click)="irASeccion('habilidades-tecnicas')">
+                    Habilidades Técnicas
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('habilidades-blandas')"
+                    (click)="irASeccion('habilidades-blandas')">
+                    Habilidades blandas
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('experiencia')"
+                    (click)="irASeccion('experiencia')">
+                    Experiencia
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('educacion')"
+                    (click)="irASeccion('educacion')">
+                    Educación
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('portafolio')"
+                    (click)="irASeccion('portafolio')">
+                    Portfolio
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('contacto')"
+                    (click)="irASeccion('contacto')">
+                    Contacto
+                </button>
+            </li>
+        </ul>
+    </nav>
+</div>

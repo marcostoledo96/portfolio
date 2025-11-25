@@ -1,0 +1,23 @@
+<!-- MobileHeader: header compacto para mobile -->
+<header class="encabezado-movil">
+    <div class="logo-circulo pequeno"><span>MT</span></div>
+    <div class="acciones-moviles">
+        <!-- Toggle de tema -->
+        <button class="alternar-tema alternar-tema--movil pequeno" type="button" role="switch"
+            [attr.aria-checked]="temaActual === 'claro'" aria-label="Cambiar tema" (click)="alternarTema()">
+            <span class="alternar-tema__icon alternar-tema__icon--sun" aria-hidden="true">
+                <i data-lucide="sun"></i>
+            </span>
+            <span class="alternar-tema__icon alternar-tema__icon--moon" aria-hidden="true">
+                <i data-lucide="moon"></i>
+            </span>
+            <span class="alternar-tema__thumb" aria-hidden="true"></span>
+        </button>
+
+        <!-- Botón para abrir/cerrar drawer -->
+        <button class="boton-icono" [attr.aria-expanded]="drawerAbierto" aria-controls="cajon-movil"
+            [attr.aria-label]="drawerAbierto ? 'Cerrar menú' : 'Abrir menú'" (click)="alternarDrawer()">
+            <i [attr.data-lucide]="drawerAbierto ? 'x' : 'menu'"></i>
+        </button>
+    </div>
+</header>

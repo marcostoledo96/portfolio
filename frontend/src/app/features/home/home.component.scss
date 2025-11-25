@@ -1,0 +1,27 @@
+// Estilos específicos del HomeComponent
+// La mayoría de los estilos están en styles.scss global para mantener consistencia.
+// Acá solo defino ajustes o overrides específicos si hace falta.
+
+:host {
+    display: block;
+}
+
+// Cursor parpadeante para el efecto de texto animado
+.cursor-tecleado {
+    display: inline-block;
+    animation: parpadeo 1s infinite;
+    margin-left: 2px;
+}
+
+@keyframes parpadeo {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
+}

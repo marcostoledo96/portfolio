@@ -1,0 +1,7 @@
+// Estilos del Sidebar (los estilos principales están en styles.scss global)
+// Acá solo defino ajustes específicos del componente si hace falta override.
+// La mayoría de los estilos ya están definidos en la migración de css/styles.css.
+
+:host {
+    display: contents;
+}

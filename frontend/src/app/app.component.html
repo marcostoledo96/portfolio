@@ -1,0 +1,11 @@
+<!-- AppComponent template: estructura principal de la app -->
+<!-- Acá monto el sidebar, el header móvil, el drawer y el contenedor principal con router-outlet -->
+<!-- Los componentes de layout (sidebar, header, drawer) están declarados en AppModule -->
+
+<app-sidebar></app-sidebar>
+<app-mobile-header></app-mobile-header>
+<app-drawer></app-drawer>
+
+<main id="contenido" class="contenido">
+    <router-outlet></router-outlet>
+</main>
