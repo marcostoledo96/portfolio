@@ -1861,7 +1861,58 @@ body.claro .pie {
     }
 }
 
-// Ajustes responsive
+// ============================================================================
+// RESPONSIVE: MOBILE GENERAL (<= 768px)
+// ============================================================================
+@media (max-width: 768px) {
+    // Habilidades técnicas: 2 columnas y tarjetas más compactas
+    #habilidades-tecnicas .rejilla,
+    #habilidades-tecnicas .rejilla-2,
+    #habilidades-tecnicas .md\:rejilla-3,
+    #habilidades-tecnicas .lg\:rejilla-5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 20px;
+    }
+
+    #habilidades-tecnicas .tarjeta-habilidad {
+        width: 140px;
+        height: 140px;
+        padding: 20px 14px;
+    }
+
+    // Habilidades blandas: 1 tarjeta por fila
+    #habilidades-blandas .rejilla,
+    #habilidades-blandas .rejilla-1,
+    #habilidades-blandas .md\:rejilla-2,
+    #habilidades-blandas .lg\:rejilla-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    // Educación: 1 tarjeta por fila
+    #educacion .rejilla,
+    #educacion .rejilla-2,
+    #educacion .md\:rejilla-3,
+    #educacion .lg\:rejilla-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    // Contacto: ajusto padding y ancho para evitar cortes laterales
+    #contacto .contenedor {
+        padding-inline: 12px;
+    }
+
+    #contacto .pila-contacto {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    #contacto .bloque-contacto {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+// Ajustes responsive extra (<= 400px)
 @media (max-width: 400px) {
 
     #habilidades-tecnicas .rejilla,
