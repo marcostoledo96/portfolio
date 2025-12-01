@@ -356,26 +356,28 @@ p {
 // El nombre va más chico y sutil, mientras que el apellido es el protagonista
 // con letras grandes y en color acento para llamar la atención.
 
-.nombre-lateral__nombre {
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    color: var(--sidebar-dark-text-secondary);
-}
+.nombre-lateral {
+    &__nombre {
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        color: var(--sidebar-dark-text-secondary);
 
-body.claro .nombre-lateral__nombre {
-    color: var(--sidebar-light-text-secondary);
-}
+        body.claro & {
+            color: var(--sidebar-light-text-secondary);
+        }
+    }
 
-.nombre-lateral__apellido {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--sidebar-dark-accent);
-    letter-spacing: 0.08em;
-}
+    &__apellido {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--sidebar-dark-accent);
+        letter-spacing: 0.08em;
 
-body.claro .nombre-lateral__apellido {
-    color: var(--sidebar-light-accent);
+        body.claro & {
+            color: var(--sidebar-light-accent);
+        }
+    }
 }
 
 // ============================================================================
@@ -389,14 +391,14 @@ body.claro .nombre-lateral__apellido {
     width: 100%;
     padding: 0 8px;
     margin-top: 8px;
-}
 
-.navegacion ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 8px;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+    }
 }
 
 // Cada enlace del menú
@@ -413,34 +415,34 @@ body.claro .nombre-lateral__apellido {
     border: 0;
     cursor: pointer;
     transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
-}
 
-body.claro .enlace-nav {
-    color: #e5e7eb;
-}
+    body.claro & {
+        color: #e5e7eb;
+    }
 
-// Efecto hover: se levanta 1px y cambia de color
-.enlace-nav:hover {
-    background: var(--sidebar-dark-hover);
-    color: var(--sidebar-dark-text);
-    transform: translateY(-1px);
-}
+    // Efecto hover: se levanta 1px y cambia de color
+    &:hover {
+        background: var(--sidebar-dark-hover);
+        color: var(--sidebar-dark-text);
+        transform: translateY(-1px);
 
-body.claro .enlace-nav:hover {
-    background: var(--sidebar-light-hover);
-    color: var(--sidebar-light-text);
-}
+        body.claro & {
+            background: var(--sidebar-light-hover);
+            color: var(--sidebar-light-text);
+        }
+    }
 
-// Cuando el enlace corresponde a la sección activa
-.enlace-nav.activo {
-    background: var(--sidebar-dark-active-bg);
-    color: var(--sidebar-dark-active-text);
-    box-shadow: var(--sombra-sm);
-}
+    // Cuando el enlace corresponde a la sección activa
+    &.activo {
+        background: var(--sidebar-dark-active-bg);
+        color: var(--sidebar-dark-active-text);
+        box-shadow: var(--sombra-sm);
 
-body.claro .enlace-nav.activo {
-    background: var(--sidebar-light-active-bg);
-    color: var(--sidebar-light-active-text);
+        body.claro & {
+            background: var(--sidebar-light-active-bg);
+            color: var(--sidebar-light-active-text);
+        }
+    }
 }
 
 // ============================================================================
