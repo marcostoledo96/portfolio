@@ -3,11 +3,14 @@
 
 .contenido {
     margin-left: 0;
-    min-height: 100vh;
+    min-height: calc(100vh - 64px);
     padding-top: 64px; // compenso el header móvil
+    padding-bottom: 80px; // espacio para el footer en mobile
 
     @media (min-width: 1024px) {
         margin-left: 256px; // ancho del sidebar en desktop
         padding-top: 0;
+        min-height: 100vh;
+        padding-bottom: 0;
     }
 }
