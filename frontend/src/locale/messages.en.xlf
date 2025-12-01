@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="es" target-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="heroDescription" datatype="html">
+        <source> Soy estudiante avanzado de la <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Tecnicatura Superior en Desarrollo de Software<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, con experiencia en <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>testing web, desarrollo de aplicaciones web y soporte tecnico<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>. Me gusta involucrarme en proyectos donde se pueda elevar la calidad, optimizar flujos y automatizar procesos para lograr resultados concretos. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Trabajo con <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>HTML, CSS, JavaScript, Node.js, Express, SQL y Angular<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, ademas de seguir incorporando Java, React y buenas practicas modernas. Me manejo con metodologias agiles como Scrum para organizar el trabajo y sostener el ritmo del equipo. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Me considero una persona <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>responsable<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, con <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>comunicacion directa<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> y un enfoque <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>autodidacta<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, siempre orientado a obtener <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>resultados medibles<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, tanto en desarrollo <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>FullStack Junior, soporte tecnico IT, y tareas de QA Testing<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>. </source>
+        <target> I am an advanced student of <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Software Development<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, with experience in <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>web testing, web application development and technical support<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>. I enjoy getting involved in projects where I can improve quality, optimize workflows and automate processes to achieve concrete results. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> I work with <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>HTML, CSS, JavaScript, Node.js, Express, SQL and Angular<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, while continuing to learn Java, React and modern best practices. I use agile methodologies like Scrum to organize work and maintain team momentum. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> I consider myself a <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>responsible<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> person, with <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>direct communication<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> and a <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>self-taught<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> approach, always focused on achieving <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>measurable results<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, whether in <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>Junior FullStack development, IT technical support, or QA Testing tasks<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="skillsTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Habilidades<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Tecnicas </source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Technical<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Skills </target>
+      </trans-unit>
+      <trans-unit id="softSkillsTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Habilidades<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Blandas </source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Soft<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Skills </target>
+      </trans-unit>
+      <trans-unit id="languagesTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Idiomas<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Languages<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="experienceTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Experiencia<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Profesional </source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Professional<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Experience </target>
+      </trans-unit>
+      <trans-unit id="educationTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Educacion<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Education<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="portfolioTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Portfolio<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Portfolio<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="contactTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Contacto<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Contact<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="contactSubtitle" datatype="html">
+        <source> Tenes un proyecto o desafio en mente? Conversemos. </source>
+        <target> Have a project or challenge in mind? Let's talk. </target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

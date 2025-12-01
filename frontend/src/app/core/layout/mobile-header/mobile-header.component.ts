@@ -1,8 +1,9 @@
 ﻿// MobileHeaderComponent: encabezado compacto para mobile con logo y botones de tema y drawer.
 // Yo muestro este header solo en pantallas pequeñas (< 1024px).
 // Los botones permiten alternar el tema y abrir/cerrar el drawer.
+// El logo MT sirve como botón para volver arriba de la página cuando se scrollea mucho.
 
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ThemeService, Theme } from '../../services/theme.service';
 import { DrawerService } from '../../services/drawer.service';
@@ -21,12 +22,14 @@ type IdleCb = (cb: () => void) => void;
 export class MobileHeaderComponent implements OnInit, OnDestroy {
     temaActual: Theme = 'claro';
     drawerAbierto = false;
+    mostrarVolverArriba = false;
     private destroy$ = new Subject<void>();
     private iconosPendientes = false;
 
     constructor(
         private themeService: ThemeService,
-        private drawerService: DrawerService
+        private drawerService: DrawerService,
+        private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit(): void {
@@ -77,5 +80,24 @@ export class MobileHeaderComponent implements OnInit, OnDestroy {
     // Alterno el drawer
     alternarDrawer(): void {
         this.drawerService.alternar();
+    }
+    
+    // Detecto el scroll para mostrar/ocultar el botón de volver arriba
+    @HostListener('window:scroll', [])
+    onWindowScroll(): void {
+        this.mostrarVolverArriba = window.scrollY > 300;
+        this.cdr.markForCheck();
+    }
+    
+    // Scroll suave hasta arriba de la página y navego a la sección sobre-mi
+    volverArriba(): void {
+        // Primero hago scroll al top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Tambien intento hacer scroll al elemento sobre-mi por si acaso
+        const elementoInicio = document.getElementById('sobre-mi');
+        if (elementoInicio) {
+            elementoInicio.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 }

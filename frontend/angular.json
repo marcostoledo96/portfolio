@@ -13,6 +13,12 @@
             "root": "",
             "sourceRoot": "src",
             "prefix": "app",
+            "i18n": {
+                "sourceLocale": "es",
+                "locales": {
+                    "en": "src/locale/messages.en.xlf"
+                }
+            },
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
@@ -21,7 +27,8 @@
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": [
-                            "zone.js"
+                          "zone.js",
+                          "@angular/localize/init"
                         ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
@@ -58,6 +65,22 @@
                             ],
                             "outputHashing": "all"
                         },
+                        "production-en": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kB",
+                                    "maximumError": "1MB"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kB",
+                                    "maximumError": "4kB"
+                                }
+                            ],
+                            "outputHashing": "all",
+                            "localize": ["en"]
+                        },
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
@@ -79,14 +102,18 @@
                     "defaultConfiguration": "development"
                 },
                 "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n"
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "outputPath": "src/locale"
+                    }
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
                         "polyfills": [
-                            "zone.js",
-                            "zone.js/testing"
+                          "zone.js",
+                          "zone.js/testing",
+                          "@angular/localize/init"
                         ],
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",

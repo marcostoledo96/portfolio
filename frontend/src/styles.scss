@@ -15,52 +15,63 @@
 // ============================================================================
 
 // ============================================================================
-// 1. VARIABLES CSS
+// 1. VARIABLES CSS - TEMA UNIFICADO
 // ============================================================================
-// Acá defino todas las variables de color, espaciado y efectos que uso
-// en toda la aplicación. Esto me permite cambiar el tema fácilmente.
+// Paleta centralizada para evitar duplicados. Cambiar aca afecta todo.
+// Los colores se agrupan por funcion para facilitar el mantenimiento.
 
 :root {
-    // Colores principales del portfolio
-    --color-primario: #0E1E40;          // Azul oscuro para textos y fondos
-    --color-acento: #00AEEF;            // Azul claro para botones y enlaces
-    --color-fondo-claro: #f8f9fa;       // Fondo gris claro (modo claro)
-    --color-fondo-oscuro: #0a1628;      // Fondo azul oscuro (modo oscuro)
-    --color-texto-claro: #2c3e50;       // Texto para modo claro
-    --color-texto-oscuro: #ffffff;      // Texto para modo oscuro
+    // === PALETA BASE ===
+    --azul-primario: #0E1E40;
+    --azul-acento: #00AEEF;
+    --azul-acento-oscuro: #35A7FF;
+    --azul-fondo-oscuro: #031426;
+    --azul-fondo-degradado: #063360;
+    --gris-claro: #f8f9fa;
+    --gris-texto: #667085;
+    --blanco: #ffffff;
+    --negro-suave: #2c3e50;
+    
+    // === ALIASES SEMANTICOS ===
+    --color-primario: var(--azul-primario);
+    --color-acento: var(--azul-acento);
+    --color-fondo-claro: var(--gris-claro);
+    --color-fondo-oscuro: var(--azul-fondo-oscuro);
+    --color-texto-claro: var(--negro-suave);
+    --color-texto-oscuro: var(--blanco);
 
-    // Bordes y sombras que uso en las cards
-    --radio: 16px;                      // Border radius estándar
-    --radio-lg: 24px;                   // Border radius grande
-    --sombra: 0 10px 30px rgba(0, 0, 0, 0.2);      // Sombra pronunciada
-    --sombra-sm: 0 6px 16px rgba(0, 0, 0, 0.12);   // Sombra sutil
-
-    // Ancho de la barra lateral en desktop
+    // === DIMENSIONES ===
+    --radio: 16px;
+    --radio-lg: 24px;
     --sidebar-width: 256px;
+    
+    // === SOMBRAS ===
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --sombra-sm: 0 6px 16px rgba(0, 0, 0, 0.12);
+    --sombra-acento: 0 8px 20px rgba(53, 167, 255, 0.4);
 
-    // Paleta para modo CLARO (sidebar, header, drawer)
-    // La sidebar siempre mantiene colores oscuros, incluso en modo claro
-    --sidebar-light-bg: #0E1E40;
-    --sidebar-light-text: #ffffff;
+    // === SIDEBAR MODO CLARO ===
+    --sidebar-light-bg: var(--azul-primario);
+    --sidebar-light-text: var(--blanco);
     --sidebar-light-text-secondary: rgba(255, 255, 255, 0.7);
     --sidebar-light-hover: rgba(255, 255, 255, 0.12);
-    --sidebar-light-active-bg: #00AEEF;
-    --sidebar-light-active-text: #ffffff;
-    --sidebar-light-accent: #00AEEF;
+    --sidebar-light-active-bg: var(--azul-acento);
+    --sidebar-light-active-text: var(--blanco);
+    --sidebar-light-accent: var(--azul-acento);
 
-    // Paleta para modo OSCURO (sidebar, header, drawer)
-    --sidebar-dark-bg: #031426;
+    // === SIDEBAR MODO OSCURO ===
+    --sidebar-dark-bg: var(--azul-fondo-oscuro);
     --sidebar-dark-text: #FCFCFC;
     --sidebar-dark-text-secondary: #b8c5d6;
     --sidebar-dark-hover: rgba(53, 167, 255, 0.15);
-    --sidebar-dark-active-bg: #35A7FF;
-    --sidebar-dark-active-text: #031426;
-    --sidebar-dark-accent: #35A7FF;
+    --sidebar-dark-active-bg: var(--azul-acento-oscuro);
+    --sidebar-dark-active-text: var(--azul-fondo-oscuro);
+    --sidebar-dark-accent: var(--azul-acento-oscuro);
     --sidebar-dark-border: rgba(53, 167, 255, 0.2);
 
-    // Colores del degradado de fondo en modo oscuro
-    --body-dark-bg-start: #031426;
-    --body-dark-bg-end: #063360;
+    // === FONDO DEGRADADO ===
+    --body-dark-bg-start: var(--azul-fondo-oscuro);
+    --body-dark-bg-end: var(--azul-fondo-degradado);
 }
 
 // ============================================================================
@@ -613,6 +624,8 @@ body.claro .boton-icono:hover {
     position: fixed;
     inset: 64px 0 0 auto;
     width: 260px;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
     background: var(--sidebar-dark-bg);
     color: var(--sidebar-dark-text);
     box-shadow: var(--sombra);
@@ -645,21 +658,22 @@ body.claro .cajon-movil {
 
 .navegacion-cajon ul {
     list-style: none;
-    padding: 16px;
+    padding: 12px;
     margin: 0;
     display: grid;
-    gap: 8px;
+    gap: 4px;
 }
 
 .enlace-cajon {
     width: 100%;
     text-align: left;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-radius: 12px;
     background: transparent;
     border: 0;
     cursor: pointer;
     color: inherit;
+    font-size: 0.9rem;
     transition: background 0.2s ease, color 0.2s ease;
 }
 
@@ -677,7 +691,7 @@ body.claro .enlace-cajon:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 24px 16px 16px;
+    padding: 16px 16px 12px;
     border-bottom: 1px solid var(--sidebar-dark-border);
 }
 
@@ -686,13 +700,13 @@ body.claro .perfil-movil {
 }
 
 .perfil-movil img {
-    width: 96px;
-    height: 96px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--sidebar-dark-active-bg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 body.claro .perfil-movil img {
@@ -701,7 +715,7 @@ body.claro .perfil-movil img {
 
 .perfil-movil .nombre-movil {
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     color: var(--sidebar-dark-text);
@@ -948,6 +962,48 @@ body.claro .boton-social {
     box-shadow: var(--sombra);
     background: var(--color-acento);
     color: #fff;
+}
+
+// Tooltip para mobile (se muestra con primer tap, segundo tap ejecuta accion)
+.tooltip-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    // En mobile oculto el tooltip de hover (::after)
+    .boton-social::after {
+        display: none;
+    }
+    
+    // Muestro el tooltip mobile
+    .tooltip-mobile {
+        display: block;
+        position: absolute;
+        bottom: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 1000;
+    }
+    
+    body.claro .tooltip-mobile {
+        background: rgba(255, 255, 255, 0.98);
+        color: var(--color-primario);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .tooltip-mobile.visible {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
+    }
 }
 
 .rejilla {
@@ -1896,6 +1952,11 @@ body.claro .pie {
     #habilidades-blandas .lg\:rejilla-3 {
         grid-template-columns: 1fr !important;
     }
+    
+    // Idiomas: 1 tarjeta por fila en mobile
+    .rejilla-idiomas {
+        grid-template-columns: 1fr !important;
+    }
 
     // Educación: 1 tarjeta por fila
     #educacion .rejilla,
@@ -1950,18 +2011,35 @@ body.claro .pie {
 
     h1 {
         font-size: clamp(1.8rem, 9vw, 2.2rem);
+        word-break: break-word;
+        hyphens: auto;
     }
 
     h2 {
         font-size: clamp(1.35rem, 7.5vw, 1.85rem);
+        word-break: break-word;
     }
 
     h3 {
         font-size: clamp(1.05rem, 6vw, 1.4rem);
+        overflow-wrap: anywhere;
     }
 
     .lead {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
+        line-height: 1.7;
+    }
+    
+    p {
+        font-size: 0.88rem;
+        line-height: 1.65;
+    }
+    
+    .tarjeta-idioma {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        min-height: 90px;
     }
 
     .sociales {
@@ -2041,6 +2119,16 @@ body.claro .pie {
     .lg\:rejilla-3,
     .lg\:rejilla-5 {
         grid-template-columns: 1fr !important;
+    }
+
+    /* En pantallas muy angostas (iPhone SE, 375x667) hago que el drawer ocupe
+       todo el ancho y sea scrollable para que se vean todas las secciones. */
+    @media (max-width: 375px) {
+        .cajon-movil {
+            width: 100% !important;
+            inset: 64px 0 0 0 !important;
+            max-height: calc(100vh - 64px) !important;
+        }
     }
 
     h2 {
@@ -2167,11 +2255,11 @@ body.claro .pie {
 }
 
 // ============================================================================
-// SECCIÓN: NOTIFICACIONES
+// SECCION: NOTIFICACIONES
 // ============================================================================
 // Contenedor para mostrar notificaciones/toasts en la esquina inferior derecha.
 // Las notificaciones se apilan verticalmente con un gap entre ellas.
-// Por ahora no está implementado el componente, pero dejo los estilos listos.
+// Por ahora no esta implementado el componente, pero dejo los estilos listos.
 
 .notificaciones-contenedor {
     position: fixed;
@@ -2183,3 +2271,244 @@ body.claro .pie {
     gap: 12px;
     max-width: 400px;
 }
+
+// ============================================================================
+// SECCION: SCROLL REVEAL (Animaciones al hacer scroll)
+// ============================================================================
+// Estas clases las uso para que las secciones y cards aparezcan con una
+// animacion suave cuando entran en el viewport. Uso IntersectionObserver
+// desde HomeComponent para agregar la clase .revelado cuando el elemento
+// es visible. La animacion es un fade-in con un leve desplazamiento hacia arriba.
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-reveal.revelado {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+// Variantes con delay para escalonar animaciones en grids
+.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.15s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.2s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.25s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.3s; }
+
+// ============================================================================
+// SECCION: BOTON VOLVER ARRIBA (Logo MT en mobile)
+// ============================================================================
+// El logo MT en el header mobile se convierte en un boton para volver arriba
+// cuando el usuario hace scroll. Cuando scrollY > 300px, agrego la clase
+// .visible que activa una animacion de pulso para llamar la atencion.
+
+.boton-volver-arriba {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    border: none;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 100;
+    position: relative;
+}
+
+.boton-volver-arriba:hover,
+.boton-volver-arriba:active {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(53, 167, 255, 0.4);
+}
+
+.boton-volver-arriba.visible {
+    animation: pulso 2s infinite;
+}
+
+// Estado activo cuando se hace touch en mobile
+.boton-volver-arriba:focus {
+    outline: 2px solid var(--azul-acento);
+    outline-offset: 2px;
+}
+
+@keyframes pulso {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(53, 167, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(53, 167, 255, 0);
+    }
+}
+
+// ============================================================================
+// SECCION: ICONOS EN DRAWER MOBILE
+// ============================================================================
+// Ahora el drawer tiene iconos igual que el sidebar desktop.
+// Uso grid para alinear el icono con el texto del enlace.
+
+.enlace-cajon {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.enlace-cajon i {
+    width: 20px;
+    height: 20px;
+}
+
+.enlace-cajon.activo {
+    background: var(--sidebar-dark-active-bg);
+    color: var(--sidebar-dark-active-text);
+}
+
+body.claro .enlace-cajon.activo {
+    background: var(--sidebar-light-active-bg);
+    color: var(--sidebar-light-active-text);
+}
+
+// ============================================================================
+// SECCION: TARJETAS DE IDIOMAS
+// ============================================================================
+// Muestro los idiomas que manejo con una bandera, el nombre, nivel
+// y una descripcion breve. Uso grid con columnas iguales para que
+// las tarjetas tengan el mismo tamano siempre.
+
+// Rejilla especifica para idiomas con columnas de igual ancho
+.rejilla-idiomas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.tarjeta-idioma {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    border-radius: var(--radio);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: var(--sombra-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.tarjeta-idioma:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(53, 167, 255, 0.2);
+    background: rgba(53, 167, 255, 0.08);
+}
+
+body.claro .tarjeta-idioma {
+    background: #fff;
+}
+
+body.claro .tarjeta-idioma:hover {
+    box-shadow: 0 15px 30px rgba(14, 30, 64, 0.15);
+    background: #f8fafc;
+}
+
+.idioma-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.idioma-info h4 {
+    margin-bottom: 8px;
+}
+
+.idioma-info .mt-2 {
+    margin-top: 8px;
+}
+
+// Icono de bandera con imagen SVG
+.icono-bandera {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(53, 167, 255, 0.1);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.icono-bandera img {
+    width: 36px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+body.claro .icono-bandera {
+    background: rgba(14, 30, 64, 0.08);
+}
+
+// ============================================================================
+// SECCION: AJUSTES DE TIPOGRAFIA MOBILE
+// ============================================================================
+// Refuerzo los ajustes de tipografia para pantallas chicas para que
+// los textos largos no se corten y mantengan buena legibilidad.
+
+@media (max-width: 480px) {
+    .lead {
+        font-size: 0.95rem;
+        line-height: 1.75;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+    
+    p {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        hyphens: auto;
+    }
+    
+    .tarjeta-blanda p,
+    .tarjeta-educacion p,
+    .tarjeta-idioma p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .respons .vinetas li {
+        font-size: 0.9rem;
+        line-height: 1.55;
+    }
+    
+    // Ajustes adicionales para textos largos en mobile
+    h1 {
+        word-break: break-word;
+        hyphens: auto;
+    }
+    
+    h2, h3, h4 {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+    
+    .tarjeta-proyecto h3 {
+        font-size: 1rem;
+    }
+    
+    .ficha {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    
+    .insignia {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+    }
+    
+    .fila-insignias {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .fichas {
+        gap: 6px;
+    }
+}
+

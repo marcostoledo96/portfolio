@@ -1,0 +1,77 @@
+{
+    "proyectos": [
+        {
+            "id": "historias-clinicas",
+            "titulo": "Historias Clinicas",
+            "descripcion": "MVP para gestionar altas de pacientes, registrar consultas y administrar información clínica desde una interfaz simple, pensado para equipos médicos medianos.",
+            "imagen": "assets/img/historias-clinicas.webp",
+            "estado": "desarrollo",
+            "modalidad": "individual",
+            "online": true,
+            "tecnologias": ["Angular", "Node.js", "PostgreSQL"],
+            "urlSitio": "https://mvp-historias-clinicas.vercel.app/",
+            "urlGithub": "https://github.com/marcostoledo96/mvp_historias-clinicas"
+        },
+        {
+            "id": "candyland",
+            "titulo": "Tienda CandyLand",
+            "descripcion": "Tienda online de golosinas con catálogo navegable, fichas detalladas y flujo de compra ágil, enfocada en una experiencia visual limpia.",
+            "imagen": "assets/img/candyland.webp",
+            "estado": "completado",
+            "modalidad": "equipo",
+            "online": true,
+            "tecnologias": ["React", "Node.js", "PostgreSQL"],
+            "urlSitio": "https://candy-land-mvp.vercel.app/",
+            "urlGithub": "https://github.com/marcostoledo96/candyLand-mvp"
+        },
+        {
+            "id": "explorador-juegos",
+            "titulo": "Explorador de Juegos",
+            "descripcion": "Aplicación para descubrir videojuegos con búsqueda, filtrado por categoría y fichas detalladas, priorizando la usabilidad en cualquier dispositivo.",
+            "imagen": "assets/img/juegos.png",
+            "estado": "completado",
+            "modalidad": "equipo",
+            "online": true,
+            "tecnologias": ["HTML", "CSS", "JavaScript", "Node.js"],
+            "urlSitio": "https://explorador-gamerstore.vercel.app/",
+            "urlGithub": "https://github.com/marcostoledo96/explorador_juegos"
+        },
+        {
+            "id": "sanpaholmes",
+            "titulo": "Tienda SanpaHolmes",
+            "descripcion": "Tienda digital de menú de comida, hecha para un evento de caridad Scout, enfocado en la temática de resolver casos criminales.",
+            "imagen": "assets/img/sanpaholmes.webp",
+            "estado": "completado",
+            "modalidad": "individual",
+            "online": true,
+            "tecnologias": ["React", "Node.js", "PostgreSQL"],
+            "urlSitio": "https://demo-sanpaholmes.vercel.app/",
+            "urlGithub": "https://github.com/marcostoledo96/demo_sanpaholmes"
+        },
+        {
+            "id": "ifts26",
+            "titulo": "IFTS N26 - Sitio Web Oficial",
+            "descripcion": "Trabajo en equipo para el desarrollo de la página oficial del instituto, con secciones informativas, contacto y recursos.",
+            "imagen": "assets/img/iftslogo.webp",
+            "estado": "desarrollo",
+            "modalidad": "equipo",
+            "online": true,
+            "tecnologias": ["Angular"],
+            "urlSitio": "https://ifts26.netlify.app/inicio",
+            "urlGithub": "https://github.com/FedeOsorio/IFTS26"
+        },
+        {
+            "id": "portfolio",
+            "titulo": "Portfolio personal",
+            "descripcion": "Portfolio personal desarrollado desde cero para mostrar mi experiencia, habilidades y proyectos de manera profesional y atractiva.",
+            "imagen": "assets/img/portfolio.webp",
+            "estado": "desarrollo",
+            "modalidad": "individual",
+            "online": true,
+            "tecnologias": ["Angular"],
+            "urlSitio": null,
+            "urlGithub": "https://github.com/marcostoledo96/portfolio"
+        }
+    ],
+    "ultimaActualizacion": "2025-11-30"
+}

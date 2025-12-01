@@ -1,6 +1,12 @@
 <!-- MobileHeader: header compacto para mobile -->
+<!-- El logo MT sirve como boton para volver arriba de la pagina -->
 <header class="encabezado-movil">
-    <div class="logo-circulo pequeno"><span>MT</span></div>
+    <button class="logo-circulo pequeno boton-volver-arriba" 
+            (click)="volverArriba()" 
+            aria-label="Volver al inicio de la pagina"
+            [class.visible]="mostrarVolverArriba">
+        <span>MT</span>
+    </button>
     <div class="acciones-moviles">
         <!-- Toggle de tema -->
         <button class="alternar-tema alternar-tema--movil pequeno" type="button" role="switch"
@@ -14,9 +20,9 @@
             <span class="alternar-tema__thumb" aria-hidden="true"></span>
         </button>
 
-        <!-- Botón para abrir/cerrar drawer -->
+        <!-- Boton para abrir/cerrar drawer -->
         <button class="boton-icono" [attr.aria-expanded]="drawerAbierto" aria-controls="cajon-movil"
-            [attr.aria-label]="drawerAbierto ? 'Cerrar menú' : 'Abrir menú'" (click)="alternarDrawer()">
+            [attr.aria-label]="drawerAbierto ? 'Cerrar menu' : 'Abrir menu'" (click)="alternarDrawer()">
             <i [attr.data-lucide]="drawerAbierto ? 'x' : 'menu'"></i>
         </button>
     </div>

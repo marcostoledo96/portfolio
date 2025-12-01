@@ -34,6 +34,12 @@
                     </button>
                 </li>
                 <li>
+                    <button class="enlace-nav" [class.activo]="estaActiva('idiomas')"
+                        (click)="irASeccion('idiomas')">
+                        <i data-lucide="languages"></i><span>Idiomas</span>
+                    </button>
+                </li>
+                <li>
                     <button class="enlace-nav" [class.activo]="estaActiva('experiencia')"
                         (click)="irASeccion('experiencia')">
                         <i data-lucide="briefcase"></i><span>Experiencia</span>

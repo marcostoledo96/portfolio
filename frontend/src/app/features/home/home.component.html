@@ -1,8 +1,8 @@
-<!-- HomeComponent: todas las secciones de la página principal -->
+<!-- HomeComponent: todas las secciones de la pagina principal -->
 
-<!-- Bloque hero donde cuento quien soy -->
+<!-- Bloque hero donde cuento quién soy -->
 <section id="sobre-mi" class="seccion centrado">
-    <div class="contenedor texto-centro">
+    <div class="contenedor texto-centro scroll-reveal">
         <h1 class="mb-4">
             Marcos Ezequiel <span class="texto-acento">Toledo</span>
         </h1>
@@ -10,7 +10,7 @@
             <span id="escrito" aria-live="polite">{{ subtituloAnimado }}</span><span class="cursor-tecleado"
                 aria-hidden="true">|</span>
         </h3>
-        <p class="lead mb-8">
+        <p class="lead mb-8" i18n="@@heroDescription">
             Soy estudiante avanzado de la <b>Tecnicatura Superior en Desarrollo de Software</b>, con experiencia en
             <i>testing web,
                 desarrollo de aplicaciones web y soporte técnico</i>. Me gusta involucrarme en proyectos donde se pueda
@@ -32,29 +32,37 @@
         </p>
         <div class="sociales">
             <a class="boton-social" href="https://github.com/marcostoledo96" target="_blank" rel="noopener noreferrer"
-                aria-label="GitHub" data-tooltip="Ir a GitHub">
+                aria-label="GitHub" data-tooltip="Ir a GitHub"
+                (click)="manejarClickSocial($event, 'github')">
                 <i data-lucide="github"></i>
+                <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'github'">Ir a GitHub</span>
             </a>
             <a class="boton-social" href="https://linkedin.com/in/marcos-ezequiel-toledo" target="_blank"
-                rel="noopener noreferrer" aria-label="LinkedIn" data-tooltip="Ir a LinkedIn">
+                rel="noopener noreferrer" aria-label="LinkedIn" data-tooltip="Ir a LinkedIn"
+                (click)="manejarClickSocial($event, 'linkedin')">
                 <i data-lucide="linkedin"></i>
+                <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'linkedin'">Ir a LinkedIn</span>
             </a>
             <a class="boton-social" href="mailto:marcostoledo96@gmail.com" aria-label="Email"
-                data-tooltip="Enviar email">
+                data-tooltip="Enviar email"
+                (click)="manejarClickSocial($event, 'email')">
                 <i data-lucide="mail"></i>
+                <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'email'">Enviar email</span>
             </a>
             <a class="boton-social" href="assets/doc/CV_ToledoMarcos_IT.pdf" download="CV_ToledoMarcos_IT.pdf"
-                aria-label="Descargar CV" data-tooltip="Descargar CV">
+                aria-label="Descargar CV" data-tooltip="Descargar CV"
+                (click)="manejarClickSocial($event, 'cv')">
                 <i data-lucide="download"></i>
+                <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'cv'">Descargar CV</span>
             </a>
         </div>
     </div>
 </section>
 
-<!-- Seccion de habilidades tecnicas -->
+<!-- Sección de habilidades técnicas -->
 <section id="habilidades-tecnicas" class="seccion alterno">
-    <div class="contenedor">
-        <h2 class="mb-12 texto-centro">
+    <div class="contenedor scroll-reveal">
+        <h2 class="mb-12 texto-centro" i18n="@@skillsTitle">
             <span class="texto-acento">Habilidades</span> Técnicas
         </h2>
         <div class="rejilla rejilla-2 md:rejilla-3 lg:rejilla-5">
@@ -65,7 +73,7 @@
                 <div class="tarjeta-habilidad__interior">
                     <div class="tarjeta-habilidad__cara tarjeta-habilidad__cara--frente">
                         <div class="emoji-habilidad">
-                            <img loading="lazy" decoding="async" [src]="hab.img" [alt]="hab.alt" />
+                            <img loading="lazy" decoding="async" [src]="hab.img" [alt]="hab.alt" width="64" height="64" />
                         </div>
                         <h4>{{ hab.nombre }}</h4>
                     </div>
@@ -78,73 +86,94 @@
     </div>
 </section>
 
-<!-- Seccion de habilidades blandas -->
+<!-- Sección de habilidades blandas -->
 <section id="habilidades-blandas" class="seccion">
-    <div class="contenedor">
-        <h2 class="mb-12 texto-centro">
+    <div class="contenedor scroll-reveal">
+        <h2 class="mb-12 texto-centro" i18n="@@softSkillsTitle">
             <span class="texto-acento">Habilidades</span> Blandas
         </h2>
         <div class="rejilla rejilla-1 md:rejilla-2 lg:rejilla-3">
-            <div class="tarjeta-blanda">
+            <div class="tarjeta-blanda scroll-reveal">
                 <div class="icono-circulo"><i data-lucide="users"></i></div>
                 <h4>Liderazgo y trabajo en equipo</h4>
                 <p>
-                    Coordinación clara y acompañamiento constante de equipos
+                    Coordinacion clara y acompanamiento constante de equipos
                     multidisciplinarios para llegar a cada entrega con foco en
                     resultados.
                 </p>
             </div>
-            <div class="tarjeta-blanda">
+            <div class="tarjeta-blanda scroll-reveal">
                 <div class="icono-circulo"><i data-lucide="lightbulb"></i></div>
-                <h4>Resolución de problemas</h4>
+                <h4>Resolucion de problemas</h4>
                 <p>
-                    Analizo escenarios complejos y propongo soluciones pragmáticas
+                    Analizo escenarios complejos y propongo soluciones pragmaticas
                     sin perder de vista el impacto en negocio y en las personas
                     usuarias.
                 </p>
             </div>
-            <div class="tarjeta-blanda">
+            <div class="tarjeta-blanda scroll-reveal">
                 <div class="icono-circulo">
                     <i data-lucide="heart-handshake"></i>
                 </div>
                 <h4>Voluntariado: Grupo Scout</h4>
                 <p>
-                    Dirigente de grupos juveniles de 11 a 17 años. Formando valores, liderazgo, planificación de
-                    tareas y gestión de equipos.
+                    Dirigente de grupos juveniles de 11 a 17 anos. Formando valores, liderazgo, planificacion de
+                    tareas y gestion de equipos.
                 </p>
             </div>
-            <div class="tarjeta-blanda">
+            <div class="tarjeta-blanda scroll-reveal">
                 <div class="icono-circulo"><i data-lucide="target"></i></div>
-                <h4>Atención al detalle</h4>
+                <h4>Atencion al detalle</h4>
                 <p>
                     Cuido cada entrega con foco en testing, accesibilidad y
                     experiencia real de quienes usan el producto.
                 </p>
             </div>
-            <div class="tarjeta-blanda">
+            <div class="tarjeta-blanda scroll-reveal">
                 <div class="icono-circulo"><i data-lucide="calendar"></i></div>
-                <h4>Organización y planificación</h4>
+                <h4>Organizacion y planificacion</h4>
                 <p>
-                    Planifico sprint a sprint, priorizo tareas críticas y sostengo
+                    Planifico sprint a sprint, priorizo tareas criticas y sostengo
                     la calidad incluso cuando el ritmo se acelera.
                 </p>
             </div>
-            <div class="tarjeta-blanda">
+            <div class="tarjeta-blanda scroll-reveal">
                 <div class="icono-circulo"><i data-lucide="book-open"></i></div>
-                <h4>Aprendizaje autónomo</h4>
+                <h4>Aprendizaje autonomo</h4>
                 <p>
                     Me capacito de forma continua y llevo esas mejoras al equipo sin
-                    esperar a la próxima capacitación formal.
+                    esperar a la proxima capacitacion formal.
                 </p>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Sección de idiomas -->
+<section id="idiomas" class="seccion alterno">
+    <div class="contenedor scroll-reveal">
+        <h2 class="mb-12 texto-centro" i18n="@@languagesTitle">
+            <span class="texto-acento">Idiomas</span>
+        </h2>
+        <div class="rejilla-idiomas">
+            <div class="tarjeta-idioma scroll-reveal" *ngFor="let idioma of idiomas">
+                <div class="icono-bandera">
+                    <img [src]="idioma.bandera" [alt]="idioma.nombre" width="40" height="30" loading="lazy" />
+                </div>
+                <div class="idioma-info">
+                    <h4>{{ idioma.nombre }}</h4>
+                    <span class="insignia informacion">{{ idioma.nivel }}</span>
+                    <p class="tenue mt-2">{{ idioma.detalle }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Experiencia profesional -->
-<section id="experiencia" class="seccion alterno">
-    <div class="contenedor narrow">
-        <h2 class="mb-12 texto-centro">
+<section id="experiencia" class="seccion">
+    <div class="contenedor narrow scroll-reveal">
+        <h2 class="mb-12 texto-centro" i18n="@@experienceTitle">
             <span class="texto-acento">Experiencia</span> Profesional
         </h2>
         <div class="linea-tiempo">
@@ -233,14 +262,14 @@
     </div>
 </section>
 
-<!-- Educacion y formacion -->
-<section id="educacion" class="seccion">
-    <div class="contenedor">
-        <h2 class="mb-12 texto-centro">
-            <span class="texto-acento">Educación</span>
+<!-- Educación y formación -->
+<section id="educacion" class="seccion alterno">
+    <div class="contenedor scroll-reveal">
+        <h2 class="mb-12 texto-centro" i18n="@@educationTitle">
+            <span class="texto-acento">Educacion</span>
         </h2>
         <div class="rejilla md:rejilla-2">
-            <div class="tarjeta-educacion">
+            <div class="tarjeta-educacion scroll-reveal">
                 <div class="fondo-decoracion"></div>
                 <div class="icono-circulo">
                     <i data-lucide="graduation-cap"></i>
@@ -263,7 +292,7 @@
                 </div>
             </div>
 
-            <div class="tarjeta-educacion">
+            <div class="tarjeta-educacion scroll-reveal">
                 <div class="fondo-decoracion"></div>
                 <div class="icono-circulo"><i data-lucide="award"></i></div>
                 <h3>Técnico Superior en Radiología</h3>
@@ -288,13 +317,13 @@
 </section>
 
 <!-- Trabajos destacados del portfolio -->
-<section id="portafolio" class="seccion alterno">
-    <div class="contenedor">
-        <h2 class="mb-12 texto-centro">
+<section id="portafolio" class="seccion">
+    <div class="contenedor scroll-reveal">
+        <h2 class="mb-12 texto-centro" i18n="@@portfolioTitle">
             <span class="texto-acento">Portfolio</span>
         </h2>
         <div class="rejilla md:rejilla-2 lg:rejilla-3">
-            <div class="tarjeta-proyecto">
+            <div class="tarjeta-proyecto scroll-reveal">
                 <div class="portada-proyecto">
                     <img loading="lazy" decoding="async" src="assets/img/historias-clinicas.webp"
                         alt="Historias clínicas" />
@@ -509,13 +538,13 @@
 </section>
 
 <!-- Sección de contacto con formulario integrado -->
-<section id="contacto" class="seccion">
-    <div class="contenedor narrow">
-        <h2 class="texto-centro mb-4">
+<section id="contacto" class="seccion alterno">
+    <div class="contenedor narrow scroll-reveal">
+        <h2 class="texto-centro mb-4" i18n="@@contactTitle">
             <span class="texto-acento">Contacto</span>
         </h2>
-        <p class="texto-centro tenue mb-12">
-            ¿Tenés un proyecto o desafío en mente? Conversemos.
+        <p class="texto-centro tenue mb-12" i18n="@@contactSubtitle">
+            Ten\u00e9s un proyecto o desaf\u00edo en mente? Conversemos.
         </p>
 
         <form [formGroup]="formularioContacto" (ngSubmit)="enviarFormulario()" id="formContacto" class="tarjeta p-8">

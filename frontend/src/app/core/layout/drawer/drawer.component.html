@@ -3,56 +3,62 @@
 
     <!-- Foto de perfil en mobile -->
     <div class="perfil-movil">
-        <img src="assets/img/Foto_Perfil.jpg" alt="Marcos Toledo" width="96" height="96" loading="eager" />
+        <img src="assets/img/Foto_Perfil.jpg" alt="Marcos Toledo" width="72" height="72" loading="eager" />
         <p class="nombre-movil">
             Marcos Ezequiel
             <span class="apellido-movil">Toledo</span>
         </p>
     </div>
 
-    <!-- Navegación del cajón -->
+    <!-- Navegacion del cajon -->
     <nav class="navegacion-cajon">
         <ul>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('sobre-mi')"
                     (click)="irASeccion('sobre-mi')">
-                    Sobre mí
+                    <i data-lucide="home"></i><span>Sobre mi</span>
                 </button>
             </li>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('habilidades-tecnicas')"
                     (click)="irASeccion('habilidades-tecnicas')">
-                    Habilidades Técnicas
+                    <i data-lucide="code"></i><span>Habilidades Tecnicas</span>
                 </button>
             </li>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('habilidades-blandas')"
                     (click)="irASeccion('habilidades-blandas')">
-                    Habilidades blandas
+                    <i data-lucide="brain"></i><span>Habilidades blandas</span>
+                </button>
+            </li>
+            <li>
+                <button class="enlace-cajon" [class.activo]="estaActiva('idiomas')"
+                    (click)="irASeccion('idiomas')">
+                    <i data-lucide="languages"></i><span>Idiomas</span>
                 </button>
             </li>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('experiencia')"
                     (click)="irASeccion('experiencia')">
-                    Experiencia
+                    <i data-lucide="briefcase"></i><span>Experiencia</span>
                 </button>
             </li>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('educacion')"
                     (click)="irASeccion('educacion')">
-                    Educación
+                    <i data-lucide="graduation-cap"></i><span>Educacion</span>
                 </button>
             </li>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('portafolio')"
                     (click)="irASeccion('portafolio')">
-                    Portfolio
+                    <i data-lucide="folder-open"></i><span>Portfolio</span>
                 </button>
             </li>
             <li>
                 <button class="enlace-cajon" [class.activo]="estaActiva('contacto')"
                     (click)="irASeccion('contacto')">
-                    Contacto
+                    <i data-lucide="mail"></i><span>Contacto</span>
                 </button>
             </li>
         </ul>

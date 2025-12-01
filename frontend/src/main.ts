@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 // Este es el punto de entrada de la aplicación Angular.
 // Yo cargo aquí el módulo principal (AppModule) y arranco la plataforma del navegador.
 // Angular usa esta función para inicializar toda la app y montar el AppComponent en el DOM.

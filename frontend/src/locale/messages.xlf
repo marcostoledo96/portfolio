@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="es" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="heroDescription" datatype="html">
+        <source> Soy estudiante avanzado de la <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>Tecnicatura Superior en Desarrollo de Software<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, con experiencia en <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>testing web, desarrollo de aplicaciones web y soporte técnico<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>. Me gusta involucrarme en proyectos donde se pueda elevar la calidad, optimizar flujos y automatizar procesos para lograr resultados concretos. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Trabajo con <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>HTML, CSS, JavaScript, Node.js, Express, SQL y Angular<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, además de seguir incorporando Java, React y buenas prácticas modernas. Me manejo con metodologías ágiles como Scrum para organizar el trabajo y sostener el ritmo del equipo. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/> Me considero una persona <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>responsable<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, con <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>comunicación directa<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> y un enfoque <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>autodidacta<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, siempre orientado a obtener <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>resultados medibles<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, tanto en desarrollo <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>FullStack Junior, soporte técnico IT, y tareas de QA Testing<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">14,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="skillsTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Habilidades<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Técnicas </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">58,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="softSkillsTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Habilidades<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Blandas </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="languagesTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Idiomas<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">148,150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="experienceTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Experiencia<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Profesional </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">169,171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="educationTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Educación<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">261,263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="portfolioTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Portfolio<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">315,317</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactTitle" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;texto-acento&quot;&gt;"/>Contacto<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">536,538</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactSubtitle" datatype="html">
+        <source> Tenés un proyecto o desafío en mente? Conversemos. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/home/home.component.html</context>
+          <context context-type="linenumber">539,542</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
