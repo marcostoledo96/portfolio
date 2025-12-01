@@ -558,7 +558,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.tarjetaVolteada = nombre;
             this.cdr.markForCheck();
             this.timeoutVolteo = null;
-        }, 2000);
+        }, 1500);
     }
 
     estaVolteada(nombre: string): boolean {
