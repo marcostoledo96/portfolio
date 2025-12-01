@@ -152,21 +152,21 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private pausaRestante = 0;
     // Lista de habilidades técnicas con nivel de dominio
     habilidadesTecnicas = [
-        { nombre: 'HTML', img: 'assets/img/HTML.png', alt: 'html', nivel: 'Intermedio' },
-        { nombre: 'CSS', img: 'assets/img/CSS.png', alt: 'css', nivel: 'Intermedio' },
-        { nombre: 'JavaScript', img: 'assets/img/js.png', alt: 'js', nivel: 'Intermedio' },
-        { nombre: 'TypeScript', img: 'assets/img/typescript.png', alt: 'typescript', nivel: 'Básico' },
-        { nombre: 'Angular', img: 'assets/img/angular.png', alt: 'angular', nivel: 'Básico' },
-        { nombre: 'Node.js', img: 'assets/img/nodejs.png', alt: 'nodejs', nivel: 'Intermedio' },
-        { nombre: 'Express', img: 'assets/img/express.png', alt: 'express', nivel: 'Básico' },
-        { nombre: 'Java', img: 'assets/img/java.png', alt: 'java', nivel: 'Básico' },
+        { nombre: 'HTML', img: 'assets/img/HTML.webp', alt: 'html', nivel: 'Intermedio' },
+        { nombre: 'CSS', img: 'assets/img/CSS.webp', alt: 'css', nivel: 'Intermedio' },
+        { nombre: 'JavaScript', img: 'assets/img/js.webp', alt: 'js', nivel: 'Intermedio' },
+        { nombre: 'TypeScript', img: 'assets/img/typescript.webp', alt: 'typescript', nivel: 'Básico' },
+        { nombre: 'Angular', img: 'assets/img/angular.webp', alt: 'angular', nivel: 'Básico' },
+        { nombre: 'Node.js', img: 'assets/img/nodejs.webp', alt: 'nodejs', nivel: 'Intermedio' },
+        { nombre: 'Express', img: 'assets/img/express.webp', alt: 'express', nivel: 'Básico' },
+        { nombre: 'Java', img: 'assets/img/java.webp', alt: 'java', nivel: 'Básico' },
         { nombre: 'React', img: 'assets/img/React-Logo-PNG.webp', alt: 'react', nivel: 'Básico' },
-        { nombre: 'Git', img: 'assets/img/git.png', alt: 'git', nivel: 'Intermedio' },
-        { nombre: 'SQL', img: 'assets/img/sql.png', alt: 'sql', nivel: 'Intermedio' },
+        { nombre: 'Git', img: 'assets/img/git.webp', alt: 'git', nivel: 'Intermedio' },
+        { nombre: 'SQL', img: 'assets/img/sql.webp', alt: 'sql', nivel: 'Intermedio' },
         { nombre: 'PHP MyAdmin', img: 'assets/img/PhpMyAdmin_logo.svg', alt: 'phpmyadmin', nivel: 'Intermedio' },
         { nombre: 'PostgreSQL', img: 'assets/img/postgresql.svg', alt: 'postgresql', nivel: 'Básico' },
-        { nombre: 'UML', img: 'assets/img/UML_logo.png', alt: 'uml', nivel: 'Intermedio' },
-        { nombre: 'Jira', img: 'assets/img/jira.png', alt: 'jira', nivel: 'Intermedio' }
+        { nombre: 'UML', img: 'assets/img/UML_logo.webp', alt: 'uml', nivel: 'Intermedio' },
+        { nombre: 'Jira', img: 'assets/img/jira.webp', alt: 'jira', nivel: 'Intermedio' }
     ];
     tarjetaVolteada: string | null = null;
 

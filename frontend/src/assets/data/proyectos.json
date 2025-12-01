@@ -28,7 +28,7 @@
             "id": "explorador-juegos",
             "titulo": "Explorador de Juegos",
             "descripcion": "Aplicación para descubrir videojuegos con búsqueda, filtrado por categoría y fichas detalladas, priorizando la usabilidad en cualquier dispositivo.",
-            "imagen": "assets/img/juegos.png",
+            "imagen": "assets/img/juegos.webp",
             "estado": "completado",
             "modalidad": "equipo",
             "online": true,
