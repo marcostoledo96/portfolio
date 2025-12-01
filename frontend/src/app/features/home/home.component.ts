@@ -169,6 +169,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         { nombre: 'Jira', img: 'assets/img/jira.webp', alt: 'jira', nivel: 'Intermedio' }
     ];
     tarjetaVolteada: string | null = null;
+    tarjetaHover: string | null = null;  // Nueva propiedad para el estado hover en mobile
 
     // === CONSTRUCTOR ===
     // El constructor se ejecuta UNA vez cuando Angular crea el componente
@@ -503,13 +504,52 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    // Volteo de tarjetas de habilidades
+    // Volteo de tarjetas de habilidades con 3 estados en mobile/tablet
+    // En desktop: un solo click voltea la tarjeta (comportamiento normal)
+    // En mobile/tablet:
+    //   - Primer click: resalta (hover)
+    //   - Segundo click: voltea para mostrar nivel
+    //   - Tercer click: vuelve a resaltar (hover)
+    //   - Si hago click en otra tarjeta, la anterior vuelve a estado normal
     alternarTarjeta(nombre: string): void {
-        this.tarjetaVolteada = this.tarjetaVolteada === nombre ? null : nombre;
+        // Si es desktop (> 1024px), comportamiento normal: solo voltear
+        if (!this.esMobile) {
+            this.tarjetaVolteada = this.tarjetaVolteada === nombre ? null : nombre;
+            this.cdr.markForCheck();
+            return;
+        }
+        
+        // Si es mobile/tablet (<=1024px), comportamiento de 3 estados:
+        
+        // Si esta tarjeta ya está volteada (mostrando nivel)
+        if (this.tarjetaVolteada === nombre) {
+            // Tercer click: vuelvo a estado hover
+            this.tarjetaVolteada = null;
+            this.tarjetaHover = nombre;
+            this.cdr.markForCheck();
+            return;
+        }
+        
+        // Si esta tarjeta está en hover
+        if (this.tarjetaHover === nombre) {
+            // Segundo click: volteo para mostrar nivel
+            this.tarjetaHover = null;
+            this.tarjetaVolteada = nombre;
+            this.cdr.markForCheck();
+            return;
+        }
+        
+        // Primer click: activo hover y reseteo cualquier otra tarjeta
+        this.tarjetaHover = nombre;
+        this.tarjetaVolteada = null;
         this.cdr.markForCheck();
     }
 
     estaVolteada(nombre: string): boolean {
         return this.tarjetaVolteada === nombre;
+    }
+    
+    estaEnHover(nombre: string): boolean {
+        return this.tarjetaHover === nombre;
     }
 }

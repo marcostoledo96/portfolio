@@ -67,7 +67,9 @@
         </h2>
         <div class="rejilla rejilla-2 md:rejilla-3 lg:rejilla-5">
             <div class="tarjeta-habilidad tarjeta-habilidad--flip" *ngFor="let hab of habilidadesTecnicas"
-                [class.volteada]="estaVolteada(hab.nombre)" (click)="alternarTarjeta(hab.nombre)"
+                [class.volteada]="estaVolteada(hab.nombre)" 
+                [class.hover-mobile]="estaEnHover(hab.nombre)"
+                (click)="alternarTarjeta(hab.nombre)"
                 [attr.aria-pressed]="estaVolteada(hab.nombre)" role="button" tabindex="0"
                 (keyup.enter)="alternarTarjeta(hab.nombre)" (keyup.space)="alternarTarjeta(hab.nombre)">
                 <div class="tarjeta-habilidad__interior">
