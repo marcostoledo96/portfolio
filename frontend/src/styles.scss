@@ -1918,26 +1918,30 @@ body.claro .pie {
 // ============================================================================
 @media (max-width: 768px) {
     // Habilidades técnicas: 2 columnas y tarjetas más compactas
-    #habilidades-tecnicas .rejilla,
-    #habilidades-tecnicas .rejilla-2,
-    #habilidades-tecnicas .md\:rejilla-3,
-    #habilidades-tecnicas .lg\:rejilla-5 {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 20px;
-    }
+    #habilidades-tecnicas {
+        .rejilla,
+        .rejilla-2,
+        .md\:rejilla-3,
+        .lg\:rejilla-5 {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 20px;
+        }
 
-    #habilidades-tecnicas .tarjeta-habilidad {
-        width: 140px;
-        height: 140px;
-        padding: 20px 14px;
+        .tarjeta-habilidad {
+            width: 140px;
+            height: 140px;
+            padding: 20px 14px;
+        }
     }
 
     // Habilidades blandas: 1 tarjeta por fila
-    #habilidades-blandas .rejilla,
-    #habilidades-blandas .rejilla-1,
-    #habilidades-blandas .md\:rejilla-2,
-    #habilidades-blandas .lg\:rejilla-3 {
-        grid-template-columns: 1fr !important;
+    #habilidades-blandas {
+        .rejilla,
+        .rejilla-1,
+        .md\:rejilla-2,
+        .lg\:rejilla-3 {
+            grid-template-columns: 1fr !important;
+        }
     }
     
     // Idiomas: 1 tarjeta por fila en mobile
@@ -1946,41 +1950,46 @@ body.claro .pie {
     }
 
     // Educación: 1 tarjeta por fila
-    #educacion .rejilla,
-    #educacion .rejilla-2,
-    #educacion .md\:rejilla-3,
-    #educacion .lg\:rejilla-3 {
-        grid-template-columns: 1fr !important;
+    #educacion {
+        .rejilla,
+        .rejilla-2,
+        .md\:rejilla-3,
+        .lg\:rejilla-3 {
+            grid-template-columns: 1fr !important;
+        }
     }
 
     // Contacto: ajusto padding y ancho para evitar cortes laterales
-    #contacto .contenedor {
-        padding-inline: 12px;
-    }
+    #contacto {
+        .contenedor {
+            padding-inline: 12px;
+        }
 
-    #contacto .pila-contacto {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
+        .pila-contacto {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
 
-    #contacto .bloque-contacto {
-        width: 100%;
-        margin: 0 auto;
+        .bloque-contacto {
+            width: 100%;
+            margin: 0 auto;
+        }
     }
 }
 
 // Ajustes responsive extra (<= 400px)
 @media (max-width: 400px) {
+    #habilidades-tecnicas {
+        .rejilla,
+        .rejilla-2,
+        .md\:rejilla-3,
+        .lg\:rejilla-5 {
+            grid-template-columns: 1fr !important;
+        }
 
-    #habilidades-tecnicas .rejilla,
-    #habilidades-tecnicas .rejilla-2,
-    #habilidades-tecnicas .md\:rejilla-3,
-    #habilidades-tecnicas .lg\:rejilla-5 {
-        grid-template-columns: 1fr !important;
-    }
-
-    #habilidades-tecnicas .tarjeta-habilidad h4 {
-        font-size: 0.88rem;
+        .tarjeta-habilidad h4 {
+            font-size: 0.88rem;
+        }
     }
 }
 
@@ -2040,11 +2049,11 @@ body.claro .pie {
 
     .tarjeta-habilidad {
         padding: 16px;
-    }
 
-    .tarjeta-habilidad img {
-        width: 46px;
-        height: 46px;
+        img {
+            width: 46px;
+            height: 46px;
+        }
     }
 
     .emoji-habilidad {
@@ -2063,9 +2072,11 @@ body.claro .pie {
         padding: 20px;
     }
 
-    .campo input,
-    .campo textarea {
-        padding: 10px 12px;
+    .campo {
+        input,
+        textarea {
+            padding: 10px 12px;
+        }
     }
 
     .encabezado-movil {
@@ -2086,12 +2097,14 @@ body.claro .pie {
         padding: 52px 12px;
     }
 
-    #habilidades-tecnicas .rejilla {
-        gap: 16px;
-    }
+    #habilidades-tecnicas {
+        .rejilla {
+            gap: 16px;
+        }
 
-    #habilidades-tecnicas .tarjeta-habilidad h4 {
-        font-size: 0.85rem;
+        .tarjeta-habilidad h4 {
+            font-size: 0.85rem;
+        }
     }
 
     h1 {
@@ -2142,11 +2155,11 @@ body.claro .pie {
 
     .tarjeta-habilidad {
         padding: 14px;
-    }
 
-    .tarjeta-habilidad img {
-        width: 40px;
-        height: 40px;
+        img {
+            width: 40px;
+            height: 40px;
+        }
     }
 
     .emoji-habilidad {
@@ -2163,10 +2176,12 @@ body.claro .pie {
         padding: 16px;
     }
 
-    .campo input,
-    .campo textarea {
-        padding: 8px 10px;
-        font-size: 0.85rem;
+    .campo {
+        input,
+        textarea {
+            padding: 8px 10px;
+            font-size: 0.85rem;
+        }
     }
 
     .boton.primario {
@@ -2271,19 +2286,19 @@ body.claro .pie {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
 
-.scroll-reveal.revelado {
-    opacity: 1;
-    transform: translateY(0);
-}
+    &.revelado {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-// Variantes con delay para escalonar animaciones en grids
-.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
-.scroll-reveal:nth-child(3) { transition-delay: 0.15s; }
-.scroll-reveal:nth-child(4) { transition-delay: 0.2s; }
-.scroll-reveal:nth-child(5) { transition-delay: 0.25s; }
-.scroll-reveal:nth-child(6) { transition-delay: 0.3s; }
+    // Variantes con delay para escalonar animaciones en grids
+    &:nth-child(2) { transition-delay: 0.1s; }
+    &:nth-child(3) { transition-delay: 0.15s; }
+    &:nth-child(4) { transition-delay: 0.2s; }
+    &:nth-child(5) { transition-delay: 0.25s; }
+    &:nth-child(6) { transition-delay: 0.3s; }
+}
 
 // ============================================================================
 // SECCION: BOTON VOLVER ARRIBA (Logo MT en mobile)
@@ -2300,22 +2315,21 @@ body.claro .pie {
     -webkit-tap-highlight-color: transparent;
     z-index: 100;
     position: relative;
-}
 
-.boton-volver-arriba:hover,
-.boton-volver-arriba:active {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(53, 167, 255, 0.4);
-}
+    &:hover,
+    &:active {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(53, 167, 255, 0.4);
+    }
 
-.boton-volver-arriba.visible {
-    animation: pulso 2s infinite;
-}
+    &.visible {
+        animation: pulso 2s infinite;
+    }
 
-// Estado activo cuando se hace touch en mobile
-.boton-volver-arriba:focus {
-    outline: 2px solid var(--azul-acento);
-    outline-offset: 2px;
+    &:focus {
+        outline: 2px solid var(--azul-acento);
+        outline-offset: 2px;
+    }
 }
 
 @keyframes pulso {
@@ -2498,4 +2512,3 @@ body.claro .pie {
         gap: 6px;
     }
 }
-
