@@ -1240,10 +1240,8 @@ p {
     width: 2px;
     background: var(--color-acento);
     display: none;
-}
 
-@media (min-width: 768px) {
-    .linea-tiempo-trazo {
+    @media (min-width: 768px) {
         display: block;
     }
 }
@@ -1251,10 +1249,8 @@ p {
 .tarjeta-experiencia {
     position: relative;
     margin-left: 0;
-}
 
-@media (min-width: 768px) {
-    .tarjeta-experiencia {
+    @media (min-width: 768px) {
         margin-left: 64px;
     }
 }
@@ -1269,14 +1265,12 @@ p {
     background: var(--color-acento);
     border: 4px solid var(--color-fondo-oscuro);
     display: none;
-}
 
-body.claro .punto-tiempo {
-    border-color: #fff;
-}
+    body.claro & {
+        border-color: #fff;
+    }
 
-@media (min-width: 768px) {
-    .punto-tiempo {
+    @media (min-width: 768px) {
         display: block;
     }
 }
@@ -1286,10 +1280,10 @@ body.claro .punto-tiempo {
     border-radius: var(--radio);
     padding: 24px;
     box-shadow: var(--sombra);
-}
 
-body.claro .cuerpo-tarjeta {
-    background: #f8fafc;
+    body.claro & {
+        background: #f8fafc;
+    }
 }
 
 .cabecera {
@@ -1299,11 +1293,13 @@ body.claro .cuerpo-tarjeta {
     margin-bottom: 20px;
 }
 
-.meta .fila-etiquetas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 8px;
+.meta {
+    .fila-etiquetas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 8px;
+    }
 }
 
 .etiqueta {
@@ -1311,10 +1307,10 @@ body.claro .cuerpo-tarjeta {
     align-items: center;
     gap: 6px;
     color: #cbd5e1;
-}
 
-body.claro .etiqueta {
-    color: #475467;
+    body.claro & {
+        color: #475467;
+    }
 }
 
 .roles,
@@ -1323,62 +1319,58 @@ body.claro .etiqueta {
     margin-top: 14px;
     padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    body.claro & {
+        border-top-color: #e5e7eb;
+    }
+
+    h4 {
+        margin-bottom: 6px;
+        font-size: 1.05rem;
+        color: var(--color-acento);
+
+        body.claro & {
+            color: var(--color-primario);
+        }
+    }
 }
 
-body.claro .roles,
-body.claro .respons,
-body.claro .techs {
-    border-top-color: #e5e7eb;
-}
+.respons {
+    .vinetas {
+        margin-top: 8px;
 
-.roles h4,
-.respons h4,
-.techs h4 {
-    margin-bottom: 6px;
-    font-size: 1.05rem;
-    color: var(--color-acento);
-}
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
 
-body.claro .roles h4,
-body.claro .respons h4,
-body.claro .techs h4 {
-    color: var(--color-primario);
-}
+            &:last-child {
+                margin-bottom: 0;
+            }
 
-.respons .vinetas {
-    margin-top: 8px;
-}
+            a {
+                color: var(--color-acento);
+                text-decoration: none;
+                font-weight: 500;
+                border-bottom: 1px solid transparent;
+                transition: border-color 0.2s ease, color 0.2s ease;
+                padding-bottom: 1px;
 
-.respons .vinetas li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
+                &:hover {
+                    border-bottom-color: var(--color-acento);
+                    color: #89d8ff;
+                }
 
-.respons .vinetas li:last-child {
-    margin-bottom: 0;
-}
+                body.claro & {
+                    color: var(--color-primario);
 
-.respons .vinetas li a {
-    color: var(--color-acento);
-    text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease, color 0.2s ease;
-    padding-bottom: 1px;
-}
-
-.respons .vinetas li a:hover {
-    border-bottom-color: var(--color-acento);
-    color: #89d8ff;
-}
-
-body.claro .respons .vinetas li a {
-    color: var(--color-primario);
-}
-
-body.claro .respons .vinetas li a:hover {
-    border-bottom-color: var(--color-primario);
-    color: var(--color-acento);
+                    &:hover {
+                        border-bottom-color: var(--color-primario);
+                        color: var(--color-acento);
+                    }
+                }
+            }
+        }
+    }
 }
 
 // ============================================================================
@@ -1393,6 +1385,30 @@ body.claro .respons .vinetas li a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+
+    &.contorno .ficha {
+        background: transparent;
+        border: 1px solid var(--color-acento);
+        color: #fff;
+
+        &:hover {
+            background: rgba(53, 167, 255, 0.15);
+            border-color: #35A7FF;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(53, 167, 255, 0.3);
+        }
+
+        body.claro & {
+            border-color: var(--color-primario);
+            color: var(--color-primario);
+
+            &:hover {
+                background: rgba(14, 30, 64, 0.08);
+                border-color: var(--color-acento);
+                box-shadow: 0 4px 12px rgba(14, 30, 64, 0.2);
+            }
+        }
+    }
 }
 
 .ficha {
@@ -1404,48 +1420,24 @@ body.claro .respons .vinetas li a:hover {
     color: #89d8ff;
     transition: all 0.3s ease;
     cursor: default;
-}
 
-.ficha:hover {
-    transform: translateY(-2px) scale(1.05);
-    background: rgba(53, 167, 255, 0.25);
-    color: #FCFCFC;
-    box-shadow: 0 4px 12px rgba(53, 167, 255, 0.3);
-}
+    &:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(53, 167, 255, 0.25);
+        color: #FCFCFC;
+        box-shadow: 0 4px 12px rgba(53, 167, 255, 0.3);
+    }
 
-body.claro .ficha {
-    background: rgba(14, 30, 64, 0.12);
-    color: var(--color-primario);
-}
+    body.claro & {
+        background: rgba(14, 30, 64, 0.12);
+        color: var(--color-primario);
 
-body.claro .ficha:hover {
-    background: rgba(14, 30, 64, 0.2);
-    color: var(--color-primario);
-    box-shadow: 0 4px 12px rgba(14, 30, 64, 0.2);
-}
-
-.fichas.contorno .ficha {
-    background: transparent;
-    border: 1px solid var(--color-acento);
-    color: #fff;
-}
-
-.fichas.contorno .ficha:hover {
-    background: rgba(53, 167, 255, 0.15);
-    border-color: #35A7FF;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(53, 167, 255, 0.3);
-}
-
-body.claro .fichas.contorno .ficha {
-    border-color: var(--color-primario);
-    color: var(--color-primario);
-}
-
-body.claro .fichas.contorno .ficha:hover {
-    background: rgba(14, 30, 64, 0.08);
-    border-color: var(--color-acento);
-    box-shadow: 0 4px 12px rgba(14, 30, 64, 0.2);
+        &:hover {
+            background: rgba(14, 30, 64, 0.2);
+            color: var(--color-primario);
+            box-shadow: 0 4px 12px rgba(14, 30, 64, 0.2);
+        }
+    }
 }
 
 .insignia {
@@ -1456,55 +1448,43 @@ body.claro .fichas.contorno .ficha:hover {
     font-weight: 500;
     background: #384e72;
     color: #cbd5e1;
-}
 
-// Insignias para ESTADO (online/offline) - AZUL
-.insignia.insignia-online {
-    background: rgba(0, 174, 239, 0.16);
-    color: #89d8ff;
-}
+    // Insignias para ESTADO (online/offline) - AZUL
+    &.insignia-online {
+        background: rgba(0, 174, 239, 0.16);
+        color: #89d8ff;
+    }
 
-.insignia.insignia-offline {
-    background: rgba(100, 116, 139, 0.16);
-    color: #cbd5e1;
-}
+    &.insignia-offline {
+        background: rgba(100, 116, 139, 0.16);
+        color: #cbd5e1;
+    }
 
-// Insignias para PROGRESO (completado/en desarrollo/pausado) - VERDE
-.insignia.insignia-completado {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-}
+    // Insignias para PROGRESO (completado/en desarrollo/pausado) - VERDE
+    &.insignia-completado,
+    &.insignia-desarrollo,
+    &.insignia-pausado {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+    }
 
-.insignia.insignia-desarrollo {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-}
+    // Insignias para MODALIDAD (individual/en grupo) - GRIS
+    &.insignia-individual,
+    &.insignia-grupo {
+        background: rgba(107, 114, 128, 0.15);
+        color: #9ca3af;
+    }
 
-.insignia.insignia-pausado {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-}
+    // Clases legacy para compatibilidad (deprecadas)
+    &.informacion {
+        background: rgba(0, 174, 239, 0.16);
+        color: #89d8ff;
+    }
 
-// Insignias para MODALIDAD (individual/en grupo) - GRIS
-.insignia.insignia-individual {
-    background: rgba(107, 114, 128, 0.15);
-    color: #9ca3af;
-}
-
-.insignia.insignia-grupo {
-    background: rgba(107, 114, 128, 0.15);
-    color: #9ca3af;
-}
-
-// Clases legacy para compatibilidad (deprecadas)
-.insignia.informacion {
-    background: rgba(0, 174, 239, 0.16);
-    color: #89d8ff;
-}
-
-.insignia.exito {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
+    &.exito {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+    }
 }
 
 // Contenedor para alinear insignias a la izquierda
@@ -1527,10 +1507,10 @@ body.claro .fichas.contorno .ficha:hover {
     height: 1px;
     background: rgba(255, 255, 255, 0.12);
     margin: 16px 0;
-}
 
-body.claro .divisor {
-    background: #e5e7eb;
+    body.claro & {
+        background: #e5e7eb;
+    }
 }
 
 .strong {
@@ -1548,38 +1528,38 @@ body.claro .divisor {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     cursor: default;
     min-width: 0;
-}
 
-.tarjeta-educacion:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(53, 167, 255, 0.25);
-    background: rgba(53, 167, 255, 0.08);
-}
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(53, 167, 255, 0.25);
+        background: rgba(53, 167, 255, 0.08);
 
-.tarjeta-educacion:hover .icono-circulo {
-    transform: scale(1.1) rotate(-5deg);
-}
+        .icono-circulo {
+            transform: scale(1.1) rotate(-5deg);
+        }
+    }
 
-body.claro .tarjeta-educacion {
-    background: #fff;
-}
+    body.claro & {
+        background: #fff;
 
-body.claro .tarjeta-educacion:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(14, 30, 64, 0.15);
-    background: #f8fafc;
-}
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(14, 30, 64, 0.15);
+            background: #f8fafc;
+        }
+    }
 
-.tarjeta-educacion .fondo-decoracion {
-    position: absolute;
-    right: -40px;
-    top: -40px;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: var(--color-acento);
-    filter: blur(40px);
-    opacity: 0.25;
+    .fondo-decoracion {
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: var(--color-acento);
+        filter: blur(40px);
+        opacity: 0.25;
+    }
 }
 
 // Portfolio (proyectos)
@@ -1592,10 +1572,30 @@ body.claro .tarjeta-educacion:hover {
     flex-direction: column;
     position: relative;
     min-width: 0;
-}
 
-body.claro .tarjeta-proyecto {
-    background: #f8fafc;
+    body.claro & {
+        background: #f8fafc;
+    }
+
+    h3 {
+        font-size: clamp(0.95rem, 3.2vw, 1.25rem);
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        hyphens: auto;
+        max-width: 100%;
+        line-height: 1.25;
+        min-width: 0;
+    }
+
+    .p-6 {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        padding-top: 16px;
+    }
 }
 
 .portada-proyecto {
@@ -1606,84 +1606,59 @@ body.claro .tarjeta-proyecto {
     flex-shrink: 0;
     overflow: hidden;
     z-index: 0;
-}
 
-.portada-proyecto img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 
-.portada-proyecto.degradado {
-    background: linear-gradient(135deg, var(--color-acento), var(--color-primario));
-    color: #fff;
-}
+    &.degradado {
+        background: linear-gradient(135deg, var(--color-acento), var(--color-primario));
+        color: #fff;
+    }
 
-.portada-proyecto.marcador {
-    background: rgba(255, 255, 255, 0.08);
+    &.marcador {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 800px) {
+        height: 170px;
+    }
+
+    @media (max-width: 640px) {
+        height: 150px;
+    }
+
+    @media (max-width: 520px) {
+        height: 180px;
+    }
+
+    @media (max-width: 400px) {
+        height: 160px;
+    }
 }
 
 .emoji {
     font-size: 3rem;
 }
 
-@media (max-width: 800px) {
-    .portada-proyecto {
-        height: 170px;
-    }
-}
-
+// Media queries específicas para portafolio
 @media (max-width: 640px) {
-
     #portafolio .rejilla,
     #portafolio .md\:rejilla-2,
     #portafolio .lg\:rejilla-3 {
         grid-template-columns: 1fr 1fr;
     }
-
-    .portada-proyecto {
-        height: 150px;
-    }
 }
 
 @media (max-width: 520px) {
-
     #portafolio .rejilla,
     #portafolio .md\:rejilla-2,
     #portafolio .lg\:rejilla-3 {
         grid-template-columns: 1fr;
     }
-
-    .portada-proyecto {
-        height: 180px;
-    }
-}
-
-@media (max-width: 400px) {
-    .portada-proyecto {
-        height: 160px;
-    }
-}
-
-.tarjeta-proyecto h3 {
-    font-size: clamp(0.95rem, 3.2vw, 1.25rem);
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    hyphens: auto;
-    max-width: 100%;
-    line-height: 1.25;
-    min-width: 0;
-}
-
-.tarjeta-proyecto .p-6 {
-    position: relative;
-    z-index: 1;
-    background: transparent;
-    padding-top: 16px;
 }
 
 // Contacto
@@ -1699,55 +1674,49 @@ body.claro .tarjeta-proyecto {
 
 .campo {
     margin-bottom: 16px;
-}
 
-.campo label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
 
-.campo input,
-.campo textarea {
-    width: 100%;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(10, 22, 40, 0.8);
-    color: #fff;
-    outline: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
-    font-size: 1rem;
-}
+    input,
+    textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(10, 22, 40, 0.8);
+        color: #fff;
+        outline: none;
+        transition: border-color 0.2s ease, background 0.2s ease;
+        font-size: 1rem;
 
-.campo input::placeholder,
-.campo textarea::placeholder {
-    color: #94a3b8;
-}
+        &::placeholder {
+            color: #94a3b8;
+        }
 
-.campo input:focus,
-.campo textarea:focus {
-    border-color: var(--color-acento);
-}
+        &:focus {
+            border-color: var(--color-acento);
+        }
 
-body.claro .campo input,
-body.claro .campo textarea {
-    background: #f2f4f7;
-    color: var(--color-primario);
-    border-color: #e5e7eb;
-}
+        body.claro & {
+            background: #f2f4f7;
+            color: var(--color-primario);
+            border-color: #e5e7eb;
 
-body.claro .campo input:focus,
-body.claro .campo textarea:focus {
-    border-color: var(--color-primario);
+            &:focus {
+                border-color: var(--color-primario);
+            }
+        }
+    }
 }
 
 #formContacto {
     padding: clamp(32px, 4vw, 52px);
-}
 
-@media (max-width: 640px) {
-    #formContacto {
+    @media (max-width: 640px) {
         padding: 26px;
     }
 }
@@ -1764,28 +1733,28 @@ body.claro .campo textarea:focus {
     text-decoration: none;
     transition: all 0.3s ease;
     border: 1px solid transparent;
-}
 
-.bloque-contacto:hover {
-    transform: translateY(-5px) translateX(5px);
-    background: rgba(53, 167, 255, 0.1);
-    box-shadow: 0 15px 30px rgba(53, 167, 255, 0.25);
-    border-color: rgba(53, 167, 255, 0.4);
-}
+    &:hover {
+        transform: translateY(-5px) translateX(5px);
+        background: rgba(53, 167, 255, 0.1);
+        box-shadow: 0 15px 30px rgba(53, 167, 255, 0.25);
+        border-color: rgba(53, 167, 255, 0.4);
 
-.bloque-contacto:hover .icono-circulo {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 20px rgba(53, 167, 255, 0.4);
-}
+        .icono-circulo {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(53, 167, 255, 0.4);
+        }
+    }
 
-body.claro .bloque-contacto {
-    background: #fff;
-}
+    body.claro & {
+        background: #fff;
 
-body.claro .bloque-contacto:hover {
-    background: #f8fafc;
-    box-shadow: 0 15px 30px rgba(14, 30, 64, 0.15);
-    border-color: var(--color-acento);
+        &:hover {
+            background: #f8fafc;
+            box-shadow: 0 15px 30px rgba(14, 30, 64, 0.15);
+            border-color: var(--color-acento);
+        }
+    }
 }
 
 .pila-6 {
@@ -1797,10 +1766,8 @@ body.claro .bloque-contacto:hover {
     display: grid;
     gap: 24px;
     grid-template-columns: 1fr;
-}
 
-@media (min-width: 768px) {
-    .pila-contacto {
+    @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -1820,61 +1787,61 @@ body.claro .bloque-contacto:hover {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-}
 
-.boton.primario {
-    background: #35A7FF;
-    color: #000000;
-    box-shadow: var(--sombra-sm);
-}
+    &.primario {
+        background: #35A7FF;
+        color: #000000;
+        box-shadow: var(--sombra-sm);
 
-.boton.primario i {
-    color: #000000;
-}
+        i {
+            color: #000000;
+        }
 
-.boton.primario:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(53, 167, 255, 0.4);
-    background: #35A7FF;
-}
+        &:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(53, 167, 255, 0.4);
+            background: #35A7FF;
+        }
 
-body.claro .boton.primario {
-    background: #35A7FF;
-    color: #ffffff;
-}
+        body.claro & {
+            background: #35A7FF;
+            color: #ffffff;
 
-body.claro .boton.primario i {
-    color: #ffffff;
-}
+            i {
+                color: #ffffff;
+            }
 
-body.claro .boton.primario:hover {
-    box-shadow: 0 15px 35px rgba(53, 167, 255, 0.3);
-}
+            &:hover {
+                box-shadow: 0 15px 35px rgba(53, 167, 255, 0.3);
+            }
+        }
+    }
 
-.boton:not(.primario) {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(53, 167, 255, 0.3);
-    color: #35A7FF;
-}
+    &:not(.primario) {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(53, 167, 255, 0.3);
+        color: #35A7FF;
 
-.boton:not(.primario):hover {
-    transform: translateY(-3px) scale(1.02);
-    background: rgba(53, 167, 255, 0.15);
-    border-color: #35A7FF;
-    box-shadow: 0 10px 25px rgba(53, 167, 255, 0.2);
-    color: #FCFCFC;
-}
+        &:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: rgba(53, 167, 255, 0.15);
+            border-color: #35A7FF;
+            box-shadow: 0 10px 25px rgba(53, 167, 255, 0.2);
+            color: #FCFCFC;
+        }
 
-body.claro .boton:not(.primario) {
-    background: transparent;
-    border: 1px solid var(--color-primario);
-    color: var(--color-primario);
-}
+        body.claro & {
+            background: transparent;
+            border: 1px solid var(--color-primario);
+            color: var(--color-primario);
 
-body.claro .boton:not(.primario):hover {
-    background: var(--color-primario);
-    color: #fff;
-    box-shadow: 0 10px 25px rgba(14, 30, 64, 0.2);
+            &:hover {
+                background: var(--color-primario);
+                color: #fff;
+                box-shadow: 0 10px 25px rgba(14, 30, 64, 0.2);
+            }
+        }
+    }
 }
 
 // Pie de página
@@ -2371,21 +2338,21 @@ body.claro .pie {
     grid-template-columns: 24px 1fr;
     align-items: center;
     gap: 12px;
-}
 
-.enlace-cajon i {
-    width: 20px;
-    height: 20px;
-}
+    i {
+        width: 20px;
+        height: 20px;
+    }
 
-.enlace-cajon.activo {
-    background: var(--sidebar-dark-active-bg);
-    color: var(--sidebar-dark-active-text);
-}
+    &.activo {
+        background: var(--sidebar-dark-active-bg);
+        color: var(--sidebar-dark-active-text);
 
-body.claro .enlace-cajon.activo {
-    background: var(--sidebar-light-active-bg);
-    color: var(--sidebar-light-active-text);
+        body.claro & {
+            background: var(--sidebar-light-active-bg);
+            color: var(--sidebar-light-active-text);
+        }
+    }
 }
 
 // ============================================================================
@@ -2411,34 +2378,34 @@ body.claro .enlace-cajon.activo {
     background: rgba(255, 255, 255, 0.06);
     box-shadow: var(--sombra-sm);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-}
 
-.tarjeta-idioma:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(53, 167, 255, 0.2);
-    background: rgba(53, 167, 255, 0.08);
-}
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(53, 167, 255, 0.2);
+        background: rgba(53, 167, 255, 0.08);
+    }
 
-body.claro .tarjeta-idioma {
-    background: #fff;
-}
+    body.claro & {
+        background: #fff;
 
-body.claro .tarjeta-idioma:hover {
-    box-shadow: 0 15px 30px rgba(14, 30, 64, 0.15);
-    background: #f8fafc;
+        &:hover {
+            box-shadow: 0 15px 30px rgba(14, 30, 64, 0.15);
+            background: #f8fafc;
+        }
+    }
 }
 
 .idioma-info {
     flex: 1;
     min-width: 0;
-}
 
-.idioma-info h4 {
-    margin-bottom: 8px;
-}
+    h4 {
+        margin-bottom: 8px;
+    }
 
-.idioma-info .mt-2 {
-    margin-top: 8px;
+    .mt-2 {
+        margin-top: 8px;
+    }
 }
 
 // Icono de bandera con imagen SVG
@@ -2452,17 +2419,17 @@ body.claro .tarjeta-idioma:hover {
     background: rgba(53, 167, 255, 0.1);
     border-radius: 50%;
     overflow: hidden;
-}
 
-.icono-bandera img {
-    width: 36px;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
+    img {
+        width: 36px;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
 
-body.claro .icono-bandera {
-    background: rgba(14, 30, 64, 0.08);
+    body.claro & {
+        background: rgba(14, 30, 64, 0.08);
+    }
 }
 
 // ============================================================================
