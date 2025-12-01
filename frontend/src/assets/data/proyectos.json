@@ -2,7 +2,7 @@
     "proyectos": [
         {
             "id": "historias-clinicas",
-            "titulo": "Historias Clinicas",
+            "titulo": "Historias Clínicas",
             "descripcion": "MVP para gestionar altas de pacientes, registrar consultas y administrar información clínica desde una interfaz simple, pensado para equipos médicos medianos.",
             "imagen": "assets/img/historias-clinicas.webp",
             "estado": "desarrollo",
