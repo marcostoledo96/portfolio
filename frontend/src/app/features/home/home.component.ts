@@ -254,9 +254,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     // private: solo accesible dentro de esta clase
     private detectarMobile(): void {
         // window.innerWidth: ancho de la ventana del navegador en píxeles
-        // <= 768: menor o igual a 768px (punto de quiebre común para mobile)
+        // <= 1024: menor o igual a 1024px (incluye tablets)
         // Asigno true o false a this.esMobile
-        this.esMobile = window.innerWidth <= 768;
+        this.esMobile = window.innerWidth <= 1024;
         
         // Si NO es mobile, oculto cualquier tooltip activo
         if (!this.esMobile) {
