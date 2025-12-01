@@ -170,6 +170,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     ];
     tarjetaVolteada: string | null = null;
     tarjetaHover: string | null = null;  // Nueva propiedad para el estado hover en mobile
+    private timeoutVolteo: any = null;  // Timer para auto-voltear después de 2 segundos
 
     // === CONSTRUCTOR ===
     // El constructor se ejecuta UNA vez cuando Angular crea el componente
@@ -399,6 +400,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.intervaloTyped) {
             clearInterval(this.intervaloTyped);
         }
+        if (this.timeoutVolteo) {
+            clearTimeout(this.timeoutVolteo);
+        }
     }
 
     // Animación tipo "typed" para el subtítulo (escribir y borrar) usando un solo intervalo
@@ -504,13 +508,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
-    // Volteo de tarjetas de habilidades con 3 estados en mobile/tablet
+    // Volteo de tarjetas de habilidades con auto-volteo en mobile/tablet
     // En desktop: un solo click voltea la tarjeta (comportamiento normal)
     // En mobile/tablet:
-    //   - Primer click: resalta (hover)
-    //   - Segundo click: voltea para mostrar nivel
-    //   - Tercer click: vuelve a resaltar (hover)
-    //   - Si hago click en otra tarjeta, la anterior vuelve a estado normal
+    //   - Click en tarjeta: resalta (hover) y después de 2 segundos automáticamente voltea
+    //   - Click en tarjeta volteada: vuelve a estado normal
+    //   - Click en otra tarjeta: cancela el timer anterior y resetea todo
     alternarTarjeta(nombre: string): void {
         // Si es desktop (> 1024px), comportamiento normal: solo voltear
         if (!this.esMobile) {
@@ -519,30 +522,43 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
         
-        // Si es mobile/tablet (<=1024px), comportamiento de 3 estados:
+        // Si es mobile/tablet (<=1024px), comportamiento con auto-volteo:
+        
+        // Cancelo cualquier timeout pendiente
+        if (this.timeoutVolteo) {
+            clearTimeout(this.timeoutVolteo);
+            this.timeoutVolteo = null;
+        }
         
         // Si esta tarjeta ya está volteada (mostrando nivel)
         if (this.tarjetaVolteada === nombre) {
-            // Tercer click: vuelvo a estado hover
+            // Click en tarjeta volteada: vuelvo a estado normal
             this.tarjetaVolteada = null;
-            this.tarjetaHover = nombre;
-            this.cdr.markForCheck();
-            return;
-        }
-        
-        // Si esta tarjeta está en hover
-        if (this.tarjetaHover === nombre) {
-            // Segundo click: volteo para mostrar nivel
             this.tarjetaHover = null;
-            this.tarjetaVolteada = nombre;
             this.cdr.markForCheck();
             return;
         }
         
-        // Primer click: activo hover y reseteo cualquier otra tarjeta
+        // Si esta tarjeta ya está en hover, cancelo el auto-volteo
+        if (this.tarjetaHover === nombre) {
+            // Click mientras está en hover: cancelo el timer y vuelvo a normal
+            this.tarjetaHover = null;
+            this.cdr.markForCheck();
+            return;
+        }
+        
+        // Primer click: activo hover, reseteo otras tarjetas, y programo auto-volteo
         this.tarjetaHover = nombre;
         this.tarjetaVolteada = null;
         this.cdr.markForCheck();
+        
+        // Después de 2 segundos, volteo automáticamente
+        this.timeoutVolteo = setTimeout(() => {
+            this.tarjetaHover = null;
+            this.tarjetaVolteada = nombre;
+            this.cdr.markForCheck();
+            this.timeoutVolteo = null;
+        }, 2000);
     }
 
     estaVolteada(nombre: string): boolean {
