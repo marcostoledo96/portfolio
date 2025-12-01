@@ -552,13 +552,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.tarjetaVolteada = null;
         this.cdr.markForCheck();
         
-        // Después de 2 segundos, volteo automáticamente
+        // Después de 1 segundos, volteo automáticamente
         this.timeoutVolteo = setTimeout(() => {
             this.tarjetaHover = null;
             this.tarjetaVolteada = nombre;
             this.cdr.markForCheck();
             this.timeoutVolteo = null;
-        }, 1500);
+        }, 1000);
     }
 
     estaVolteada(nombre: string): boolean {
