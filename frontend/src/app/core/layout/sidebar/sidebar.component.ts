@@ -77,25 +77,35 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private configurarObservadorInterseccion(): void {
         const opciones = {
             root: null,
-            rootMargin: '-20% 0px -30% 0px',
-            threshold: 0.25
+            // Ajusto rootMargin para mejor detección en todas las resoluciones
+            rootMargin: '-15% 0px -35% 0px',
+            // Múltiples thresholds para mejor detección de secciones largas
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
         };
 
         this.observador = new IntersectionObserver((entradas: IntersectionObserverEntry[]) => {
-            // Encuentro la entrada con mayor intersectionRatio (la más visible)
-            let ratioMaximo = 0;
+            // Filtro solo las secciones que están intersectando
+            const seccionesVisibles = entradas.filter(e => e.isIntersecting);
+            
+            if (seccionesVisibles.length === 0) return;
+
+            // Encuentro la sección con mayor área visible en el viewport
+            let maxAreaVisible = 0;
             let entradaMasVisible: IntersectionObserverEntry | null = null;
 
-            entradas.forEach(entrada => {
-                if (entrada.isIntersecting && entrada.intersectionRatio > ratioMaximo) {
-                    ratioMaximo = entrada.intersectionRatio;
+            seccionesVisibles.forEach(entrada => {
+                // Calculo el área visible = boundingClientRect height * intersectionRatio
+                const areaVisible = entrada.boundingClientRect.height * entrada.intersectionRatio;
+                
+                if (areaVisible > maxAreaVisible) {
+                    maxAreaVisible = areaVisible;
                     entradaMasVisible = entrada;
                 }
             });
 
             if (entradaMasVisible) {
                 const idObjetivo = (entradaMasVisible as IntersectionObserverEntry).target.id;
-                if (idObjetivo) {
+                if (idObjetivo && this.seccionActiva !== idObjetivo) {
                     // Ejecuto dentro de NgZone para que Angular detecte el cambio
                     this.ngZone.run(() => {
                         this.seccionActiva = idObjetivo;
