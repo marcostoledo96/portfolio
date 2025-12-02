@@ -78,7 +78,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         const opciones = {
             root: null,
             // Ajusto rootMargin para mejor detección en todas las resoluciones
-            rootMargin: '-15% 0px -35% 0px',
+            rootMargin: '-10% 0px -40% 0px',
             // Múltiples thresholds para mejor detección de secciones largas
             threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
         };
@@ -89,24 +89,46 @@ export class SidebarComponent implements OnInit, OnDestroy {
             
             if (seccionesVisibles.length === 0) return;
 
-            // Encuentro la sección con mayor área visible en el viewport
-            let maxAreaVisible = 0;
-            let entradaMasVisible: IntersectionObserverEntry | null = null;
+            // Si solo hay una sección visible, la selecciono directamente
+            if (seccionesVisibles.length === 1) {
+                const idObjetivo = seccionesVisibles[0].target.id;
+                if (idObjetivo && this.seccionActiva !== idObjetivo) {
+                    this.ngZone.run(() => {
+                        this.seccionActiva = idObjetivo;
+                        this.cdr.markForCheck();
+                    });
+                }
+                return;
+            }
+
+            // Si hay múltiples secciones visibles, uso un algoritmo mejorado
+            let mejorSeccion: IntersectionObserverEntry | null = null;
+            let mejorPuntuacion = -Infinity;
 
             seccionesVisibles.forEach(entrada => {
-                // Calculo el área visible = boundingClientRect height * intersectionRatio
-                const areaVisible = entrada.boundingClientRect.height * entrada.intersectionRatio;
+                const rect = entrada.boundingClientRect;
+                const areaVisible = rect.height * entrada.intersectionRatio;
                 
-                if (areaVisible > maxAreaVisible) {
-                    maxAreaVisible = areaVisible;
-                    entradaMasVisible = entrada;
+                // Calculo distancia del top de la sección al top del viewport
+                // Si está más cerca del top (valor más pequeño), es mejor candidato
+                const distanciaAlTop = Math.abs(rect.top);
+                
+                // Puntuación = área visible grande y distancia pequeña al top
+                // Normalizo los valores para que tengan peso similar
+                const puntuacionArea = areaVisible / 100; // Dividido para normalizar
+                const puntuacionDistancia = 1000 / (distanciaAlTop + 100); // Inversa de la distancia
+                
+                const puntuacionTotal = puntuacionArea + puntuacionDistancia;
+                
+                if (puntuacionTotal > mejorPuntuacion) {
+                    mejorPuntuacion = puntuacionTotal;
+                    mejorSeccion = entrada;
                 }
             });
 
-            if (entradaMasVisible) {
-                const idObjetivo = (entradaMasVisible as IntersectionObserverEntry).target.id;
+            if (mejorSeccion) {
+                const idObjetivo = (mejorSeccion as IntersectionObserverEntry).target.id;
                 if (idObjetivo && this.seccionActiva !== idObjetivo) {
-                    // Ejecuto dentro de NgZone para que Angular detecte el cambio
                     this.ngZone.run(() => {
                         this.seccionActiva = idObjetivo;
                         this.cdr.markForCheck();
