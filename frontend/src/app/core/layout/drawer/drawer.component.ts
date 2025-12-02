@@ -5,6 +5,7 @@
 import { Component, OnInit, OnDestroy, HostListener, ElementRef, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DrawerService } from '../../services/drawer.service';
+import { SectionTrackerService } from '../../services/section-tracker.service';
 
 type IdleCb = (cb: () => void) => void;
 
@@ -23,15 +24,27 @@ export class DrawerComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
     private observador: IntersectionObserver | null = null;
     private iconosPendientes = false;
+    private ultimasEntradas: Map<string, IntersectionObserverEntry> = new Map();
+    private timeoutActualizacion: any = null;
 
     constructor(
         private drawerService: DrawerService,
         private elementRef: ElementRef,
         private ngZone: NgZone,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private sectionTracker: SectionTrackerService
     ) { }
 
     ngOnInit(): void {
+        this.sectionTracker.seccionActiva
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((id: string) => {
+                if (id && this.seccionActiva !== id) {
+                    this.seccionActiva = id;
+                    this.cdr.markForCheck();
+                }
+            });
+
         // Me suscribo al estado del drawer
         this.drawerService.drawerAbierto$
             .pipe(takeUntil(this.destroy$))
@@ -70,6 +83,12 @@ export class DrawerComponent implements OnInit, OnDestroy {
         this.destroy$.next();
         this.destroy$.complete();
         document.body.classList.remove('drawer-open');
+        
+        // Limpio el timeout pendiente
+        if (this.timeoutActualizacion) {
+            clearTimeout(this.timeoutActualizacion);
+        }
+        
         // Limpio el observer cuando el componente se destruye
         if (this.observador) {
             this.observador.disconnect();
@@ -87,57 +106,25 @@ export class DrawerComponent implements OnInit, OnDestroy {
         };
 
         this.observador = new IntersectionObserver((entradas: IntersectionObserverEntry[]) => {
-            // Filtro solo las secciones que están intersectando
-            const seccionesVisibles = entradas.filter(e => e.isIntersecting);
-            
-            if (seccionesVisibles.length === 0) return;
-
-            // Si solo hay una sección visible, la selecciono directamente
-            if (seccionesVisibles.length === 1) {
-                const idObjetivo = seccionesVisibles[0].target.id;
-                if (idObjetivo && this.seccionActiva !== idObjetivo) {
-                    this.ngZone.run(() => {
-                        this.seccionActiva = idObjetivo;
-                        this.cdr.markForCheck();
-                    });
-                }
-                return;
-            }
-
-            // Si hay múltiples secciones visibles, uso un algoritmo mejorado
-            let mejorSeccion: IntersectionObserverEntry | null = null;
-            let mejorPuntuacion = -Infinity;
-
-            seccionesVisibles.forEach(entrada => {
-                const rect = entrada.boundingClientRect;
-                const areaVisible = rect.height * entrada.intersectionRatio;
-                
-                // Calculo distancia del top de la sección al top del viewport
-                // Si está más cerca del top (valor más pequeño), es mejor candidato
-                const distanciaAlTop = Math.abs(rect.top);
-                
-                // Puntuación = área visible grande y distancia pequeña al top
-                // Normalizo los valores para que tengan peso similar
-                const puntuacionArea = areaVisible / 100; // Dividido para normalizar
-                const puntuacionDistancia = 1000 / (distanciaAlTop + 100); // Inversa de la distancia
-                
-                const puntuacionTotal = puntuacionArea + puntuacionDistancia;
-                
-                if (puntuacionTotal > mejorPuntuacion) {
-                    mejorPuntuacion = puntuacionTotal;
-                    mejorSeccion = entrada;
+            // Actualizo el mapa con las últimas entradas de cada sección
+            entradas.forEach(entrada => {
+                const id = entrada.target.id;
+                if (entrada.isIntersecting) {
+                    this.ultimasEntradas.set(id, entrada);
+                } else {
+                    this.ultimasEntradas.delete(id);
                 }
             });
 
-            if (mejorSeccion) {
-                const idObjetivo = (mejorSeccion as IntersectionObserverEntry).target.id;
-                if (idObjetivo && this.seccionActiva !== idObjetivo) {
-                    this.ngZone.run(() => {
-                        this.seccionActiva = idObjetivo;
-                        this.cdr.markForCheck();
-                    });
-                }
+            // Cancelo cualquier timeout pendiente
+            if (this.timeoutActualizacion) {
+                clearTimeout(this.timeoutActualizacion);
             }
+
+            // Espero 100ms para que se acumulen todas las actualizaciones
+            this.timeoutActualizacion = setTimeout(() => {
+                this.procesarSeccionActiva();
+            }, 100);
         }, opciones);
 
         // Observo todas las secciones
@@ -169,6 +156,56 @@ export class DrawerComponent implements OnInit, OnDestroy {
     // Verifico si una sección está activa
     estaActiva(idSeccion: string): boolean {
         return this.seccionActiva === idSeccion;
+    }
+
+    // Proceso todas las secciones visibles y determino cuál debería estar activa
+    private procesarSeccionActiva(): void {
+        const seccionesVisibles = Array.from(this.ultimasEntradas.values());
+        
+        if (seccionesVisibles.length === 0) return;
+
+        // Si solo hay una sección visible, la selecciono directamente
+        if (seccionesVisibles.length === 1) {
+            const idObjetivo = seccionesVisibles[0].target.id;
+            if (idObjetivo && this.seccionActiva !== idObjetivo) {
+                this.ngZone.run(() => {
+                    this.seccionActiva = idObjetivo;
+                    this.sectionTracker.setSeccionActiva(idObjetivo);
+                    this.cdr.markForCheck();
+                });
+            }
+            return;
+        }
+
+        // Si hay múltiples secciones visibles, uso el algoritmo de puntuación
+        let mejorSeccion: IntersectionObserverEntry | null = null;
+        let mejorPuntuacion = -Infinity;
+
+        seccionesVisibles.forEach(entrada => {
+            const rect = entrada.boundingClientRect;
+            const areaVisible = rect.height * entrada.intersectionRatio;
+            const distanciaAlTop = Math.abs(rect.top);
+            
+            const puntuacionArea = areaVisible / 100;
+            const puntuacionDistancia = 1000 / (distanciaAlTop + 100);
+            const puntuacionTotal = puntuacionArea + puntuacionDistancia;
+            
+            if (puntuacionTotal > mejorPuntuacion) {
+                mejorPuntuacion = puntuacionTotal;
+                mejorSeccion = entrada;
+            }
+        });
+
+        if (mejorSeccion) {
+            const idObjetivo = (mejorSeccion as IntersectionObserverEntry).target.id;
+            if (idObjetivo && this.seccionActiva !== idObjetivo) {
+                this.ngZone.run(() => {
+                    this.seccionActiva = idObjetivo;
+                    this.sectionTracker.setSeccionActiva(idObjetivo);
+                    this.cdr.markForCheck();
+                });
+            }
+        }
     }
 
     // Cierro el drawer cuando hago clic en una sección
