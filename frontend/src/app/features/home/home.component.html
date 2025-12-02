@@ -32,8 +32,7 @@
         </p>
         <div class="sociales">
             <a class="boton-social" href="https://github.com/marcostoledo96" target="_blank" rel="noopener noreferrer"
-                aria-label="GitHub" data-tooltip="Ir a GitHub"
-                (click)="manejarClickSocial($event, 'github')">
+                aria-label="GitHub" data-tooltip="Ir a GitHub" (click)="manejarClickSocial($event, 'github')">
                 <i data-lucide="github"></i>
                 <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'github'">Ir a GitHub</span>
             </a>
@@ -44,14 +43,12 @@
                 <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'linkedin'">Ir a LinkedIn</span>
             </a>
             <a class="boton-social" href="mailto:marcostoledo96@gmail.com" aria-label="Email"
-                data-tooltip="Enviar email"
-                (click)="manejarClickSocial($event, 'email')">
+                data-tooltip="Enviar email" (click)="manejarClickSocial($event, 'email')">
                 <i data-lucide="mail"></i>
                 <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'email'">Enviar email</span>
             </a>
             <a class="boton-social" href="assets/doc/CV_ToledoMarcos_IT.pdf" download="CV_ToledoMarcos_IT.pdf"
-                aria-label="Descargar CV" data-tooltip="Descargar CV"
-                (click)="manejarClickSocial($event, 'cv')">
+                aria-label="Descargar CV" data-tooltip="Descargar CV" (click)="manejarClickSocial($event, 'cv')">
                 <i data-lucide="download"></i>
                 <span class="tooltip-mobile" [class.visible]="tooltipActivo === 'cv'">Descargar CV</span>
             </a>
@@ -67,15 +64,14 @@
         </h2>
         <div class="rejilla rejilla-2 md:rejilla-3 lg:rejilla-5">
             <div class="tarjeta-habilidad tarjeta-habilidad--flip" *ngFor="let hab of habilidadesTecnicas"
-                [class.volteada]="estaVolteada(hab.nombre)" 
-                [class.hover-mobile]="estaEnHover(hab.nombre)"
-                (click)="alternarTarjeta(hab.nombre)"
-                [attr.aria-pressed]="estaVolteada(hab.nombre)" role="button" tabindex="0"
-                (keyup.enter)="alternarTarjeta(hab.nombre)" (keyup.space)="alternarTarjeta(hab.nombre)">
+                [class.volteada]="estaVolteada(hab.nombre)" [class.hover-mobile]="estaEnHover(hab.nombre)"
+                (click)="alternarTarjeta(hab.nombre)" [attr.aria-pressed]="estaVolteada(hab.nombre)" role="button"
+                tabindex="0" (keyup.enter)="alternarTarjeta(hab.nombre)" (keyup.space)="alternarTarjeta(hab.nombre)">
                 <div class="tarjeta-habilidad__interior">
                     <div class="tarjeta-habilidad__cara tarjeta-habilidad__cara--frente">
                         <div class="emoji-habilidad">
-                            <img loading="lazy" decoding="async" [src]="hab.img" [alt]="hab.alt" width="64" height="64" />
+                            <img loading="lazy" decoding="async" [src]="hab.img" [alt]="hab.alt" width="64"
+                                height="64" />
                         </div>
                         <h4>{{ hab.nombre }}</h4>
                     </div>
@@ -364,6 +360,77 @@
 
             <div class="tarjeta-proyecto">
                 <div class="portada-proyecto">
+                    <img loading="lazy" decoding="async" src="assets/img/sanpaholmes.webp"
+                        alt="SanpaHolmes - Tienda digital de menú de comida" />
+                </div>
+                <div class="p-6">
+                    <h3 class="mb-3">Tienda SanpaHolmes</h3>
+                    <div class="fila-insignias mb-3">
+                        <span class="insignia insignia-online">Online</span>
+                        <span class="insignia insignia-completado">Finalizado</span>
+                        <span class="insignia insignia-individual">Individual</span>
+                    </div>
+                    <p class="tenue mb-4">
+                        Tienda digital de menú de comida, hecha para un evento de caridad Scout, enfocado en la temática
+                        de resolver casos criminales.
+                    </p>
+                    <div class="fichas contorno mb-4">
+                        <span class="ficha">React</span>
+                        <span class="ficha">Node.js</span>
+                        <span class="ficha">PostgreSQL</span>
+                    </div>
+                    <div class="pila-6">
+                        <a class="boton primario w-full" href="https://demo-sanpaholmes.vercel.app/" target="_blank"
+                            rel="noopener noreferrer">
+                            <i data-lucide="external-link"></i>
+                            Ver sitio
+                        </a>
+                        <a class="boton w-full" href="https://github.com/marcostoledo96/demo_sanpaholmes"
+                            target="_blank" rel="noopener noreferrer">
+                            <i data-lucide="github"></i>
+                            Ver en GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-proyecto">
+                <div class="portada-proyecto">
+                    <img loading="lazy" decoding="async" src="assets/img/iftslogo.webp"
+                        alt="IFTS N°26 - Sitio Web Oficial" />
+                </div>
+                <div class="p-6">
+                    <h3 class="mb-3">IFTS N°26 - Sitio Web Oficial</h3>
+                    <div class="fila-insignias mb-3">
+                        <span class="insignia insignia-online">Online</span>
+                        <span class="insignia insignia-desarrollo">En desarrollo</span>
+                        <span class="insignia insignia-grupo">En equipo</span>
+                    </div>
+                    <p class="tenue mb-4">
+                        Trabajo en equipo para el desarrollo de la página oficial del
+                        instituto, con secciones informativas, contacto y recursos
+                    </p>
+                    <div class="fichas contorno mb-4">
+                        <span class="ficha">Angular</span>
+                        <span class="ficha">Node.js</span>
+                    </div>
+                    <div class="pila-6">
+                        <a class="boton primario w-full" href="https://ifts26.netlify.app/inicio" target="_blank"
+                            rel="noopener noreferrer">
+                            <i data-lucide="external-link"></i>
+                            Ver sitio
+                        </a>
+                        <a class="boton w-full" href="https://github.com/FedeOsorio/IFTS26" target="_blank"
+                            rel="noopener noreferrer">
+                            <i data-lucide="github"></i>
+                            Ver en GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-proyecto">
+                <div class="portada-proyecto">
                     <img loading="lazy" decoding="async" src="assets/img/candyland.webp"
                         alt="CandyLand - Tienda de dulces" />
                 </div>
@@ -429,78 +496,6 @@
                         </a>
                         <a class="boton w-full" href="https://github.com/marcostoledo96/explorador_juegos"
                             target="_blank" rel="noopener noreferrer">
-                            <i data-lucide="github"></i>
-                            Ver en GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tarjeta-proyecto">
-                <div class="portada-proyecto">
-                    <img loading="lazy" decoding="async" src="assets/img/sanpaholmes.webp"
-                        alt="SanpaHolmes - Tienda digital de menú de comida" />
-                </div>
-                <div class="p-6">
-                    <h3 class="mb-3">Tienda SanpaHolmes</h3>
-                    <div class="fila-insignias mb-3">
-                        <span class="insignia insignia-online">Online</span>
-                        <span class="insignia insignia-completado">Finalizado</span>
-                        <span class="insignia insignia-individual">Individual</span>
-                    </div>
-                    <p class="tenue mb-4">
-                        Tienda digital de menú de comida, hecha para un evento de caridad Scout, enfocado en la temática
-                        de resolver casos criminales.
-
-                    </p>
-                    <div class="fichas contorno mb-4">
-                        <span class="ficha">React</span>
-                        <span class="ficha">Node.js</span>
-                        <span class="ficha">PostgreSQL</span>
-                    </div>
-                    <div class="pila-6">
-                        <a class="boton primario w-full" href="https://demo-sanpaholmes.vercel.app/" target="_blank"
-                            rel="noopener noreferrer">
-                            <i data-lucide="external-link"></i>
-                            Ver sitio
-                        </a>
-                        <a class="boton w-full" href="https://github.com/marcostoledo96/demo_sanpaholmes"
-                            target="_blank" rel="noopener noreferrer">
-                            <i data-lucide="github"></i>
-                            Ver en GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tarjeta-proyecto">
-                <div class="portada-proyecto">
-                    <img loading="lazy" decoding="async" src="assets/img/iftslogo.webp"
-                        alt="IFTS N°26 - Sitio Web Oficial" />
-                </div>
-                <div class="p-6">
-                    <h3 class="mb-3">IFTS N°26 - Sitio Web Oficial</h3>
-                    <div class="fila-insignias mb-3">
-                        <span class="insignia insignia-online">Online</span>
-                        <span class="insignia insignia-desarrollo">En desarrollo</span>
-                        <span class="insignia insignia-grupo">En equipo</span>
-                    </div>
-                    <p class="tenue mb-4">
-                        Trabajo en equipo para el desarrollo de la página oficial del
-                        instituto, con secciones informativas, contacto y recursos
-                    </p>
-                    <div class="fichas contorno mb-4">
-                        <span class="ficha">Angular</span>
-                        <span class="ficha">Node.js</span>
-                    </div>
-                    <div class="pila-6">
-                        <a class="boton primario w-full" href="https://ifts26.netlify.app/inicio" target="_blank"
-                            rel="noopener noreferrer">
-                            <i data-lucide="external-link"></i>
-                            Ver sitio
-                        </a>
-                        <a class="boton w-full" href="https://github.com/FedeOsorio/IFTS26" target="_blank"
-                            rel="noopener noreferrer">
                             <i data-lucide="github"></i>
                             Ver en GitHub
                         </a>
