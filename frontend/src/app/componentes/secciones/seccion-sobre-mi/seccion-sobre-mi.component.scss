@@ -1,0 +1,223 @@
+// Estilos de la sección "Sobre mí": bento grid de 5 tarjetas con chips, íconos y bio.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.about {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--background);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04;
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  &__bg-blob {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    opacity: 0.10;
+    background: radial-gradient(circle, var(--portfolio-accent) 0%, transparent 70%);
+    top: -8%; left: -4%;
+    animation: sectionBlob1 14s ease-in-out infinite;
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 56px; height: 56px;
+      border: 1px solid rgba(var(--portfolio-accent-rgb), 0.15);
+      border-radius: $radius-xl;
+      bottom: 15%; right: 12%;
+      animation: sectionFloat1 16s ease-in-out infinite;
+    }
+    &--2 {
+      width: 14px; height: 14px;
+      background: rgba(139, 92, 246, 0.15);
+      border-radius: 50%;
+      top: 35%; left: 8%;
+      animation: sectionFloat2 12s ease-in-out infinite;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 3rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // Bento grid: 2 columnas en mobile → 3 columnas desde md
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  // Base de todas las tarjetas: hover con elevación y borde de acento
+  &__card {
+    border-radius: $radius-2xl;
+    background: var(--portfolio-card-bg);
+    border: 1px solid var(--portfolio-card-border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.2);
+    }
+  }
+
+  // Tarjeta bio: 2 col en mobile; 2 col + 2 filas en desktop
+  &__card--bio {
+    grid-column: span 2;
+    padding: 1rem 1rem;
+    display: flex; flex-direction: column; justify-content: center;
+
+    @include md {
+      grid-row: span 2;
+      padding: 1.75rem;
+    }
+  }
+  &__bio-text {
+    font-size: 0.95rem; line-height: 1.85;
+
+    &--primary {
+      color: var(--foreground);
+      margin-bottom: 1rem;
+    }
+    &--secondary {
+      color: var(--muted-foreground);
+    }
+  }
+  &__bio-accent {
+    color: var(--portfolio-accent);
+    font-weight: 600;
+  }
+
+  // Tarjetas pequeñas (Ubicación y Objetivo): ícono + etiqueta + valor
+  &__card--small {
+    display: flex; flex-direction: column;
+    padding: 0.875rem;
+
+    @include md { padding: 1.25rem; }
+  }
+  &__card-icon-box {
+    width: 36px; height: 36px;
+    border-radius: $radius-xl;
+    background: var(--portfolio-accent-glow);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.625rem;
+
+    @include md {
+      width: 40px; height: 40px;
+      margin-bottom: 0.75rem;
+    }
+
+    &--shrink { flex-shrink: 0; }
+  }
+  &__card-icon {
+    width: 18px; height: 18px;
+    color: var(--portfolio-accent);
+  }
+  &__card-label {
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--muted-foreground);
+    margin-bottom: 0.125rem;
+
+    @include md { margin-bottom: 0.25rem; }
+  }
+  &__card-value {
+    color: var(--foreground);
+    font-size: 0.92rem; font-weight: 600;
+  }
+  &__card-sub {
+    color: var(--muted-foreground);
+    font-size: 0.8rem;
+  }
+  &__card-goal {
+    color: var(--foreground);
+    font-size: 0.8rem; font-weight: 500;
+    line-height: 1.5;
+  }
+
+  // Tarjetas de chips (Aprendiendo y Stack): fila en mobile, columna desde md
+  &__card--tags {
+    grid-column: span 2;
+    padding: 1rem;
+    display: flex; flex-direction: row;
+    align-items: flex-start; gap: 0.75rem;
+
+    @include md {
+      grid-column: span 1;
+      flex-direction: column;
+      gap: 0;
+      padding: 1.25rem;
+    }
+  }
+  &__card--stack {
+    grid-column: span 2;
+  }
+  &__card-tags-body {
+    min-width: 0;
+  }
+  &__chips {
+    display: flex; flex-wrap: wrap; gap: 0.375rem;
+
+    @include md { margin-top: 0; }
+  }
+  // Chips de tecnologías: violeta para aprendizaje, acento para stack actual
+  &__chip {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: $radius-lg;
+    font-size: 0.72rem; font-weight: 500;
+
+    &--purple {
+      background: rgba(139, 92, 246, 0.1);
+      color: #8b5cf6;
+      border: 1px solid rgba(139, 92, 246, 0.15);
+    }
+    &--accent {
+      background: var(--portfolio-accent-glow);
+      color: var(--portfolio-accent);
+      border: 1px solid rgba(var(--portfolio-accent-rgb), 0.15);
+    }
+  }
+}

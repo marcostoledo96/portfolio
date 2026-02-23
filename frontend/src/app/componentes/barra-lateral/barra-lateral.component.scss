@@ -1,0 +1,234 @@
+// Estilos de la barra lateral. Uso BEM: .sidebar (bloque), __elemento, --modificador.
+@use '../../../styles/variables' as *;
+
+// El host ocupa todo el alto del contenedor padre
+:host { display: block; height: 100%; }
+
+.sidebar {
+  position: relative;       // Necesario para posicionar hijos en absolute
+  display: flex;
+  flex-direction: column;   // Apilo los bloques verticalmente
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;       // Evita scroll horizontal por los blobs decorativos
+  background-color: var(--portfolio-sidebar-bg);
+  font-family: $font-ui;
+
+  // Capa decorativa de fondo: no recibe clics (pointer-events: none)
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  // Textura de puntos con opacidad muy baja
+  &__dots {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: radial-gradient(circle, var(--foreground) 0.8px, transparent 0.8px);
+    background-size: 24px 24px;
+  }
+
+  // Manchas de color difusas y animadas como decoración de fondo
+  &__blob {
+    position: absolute;
+    border-radius: 50%;
+    &--1 { // Superior izquierda, color de acento
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, var(--portfolio-accent) 0%, transparent 70%);
+      opacity: 0.06;
+      top: 5%; left: -30%;
+      animation: sidebarBlob1 12s ease-in-out infinite;
+    }
+    &--2 { // Inferior derecha, tono violeta
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+      opacity: 0.04;
+      bottom: 15%; right: -25%;
+      animation: sidebarBlob2 15s ease-in-out infinite;
+    }
+  }
+
+  // Pista de 3px en el borde derecho que contiene la barra de progreso
+  &__progress-track {
+    position: absolute;
+    top: 0; right: 0;
+    width: 3px; height: 100%;
+    z-index: 10;
+  }
+  &__progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--portfolio-accent-rgb), 0.8);
+    border-radius: 0 0 9999px 9999px;
+    transform-origin: top;    // Crece desde arriba hacia abajo
+    transform: scaleY(0);     // El TS la actualiza con scaleY(scrollProgress)
+    will-change: transform;   // Hint al navegador para optimización GPU
+  }
+
+  // Contenedor relativo del avatar (para posicionar el punto de estado)
+  &__avatar-wrap {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  &__avatar {
+    width: 9rem; height: 9rem;
+    border-radius: 50%;
+    overflow: hidden;         // Recorta la imagen en forma circular
+    border: 3px solid var(--portfolio-accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+  }
+  // Punto verde de disponibilidad en la esquina inferior derecha
+  &__status-dot {
+    position: absolute;
+    bottom: 0.25rem; right: 0.25rem;
+    width: 1rem; height: 1rem;
+    border-radius: 50%;
+    background-color: #10b981; // Verde esmeralda
+    border: 2px solid var(--portfolio-sidebar-bg); // Crea separación visual con el avatar
+  }
+
+  // Bloque de nombre y rol
+  &__identity {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  &__name    { color: var(--foreground); font-size: 1.15rem; letter-spacing: 0.02em; }
+  &__surname { color: var(--foreground); font-size: 1.4rem; font-weight: 700; letter-spacing: 0.02em; }
+  &__accent-line { // Separador decorativo entre nombre y rol
+    width: 2.5rem; height: 2px;
+    background-color: var(--portfolio-accent);
+    margin: 0.5rem auto;
+    border-radius: 9999px;
+  }
+  &__role {
+    color: var(--muted-foreground);
+    font-size: 0.7rem;
+    font-weight: 500;
+    font-family: $font-code; // Fuente mono para look técnico
+    letter-spacing: 0.03em;
+  }
+
+  // flex: 1 empuja el toggle de tema al fondo de la sidebar
+  &__nav {
+    width: 100%;
+    flex: 1;
+    padding: 0 0.75rem;
+    position: relative;
+    z-index: 1;
+    ul { display: flex; flex-direction: column; gap: 6px; }
+  }
+  &__nav-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 1rem;
+    border-radius: $radius-xl;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--foreground);
+    // Solo transiciono las propiedades que cambian, nunca 'all'
+    transition: background-color $transition-base, color $transition-base, box-shadow $transition-base;
+    cursor: pointer;
+    position: relative;
+    &:hover { // Realce suave con el color de acento
+      background-color: var(--portfolio-accent-glow);
+      color: var(--portfolio-accent);
+    }
+    &.active { // Angular agrega esta clase cuando la sección es la visible
+      background-color: var(--portfolio-accent);
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 12px var(--portfolio-accent-glow);
+      .sidebar__nav-icon { color: white !important; }
+    }
+  }
+  &__nav-icon {
+    width: 17px; height: 17px;
+    color: var(--portfolio-accent);
+    flex-shrink: 0; // Evita que el ícono se comprima si el label es largo
+  }
+
+  // Contenedor pegado al fondo que envuelve el switch de tema
+  &__theme-wrap {
+    width: 100%;
+    padding: 0.75rem 1rem 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  // Cápsula con íconos de sol/luna y el switch
+  &__theme-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: $radius-2xl;
+    border: 1px solid;
+    transition: background-color $transition-slow, border-color $transition-slow;
+    background-color: rgba(255, 255, 255, 0.6); // Estilo modo claro
+    border-color: rgba(0, 0, 0, 0.06);
+    &.dark { // Angular agrega la clase 'dark' dinámicamente
+      background-color: rgba(15, 23, 42, 0.7);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+  // Íconos de sol y luna; la clase 'active' los ilumina con color
+  &__theme-icon {
+    width: 16px; height: 16px;
+    flex-shrink: 0;
+    transition: color $transition-slow, transform $transition-slow;
+    color: rgba(var(--portfolio-accent-rgb), 0.3); // Tenue cuando está inactivo
+    &.active { transform: scale(1.1); }
+    &[data-lucide="sun"].active  { color: #f59e0b; }              // Amarillo en modo claro
+    &[data-lucide="moon"].active { color: var(--portfolio-accent); } // Acento en modo oscuro
+  }
+  // Rectángulo clicable del switch
+  &__toggle-track {
+    position: relative;
+    flex-shrink: 0;
+    width: 52px; height: 28px;
+    border-radius: 14px;
+    background-color: var(--switch-background);
+    transition: background-color $transition-slow;
+    cursor: pointer;
+    &:focus-visible { outline: 2px solid var(--portfolio-accent); outline-offset: 2px; }
+    &.dark { background-color: var(--portfolio-accent); }
+  }
+  // Círculo blanco del switch; se desplaza a la derecha en modo oscuro
+  &__toggle-thumb {
+    position: absolute;
+    width: 22px; height: 22px;
+    top: 3px; left: 3px;       // Posición modo claro
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: left $transition-slow;
+    &.dark { left: 27px; }     // Posición modo oscuro
+  }
+}
+
+// Animaciones de los blobs: cada uno sigue una trayectoria distinta
+@keyframes sidebarBlob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, 40px) scale(1.15); }
+  66%       { transform: translate(-10px, 20px) scale(0.9); }
+}
+@keyframes sidebarBlob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-20px, -30px) scale(1.1); }
+  66%       { transform: translate(15px, -15px) scale(0.85); }
+}

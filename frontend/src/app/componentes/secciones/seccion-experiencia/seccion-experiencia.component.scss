@@ -1,0 +1,241 @@
+// Estilos de la sección Experiencia: tarjeta única con roles, métricas, responsabilidades y tecnologías.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.exp {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--background);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04; // Muy sutil para no competir con el contenido
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px; // Grilla de puntos espaciados
+  }
+  &__bg-blob {
+    position: absolute;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    opacity: 0.10;
+    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+    bottom: -10%; right: -5%;
+    animation: sectionBlob1 16s ease-in-out infinite;
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 52px; height: 52px;
+      border: 1px solid rgba(var(--portfolio-accent-rgb), 0.14);
+      border-radius: $radius-xl;
+      top: 8%; left: 6%;
+      animation: sectionFloat1 17s ease-in-out infinite;
+    }
+    &--2 {
+      width: 14px; height: 14px;
+      background: rgba(129, 140, 248, 0.16);
+      border-radius: 50%;
+      bottom: 25%; left: 40%;
+      animation: sectionFloat2 13s ease-in-out infinite reverse;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 3rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // --- Tarjeta principal: hover con sombra y borde de acento ---
+  &__card {
+    background: var(--portfolio-card-bg);
+    border: 1px solid var(--portfolio-card-border);
+    border-radius: $radius-2xl;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      border-color: rgba(var(--portfolio-accent-rgb), 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    @include sm { padding: 2rem; }
+  }
+
+  // Nombre de la empresa: peso fuerte con tracking leve
+  &__company {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--foreground);
+    margin-bottom: 0.125rem;
+  }
+
+  // Subtítulo descriptivo de la empresa (tipo y rubro)
+  &__subtitle {
+    font-size: 0.88rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.75rem;
+  }
+
+  // Fila de metadatos: ubicación y período con íconos pequeños
+  &__meta {
+    display: flex; flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+  &__meta-item {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+  }
+  &__meta-icon {
+    width: 14px; height: 14px;
+    color: var(--portfolio-accent);
+    flex-shrink: 0;
+  }
+
+  // Pills de rol: fondo sólido de acento, texto blanco
+  &__roles {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  &__role {
+    padding: 0.25rem 0.75rem;
+    border-radius: $radius-full;
+    background: var(--portfolio-accent);
+    color: #fff;
+    font-size: 0.73rem; font-weight: 600;
+  }
+
+  // Bloque de métricas de impacto con encabezado y grilla de tarjetas
+  &__metrics-section {
+    margin-bottom: 1.5rem;
+  }
+  &__metrics-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.75rem;
+
+    &-icon {
+      width: 14px; height: 14px;
+      color: var(--portfolio-accent);
+    }
+    &-text {
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--foreground);
+    }
+  }
+  // Grilla de métricas: 2 columnas en mobile, 4 desde sm
+  &__metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+
+    @include sm { grid-template-columns: repeat(4, 1fr); }
+  }
+  &__metric {
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: $radius-xl;
+    background: rgba(var(--portfolio-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--portfolio-accent-rgb), 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(var(--portfolio-accent-rgb), 0.15);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.3);
+    }
+  }
+  &__metric-value {
+    display: block;
+    font-size: 1.3rem; font-weight: 800;
+    line-height: 1;
+    color: var(--portfolio-accent);
+  }
+  &__metric-label {
+    display: block;
+    font-size: 0.68rem; font-weight: 500;
+    color: var(--muted-foreground);
+    margin-top: 0.25rem;
+  }
+
+  // Lista de responsabilidades: cada ítem tiene un bullet circular de color acento
+  &__resp-list {
+    display: flex; flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+  &__resp-item {
+    display: flex; gap: 0.75rem;
+  }
+  &__resp-bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--portfolio-accent);
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+  &__resp-text {
+    font-size: 0.84rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  // Tags de tecnologías: borde de acento, fondo tenue, fuente monoespaciada
+  &__tech-title {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--foreground);
+    margin-bottom: 0.625rem;
+  }
+  &__tech-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  &__tech-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: $radius-lg;
+    border: 1px solid rgba(var(--portfolio-accent-rgb), 0.2);
+    background: var(--portfolio-accent-glow);
+    color: var(--portfolio-accent);
+    font-size: 0.73rem; font-weight: 500;
+    font-family: $font-code;
+  }
+}

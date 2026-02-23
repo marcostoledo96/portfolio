@@ -1,16 +1,118 @@
-// Estilos del AppComponent (mínimos, la mayoría van a styles.scss global)
-// Acá solo defino el contenedor principal para que funcione bien con sidebar y responsive.
+﻿// Estilos del layout raíz: sidebar fijo (desktop), encabezado móvil y área principal scrollable.
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
 
-.contenido {
-    margin-left: 0;
-    min-height: calc(100vh - 64px);
-    padding-top: 64px; // compenso el header móvil
-    padding-bottom: 80px; // espacio para el footer en mobile
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; // El scroll ocurre dentro de layout__main, no en el host
+  font-family: 'Inter', sans-serif;
+}
 
-    @media (min-width: 1024px) {
-        margin-left: 256px; // ancho del sidebar en desktop
-        padding-top: 0;
-        min-height: 100vh;
-        padding-bottom: 0;
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+
+  &__sidebar {
+    display: none; // Oculto en mobile
+
+    @include lg {
+      display: block;
+      width: $sidebar-width;  // 280px definido en variables
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
     }
+  }
+
+  &__mobile-header {
+    display: block;               // Visible en mobile
+    @include lg { display: none; } // Oculto en desktop
+  }
+
+  &__main {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+
+    // En mobile compenso la altura del encabezado fijo (56px)
+    padding-top: $mobile-header-height;
+    @include lg { padding-top: 0; }
+  }
+}
+
+// Footer: borde superior, fondo ligeramente más oscuro que el background
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.5rem;
+  background: color-mix(in srgb, var(--background) 92%, black 8%);
+  font-family: 'Inter', sans-serif;
+
+  &__inner {
+    max-width: 28rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  // Fila de íconos de redes sociales
+  &__socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-xl;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    transition: color 0.2s, background-color 0.2s;
+
+    i {
+      width: 16px;
+      height: 16px;
+      stroke-width: 1.5;
+    }
+
+    &:hover {
+      color: var(--portfolio-accent);
+      background: var(--portfolio-accent-glow);
+    }
+  }
+
+  // Texto de copyright
+  &__copy {
+    font-size: 0.82rem;
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  // Leyenda "Hecho en Argentina" con opacidad reducida
+  &__made {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.72rem;
+    color: var(--muted-foreground);
+    opacity: 0.5;
+    margin-top: 0.5rem;
+  }
+
+  &__heart {
+    width: 11px;
+    height: 11px;
+    color: var(--portfolio-accent);
+    opacity: 0.8;
+    fill: currentColor;
+  }
 }

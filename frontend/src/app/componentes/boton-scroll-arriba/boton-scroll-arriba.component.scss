@@ -1,0 +1,35 @@
+// 'display: contents' hace que el :host no genere una caja propia en el DOM,
+// permitiendo que el botón se posicione en fixed como si fuera hijo directo del body.
+:host {
+  display: contents;
+}
+
+// Botón circular fijo en la esquina inferior derecha
+.scroll-top-btn {
+  position: fixed;      // Se mantiene fijo respecto al viewport al hacer scroll
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 40;          // Por encima de la mayoría del contenido
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;   // Lo convierte en círculo
+  background-color: var(--portfolio-accent);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 200ms, box-shadow 200ms; // Solo las propiedades que cambian
+
+  i {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover { // Realce al pasar el cursor: color más oscuro y sombra más pronunciada
+    background-color: var(--portfolio-accent-hover);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}

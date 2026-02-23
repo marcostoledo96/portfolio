@@ -1,0 +1,156 @@
+// Estilos de la sección Habilidades Blandas: grilla de tarjetas con acento de color individual.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.soft {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--background);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04; // Muy sutil para no competir con el contenido
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px; // Grilla de puntos espaciados
+  }
+  &__bg-blob {
+    position: absolute;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    opacity: 0.10;
+    background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+    top: -5%; right: -5%;
+    animation: sectionBlob1 15s ease-in-out infinite;
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 60px; height: 60px;
+      border: 1px solid rgba(129, 140, 248, 0.14);
+      border-radius: $radius-2xl;
+      bottom: 12%; left: 6%;
+      animation: sectionFloat1 15s ease-in-out infinite;
+    }
+    &--2 {
+      width: 12px; height: 12px;
+      background: rgba(var(--portfolio-accent-rgb), 0.18);
+      border-radius: 50%;
+      top: 30%; right: 40%;
+      animation: sectionFloat2 10s ease-in-out infinite reverse;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 3rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // --- Grilla: mobile 1 col → sm 2 col → lg 3 col ---
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+
+    @include sm { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    @include lg { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  // Tarjeta con hover elevado; en hover también revela la línea de acento y escala el ícono
+  &__card {
+    position: relative;
+    border-radius: $radius-2xl;
+    background: var(--portfolio-card-bg);
+    border: 1px solid var(--portfolio-card-border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+    }
+    &:hover .soft__card-accent-line { opacity: 1; }
+    &:hover .soft__icon-wrap { transform: scale(1.1); }
+  }
+
+  // Línea de 2px en la parte superior: opacity:0 en reposo, se revela en hover via .card:hover
+  &__card-accent-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  // Cuerpo de la tarjeta con z-index para quedar sobre la línea de acento absoluta
+  &__card-body {
+    position: relative; z-index: 1;
+    padding: 1.25rem;
+
+    @include sm { padding: 1.75rem; }
+  }
+
+  // Caja cuadrada del ícono: escala en hover (activado desde .card:hover)
+  &__icon-wrap {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: $radius-xl;
+    margin-bottom: 0.75rem;
+    transition: transform 0.3s;
+
+    @include sm {
+      width: 48px; height: 48px;
+      margin-bottom: 1.25rem;
+    }
+
+    i { width: 20px; height: 20px; }
+  }
+
+  // Nombre de la habilidad
+  &__card-name {
+    font-size: 1.05rem; font-weight: 600;
+    line-height: 1.4;
+    color: var(--foreground);
+    margin-bottom: 0.375rem;
+
+    @include sm { margin-bottom: 0.5rem; }
+  }
+
+  // Descripción breve en tono secundario
+  &__card-desc {
+    font-size: 0.88rem; line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+}

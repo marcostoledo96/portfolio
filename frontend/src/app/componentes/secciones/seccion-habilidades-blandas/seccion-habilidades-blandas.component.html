@@ -1,0 +1,52 @@
+<!-- Sección "Habilidades Blandas": grilla de 6 tarjetas con ícono, título y descripción -->
+<section id="habilidades-blandas" class="soft">
+  <!-- Decoración de fondo: puntos, blob animado y figuras flotantes -->
+  <div class="soft__bg">
+    <div class="soft__bg-dots"></div>
+    <div class="soft__bg-blob"></div>
+    <div class="soft__bg-shape soft__bg-shape--1"></div>
+    <div class="soft__bg-shape soft__bg-shape--2"></div>
+  </div>
+
+  <div class="soft__container">
+    <!-- Encabezado: ícono + título + línea separadora -->
+    <div class="soft__header animate-on-scroll" appAnimateOnScroll>
+      <i data-lucide="heart" class="soft__header-icon"></i>
+      <h2 class="soft__header-title">
+        <span class="accent">Habilidades</span> Blandas
+      </h2>
+      <div class="soft__header-line"></div>
+    </div>
+
+    <!-- Grilla de tarjetas; el delay escalonado (i * 0.08s) genera aparición en cascada -->
+    <div class="soft__grid">
+      @for (skill of skills; track skill.name; let i = $index) {
+        <div
+          class="soft__card animate-on-scroll"
+          appAnimateOnScroll
+          [animateDelay]="i * 0.08"
+        >
+          <!-- Línea superior de acento: invisible en reposo, aparece en hover via CSS -->
+          <div class="soft__card-accent-line"
+            [style.background]="'linear-gradient(90deg, ' + skill.accent + ', transparent)'"
+          ></div>
+
+          <div class="soft__card-body">
+            <!-- Caja del ícono con fondo tenue del color de la habilidad (~8% opacidad) -->
+            <div class="soft__icon-wrap"
+              [style.background-color]="skill.accent + '15'"
+            >
+              <i [attr.data-lucide]="skill.icon" [style.color]="skill.accent"></i>
+            </div>
+
+            <!-- Nombre de la habilidad -->
+            <h4 class="soft__card-name">{{ skill.name }}</h4>
+
+            <!-- Descripción breve con contexto aplicado -->
+            <p class="soft__card-desc">{{ skill.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

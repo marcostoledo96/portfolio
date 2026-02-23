@@ -1,0 +1,53 @@
+<!--
+  Encabezado móvil: tres bloques independientes
+  1. Barra superior fija con logo y botón hamburguesa
+  2. Overlay semitransparente que cierra el drawer al hacer clic
+  3. Drawer lateral que contiene la barra de navegación completa
+-->
+
+<!-- 1. Barra superior fija -->
+<header class="mobile-header">
+  <!-- Fondo decorativo: puntos + blob animado (no recibe clics) -->
+  <div class="mobile-header__bg">
+    <div class="mobile-header__dots"></div>
+    <div class="mobile-header__blob"></div>
+  </div>
+
+  <!-- Logo: iniciales "MT" con colores diferenciados -->
+  <div class="mobile-header__logo">
+    <span class="mobile-header__logo-m">M</span>
+    <span class="mobile-header__logo-t">T</span>
+  </div>
+
+  <!--
+    Botón hamburguesa: cambia entre ícono 'menu' y 'x' según el estado del drawer.
+    aria-label también cambia dinámicamente para accesibilidad.
+  -->
+  <button class="mobile-header__toggle" (click)="onToggle()"
+    [attr.aria-label]="isDrawerOpen ? 'Cerrar menú' : 'Abrir menú'">
+    <i [attr.data-lucide]="isDrawerOpen ? 'x' : 'menu'"></i>
+  </button>
+</header>
+
+<!-- 2. Overlay: clic en cualquier parte del fondo cierra el drawer -->
+<div class="mobile-overlay"
+  [class.open]="isDrawerOpen"
+  (click)="onToggle()"
+  aria-hidden="true"></div>
+
+<!--
+  3. Drawer lateral: se desliza desde la derecha cuando isDrawerOpen = true.
+  Reutiliza <app-barra-lateral> para no duplicar la lógica de navegación.
+  onNavClick() reenvía el evento al padre y cierra el drawer automáticamente.
+-->
+<div class="mobile-drawer" [class.open]="isDrawerOpen"
+  role="dialog" aria-modal="true" aria-label="Menú de navegación">
+  <!-- Botón de cierre dentro del drawer -->
+  <button class="mobile-drawer__close" (click)="onToggle()" aria-label="Cerrar menú">
+    <i data-lucide="x"></i>
+  </button>
+  <app-barra-lateral
+    [activeSection]="activeSection"
+    (navClick)="onNavClick($event)">
+  </app-barra-lateral>
+</div>

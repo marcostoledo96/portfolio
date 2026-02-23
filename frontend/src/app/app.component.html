@@ -1,11 +1,65 @@
-<!-- AppComponent template: estructura principal de la app -->
-<!-- Acá monto el sidebar, el header móvil, el drawer y el contenedor principal con router-outlet -->
-<!-- Los componentes de layout (sidebar, header, drawer) están declarados en AppModule -->
+﻿<!-- Layout principal: sidebar fijo (desktop) + encabezado móvil + contenido scrollable -->
+<div class="layout">
+  <!-- Sidebar de navegación (solo visible en desktop, oculto en mobile) -->
+  <div class="layout__sidebar">
+    <app-barra-lateral
+      [activeSection]="activeSection"
+      [scrollProgress]="scrollProgress"
+      (navClick)="handleNavClick($event)"
+    ></app-barra-lateral>
+  </div>
 
-<app-sidebar></app-sidebar>
-<app-mobile-header></app-mobile-header>
-<app-drawer></app-drawer>
+  <!-- Encabezado fijo en mobile con botón de menú y drawer de navegación -->
+  <div class="layout__mobile-header">
+    <app-encabezado-movil
+      [isDrawerOpen]="isDrawerOpen"
+      [activeSection]="activeSection"
+      (toggleDrawer)="toggleDrawer()"
+      (navClick)="handleNavClick($event)"
+    ></app-encabezado-movil>
+  </div>
 
-<main id="contenido" class="contenido">
-    <router-outlet></router-outlet>
-</main>
+  <!-- Área principal scrollable; #mainContent es la referencia usada para detectar scroll -->
+  <main class="layout__main" #mainContent>
+    <app-seccion-hero></app-seccion-hero>
+    <app-seccion-sobre-mi></app-seccion-sobre-mi>
+    <app-seccion-habilidades-tecnicas></app-seccion-habilidades-tecnicas>
+    <app-seccion-habilidades-blandas></app-seccion-habilidades-blandas>
+    <app-seccion-idiomas></app-seccion-idiomas>
+    <app-seccion-experiencia></app-seccion-experiencia>
+    <app-seccion-educacion></app-seccion-educacion>
+    <app-seccion-portfolio></app-seccion-portfolio>
+    <app-seccion-contacto></app-seccion-contacto>
+
+    <!-- Footer con redes sociales y copyright -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <!-- Íconos de redes sociales -->
+        <div class="footer__socials">
+          <a href="https://github.com/marcostoledo96" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="GitHub">
+            <i data-lucide="github"></i>
+          </a>
+          <a href="https://linkedin.com/in/marcostoledo96" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="LinkedIn">
+            <i data-lucide="linkedin"></i>
+          </a>
+          <a href="mailto:marcostoledo96@gmail.com" class="footer__social-btn" aria-label="Email">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+
+        <p class="footer__copy">
+          &copy; 2026 Marcos Toledo. Todos los derechos reservados.
+        </p>
+        <p class="footer__made">
+          Hecho en Argentina.
+        </p>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<!-- Botón flotante de scroll-to-top; visible cuando showScrollTop es true -->
+<app-boton-scroll-arriba
+  [visible]="showScrollTop"
+  (clicked)="scrollToTop()"
+></app-boton-scroll-arriba>

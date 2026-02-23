@@ -1,0 +1,82 @@
+// =============================================================================
+// _theme.scss — CSS Custom Properties para modo claro (default) y oscuro.
+// TemaService agrega/quita la clase .dark en <html> para alternar entre paletas.
+// Importado globalmente desde styles.scss.
+// =============================================================================
+
+:root {
+  --font-size: 16px;
+
+  // --- Paleta clara (modo light) ---
+  --background: #eef3f9;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  --secondary: #e2e9f3;
+  --secondary-foreground: #0f172a;
+  --muted: #e2e9f3;
+  --muted-foreground: #475569;   // Texto secundario / etiquetas
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(15, 23, 42, 0.11);
+  --input: transparent;
+  --input-background: #e4eaf4;
+  --switch-background: #b0b8c8;
+  --ring: #4f46e5;
+
+  // --- Variables propias del portfolio (modo claro) ---
+  --portfolio-accent: #4f46e5;                    // Color de acento principal (azul-índigo)
+  --portfolio-accent-hover: #4338ca;              // Acento en hover
+  --portfolio-accent-glow: rgba(79, 70, 229, 0.14); // Fondo translúcido para chips y badges
+  --portfolio-accent-rgb: 79, 70, 229;            // Valor RGB para usar en rgba()
+  --portfolio-sidebar-bg: #e0e8f4;
+  --portfolio-section-alt: #e8eff8;               // Fondo alternativo de secciones
+  --portfolio-card-bg: #ffffff;
+  --portfolio-card-bg-hover: #dde4f5;
+  --portfolio-card-border: rgba(15, 23, 42, 0.09);
+  --portfolio-hero-from: #dce2f5;                 // Gradiente inicial de la sección hero
+  --portfolio-hero-to: #e0ddf5;                   // Gradiente final de la sección hero
+}
+
+.dark {
+  // --- Paleta oscura (modo dark) ---
+  --background: #0c1222;
+  --foreground: #e2e8f0;
+  --card: #141c30;
+  --card-foreground: #e2e8f0;
+  --popover: #0c1222;
+  --popover-foreground: #e2e8f0;
+  --primary: #22d3ee;
+  --primary-foreground: #0c1222;
+  --secondary: #141c30;
+  --secondary-foreground: #e2e8f0;
+  --muted: #141c30;
+  --muted-foreground: #94a3b8;   // Texto secundario / etiquetas
+  --accent: #22d3ee;
+  --accent-foreground: #0c1222;
+  --destructive: #ef4444;
+  --destructive-foreground: #fecaca;
+  --border: rgba(255, 255, 255, 0.07);
+  --input: rgba(255, 255, 255, 0.07);
+  --ring: #22d3ee;
+  --switch-background: #2a3450;
+
+  // --- Variables propias del portfolio (modo oscuro) ---
+  --portfolio-accent: #22d3ee;                      // Color de acento principal (cyan)
+  --portfolio-accent-hover: #67e8f9;                // Acento en hover
+  --portfolio-accent-glow: rgba(34, 211, 238, 0.12); // Fondo translúcido para chips y badges
+  --portfolio-accent-rgb: 34, 211, 238;             // Valor RGB para usar en rgba()
+  --portfolio-sidebar-bg: #0f1729;
+  --portfolio-section-alt: #111a2e;                 // Fondo alternativo de secciones
+  --portfolio-card-bg: #151f35;
+  --portfolio-card-bg-hover: rgba(255, 255, 255, 0.94);
+  --portfolio-card-border: rgba(255, 255, 255, 0.06);
+  --portfolio-hero-from: #0c1222;                   // Gradiente inicial de la sección hero
+  --portfolio-hero-to: #0f1a2e;                     // Gradiente final de la sección hero
+}

@@ -1,0 +1,180 @@
+<!-- Sección "Contacto": formulario de mensaje (3/5) + tarjeta de links (2/5) -->
+<section id="contacto" class="contact">
+  <!-- Decoración de fondo: grilla de puntos, blobs animados y figuras flotantes -->
+  <div class="contact__bg">
+    <div class="contact__bg-dots"></div>
+    <div class="contact__bg-blob contact__bg-blob--top"></div>
+    <div class="contact__bg-blob contact__bg-blob--bottom"></div>
+    <div class="contact__bg-shape contact__bg-shape--1"></div>
+    <div class="contact__bg-shape contact__bg-shape--2"></div>
+  </div>
+
+  <div class="contact__container">
+    <!-- Encabezado: ícono Lucide + título + línea separadora -->
+    <div class="contact__header animate-on-scroll" appAnimateOnScroll>
+      <i data-lucide="mail" class="contact__header-icon"></i>
+      <h2 class="contact__header-title">
+        <span class="accent">Contacto</span>
+      </h2>
+      <div class="contact__header-line"></div>
+    </div>
+
+    <!-- Subtítulo con animación al scroll y delay de 0.1s -->
+    <p class="contact__subtitle animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1">
+      ¿Tenés un proyecto o desafío en mente? Conversemos.
+    </p>
+
+    <!-- Grilla de dos columnas: formulario (izquierda) y links (derecha) -->
+    <div class="contact__grid">
+      <!-- ========== COLUMNA IZQUIERDA: tarjeta del formulario (3 de 5 columnas) ========== -->
+      <div class="contact__form-card animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1">
+        <!-- Franja superior de la tarjeta con ícono y título -->
+        <div class="contact__form-strip">
+          <i data-lucide="message-circle" class="contact__form-strip-icon"></i>
+          <span class="contact__form-strip-text">Enviar mensaje</span>
+        </div>
+
+        <div class="contact__form-body">
+          <!-- Estado de éxito: reemplaza el formulario durante 5 segundos tras el envío -->
+          @if (sent) {
+            <div class="contact__success">
+              <div class="contact__success-circle">
+                <i data-lucide="check-circle-2" class="contact__success-icon"></i>
+              </div>
+              <p class="contact__success-title">¡Mensaje enviado!</p>
+              <p class="contact__success-text">Te respondo lo antes posible.</p>
+            </div>
+          } @else {
+            <!-- Formulario: novalidate desactiva la validación nativa del browser -->
+            <form (ngSubmit)="onSubmit()" novalidate class="contact__form">
+              <!-- Fila de nombre y email: en desktop se muestran lado a lado -->
+              <div class="contact__form-row">
+                <div class="contact__field">
+                  <label for="contact-name" class="contact__label">Nombre</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    placeholder="Tu nombre"
+                    class="contact__input"
+                    [class.contact__input--error]="errors.name"
+                    [class.contact__input--focused]="focusedField === 'name' && !errors.name"
+                    [(ngModel)]="formData.name"
+                    (ngModelChange)="clearError('name')"
+                    (focus)="focusedField = 'name'"
+                    (blur)="focusedField = null"
+                  />
+                  <!-- Mensaje de error de validación para el campo nombre -->
+                  @if (errors.name) {
+                    <p class="contact__field-error">{{ errors.name }}</p>
+                  }
+                </div>
+
+                <div class="contact__field">
+                  <label for="contact-email" class="contact__label">Email</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    placeholder="mail&#64;empresa.com"
+                    class="contact__input"
+                    [class.contact__input--error]="errors.email"
+                    [class.contact__input--focused]="focusedField === 'email' && !errors.email"
+                    [(ngModel)]="formData.email"
+                    (ngModelChange)="clearError('email')"
+                    (focus)="focusedField = 'email'"
+                    (blur)="focusedField = null"
+                  />
+                  <!-- Mensaje de error de validación para el campo email -->
+                  @if (errors.email) {
+                    <p class="contact__field-error">{{ errors.email }}</p>
+                  }
+                </div>
+              </div>
+
+              <!-- Campo de mensaje: crece para ocupar el espacio disponible en la tarjeta -->
+              <div class="contact__field contact__field--grow">
+                <label for="contact-message" class="contact__label">Mensaje</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows="8"
+                  placeholder="Contame un poco de la idea..."
+                  class="contact__input contact__textarea"
+                  [class.contact__input--error]="errors.message"
+                  [class.contact__input--focused]="focusedField === 'message' && !errors.message"
+                  [(ngModel)]="formData.message"
+                  (ngModelChange)="clearError('message')"
+                  (focus)="focusedField = 'message'"
+                  (blur)="focusedField = null"
+                ></textarea>
+                <!-- Mensaje de error de validación para el campo mensaje -->
+                @if (errors.message) {
+                  <p class="contact__field-error">{{ errors.message }}</p>
+                }
+              </div>
+
+              <!-- Botón de envío: deshabilitado mientras se está enviando -->
+              <button type="submit" class="contact__submit" [disabled]="sending">
+                <i data-lucide="send" class="contact__submit-icon"></i>
+                {{ sending ? 'Enviando...' : 'Enviar mensaje' }}
+              </button>
+            </form>
+          }
+        </div>
+      </div>
+
+      <!-- ========== COLUMNA DERECHA (2 de 5 columnas) ========== -->
+      <div class="contact__right">
+        <!-- Tarjeta "Conectemos" con badge de disponibilidad -->
+        <div class="contact__connect-card animate-on-scroll" appAnimateOnScroll [animateDelay]="0.2">
+          <div class="contact__connect-header">
+            <i data-lucide="sparkles" class="contact__connect-sparkle"></i>
+            <span class="contact__connect-title">Conectemos</span>
+          </div>
+          <p class="contact__connect-text">
+            Estoy abierto a nuevas oportunidades, colaboraciones y proyectos freelance. ¡No dudes en escribirme!
+          </p>
+          <!-- Badge de disponibilidad con punto verde animado (ping) -->
+          <div class="contact__avail-badge">
+            <span class="contact__avail-dot-wrap">
+              <span class="contact__avail-dot-ping"></span>
+              <span class="contact__avail-dot"></span>
+            </span>
+            <span class="contact__avail-text">Disponible para trabajar</span>
+          </div>
+        </div>
+
+        <!-- Lista de links de contacto (GitHub, LinkedIn, email, CV) -->
+        <div class="contact__links">
+          <!-- Itero CONTACT_LINKS; el delay escalonado crea un efecto de aparición en cascada -->
+          @for (link of contactLinks; track link.label; let i = $index) {
+            <!-- Para mailto: y assets/ no abro en nueva pestaña; para URLs externas sí -->
+            <a
+              [href]="link.href"
+              [attr.target]="link.href.startsWith('mailto') || link.href.startsWith('assets') ? null : '_blank'"
+              [download]="link.href.startsWith('assets') ? '' : null"
+              rel="noopener noreferrer"
+              class="contact__link animate-on-scroll"
+              appAnimateOnScroll
+              [animateDelay]="0.15 + i * 0.06"
+              (mouseenter)="onLinkEnter($event, link)"
+              (mouseleave)="onLinkLeave($event)"
+            >
+              <!-- Ícono del link con fondo del color del link al 7% -->
+              <div class="contact__link-icon" [style.backgroundColor]="link.color + '12'">
+                <i [attr.data-lucide]="link.icon" class="contact__link-icon-i" [style.color]="link.color"></i>
+              </div>
+              <div class="contact__link-info">
+                <span class="contact__link-label">{{ link.label }}</span>
+                <span class="contact__link-value">{{ link.value }}</span>
+              </div>
+              <!-- Flecha decorativa que se resalta en hover -->
+              <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

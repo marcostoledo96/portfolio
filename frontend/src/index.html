@@ -1,33 +1,36 @@
 <!doctype html>
-<html lang="es">
+<!-- Punto de entrada HTML del portfolio. class="dark" en <html> establece el tema oscuro inicial y evita el flash de tema claro al cargar; TemaService lo gestiona en runtime. -->
+<html lang="es" class="dark">
 
 <head>
     <meta charset="utf-8">
     <title>Marcos Ezequiel Toledo - Portfolio</title>
+    <!-- El router de Angular requiere base href="/" para resolver rutas absolutas correctamente -->
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Portfolio de Marcos Ezequiel Toledo - Desarrollador Full Stack Jr.">
     <link rel="icon" type="image/x-icon" href="assets/img/mt.ico">
+    <!-- preconnect establece la conexión TLS con Google Fonts de forma anticipada para reducir latencia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
-        rel="stylesheet">
-    <!-- Cargo los iconos de Lucide que uso en todo el sitio -->
-    <script defer src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Google Analytics 4 -->
-    <!-- Para activarlo, reemplaza GA_MEASUREMENT_ID con tu ID de medicion de GA4 -->
-    <!-- Ejemplo: G-XXXXXXXXXX -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <!-- Inter para texto general; Fira Code para etiquetas de tecnología y fragmentos de código -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons — versión fija para cache estable y menor tamaño de payload; inicializado en ngAfterViewInit de cada componente -->
+    <script defer src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Google Analytics 4 — Descomentar cuando se tenga un measurement ID real
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
+        gtag('config', 'G-XXXXXXXXXX');
     </script>
+    -->
 </head>
 
-<body class="claro">
+<body>
+    <!-- Angular monta AppComponent aquí; todo el árbol de componentes vive dentro de este elemento -->
     <app-root></app-root>
 </body>
 

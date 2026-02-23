@@ -1,7 +1,5 @@
-// Configuración de entorno para producción.
-// Aca defino la URL de la funcion serverless que uso cuando compilo la app para deploy en Vercel.
-// En producción las APIs están en rutas relativas o en el mismo dominio que el frontend.
-
+// Configuración de entorno para producción (ng build → deploy en Vercel).
+// La ruta /api es relativa al dominio de Vercel; el rewrite en vercel.json la redirige a la función serverless.
 export const environment = {
     production: true,
     apiUrl: '/api'

@@ -1,79 +1,175 @@
-﻿# Guía de deploy en Vercel (mi portfolio Angular)
+﻿# Guía de deploy en Vercel — Portfolio Angular
 
-Documento los pasos para publicar el portfolio en Vercel con frontend Angular y la función serverless de contacto. Todo vive en este repo, sin backend separado.
+Portfolio Angular 20 con función serverless de contacto (Nodemailer/Gmail). Todo vive en un único repositorio; Vercel lee la configuración de `vercel.json` en la raíz y no requiere configuración manual en el dashboard de proyecto.
 
-## Prep previo
-- Node 18+ y npm instalados.
-- Cuenta en Vercel vinculada a mi GitHub.
-- Variables de entorno listas: `EMAIL_USER` y `EMAIL_PASS` (contraseña de aplicación de Gmail).
+---
 
-## Comandos de build
+## Requisitos previos
 
-Tengo varios scripts disponibles según lo que necesite:
+| Herramienta | Versión mínima |
+|---|---|
+| Node.js | 22.x |
+| npm | 9.x o superior |
+| Angular CLI | local vía `npx ng` (ya incluido en `devDependencies`) |
+| Cuenta Vercel | vinculada al repositorio GitHub |
+
+---
+
+## Estructura del repositorio
+
+```
+portfolio/
+├── api/
+│   └── index.js          ← función serverless (POST /api/contact)
+├── frontend/             ← app Angular 20
+│   ├── dist/             ← generado por el build (ignorado en git)
+│   └── src/
+├── vercel.json           ← configuración completa de Vercel
+└── package.json          ← dependencias de la API (nodemailer, express-validator)
+```
+
+---
+
+## Configuración de Vercel (`vercel.json`)
+
+El archivo ya está configurado y Vercel lo lee automáticamente al conectar el repo:
+
+```json
+{
+  "installCommand": "cd frontend && npm install --legacy-peer-deps",
+  "buildCommand":   "cd frontend && npm run build",
+  "outputDirectory": "frontend/dist/portfolio-frontend/browser",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api" },
+    { "source": "/(.*)",       "destination": "/index.html" }
+  ]
+}
+```
+
+- `--legacy-peer-deps`: necesario por dependencias de Angular 20 con paquetes de Material/UI que aún declaran peerDependencies estrictos.
+- `framework: null`: desactiva la detección automática de Vercel para que use los comandos exactos del `vercel.json`.
+- El primer rewrite enruta todas las llamadas a `/api/*` a la función serverless `api/index.js`.
+- El segundo rewrite implementa el fallback del router de Angular (SPA).
+
+---
+
+## Variables de entorno
+
+Configurarlas en **Vercel Dashboard → Project → Settings → Environment Variables** antes del primer deploy:
+
+| Variable | Descripción |
+|---|---|
+| `EMAIL_USER` | Dirección Gmail desde la que se envían los mensajes (ej: `miportfolio@gmail.com`) |
+| `EMAIL_PASS` | App Password de Google — **no** la contraseña de la cuenta. Generarlo en: Google Account → Seguridad → Verificación en dos pasos → Contraseñas de aplicación |
+
+> Marcar ambas como **Production** (y también **Preview** si se quiere probar en branches).
+
+---
+
+## Build local (opcional, para validar antes de pushear)
 
 ```powershell
-# Build estándar en español
-cd frontend
+cd portfolio/frontend
+npm install --legacy-peer-deps
 npm run build
-
-# Build en inglés (genera dist separado)
-npm run build:en
-
-# Build de ambos idiomas
-npm run build:all
-
-# Analizar el bundle
-npm run build:stats
-npm run analyze
-
-# Extraer textos para traducir
-npm run extract-i18n
+# Verificar que existe: frontend/dist/portfolio-frontend/browser/index.html
 ```
+
+### Scripts disponibles en `frontend/`
+
+```powershell
+npm run build          # build de producción en español (el que usa Vercel)
+npm run build:en       # build en inglés (genera dist separado)
+npm run build:all      # build con ambos idiomas localizados
+npm run build:stats    # build + stats.json para analizar el bundle
+npm run analyze        # build + abre source-map-explorer en el browser
+npm run extract-i18n   # extrae strings para traducción a src/locale/
+```
+
+---
 
 ## Pasos de deploy
-1) Build local (opcional, para validar):
-```powershell
-cd frontend
-npm install
-npm run build
-```
-Verifico que se genera `frontend/dist/portfolio-frontend/browser`.
 
-2) Subo cambios al repo (main):
+### 1) Primer deploy — conectar el proyecto
+
+1. Entrar a [vercel.com](https://vercel.com) → **Add New Project**.
+2. Importar el repositorio desde GitHub.
+3. Vercel detecta el `vercel.json` automáticamente — **no modificar** los campos de build/output en el wizard.
+4. Agregar las variables de entorno `EMAIL_USER` y `EMAIL_PASS` en la pantalla de configuración antes de hacer clic en **Deploy**.
+5. Clic en **Deploy** y esperar (~2-3 minutos).
+
+### 2) Redeploys posteriores
+
+Cada push a `main` dispara un redeploy automático:
+
 ```powershell
 git add .
-git commit -m "Deploy: ajustes"
+git commit -m "feat: descripción del cambio"
 git push origin main
 ```
 
-3) En Vercel:
-- Creo proyecto nuevo o selecciono el existente.
-- Fuente: el repo de GitHub.
-- Command de build: `cd frontend && npm run build`.
-- Output: `frontend/dist/portfolio-frontend/browser`.
-- Rewrites (ya en `vercel.json`):
-  - `/api/:path* -> /api` (función serverless de contacto)
-  - `/(.*) -> /index.html` (Angular router)
+Para forzar un redeploy sin cambios de código:
 
-4) Variables de entorno (Production):
-- `EMAIL_USER` = mi correo Gmail
-- `EMAIL_PASS` = contraseña de aplicación
+```powershell
+git commit --allow-empty -m "chore: trigger redeploy"
+git push origin main
+```
 
-5) Deploy automático: Vercel instala deps, corre el build y publica. Reviso logs para ver que la función `/api/contact` quedó OK.
+---
 
-## Tests rápidos post-deploy
-- Cargo la página y pruebo el toggle de tema (persiste al recargar).
-- En móvil: abro/cierro el drawer y navego a secciones con scroll suave.
-- Pruebo el doble toque en los botones sociales (debería mostrar tooltip primero).
-- Formulario: envío un mensaje de prueba y confirmo que llega el mail y aparece el toast. Pruebo validaciones con campos vacíos.
-- Verifico que las imágenes y el CV cargan desde `/assets`.
-- Reviso que las animaciones scroll reveal funcionen al hacer scroll.
+## Probar la función serverless en local
 
-## Redeploys
-Cada push a `main` redeploya solo. Si necesito forzar sin cambios: `git commit --allow-empty -m "Trigger redeploy" && git push`.
+Vercel CLI permite emular la función localmente con las mismas variables de entorno:
 
-## Ambiente local con la función
-Si quiero probar la función en local puedo usar `vercel dev` desde la raíz, con las mismas env vars (`EMAIL_USER`, `EMAIL_PASS`).
+```powershell
+# Desde portfolio/ (raíz del proyecto)
+npm install -g vercel       # solo la primera vez
+vercel login
+vercel dev                  # levanta frontend + función en localhost:3000
+```
 
-## Notas sobre internacionalización
-El build principal es en español. Si quisiera publicar la versión en inglés, debería cambiar el command de Vercel a `npm run build:en` o crear un proyecto separado para cada idioma.
+Crear un archivo `.env` en la raíz (ignorado por `.gitignore`) con:
+
+```env
+EMAIL_USER=miportfolio@gmail.com
+EMAIL_PASS=xxxx xxxx xxxx xxxx
+```
+
+---
+
+## Checklist post-deploy
+
+- [ ] La página carga en el dominio `.vercel.app`.
+- [ ] El toggle de tema (claro/oscuro) funciona y persiste al recargar.
+- [ ] En mobile: el drawer abre/cierra y la navegación a secciones funciona con scroll suave.
+- [ ] Formulario de contacto: enviar un mensaje de prueba → verificar que llega el mail y aparece el toast de éxito.
+- [ ] Formulario con campos vacíos: verificar que aparecen los mensajes de validación.
+- [ ] Las imágenes, el CV y el favicon cargan desde `/assets`.
+- [ ] Las animaciones de scroll reveal se activan al bajar la página.
+- [ ] En Vercel Dashboard → **Functions** → verificar que `/api` aparece y que los logs no tienen errores.
+
+---
+
+## Internacionalización
+
+El deploy predeterminado es en **español** (`npm run build`).  
+Para publicar la versión en **inglés**, en Vercel cambiar el Build Command a:
+
+```
+cd frontend && npm run build:en
+```
+
+O crear un segundo proyecto Vercel apuntando al mismo repo con ese override.
+
+---
+
+## Troubleshooting
+
+| Síntoma | Causa probable | Solución |
+|---|---|---|
+| Build falla con `ERESOLVE` | Conflicto de peer deps | Verificar que `vercel.json` usa `--legacy-peer-deps` en `installCommand` |
+| Formulario devuelve 500 | Variables de entorno no seteadas | Chequear `EMAIL_USER` y `EMAIL_PASS` en Vercel Dashboard |
+| Formulario devuelve 500 | `EMAIL_PASS` es la contraseña de cuenta | Usar un App Password de Google, no la contraseña principal |
+| Rutas SPA dan 404 | Falta el rewrite del router | Verificar que el segundo rewrite `/(.*) → /index.html` está en `vercel.json` |
+| Tema oscuro no persiste | `localStorage` bloqueado | El usuario tiene cookies/storage bloqueados en el browser |

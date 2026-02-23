@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- Archivo fuente de traducciones generado por Angular i18n (ng extract-i18n). Idioma base: español. -->
+<!-- NO editar manualmente; se regenera automáticamente al ejecutar ng extract-i18n. -->
+<!-- Para agregar un idioma: copiar este archivo, renombrarlo (ej: messages.en.xlf) y traducir los target. -->
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="es" datatype="plaintext" original="ng2.template">
     <body>

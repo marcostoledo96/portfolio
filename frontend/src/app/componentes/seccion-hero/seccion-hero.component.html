@@ -1,0 +1,82 @@
+<section class="hero">
+  <!-- Animated background blobs -->
+  <div class="hero__bg">
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+    <div class="hero__blob hero__blob--3"></div>
+    <div class="hero__dot-grid"></div>
+    <!-- Floating geometric shapes -->
+    <div class="hero__shape hero__shape--1"></div>
+    <div class="hero__shape hero__shape--2"></div>
+    <div class="hero__shape hero__shape--3"></div>
+    <div class="hero__shape hero__shape--4"></div>
+    <div class="hero__shape hero__shape--5"></div>
+    <div class="hero__shape hero__shape--6"></div>
+  </div>
+
+  <div class="hero__content">
+    <!-- Status badge -->
+    <div class="hero__badge hero__fade" style="animation-delay: 0.1s">
+      <span class="hero__badge-inner">
+        <span class="hero__badge-dot">
+          <span class="hero__badge-ping"></span>
+          <span class="hero__badge-solid"></span>
+        </span>
+        <span class="hero__badge-text">Disponible para proyectos</span>
+      </span>
+    </div>
+
+    <!-- Greeting -->
+    <p class="hero__greeting hero__fade" style="animation-delay: 0.2s">{{'// Hola, bienvenido'}}</p>
+
+    <!-- Name -->
+    <h1 class="hero__firstname hero__fade" style="animation-delay: 0.3s">Marcos Ezequiel</h1>
+    <h1 class="hero__lastname hero__fade" style="animation-delay: 0.35s">Toledo</h1>
+
+    <!-- Typewriter -->
+    <div class="hero__typewriter hero__fade" style="animation-delay: 0.4s">
+      <span class="hero__typewriter-arrow">&gt;</span>
+      <span class="hero__typewriter-text">
+        {{ displayText }}<span class="hero__cursor"></span>
+      </span>
+    </div>
+
+    <!-- Description -->
+    <p class="hero__desc hero__fade" style="animation-delay: 0.5s">
+      Combino desarrollo web, testing y soporte técnico para construir
+      soluciones digitales que realmente impactan. Me motiva la calidad, la
+      automatización y el uso de herramientas de IA para optimizar procesos.
+    </p>
+
+    <!-- Stats -->
+    <div class="hero__stats hero__fade" style="animation-delay: 0.6s" #statsEl>
+      <div class="hero__stat" *ngFor="let stat of stats; let i = index">
+        <p class="hero__stat-value">{{ counters[i] }}{{ stat.suffix }}</p>
+        <p class="hero__stat-label">{{ stat.label }}</p>
+      </div>
+    </div>
+
+    <!-- Social buttons -->
+    <div class="hero__socials hero__fade" style="animation-delay: 0.7s">
+      <a *ngFor="let s of socials"
+        class="hero__social-btn"
+        [href]="s.href"
+        [target]="isExternal(s.href) ? '_blank' : null"
+        [download]="isDownload(s.href) ? '' : null"
+        rel="noopener noreferrer"
+        [attr.aria-label]="s.label">
+        <i [attr.data-lucide]="s.icon"></i>
+        <span class="hero__social-tooltip">
+          {{ s.label }}
+          <span class="hero__social-tooltip-arrow"></span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero__scroll-indicator hero__fade" style="animation-delay: 0.8s">
+    <span class="hero__scroll-text">SCROLL</span>
+    <i data-lucide="chevron-down" class="hero__scroll-icon"></i>
+  </div>
+</section>

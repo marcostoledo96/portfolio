@@ -1,0 +1,281 @@
+// Estilos de la sección Habilidades Técnicas: grilla de tarjetas 3D flip con cara frontal y posterior.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.tech {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--portfolio-section-alt);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04; // Muy sutil para no competir con el contenido
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px; // Grilla de puntos espaciados
+  }
+  &__bg-blob {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    opacity: 0.12;
+    background: radial-gradient(circle, var(--portfolio-accent) 0%, transparent 70%);
+    bottom: -10%; left: -5%;
+    animation: sectionBlob2 16s ease-in-out infinite;
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      border-radius: 50%;
+      top: 10%; right: 8%;
+      animation: sectionFloat2 18s ease-in-out infinite;
+    }
+    &--2 {
+      width: 10px; height: 10px;
+      background: rgba(var(--portfolio-accent-rgb), 0.18);
+      border-radius: 50%;
+      bottom: 20%; left: 45%;
+      animation: sectionFloat1 14s ease-in-out infinite reverse;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 2rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // --- Grilla: mobile 2 col → sm 3 col → lg 6 col ---
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    justify-items: center;
+
+    @include sm { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @include lg { grid-template-columns: repeat(6, 1fr); gap: 1.5rem; }
+  }
+
+  // --- Leyenda de colores: punto verde = práctica, punto morado = en formación ---
+  &__legend {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  &__legend-item {
+    display: flex; align-items: center; gap: 0.375rem;
+  }
+  &__legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+
+    &--active   { background-color: #059669; }
+    &--learning { background-color: #7c3aed; }
+  }
+  &__legend-label {
+    color: var(--muted-foreground);
+    font-size: 0.75rem; font-weight: 500;
+  }
+
+  // Pista de interacción debajo de la leyenda
+  &__hint {
+    text-align: center;
+    color: var(--muted-foreground);
+    font-size: 0.72rem;
+    opacity: 0.6;
+    margin-top: 1rem;
+  }
+}
+
+// ═══════════════════════════════════════
+// Tarjeta 3D con flip: perspective en el contenedor, rotateY en __inner
+// ═══════════════════════════════════════
+.flip-card {
+  width: 100%; max-width: 160px; aspect-ratio: 1;
+  perspective: 800px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  &--mobile-hover {
+    transform: translateY(-4px);
+  }
+
+  // __inner rota 180° en Y cuando se agrega --flipped al contenedor
+  &__inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d; // Permite que los hijos (front/back) queden en planos distintos
+  }
+  &--flipped &__inner {
+    transform: rotateY(180deg);
+  }
+
+  // Estilos compartidos entre cara frontal y posterior
+  &__front, &__back {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border-radius: $radius-2xl;
+    border: 1px solid var(--portfolio-card-border);
+    background-color: var(--portfolio-card-bg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  }
+
+  // Cara frontal: ícono + nombre, opacidad reducida en reposo
+  &__front {
+    gap: 0.625rem;
+  }
+  &__icon-wrap {
+    opacity: 0.45;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    svg { width: 56px; height: 56px; }
+    img { width: 56px; height: 56px; object-fit: contain; }
+  }
+  &__name {
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--foreground);
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 0.25rem;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  // Hover en desktop y estado mobile-hover: borde de acento + sombra + escala del ícono
+  &:hover &__front,
+  &--mobile-hover &__front {
+    border-color: var(--portfolio-accent);
+    box-shadow: 0 4px 20px var(--portfolio-accent-glow);
+    background-color: var(--portfolio-card-bg-hover);
+  }
+  &:hover &__icon-wrap,
+  &--mobile-hover &__icon-wrap {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  &:hover &__name,
+  &--mobile-hover &__name {
+    opacity: 1;
+  }
+
+  // En modo oscuro el fondo del hover/back es claro, así que el texto debe ser oscuro
+  :host-context(.dark) &:hover &__name,
+  :host-context(.dark) &--mobile-hover &__name {
+    color: #1e293b;
+  }
+  :host-context(.dark) &__back {
+    color: #1e293b;
+  }
+  :host-context(.dark) &__back &__context {
+    color: #334155;
+  }
+  :host-context(.dark) &__back &__star--empty {
+    color: #94a3b8;
+  }
+  :host-context(.dark) &__back &__star--filled {
+    color: #0891b2;
+  }
+
+  // Cara posterior: rotada 180°; el borde y sombra dependen del tag (active/learning)
+  &__back {
+    transform: rotateY(180deg);
+    padding: 16px 12px;
+    gap: 0;
+    background-color: var(--portfolio-card-bg-hover);
+
+    &--active {
+      border-color: rgba(16, 185, 129, 0.35);
+      box-shadow: inset 0 0 40px rgba(16, 185, 129, 0.14);
+    }
+    &--learning {
+      border-color: rgba(139, 92, 246, 0.35);
+      box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.14);
+    }
+  }
+
+  // Badge de tag: verde para 'active', morado para 'learning'
+  &__tag {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: $radius-full;
+    font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 3px 8px;
+    margin-bottom: 6px;
+    max-width: 100%;
+    text-align: center;
+    line-height: 1.3;
+    flex-shrink: 0;
+
+    &--active {
+      color: #059669;
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    &--learning {
+      color: #7c3aed;
+      background: rgba(139, 92, 246, 0.18);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+  }
+
+  // Texto de contexto: describe cómo uso la habilidad
+  &__context {
+    font-size: 0.72rem; font-weight: 500;
+    line-height: 1.55;
+    text-align: center;
+    word-break: break-word;
+    color: var(--foreground);
+    opacity: 0.9;
+  }
+
+  // Fila de estrellas de nivel: llenas con color de acento, vacías en gris
+  &__stars {
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 0.5rem;
+  }
+  &__star {
+    width: 15px; height: 15px;
+
+    &--filled { color: var(--portfolio-accent); fill: currentColor; }
+    &--empty  { color: #9ca3af; }
+  }
+}

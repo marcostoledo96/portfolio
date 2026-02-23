@@ -1,0 +1,259 @@
+// Estilos de la sección Educación: tarjetas de carrera con badge de estado y promedio.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.edu {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--portfolio-section-alt);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04; // Muy sutil para no competir con el contenido
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px; // Grilla de puntos espaciados
+  }
+  &__bg-blob {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    opacity: 0.10;
+    background: radial-gradient(circle, #10b981 0%, transparent 70%);
+    top: -5%; right: -3%;
+    animation: sectionBlob2 14s ease-in-out infinite;
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 50px; height: 50px;
+      border: 1px solid rgba(16, 185, 129, 0.14);
+      border-radius: 50%;
+      bottom: 10%; right: 10%;
+      animation: sectionFloat2 16s ease-in-out infinite;
+    }
+    &--2 {
+      width: 12px; height: 12px;
+      background: rgba(var(--portfolio-accent-rgb), 0.16);
+      border-radius: 50%;
+      top: 40%; left: 12%;
+      animation: sectionFloat1 11s ease-in-out infinite;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 3rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // --- Grilla: mobile 1 columna, desde md 2 columnas ---
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    @include md { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  // --- Tarjeta de educación con línea de acento superior y hover elevado ---
+  &__card {
+    position: relative;
+    overflow: hidden;
+    border-radius: $radius-2xl;
+    background: var(--portfolio-card-bg);
+    border: 1px solid var(--portfolio-card-border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+    }
+  }
+
+  // Línea de 2px en la parte superior de la tarjeta; el color indica el estado
+  &__accent-line {
+    height: 2px;
+
+    &--blue  { background: linear-gradient(90deg, #3b82f6, transparent); } // En curso
+    &--green { background: linear-gradient(90deg, #10b981, transparent); } // Completado
+  }
+
+  // Cuerpo de la tarjeta: columna flex para que la descripción empuje el pie hacia abajo
+  &__card-body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  // Caja cuadrada con fondo tenue del color de la carrera (~10% opacidad)
+  &__icon-box {
+    width: 48px; height: 48px;
+    border-radius: $radius-xl;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  &__icon {
+    width: 24px; height: 24px;
+  }
+
+  // Título principal de la tarjeta: nombre de la carrera
+  &__career {
+    font-size: 1.1rem; font-weight: 700;
+    line-height: 1.35;
+    color: var(--foreground);
+    margin-bottom: 0.375rem;
+  }
+
+  // Nombre de la institución educativa, secundario al título
+  &__institution {
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--muted-foreground);
+    margin-bottom: 0.75rem;
+  }
+
+  // Descripción breve: flex:1 la hace crecer y empuja el pie de la tarjeta
+  &__description {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  // Fila con badge de estado + período de cursado
+  &__meta {
+    display: flex; align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  // Badge pill: azul para "en curso", verde para "completado"
+  &__badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: $radius-full;
+    font-size: 0.72rem; font-weight: 600;
+
+    &--blue {
+      background: rgba(59, 130, 246, 0.12);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    &--green {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+  }
+  &__period {
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+  }
+
+  // Línea horizontal que separa visualmente el badge del promedio
+  &__separator {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1rem;
+  }
+
+  // Promedio: número grande alineado al fondo con la etiqueta descriptiva
+  &__average {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+  &__average-value {
+    font-size: 2rem; font-weight: 800;
+    line-height: 1;
+    color: var(--portfolio-accent);
+  }
+  &__average-label {
+    font-size: 0.75rem; font-weight: 500;
+    font-family: $font-code; // Fuente monoespaciada para dar aspecto técnico
+    color: var(--muted-foreground);
+    padding-bottom: 0.125rem;
+  }
+
+  // --- Nota de estudios futuros: aparece debajo de la grilla ---
+  &__note {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border-radius: $radius-2xl;
+    border: 1px solid var(--portfolio-card-border);
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.12);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.2);
+    }
+  }
+  &__note-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  &__note-icon-box {
+    width: 40px; height: 40px;
+    border-radius: $radius-lg;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    background: rgba(79, 70, 229, 0.12);
+  }
+  &__note-icon {
+    width: 20px; height: 20px;
+    color: var(--portfolio-accent);
+  }
+  &__note-content { flex: 1; }
+  &__note-title {
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 0.375rem;
+  }
+  &__note-text {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+  &__note-highlight {
+    color: var(--portfolio-accent);
+    font-weight: 600;
+  }
+}

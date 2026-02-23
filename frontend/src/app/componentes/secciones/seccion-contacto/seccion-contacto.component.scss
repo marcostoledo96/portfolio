@@ -1,0 +1,422 @@
+// Estilos de la sección Contacto: formulario de mensaje + columna de links externos
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.contact {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--portfolio-section-alt);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04; // Muy sutil para no competir con el contenido
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px; // Grilla de puntos espaciados
+  }
+  // Blobs difusos animados que dan profundidad al fondo
+  &__bg-blob {
+    position: absolute; border-radius: 50%;
+
+    &--top {
+      width: 400px; height: 400px;
+      opacity: 0.12;
+      background: radial-gradient(circle, var(--portfolio-accent) 0%, transparent 70%);
+      top: -8%; right: -4%;
+      animation: sectionBlob2 14s ease-in-out infinite;
+    }
+    &--bottom {
+      width: 300px; height: 300px;
+      opacity: 0.10;
+      background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+      bottom: -5%; left: -3%;
+      animation: sectionBlob1 17s ease-in-out infinite;
+    }
+  }
+  // Figuras geométricas pequeñas que flotan en bucle
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 56px; height: 56px;
+      border: 1px solid rgba(var(--portfolio-accent-rgb), 0.15);
+      border-radius: $radius-2xl;
+      bottom: 15%; left: 8%;
+      animation: sectionFloat2 15s ease-in-out infinite;
+    }
+    &--2 {
+      width: 14px; height: 14px;
+      background: rgba(139, 92, 246, 0.16);
+      border-radius: 50%;
+      top: 25%; left: 45%;
+      animation: sectionFloat1 13s ease-in-out infinite;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.75rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // --- Subtítulo descriptivo bajo el encabezado ---
+  &__subtitle {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin-bottom: 3rem;
+  }
+
+  // --- Grilla de dos columnas: mobile apilado, desktop 3fr/2fr ---
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr; // Mobile: una columna
+    gap: 2rem;
+
+    @include lg {
+      grid-template-columns: 3fr 2fr; // Desktop: formulario más ancho que los links
+      gap: 2.5rem;
+    }
+  }
+
+  // ========== TARJETA DEL FORMULARIO ==========
+  &__form-card {
+    border-radius: $radius-2xl;
+    border: 1px solid var(--portfolio-card-border);
+    background: var(--portfolio-card-bg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.2);
+    }
+  }
+  // Franja superior colorida de la tarjeta del formulario
+  &__form-strip {
+    display: flex; align-items: center; gap: 0.625rem;
+    padding: 1rem 1.75rem;
+    border-bottom: 1px solid var(--portfolio-card-border);
+
+    &-icon { width: 18px; height: 18px; color: var(--portfolio-accent); }
+    &-text {
+      font-size: 0.92rem; font-weight: 600;
+      color: var(--foreground);
+    }
+  }
+  &__form-body {
+    padding: 1.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    @include sm { padding: 2rem; }
+  }
+
+  // --- Formulario: columna con gap uniforme entre campos ---
+  &__form {
+    display: flex; flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+  }
+  // Fila nombre/email: apilados en mobile, lado a lado desde sm
+  &__form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @include sm { grid-template-columns: repeat(2, 1fr); }
+  }
+  // Campo de formulario: columna; --grow hace que el textarea ocupe el espacio restante
+  &__field {
+    display: flex; flex-direction: column;
+
+    &--grow { flex: 1; }
+  }
+  &__label {
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+  }
+  // Input base: aplico los modificadores --error y --focused desde el componente
+  &__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: $radius-xl;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--foreground);
+    font-family: $font-ui;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &::placeholder {
+      color: var(--muted-foreground);
+      opacity: 0.6;
+    }
+    &:hover:not(:focus) {
+      border-color: rgba(var(--muted-foreground), 0.3);
+    }
+    &:focus,
+    &--focused {
+      border-color: var(--portfolio-accent);
+      box-shadow: 0 0 0 3px var(--portfolio-accent-glow);
+    }
+    &--error {
+      border-color: #ef4444 !important; // Rojo de error; !important para sobreescribir --focused
+      box-shadow: none !important;
+    }
+  }
+  // Textarea sin redimensionado manual; crece con flex dentro de --grow
+  &__textarea {
+    resize: none;
+    flex: 1;
+    min-height: 160px;
+  }
+  // Mensaje de error mostrado bajo el campo con validación fallida
+  &__field-error {
+    font-size: 0.75rem;
+    color: #ef4444;
+    margin-top: 0.375rem;
+  }
+
+  // --- Botón de envío: sube en hover, se desactiva visualmente mientras envía ---
+  &__submit {
+    width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.625rem;
+    padding: 0.875rem;
+    border-radius: $radius-xl;
+    background: var(--portfolio-accent);
+    color: #fff;
+    font-size: 0.9rem; font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.2s, box-shadow 0.2s, opacity 0.2s;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 6px 20px var(--portfolio-accent-glow);
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &:hover .contact__submit-icon {
+      transform: translate(0.5px, -0.5px);
+    }
+  }
+  &__submit-icon {
+    width: 17px; height: 17px;
+    transition: transform 0.2s;
+  }
+
+  // --- Estado de éxito: reemplaza al formulario por 5 segundos tras el envío ---
+  &__success {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  &__success-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  &__success-icon {
+    width: 32px; height: 32px;
+    color: #10b981;
+  }
+  &__success-title {
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+  }
+  &__success-text {
+    font-size: 0.88rem;
+    color: var(--muted-foreground);
+  }
+
+  // ========== COLUMNA DERECHA: tarjetas de conectemos y links ==========
+  &__right {
+    display: flex; flex-direction: column;
+  }
+
+  // --- Tarjeta "Conectemos" con texto y badge de disponibilidad ---
+  &__connect-card {
+    border-radius: $radius-2xl;
+    border: 1px solid var(--portfolio-card-border);
+    background: var(--portfolio-card-bg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.2);
+    }
+  }
+  &__connect-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  &__connect-sparkle {
+    width: 18px; height: 18px;
+    color: var(--portfolio-accent);
+  }
+  &__connect-title {
+    font-size: 1rem; font-weight: 600;
+    color: var(--foreground);
+  }
+  &__connect-text {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin-bottom: 1rem;
+  }
+
+  // Badge de disponibilidad con punto verde animado
+  &__avail-badge {
+    display: inline-flex; align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: $radius-full;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  &__avail-dot-wrap {
+    position: relative;
+    width: 8px; height: 8px;
+  }
+  &__avail-dot-ping {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: #34d399;
+    opacity: 0.75;
+    animation: avail-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; // Onda expansiva sobre el punto
+  }
+  &__avail-dot {
+    position: relative;
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+  }
+  &__avail-text {
+    font-size: 0.72rem; font-weight: 600;
+    color: #10b981;
+  }
+
+  // --- Lista vertical de links de contacto (GitHub, LinkedIn, email, CV) ---
+  &__links {
+    display: flex; flex-direction: column;
+    gap: 0.625rem;
+    flex: 1;
+  }
+  // Cada link es una tarjeta-fila con ícono, info y flecha; el color de hover se aplica desde el TS
+  &__link {
+    display: flex; align-items: center;
+    gap: 0.875rem;
+    padding: 1rem;
+    border-radius: $radius-xl;
+    border: 1px solid var(--portfolio-card-border);
+    background: var(--portfolio-card-bg);
+    text-decoration: none;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
+  &__link-icon {
+    width: 40px; height: 40px;
+    border-radius: $radius-xl;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  &__link:hover &__link-icon {
+    transform: scale(1.05);
+  }
+  &__link-icon-i {
+    width: 19px; height: 19px;
+  }
+  &__link-info {
+    flex: 1; min-width: 0;
+  }
+  &__link-label {
+    display: block;
+    font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--muted-foreground);
+  }
+  &__link-value {
+    display: block;
+    font-size: 0.84rem; font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__link-arrow {
+    width: 16px; height: 16px;
+    color: var(--muted-foreground);
+    opacity: 0.4; // Sutil en reposo, se resalta en hover
+    flex-shrink: 0;
+    transition: color 0.3s, opacity 0.3s, transform 0.3s;
+  }
+  // En hover: flecha toma el color de acento y se desplaza levemente
+  &__link:hover &__link-arrow {
+    color: var(--portfolio-accent);
+    opacity: 1;
+    transform: translate(0.5px, -0.5px);
+  }
+}
+
+// Animación del punto de disponibilidad: escala hacia afuera y desaparece
+@keyframes avail-ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

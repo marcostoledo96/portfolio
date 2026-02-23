@@ -1,0 +1,147 @@
+// =============================================================================
+// _base.scss — Estilos globales: reset, tipografía, scrollbar, selección y animaciones compartidas.
+// Importado únicamente desde styles.scss.
+// =============================================================================
+
+@use 'variables' as *;
+
+// --- Reset universal: evito inconsistencias de margen/padding entre navegadores ---
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size, 16px);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-ui;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;      // Suavizado de fuente en macOS/iOS
+  -moz-osx-font-smoothing: grayscale;       // Suavizado de fuente en Firefox/macOS
+  overflow-x: hidden;
+}
+
+// Grilla de puntos global desactivada: cada sección usa su propio @include dot-grid
+// para evitar un repintado en todo el viewport en cada frame de scroll.
+
+// --- Selección de texto con color de acento ---
+::selection {
+  background: rgba(79, 70, 229, 0.2);
+  color: inherit;
+}
+
+// --- Barra de desplazamiento personalizada (solo navegadores WebKit/Blink) ---
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(79, 70, 229, 0.2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 70, 229, 0.4);
+}
+
+// --- Anclas: hereda el color del padre para no mostrar el azul por defecto del navegador ---
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// --- Imágenes: responsivas por defecto ---
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// --- Botones: reset de estilos del navegador (borde, fondo, fuente) ---
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+// --- Listas: sin viñetas por defecto ---
+ul, ol {
+  list-style: none;
+}
+
+// --- Bloqueo de scroll en body cuando el drawer móvil está abierto ---
+body.drawer-open {
+  overflow: hidden;
+}
+
+// --- Clases base para elementos animados al hacer scroll (usadas por AnimateOnScrollDirective) ---
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Delays escalonados para animar hijos en secuencia (i * 0.06s)
+@for $i from 1 through 20 {
+  .animate-delay-#{$i} {
+    transition-delay: #{$i * 0.06}s;
+  }
+}
+
+// --- Keyframes compartidos por los fondos animados de todas las secciones ---
+@keyframes sectionBlob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(25px, 35px) scale(1.1); }
+  66%       { transform: translate(-15px, 15px) scale(0.92); }
+}
+@keyframes sectionBlob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(30px, -25px) scale(1.12); }
+}
+@keyframes sectionFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%       { transform: translate(12px, -16px) rotate(4deg); }
+  50%       { transform: translate(-8px, 8px) rotate(-2deg); }
+  75%       { transform: translate(6px, 12px) rotate(2deg); }
+}
+@keyframes sectionFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(15px, -12px) scale(1.08); }
+}
+
+// --- Optimización: pauso las animaciones de fondo cuando la sección está fuera del viewport.
+// Un IntersectionObserver en main.ts agrega .section-in-view al <section> visible,
+// lo que reanuda solo las animaciones de esa sección en lugar de todas a la vez.
+[class*="__bg-blob"],
+[class*="__bg-shape"] {
+  animation-play-state: paused !important;
+  will-change: transform;
+
+  .section-in-view & {
+    animation-play-state: running !important;
+  }
+}
+
+// Respeto la preferencia del sistema de movimiento reducido (accesibilidad)
+@media (prefers-reduced-motion: reduce) {
+  [class*="__bg-blob"],
+  [class*="__bg-shape"] {
+    animation: none !important;
+  }
+}

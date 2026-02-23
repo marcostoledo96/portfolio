@@ -1,0 +1,82 @@
+<!-- Barra lateral: avatar, navegación, progreso de scroll y toggle de tema -->
+<aside class="sidebar">
+
+  <!-- 1. Fondo decorativo: puntos de textura + dos blobs animados (pointer-events: none) -->
+  <div class="sidebar__bg">
+    <div class="sidebar__dots"></div>
+    <div class="sidebar__blob sidebar__blob--1"></div>
+    <div class="sidebar__blob sidebar__blob--2"></div>
+  </div>
+
+  <!-- 2. Barra de progreso de scroll: se escala con scaleY() desde el TS vía #progressBar -->
+  <div class="sidebar__progress-track">
+    <div class="sidebar__progress-bar" #progressBar></div>
+  </div>
+
+  <!-- 3. Avatar: foto circular con punto verde que indica disponibilidad -->
+  <div class="sidebar__avatar-wrap">
+    <div class="sidebar__avatar">
+      <img src="assets/img/Foto_Perfil.webp" alt="Marcos Ezequiel Toledo" loading="eager" />
+    </div>
+    <div class="sidebar__status-dot"></div>
+  </div>
+
+  <!-- 4. Nombre y rol profesional -->
+  <div class="sidebar__identity">
+    <p class="sidebar__name">Marcos Ezequiel</p>
+    <p class="sidebar__surname">Toledo</p>
+    <div class="sidebar__accent-line"></div> <!-- Separador decorativo -->
+    <p class="sidebar__role">Dev · QA · IT Support</p>
+  </div>
+
+  <!--
+    5. Menú de navegación
+    - *ngFor genera un botón por cada ítem de NAV_ITEMS
+    - [class.active] resalta el botón de la sección visible (@Input activeSection)
+    - (click) emite el ID al padre para que haga el scroll
+    - [attr.data-lucide] asigna el ícono Lucide dinámicamente
+  -->
+  <nav class="sidebar__nav" aria-label="Navegación principal">
+    <ul>
+      <li *ngFor="let item of navItems">
+        <button
+          class="sidebar__nav-btn"
+          [class.active]="activeSection === item.id"
+          [attr.aria-current]="activeSection === item.id ? 'true' : null"
+          (click)="onNavClick(item.id)">
+          <i [attr.data-lucide]="item.icon" class="sidebar__nav-icon"></i>
+          <span>{{ item.label }}</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!--
+    6. Toggle de tema claro/oscuro
+    - [class.dark] adapta los estilos del contenedor al tema activo
+    - role="switch" + aria-checked: accesibilidad para lectores de pantalla
+    - El <span> es el pulgar animado que se desliza con CSS
+  -->
+  <div class="sidebar__theme-wrap">
+    <div class="sidebar__theme-container" [class.dark]="temaService.theme() === 'dark'">
+      <!-- Sol: se ilumina en modo claro -->
+      <i data-lucide="sun" class="sidebar__theme-icon"
+        [class.active]="temaService.theme() === 'light'"></i>
+
+      <button
+        class="sidebar__toggle-track"
+        [class.dark]="temaService.theme() === 'dark'"
+        (click)="toggleTheme()"
+        role="switch"
+        [attr.aria-checked]="temaService.theme() === 'dark'"
+        aria-label="Cambiar tema">
+        <span class="sidebar__toggle-thumb" [class.dark]="temaService.theme() === 'dark'"></span>
+      </button>
+
+      <!-- Ícono de luna: se ilumina cuando el tema activo es 'dark' -->
+      <i data-lucide="moon" class="sidebar__theme-icon"
+        [class.active]="temaService.theme() === 'dark'"></i>
+    </div>
+  </div>
+
+</aside>

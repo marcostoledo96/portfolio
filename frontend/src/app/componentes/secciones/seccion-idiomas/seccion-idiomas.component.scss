@@ -1,0 +1,180 @@
+// Estilos de la sección Idiomas: dos tarjetas con bandera SVG inline, badge y lista de detalles.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.lang {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--portfolio-section-alt);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04; // Muy sutil para no competir con el contenido
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px; // Grilla de puntos espaciados
+  }
+  &__bg-blob {
+    position: absolute;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    opacity: 0.10;
+    background: radial-gradient(circle, var(--portfolio-accent) 0%, transparent 70%);
+    bottom: -8%; left: -3%;
+    animation: sectionBlob2 13s ease-in-out infinite;
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: $radius-xl;
+      top: 12%; left: 10%;
+      animation: sectionFloat2 14s ease-in-out infinite;
+    }
+    &--2 {
+      width: 16px; height: 16px;
+      background: rgba(96, 165, 250, 0.15);
+      border-radius: 50%;
+      bottom: 18%; right: 8%;
+      animation: sectionFloat1 12s ease-in-out infinite;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 3rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // Contenedor de tarjetas: columna en mobile, fila desde sm; ancho máximo para no estirar demasiado
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    max-width: 56rem;
+    margin: 0 auto;
+
+    @include sm {
+      flex-direction: row;
+    }
+  }
+
+  // Tarjeta individual con hover elevado
+  &__card {
+    flex: 1;
+    min-width: 0;
+    padding: 1.75rem;
+    border-radius: $radius-2xl;
+    background: var(--portfolio-card-bg);
+    border: 1px solid var(--portfolio-card-border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+    }
+  }
+
+  // Fila superior: bandera a la izquierda + nombre y badge a la derecha
+  &__card-top {
+    display: flex; align-items: flex-start; gap: 1.25rem;
+  }
+  &__flag-wrap {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  // El SVG de bandera se inyecta via [innerHTML]; ng-deep permite aplicar estilos al SVG interno
+  :host ::ng-deep .lang__flag {
+    border-radius: $radius-xl;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  &__card-info {
+    flex: 1; min-width: 0;
+  }
+  &__card-info-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.25rem;
+  }
+
+  &__name {
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--foreground);
+  }
+
+  // Badge de nivel: sólido azul = nativo, outline = en aprendizaje
+  &__badge {
+    display: inline-block;
+    padding: 0.125rem 0.625rem;
+    border-radius: $radius-full;
+    font-size: 0.7rem; font-weight: 600;
+
+    &--native {
+      background: var(--portfolio-accent);
+      color: #fff;
+    }
+    &--learning {
+      background: var(--portfolio-accent-glow);
+      color: var(--portfolio-accent);
+      border: 1px solid rgba(var(--portfolio-accent-rgb), 0.2);
+    }
+  }
+
+  // Lista de detalles: ícono verde (nativo) o violeta (en curso) + texto descriptivo
+  &__details {
+    display: flex; flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+  &__detail {
+    display: flex; align-items: center; gap: 0.625rem;
+    font-size: 0.82rem;
+    color: var(--muted-foreground);
+  }
+  &__detail-icon {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+
+    &--green  { color: var(--portfolio-accent); }
+    &--violet { color: #8b5cf6; }
+  }
+}

@@ -1,0 +1,63 @@
+<!-- Sección "Idiomas": dos tarjetas con bandera SVG, badge de nivel y lista de detalles -->
+<section id="idiomas" class="lang">
+  <!-- Decoración de fondo: puntos, blob animado y figuras flotantes -->
+  <div class="lang__bg">
+    <div class="lang__bg-dots"></div>
+    <div class="lang__bg-blob"></div>
+    <div class="lang__bg-shape lang__bg-shape--1"></div>
+    <div class="lang__bg-shape lang__bg-shape--2"></div>
+  </div>
+
+  <div class="lang__container">
+    <!-- Encabezado: ícono + título + línea separadora -->
+    <div class="lang__header animate-on-scroll" appAnimateOnScroll>
+      <i data-lucide="languages" class="lang__header-icon"></i>
+      <h2 class="lang__header-title">
+        <span class="accent">Idiomas</span>
+      </h2>
+      <div class="lang__header-line"></div>
+    </div>
+
+    <!-- Fila de tarjetas: apiladas en mobile, lado a lado desde sm -->
+    <div class="lang__cards">
+      @for (lang of languages; track lang.name; let i = $index) {
+        <div
+          class="lang__card animate-on-scroll"
+          appAnimateOnScroll
+          [animateDelay]="i * 0.15"
+        >
+          <div class="lang__card-top">
+            <!-- Bandera SVG inline sanitizada (inyectada via [innerHTML]) -->
+            <div class="lang__flag-wrap" [innerHTML]="safeFlagMap[lang.name]"></div>
+
+            <!-- Nombre del idioma + badge de nivel -->
+            <div class="lang__card-info">
+              <div class="lang__card-info-row">
+                <span class="lang__name">{{ lang.name }}</span>
+                <!-- Badge sólido = nativo; badge outline = en aprendizaje -->
+                <span class="lang__badge"
+                  [class.lang__badge--native]="lang.isNative"
+                  [class.lang__badge--learning]="!lang.isNative"
+                >{{ lang.level }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de detalles: ícono check-circle verde (nativo) o book-open violeta (en curso) -->
+          <ul class="lang__details">
+            @for (detail of lang.details; track detail) {
+              <li class="lang__detail">
+                @if (lang.isNative) {
+                  <i data-lucide="check-circle-2" class="lang__detail-icon lang__detail-icon--green"></i>
+                } @else {
+                  <i data-lucide="book-open" class="lang__detail-icon lang__detail-icon--violet"></i>
+                }
+                <span>{{ detail }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>

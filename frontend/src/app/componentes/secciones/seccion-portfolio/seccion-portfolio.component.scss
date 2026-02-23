@@ -1,0 +1,313 @@
+// Estilos de la sección Portfolio: grilla responsive, tarjetas con tilt 3D, filtros y badges.
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+:host { display: block; } // El selector host ocupa el bloque completo
+
+.port {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background-color: var(--background);
+  overflow: hidden;
+  font-family: $font-ui;
+
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+
+  // --- Fondo decorativo (no interactivo) ---
+  &__bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  &__bg-dots {
+    position: absolute; inset: 0;
+    opacity: 0.04;
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  &__bg-blob {
+    position: absolute;
+    border-radius: 50%;
+
+    &--top {
+      width: 400px; height: 400px;
+      opacity: 0.10;
+      background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+      top: -5%; left: -5%;
+      animation: sectionBlob1 15s ease-in-out infinite;
+    }
+    &--bottom {
+      width: 300px; height: 300px;
+      opacity: 0.08;
+      background: radial-gradient(circle, var(--portfolio-accent) 0%, transparent 70%);
+      bottom: -5%; right: -3%;
+      animation: sectionBlob2 18s ease-in-out infinite;
+    }
+  }
+  &__bg-shape {
+    position: absolute;
+    &--1 {
+      width: 64px; height: 64px;
+      border: 1px solid rgba(var(--portfolio-accent-rgb), 0.14);
+      border-radius: $radius-xl;
+      top: 30%; right: 5%;
+      animation: sectionFloat1 18s ease-in-out infinite;
+    }
+    &--2 {
+      width: 16px; height: 16px;
+      background: rgba(139, 92, 246, 0.16);
+      border-radius: 50%;
+      top: 15%; left: 20%;
+      animation: sectionFloat2 14s ease-in-out infinite reverse;
+    }
+  }
+
+  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  &__container {
+    position: relative; z-index: 1;
+    max-width: 76rem; margin: 0 auto;
+  }
+
+  // --- Encabezado: ícono + título + línea decorativa ---
+  &__header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1rem;
+
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-title {
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--foreground);
+    }
+    &-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      margin-left: 0.5rem;
+    }
+  }
+  .accent { color: var(--portfolio-accent); }
+
+  // --- Barra de herramientas: subtítulo a la izquierda, filtros a la derecha ---
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  &__subtitle {
+    font-size: 0.88rem;
+    color: var(--muted-foreground);
+  }
+
+  // --- Grupo de botones de filtro ---
+  &__filters {
+    display: flex; gap: 0.5rem;
+  }
+  &__filter-btn {
+    display: inline-flex; align-items: center;
+    padding: 0.375rem 0.875rem;
+    border-radius: $radius-xl;
+    border: 1px solid var(--portfolio-card-border);
+    background: var(--portfolio-card-bg);
+    color: var(--muted-foreground);
+    font-size: 0.78rem; font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      color: var(--foreground);
+    }
+
+    &--active {
+      background: var(--portfolio-accent);
+      color: #fff;
+      border-color: var(--portfolio-accent);
+      box-shadow: 0 4px 12px rgba(var(--portfolio-accent-rgb), 0.3);
+    }
+  }
+  &__filter-count {
+    margin-left: 0.25rem;
+    font-size: 0.7rem;
+    color: rgba(var(--muted-foreground), 0.5);
+    opacity: 0.5;
+
+    &--active {
+      color: rgba(255, 255, 255, 0.6);
+      opacity: 1;
+    }
+  }
+
+  // --- Grilla responsive: 1 col mobile → 2 desde sm → 3 desde lg ---
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @include sm { grid-template-columns: repeat(2, 1fr); }
+    @include lg { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  // Envoltorio de la tarjeta: necesario para que @cardAnim aplique :enter/:leave correctamente
+  &__card-wrap {}
+
+  // Tarjeta con tilt 3D via onMouseMove; will-change: transform para que el navegador la optimice
+  &__card {
+    border-radius: $radius-2xl;
+    overflow: hidden;
+    background: var(--portfolio-card-bg);
+    border: 1px solid var(--portfolio-card-border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+    transition: transform 0.15s ease-out, box-shadow 0.3s, border-color 0.3s;
+
+    &:hover {
+      border-color: rgba(var(--portfolio-accent-rgb), 0.2);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    &:hover .port__card-img { transform: scale(1.05); }
+    &:hover .port__card-overlay { opacity: 1; }
+    &:hover .port__hover-badges { opacity: 1; }
+  }
+
+  // --- Imagen de portada con relación de aspecto fija 16:9 ---
+  &__card-img-wrap {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  &__card-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  &__card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  // Badge "Destacado" superpuesto en top-left de la imagen
+  &__featured-badge {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: $radius-full;
+    background: rgba(245, 158, 11, 0.9); // amber-500
+    color: #fff;
+    font-size: 0.68rem; font-weight: 600;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+  &__featured-icon {
+    width: 11px; height: 11px;
+    fill: #fff;
+  }
+
+  // Badges de estado y equipo visibles solo en hover (bottom de la imagen)
+  &__hover-badges {
+    position: absolute;
+    bottom: 0.75rem; left: 0.75rem; right: 0.75rem;
+    display: flex; gap: 0.375rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+  }
+  &__badge {
+    padding: 0.125rem 0.5rem;
+    border-radius: $radius-full;
+    font-size: 0.65rem; font-weight: 600;
+    color: #fff;
+    backdrop-filter: blur(4px);
+
+    &--amber   { background: rgba(245, 158, 11, 0.8); }   // in-dev
+    &--emerald { background: rgba(16, 185, 129, 0.8); }    // finished
+    &--gray    { background: rgba(107, 114, 128, 0.8); }   // individual
+    &--violet  { background: rgba(139, 92, 246, 0.8); }    // team
+  }
+
+  // --- Cuerpo de la tarjeta: título, descripción, chips y botones ---
+  &__card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  &__card-title {
+    font-size: 1.05rem; font-weight: 700;
+    line-height: 1.35;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+  }
+  &__card-desc {
+    font-size: 0.86rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  // --- Chips de tecnologías (fuente monoespaciada, color de acento) ---
+  &__card-techs {
+    display: flex; flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-bottom: 1.25rem;
+  }
+  &__tech-chip {
+    padding: 0.125rem 0.5rem;
+    border-radius: $radius-md;
+    background: var(--portfolio-accent-glow);
+    color: var(--portfolio-accent);
+    font-size: 0.7rem; font-weight: 500;
+    font-family: $font-code;
+  }
+
+  // --- Botones de acción: Demo (primario) y Código (secundario) ---
+  &__card-actions {
+    display: flex; gap: 0.5rem;
+    margin-top: auto;
+  }
+  &__action-icon {
+    width: 14px; height: 14px;
+  }
+  &__action-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.375rem;
+    flex: 1;
+    padding: 0.625rem;
+    border-radius: $radius-xl;
+    font-size: 0.78rem; font-weight: 600;
+    text-decoration: none;
+    transition: filter 0.2s, box-shadow 0.2s, background-color 0.2s;
+
+    &--primary {
+      background: var(--portfolio-accent);
+      color: #fff;
+
+      &:hover {
+        filter: brightness(1.1);
+        box-shadow: 0 4px 14px rgba(var(--portfolio-accent-rgb), 0.3);
+      }
+    }
+
+    &--secondary {
+      border: 1px solid var(--portfolio-card-border);
+      color: var(--muted-foreground);
+      background: transparent;
+
+      &:hover {
+        color: var(--portfolio-accent);
+        border-color: rgba(var(--portfolio-accent-rgb), 0.3);
+        background: var(--portfolio-accent-glow);
+      }
+    }
+
+    &--full {
+      width: 100%;
+    }
+  }
+}

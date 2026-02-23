@@ -1,0 +1,94 @@
+// =============================================================================
+// _mixins.scss — Mixins reutilizables: breakpoints, padding, animaciones y componentes base.
+// Importar con: @use 'mixins' as *;
+// =============================================================================
+
+@use 'variables' as *;
+
+// --- Breakpoints responsivos (mobile-first) ---
+@mixin sm { @media (min-width: $bp-sm) { @content; } }
+@mixin md { @media (min-width: $bp-md) { @content; } }
+@mixin lg { @media (min-width: $bp-lg) { @content; } }
+@mixin xl { @media (min-width: $bp-xl) { @content; } }
+@mixin mobile-only { @media (max-width: ($bp-lg - 1px)) { @content; } } // Solo mobile/tablet
+
+// --- Padding uniforme para todas las secciones ---
+@mixin section-padding {
+  padding: 5rem 1.5rem;
+  @include md { padding: 5rem 3rem; }
+  @include lg { padding: 5rem 4rem; }
+}
+
+// --- Grilla de puntos decorativos de fondo (via ::before) ---
+@mixin dot-grid($opacity: 0.018) {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: $opacity;
+    background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+// --- Estilos base de tarjeta (fondo, borde y sombra) ---
+@mixin card-base {
+  background-color: var(--portfolio-card-bg);
+  border: 1px solid var(--portfolio-card-border);
+  border-radius: $radius-2xl;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+// --- Borde con glow de acento al hacer hover ---
+@mixin accent-hover-border {
+  transition: border-color $transition-slow, box-shadow $transition-slow;
+  &:hover {
+    border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// --- Animación de entrada disparada por IntersectionObserver (clase .visible agregada por la directiva) ---
+@mixin fade-up-base {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- Encabezado estándar de sección: ícono + título + línea horizontal ---
+@mixin section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  .section-icon {
+    color: var(--portfolio-accent);
+    width: 24px;
+    height: 24px;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin: 0;
+    .accent { color: var(--portfolio-accent); }
+  }
+  .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 0.5rem;
+  }
+}
+
+// --- Truncar texto con puntos suspensivos en una sola línea ---
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

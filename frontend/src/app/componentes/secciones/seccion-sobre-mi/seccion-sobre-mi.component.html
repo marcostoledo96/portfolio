@@ -1,0 +1,96 @@
+<!-- Sección "Sobre mí": bento grid con tarjetas de bio, ubicación, objetivo, stack y aprendizaje -->
+<section id="sobre-mi" class="about">
+  <!-- Decoración de fondo: puntos + blob animado + figuras flotantes -->
+  <div class="about__bg">
+    <div class="about__bg-dots"></div>
+    <div class="about__bg-blob"></div>
+    <div class="about__bg-shape about__bg-shape--1"></div>
+    <div class="about__bg-shape about__bg-shape--2"></div>
+  </div>
+
+  <div class="about__container">
+    <!-- Encabezado: ícono + título + línea separadora -->
+    <div class="about__header animate-on-scroll" appAnimateOnScroll>
+      <i data-lucide="user" class="about__header-icon"></i>
+      <h2 class="about__header-title">
+        <span class="accent">Sobre</span> mí
+      </h2>
+      <div class="about__header-line"></div>
+    </div>
+
+    <!-- Bento grid: 5 tarjetas en un layout 2+1 columnas en desktop -->
+    <div class="about__grid">
+
+      <!-- BIO: ocupa 2 columnas en mobile y 2 col + 2 filas en desktop -->
+      <div class="about__card about__card--bio animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1">
+        <p class="about__bio-text about__bio-text--primary">
+          Soy estudiante avanzado de la Tecnicatura Superior en Desarrollo de
+          Software con experiencia sólida como Full Stack Developer y QA Tester.
+          Actualmente trabajo en <span class="about__bio-accent">AEROTEST</span>,
+          donde diseño pruebas, desarrollo herramientas internas y optimizo
+          procesos apoyándome en herramientas de Inteligencia Artificial.
+        </p>
+        <p class="about__bio-text about__bio-text--secondary">
+          Me apasiona crear soluciones digitales eficientes, elevar la calidad
+          del software y automatizar flujos de trabajo para potenciar la productividad.
+          Fuera del código, soy dirigente Scout: formo jóvenes en valores,
+          liderazgo y trabajo en equipo.
+        </p>
+      </div>
+
+      <!-- UBICACIÓN: columna 3, fila 1 en desktop -->
+      <div class="about__card about__card--small animate-on-scroll" appAnimateOnScroll [animateDelay]="0.2">
+        <div class="about__card-icon-box">
+          <i data-lucide="map-pin" class="about__card-icon"></i>
+        </div>
+        <div>
+          <p class="about__card-label">UBICACIÓN</p>
+          <p class="about__card-value">Buenos Aires</p>
+          <p class="about__card-sub">Argentina 🇦🇷</p>
+        </div>
+      </div>
+
+      <!-- OBJETIVO: columna 3, fila 2 en desktop -->
+      <div class="about__card about__card--small animate-on-scroll" appAnimateOnScroll [animateDelay]="0.25">
+        <div class="about__card-icon-box">
+          <i data-lucide="target" class="about__card-icon"></i>
+        </div>
+        <div>
+          <p class="about__card-label">OBJETIVO</p>
+          <p class="about__card-goal">Full Stack orientado a calidad y automatización.</p>
+        </div>
+      </div>
+
+      <!-- APRENDIENDO: chips violeta; 2 col en mobile, 1 col en desktop -->
+      <div class="about__card about__card--tags animate-on-scroll" appAnimateOnScroll [animateDelay]="0.3">
+        <div class="about__card-icon-box about__card-icon-box--shrink">
+          <i data-lucide="book-open" class="about__card-icon"></i>
+        </div>
+        <div class="about__card-tags-body">
+          <p class="about__card-label">APRENDIENDO</p>
+          <div class="about__chips">
+            @for (item of learning; track item) {
+              <span class="about__chip about__chip--purple">{{ item }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- STACK ACTUAL: chips azul-acento; ocupa 2 columnas siempre -->
+      <div class="about__card about__card--tags about__card--stack animate-on-scroll" appAnimateOnScroll [animateDelay]="0.35">
+        <div class="about__card-icon-box about__card-icon-box--shrink">
+          <i data-lucide="zap" class="about__card-icon"></i>
+        </div>
+        <div class="about__card-tags-body">
+          <p class="about__card-label">STACK ACTUAL</p>
+          <div class="about__chips">
+            @for (tech of currentStack; track tech) {
+              <span class="about__chip about__chip--accent">{{ tech }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- Traducción al inglés del archivo fuente messages.xlf. Solo editar los elementos target. -->
+<!-- Si un target está vacío o ausente, Angular muestra el texto fuente en español. -->
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="es" target-language="en" datatype="plaintext" original="ng2.template">
     <body>

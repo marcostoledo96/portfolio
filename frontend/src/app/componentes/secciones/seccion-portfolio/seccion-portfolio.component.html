@@ -1,0 +1,125 @@
+<!-- Sección Portfolio: grilla filtrable de proyectos con tilt 3D, badges y links de demo/código -->
+<section id="portfolio" class="port">
+  <!-- Decoración de fondo: puntos + blobs animados + figuras flotantes -->
+  <div class="port__bg">
+    <div class="port__bg-dots"></div>
+    <div class="port__bg-blob port__bg-blob--top"></div>
+    <div class="port__bg-blob port__bg-blob--bottom"></div>
+    <div class="port__bg-shape port__bg-shape--1"></div>
+    <div class="port__bg-shape port__bg-shape--2"></div>
+  </div>
+
+  <div class="port__container">
+    <!-- Encabezado: ícono + título + línea separadora -->
+    <div class="port__header animate-on-scroll" appAnimateOnScroll>
+      <i data-lucide="folder-open" class="port__header-icon"></i>
+      <h2 class="port__header-title">
+        <span class="accent">Portfolio</span>
+      </h2>
+      <div class="port__header-line"></div>
+    </div>
+
+    <!-- Subtítulo + botones de filtro por estado del proyecto -->
+    <div class="port__toolbar animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1">
+      <p class="port__subtitle">Proyectos reales en los que trabajé.</p>
+      <div class="port__filters">
+        @for (f of filters; track f.key) {
+          <!-- Botón con contador de proyectos para ese filtro -->
+          <button
+            class="port__filter-btn"
+            [class.port__filter-btn--active]="activeFilter === f.key"
+            (click)="setFilter(f.key)"
+          >
+            {{ f.label }}
+            <span class="port__filter-count"
+              [class.port__filter-count--active]="activeFilter === f.key"
+            >{{ getCount(f.key) }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Grilla de proyectos; @cardAnim anima la entrada y salida al cambiar filtro -->
+    <div class="port__grid">
+      @for (project of filteredProjects; track project.title; let i = $index) {
+        <div
+          class="port__card-wrap"
+          @cardAnim
+        >
+          <!-- cardEl se pasa a onMouseMove/onMouseLeave para el efecto tilt 3D -->
+          <div
+            class="port__card"
+            #cardEl
+            (mousemove)="onMouseMove($event, cardEl)"
+            (mouseleave)="onMouseLeave(cardEl)"
+          >
+            <!-- Imagen de portada con overlay y badges visibles en hover -->
+            <div class="port__card-img-wrap">
+              <img [src]="project.image" [alt]="project.title" class="port__card-img" loading="lazy" />
+              <div class="port__card-overlay"></div>
+
+              <!-- Badge "Destacado" (solo si project.featured es true) -->
+              @if (project.featured) {
+                <span class="port__featured-badge">
+                  <i data-lucide="star" class="port__featured-icon"></i>
+                  Destacado
+                </span>
+              }
+
+              <!-- Badges de estado y equipo, visibles al hacer hover sobre la tarjeta -->
+              <div class="port__hover-badges">
+                <!-- amber = en desarrollo, emerald = finalizado -->
+                <span class="port__badge"
+                  [class.port__badge--amber]="project.status === 'in-dev'"
+                  [class.port__badge--emerald]="project.status === 'finished'"
+                >{{ project.statusLabel }}</span>
+                <!-- gray = individual, violet = en equipo -->
+                <span class="port__badge"
+                  [class.port__badge--gray]="project.teamType === 'individual'"
+                  [class.port__badge--violet]="project.teamType === 'team'"
+                >{{ project.teamLabel }}</span>
+              </div>
+            </div>
+
+            <!-- Cuerpo de la tarjeta: título, descripción, chips de tecnologías y botones -->
+            <div class="port__card-body">
+              <h3 class="port__card-title">{{ project.title }}</h3>
+              <p class="port__card-desc">{{ project.description }}</p>
+
+              <!-- Chips de tecnologías usadas en el proyecto -->
+              <div class="port__card-techs">
+                @for (tech of project.technologies; track tech) {
+                  <span class="port__tech-chip">{{ tech }}</span>
+                }
+              </div>
+
+              <!-- Botones de acción: Demo y/o Código (opcionales según el proyecto) -->
+              <div class="port__card-actions">
+                <!-- Si no hay GitHub, el botón Demo ocupa todo el ancho (--full) -->
+                @if (project.siteUrl) {
+                  <a [href]="project.siteUrl" target="_blank" rel="noopener noreferrer"
+                     class="port__action-btn port__action-btn--primary"
+                     [class.port__action-btn--full]="!project.githubUrl"
+                  >
+                    <i data-lucide="external-link" class="port__action-icon"></i>
+                    Demo
+                  </a>
+                }
+                <!-- Si no hay demo, el botón Código ocupa todo el ancho (--full) -->
+                @if (project.githubUrl) {
+                  <a [href]="project.githubUrl" target="_blank" rel="noopener noreferrer"
+                     class="port__action-btn port__action-btn--secondary"
+                     [class.port__action-btn--full]="!project.siteUrl"
+                  >
+                    <i data-lucide="github" class="port__action-icon"></i>
+                    Código
+                  </a>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
