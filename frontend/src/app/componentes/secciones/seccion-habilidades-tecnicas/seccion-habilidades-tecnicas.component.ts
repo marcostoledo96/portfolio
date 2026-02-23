@@ -114,12 +114,12 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
     if (this.activeHoverIndex !== index) {
       this.activeHoverIndex = index;
       this.flippedIndex = null;
-      // Después de 1.5 segundos hago el flip automáticamente
+      // Después de 1 segundo hago el flip automáticamente
       this.hoverTimer = setTimeout(() => {
         this.flippedIndex = index;
         this.activeHoverIndex = null;
         this.cdr.markForCheck();
-      }, 1500);
+      }, 1000);
       return;
     }
 
