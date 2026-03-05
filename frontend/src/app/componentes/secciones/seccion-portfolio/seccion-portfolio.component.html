@@ -71,21 +71,21 @@
                 </span>
               </div>
 
-              <!-- Badge "Destacado" (solo si project.featured es true) -->
+              <!-- Badge de estado: siempre visible con glassmorphism (top-left) -->
+              <span class="port__status-badge"
+                [class.port__status-badge--dev]="project.status === 'in-dev'"
+                [class.port__status-badge--done]="project.status === 'finished'"
+              >{{ project.statusLabel }}</span>
+
+              <!-- Badge "Destacado": ícono estrella compacto (top-right) -->
               @if (project.featured) {
-                <span class="port__featured-badge">
-                  <i data-lucide="star" class="port__featured-icon"></i>
-                  Destacado
+                <span class="port__featured-star">
+                  <i data-lucide="star" class="port__featured-star-icon"></i>
                 </span>
               }
 
-              <!-- Badges de estado y equipo, visibles al hacer hover sobre la tarjeta -->
+              <!-- Badge de equipo visible solo en hover (bottom) -->
               <div class="port__hover-badges">
-                <!-- amber = en desarrollo, emerald = finalizado -->
-                <span class="port__badge"
-                  [class.port__badge--amber]="project.status === 'in-dev'"
-                  [class.port__badge--emerald]="project.status === 'finished'"
-                >{{ project.statusLabel }}</span>
                 <!-- gray = individual, violet = en equipo -->
                 <span class="port__badge"
                   [class.port__badge--gray]="project.teamType === 'individual'"

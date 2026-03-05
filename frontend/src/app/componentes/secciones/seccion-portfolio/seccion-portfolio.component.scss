@@ -231,24 +231,38 @@
   }
   &__card-hover-icon { width: 15px; height: 15px; }
 
-  // Badge "Destacado" superpuesto en top-left de la imagen
-  &__featured-badge {
+  // Badge de estado siempre visible con glassmorphism (top-left)
+  &__status-badge {
     position: absolute; top: 0.75rem; left: 0.75rem;
-    display: inline-flex; align-items: center; gap: 0.25rem;
     padding: 0.25rem 0.625rem;
-    border-radius: $radius-full;
-    background: rgba(245, 158, 11, 0.9); // amber-500
-    color: #fff;
+    border-radius: 9999px;
     font-size: 0.68rem; font-weight: 600;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
     z-index: 2;
-  }
-  &__featured-icon {
-    width: 11px; height: 11px;
-    fill: #fff;
+    &--dev {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    &--done {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
   }
 
-  // Badges de estado y equipo visibles solo en hover (bottom de la imagen)
+  // Badge "Destacado": solo ícono estrella amarillo (top-right)
+  &__featured-star {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    z-index: 2;
+  }
+  &__featured-star-icon {
+    width: 16px; height: 16px;
+    color: #fbbf24;
+    fill: #fbbf24;
+  }
+
+  // Badge de equipo visible solo en hover (bottom de la imagen)
   &__hover-badges {
     position: absolute;
     bottom: 0.75rem; left: 0.75rem; right: 0.75rem;
@@ -264,8 +278,6 @@
     color: #fff;
     backdrop-filter: blur(4px);
 
-    &--amber   { background: rgba(245, 158, 11, 0.8); }   // in-dev
-    &--emerald { background: rgba(16, 185, 129, 0.8); }    // finished
     &--gray    { background: rgba(107, 114, 128, 0.8); }   // individual
     &--violet  { background: rgba(139, 92, 246, 0.8); }    // team
   }
