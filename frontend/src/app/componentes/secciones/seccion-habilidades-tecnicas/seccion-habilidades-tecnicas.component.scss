@@ -101,6 +101,7 @@
 
     &--active   { background-color: #059669; }
     &--learning { background-color: #7c3aed; }
+    &--inactive { background-color: #64748b; }
   }
   &__legend-label {
     color: var(--muted-foreground);
@@ -114,6 +115,13 @@
     font-size: 0.72rem;
     opacity: 0.6;
     margin-top: 1rem;
+  }
+
+  // Contenedor centrado de la tarjeta Proactividad (fuera de la grilla)
+  &__proactividad {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
   }
 }
 
@@ -273,6 +281,41 @@
     text-align: center;
     word-break: break-word;
     color: var(--foreground);
+    opacity: 0.9;
+  }
+
+  // Ícono de tendencia (TrendingUp) en la carta Proactividad: tamaño y color de acento
+  &__trending-icon {
+    width: 44px; height: 44px;
+    color: var(--portfolio-accent);
+    stroke-width: 1.8;
+  }
+
+  // Subtítulo de acento en la carta Proactividad ("constante")
+  &__sub-accent {
+    font-size: 0.62rem; font-weight: 500;
+    color: var(--portfolio-accent);
+    font-family: 'Fira Code', monospace;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    line-height: 1;
+  }
+
+  // Cara posterior variante acento (Proactividad)
+  &__back--proactividad {
+    border-color: var(--portfolio-accent) !important;
+    box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.1), 0 0 0 1px var(--portfolio-accent) !important;
+  }
+
+  // Texto de contexto en itálica (Proactividad)
+  &__context--italic {
+    font-style: italic;
+    font-size: 0.66rem;
+  }
+
+  // El hover muestra la sub-acento al máximo
+  &:hover &__sub-accent,
+  &--mobile-hover &__sub-accent {
     opacity: 0.9;
   }
 

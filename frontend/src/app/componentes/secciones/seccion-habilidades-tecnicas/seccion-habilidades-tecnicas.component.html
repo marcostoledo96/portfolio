@@ -67,15 +67,59 @@
       }
     </div>
 
-    <!-- Leyenda de colores del badge (verde = práctica, morado = formación) -->
+    <!-- Tarjeta especial: Proactividad / Superación constante (centrada, fuera de la grilla) -->
+    <div class="tech__proactividad">
+      <div
+        class="flip-card animate-on-scroll"
+        [class.flip-card--flipped]="proactividadFlipped"
+        [class.flip-card--mobile-hover]="proactividadHover"
+        (click)="toggleProactividad()"
+        appAnimateOnScroll
+        [animateDelay]="0.1"
+        role="button"
+        tabindex="0"
+        aria-label="Ver detalles de Superación constante"
+        [attr.aria-expanded]="proactividadFlipped"
+        (keydown.enter)="toggleProactividad()"
+        (keydown.space)="$event.preventDefault(); toggleProactividad()"
+      >
+        <div class="flip-card__inner">
+          <!-- Cara frontal: ícono TrendingUp + texto + subtítulo acento -->
+          <div class="flip-card__front flip-card__front--proactividad">
+            <div class="flip-card__icon-wrap">
+              <i data-lucide="trending-up" class="flip-card__trending-icon"></i>
+            </div>
+            <span class="flip-card__name">Superación</span>
+            <span class="flip-card__sub-accent">constante</span>
+          </div>
+          <!-- Cara posterior: texto motivacional + 5 estrellas llenas -->
+          <div class="flip-card__back flip-card__back--proactividad">
+            <p class="flip-card__context flip-card__context--italic">
+              Siempre busco superarme, aprender algo nuevo y dar lo mejor de mí en cada proyecto.
+            </p>
+            <div class="flip-card__stars">
+              @for (star of [1,2,3,4,5]; track star) {
+                <i data-lucide="star" class="flip-card__star flip-card__star--filled"></i>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leyenda de colores del badge -->
     <div class="tech__legend animate-on-scroll" appAnimateOnScroll [animateDelay]="0.3">
       <div class="tech__legend-item">
         <span class="tech__legend-dot tech__legend-dot--active"></span>
-        <span class="tech__legend-label">Experiencia práctica</span>
+        <span class="tech__legend-label">En práctica</span>
       </div>
       <div class="tech__legend-item">
         <span class="tech__legend-dot tech__legend-dot--learning"></span>
         <span class="tech__legend-label">En formación</span>
+      </div>
+      <div class="tech__legend-item">
+        <span class="tech__legend-dot tech__legend-dot--inactive"></span>
+        <span class="tech__legend-label">Experiencia previa</span>
       </div>
     </div>
 

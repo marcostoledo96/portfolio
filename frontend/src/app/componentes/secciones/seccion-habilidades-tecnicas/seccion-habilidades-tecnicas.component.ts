@@ -33,7 +33,6 @@ const ALL_SKILLS: Skill[] = [
   { name: 'MySQL',         tag: 'active',   tagLabel: 'En práctica',        context: 'Primer motor de BD relacional que aprendí a usar.',                   level: 3 },
   { name: 'PostgreSQL',    tag: 'learning', tagLabel: 'En práctica',        context: 'Deploy de BD en la nube con Neon y Supabase.',                        level: 2 },
   { name: 'SQL Server',    tag: 'learning', tagLabel: 'En formación',       context: 'BD para el proyecto en equipo del Grupo Scout.',                      level: 2 },
-  { name: 'C#',            tag: 'learning', tagLabel: 'En formación',       context: 'Desarrollo de software robusto junto a ASP.NET.',                     level: 1 },
   { name: 'ASP.NET',       tag: 'learning', tagLabel: 'En formación',       context: 'Framework .NET junto a C# para la web del Grupo Scout.',              level: 2 },
   { name: 'Git',           tag: 'active',   tagLabel: 'En práctica',        context: 'Control de versiones y flujos colaborativos en proyectos.',            level: 4 },
   { name: 'Figma',         tag: 'active',   tagLabel: 'En práctica',        context: 'Diseño de interfaces y prototipos para agilizar desarrollos.',        level: 4 },
@@ -54,8 +53,14 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
   skills = ALL_SKILLS;
   flippedIndex: number | null = null;       // Índice de la tarjeta actualmente volteada
   activeHoverIndex: number | null = null;   // Índice en estado pre-flip (hover visual en mobile)
+
+  // Estado de la tarjeta especial Proactividad
+  proactividadFlipped  = false;
+  proactividadHover    = false;
+
   private autoFlipTimer: any = null;
   private hoverTimer: any = null;
+  private proactHoverTimer: any = null;
   private isMobile = false; // Determina si uso comportamiento táctil o de mouse
 
   // Mapa nombre → ruta de imagen para cada habilidad
@@ -146,6 +151,32 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
     this.isMobile = window.innerWidth < 640;
   }
 
+  // Flip de la tarjeta especial Proactividad — misma lógica mobile/desktop que toggleFlip
+  toggleProactividad(): void {
+    if (this.proactHoverTimer) { clearTimeout(this.proactHoverTimer); this.proactHoverTimer = null; }
+
+    if (!this.isMobile) {
+      this.proactividadFlipped = !this.proactividadFlipped;
+      return;
+    }
+    if (this.proactividadFlipped) {
+      this.proactividadFlipped = false;
+      this.proactividadHover   = false;
+      return;
+    }
+    if (!this.proactividadHover) {
+      this.proactividadHover = true;
+      this.proactHoverTimer  = setTimeout(() => {
+        this.proactividadFlipped = true;
+        this.proactividadHover   = false;
+        this.cdr.markForCheck();
+      }, 1000);
+      return;
+    }
+    this.proactividadFlipped = true;
+    this.proactividadHover   = false;
+  }
+
   // Cancelo ambos timers para evitar efectos secundarios al cambiar de tarjeta
   private clearTimers(): void {
     if (this.autoFlipTimer) {
@@ -155,6 +186,10 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
     if (this.hoverTimer) {
       clearTimeout(this.hoverTimer);
       this.hoverTimer = null;
+    }
+    if (this.proactHoverTimer) {
+      clearTimeout(this.proactHoverTimer);
+      this.proactHoverTimer = null;
     }
   }
 }
