@@ -112,7 +112,15 @@ export default async function handler(req, res) {
     return res.status(400).json({
       success: false,
       message: 'Verificación CAPTCHA fallida. Recargá la página e intentá de nuevo.',
-      debug: captchaResult.detail // Temporal: muestra el error exacto de Cloudflare
+      debug: captchaResult.detail,
+      // ──── DIAGNÓSTICO TEMPORAL (eliminar en producción) ────
+      _tokenLength: turnstileToken ? turnstileToken.length : 0,
+      _tokenPreview: turnstileToken ? turnstileToken.substring(0, 30) + '...' : '(vacío)',
+      _secretLoaded: !!process.env.TURNSTILE_SECRET,
+      _secretPreview: process.env.TURNSTILE_SECRET
+        ? process.env.TURNSTILE_SECRET.substring(0, 8) + '***'
+        : '(no existe)',
+      _cfRaw: captchaResult.raw || null,
     });
   }
 
