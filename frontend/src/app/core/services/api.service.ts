@@ -51,10 +51,6 @@ export class ApiService {
         }
 
         console.error('ApiService error:', mensajeError);
-        // Debug temporal: volcar toda la respuesta del backend en la consola
-        if (error.error && typeof error.error === 'object') {
-            console.error('ApiService FULL backend response:', JSON.stringify(error.error, null, 2));
-        }
         return throwError(() => new Error(mensajeError));
     }
 }
