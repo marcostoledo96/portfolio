@@ -1,0 +1,102 @@
+<!-- El modal solo se renderiza cuando hay un proyecto seleccionado -->
+@if (project) {
+
+  <!-- Backdrop con fade -->
+  <div class="pmodal__backdrop" [@backdropAnim] (click)="closeModal.emit()">
+
+    <!-- Contenedor del modal con scale + fade; stopPropagation para no cerrar al hacer clic dentro -->
+    <div class="pmodal__content" [@modalAnim] (click)="$event.stopPropagation()">
+
+      <!-- Botón cerrar — top-right del contenedor -->
+      <button class="pmodal__close" (click)="closeModal.emit()" aria-label="Cerrar modal" type="button">
+        <i data-lucide="x" class="pmodal__close-icon"></i>
+      </button>
+
+      <!-- Hero: carousel de imágenes + overlay con título y badges -->
+      <div class="pmodal__hero">
+        <app-image-carousel
+          [images]="project.images"
+          [title]="project.title"
+          (zoom)="openLightbox($event)"
+        ></app-image-carousel>
+
+        <!-- Overlay de título superpuesto sobre el carousel -->
+        <div class="pmodal__title-overlay">
+          <!-- Badges: estado, equipo y destacado -->
+          <div class="pmodal__badges">
+            <!-- Badge de estado -->
+            <span class="pmodal__badge"
+              [class.pmodal__badge--dev]="project.status === 'in-dev'"
+              [class.pmodal__badge--done]="project.status === 'finished'"
+            >{{ project.statusLabel }}</span>
+            <!-- Badge de equipo -->
+            <span class="pmodal__badge"
+              [class.pmodal__badge--gray]="project.teamType === 'individual'"
+              [class.pmodal__badge--violet]="project.teamType === 'team'"
+            >{{ project.teamLabel }}</span>
+            <!-- Badge destacado -->
+            @if (project.featured) {
+              <span class="pmodal__badge pmodal__badge--amber">
+                <i data-lucide="star" class="pmodal__badge-icon"></i>
+                Destacado
+              </span>
+            }
+          </div>
+          <!-- Título del proyecto -->
+          <h3 class="pmodal__title">{{ project.title }}</h3>
+        </div>
+      </div>
+
+      <!-- Cuerpo scrollable: descripción, tecnologías y links -->
+      <div class="pmodal__body">
+
+        <!-- Descripción larga -->
+        <div class="pmodal__section">
+          <h4 class="pmodal__section-title">DESCRIPCIÓN</h4>
+          <p class="pmodal__desc">{{ project.longDescription }}</p>
+        </div>
+
+        <!-- Chips de tecnologías -->
+        <div class="pmodal__section">
+          <h4 class="pmodal__section-title">TECNOLOGÍAS</h4>
+          <div class="pmodal__techs">
+            @for (tech of project.technologies; track tech) {
+              <span class="pmodal__tech-chip">{{ tech }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- Links de demo y código -->
+        @if (project.siteUrl || project.githubUrl) {
+          <div class="pmodal__links">
+            @if (project.siteUrl) {
+              <a [href]="project.siteUrl" target="_blank" rel="noopener noreferrer"
+                 class="pmodal__link-btn pmodal__link-btn--primary">
+                <i data-lucide="external-link" class="pmodal__link-icon"></i>
+                Ver sitio
+              </a>
+            }
+            @if (project.githubUrl) {
+              <a [href]="project.githubUrl" target="_blank" rel="noopener noreferrer"
+                 class="pmodal__link-btn pmodal__link-btn--secondary">
+                <i data-lucide="github" class="pmodal__link-icon"></i>
+                Ver código
+              </a>
+            }
+          </div>
+        }
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox integrado: se abre al hacer clic en zoom del carousel -->
+  @if (lightboxIndex !== null) {
+    <app-image-lightbox
+      [images]="project.images"
+      [initialIndex]="lightboxIndex"
+      (close)="closeLightbox()"
+    ></app-image-lightbox>
+  }
+
+}

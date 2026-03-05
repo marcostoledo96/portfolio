@@ -6,33 +6,13 @@ import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 import { ImagenFallbackComponent } from '../../imagen-fallback/imagen-fallback.component';
+import { ProjectModalComponent } from './project-modal/project-modal.component';
 import {
   trigger, transition, style, animate, query, stagger,
 } from '@angular/animations'; // Animación de entrada/salida de tarjetas al cambiar filtro
+import { Project, ProjectStatus } from './project.model';
 
 declare const lucide: any; // Lucide cargado desde CDN
-
-// Posibles estados de un proyecto
-type ProjectStatus = 'in-dev' | 'finished';
-// Tipo de equipo de trabajo
-type TeamType = 'individual' | 'team';
-
-// Estructura de cada proyecto del portfolio
-interface Project {
-  title: string;
-  description: string;        // Descripción corta para la tarjeta
-  longDescription: string;    // Descripción extensa para el modal de detalle
-  image: string;              // Imagen thumbnail de la tarjeta
-  images: string[];           // Array de imágenes para el carousel del modal
-  status: ProjectStatus;
-  statusLabel: string;   // Texto para mostrar en el badge de estado
-  teamType: TeamType;
-  teamLabel: string;     // Texto para mostrar en el badge de equipo
-  technologies: string[];
-  featured: boolean;     // Muestra el badge "Destacado" en la imagen
-  siteUrl?: string;      // URL de demo (opcional)
-  githubUrl?: string;    // URL del repositorio (opcional)
-}
 
 // Lista completa de proyectos; para agregar uno nuevo sólo agrego una entrada aquí
 const PROJECTS: Project[] = [
@@ -198,7 +178,7 @@ const FILTERS: FilterDef[] = [
 @Component({
   selector: 'app-seccion-portfolio',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ImagenFallbackComponent],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ImagenFallbackComponent, ProjectModalComponent],
   templateUrl: './seccion-portfolio.component.html',
   styleUrls: ['./seccion-portfolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

@@ -136,3 +136,9 @@
     </div>
   </div>
 </section>
+
+<!-- Modal de detalle de proyecto: se renderiza cuando selectedProject no es null -->
+<app-project-modal
+  [project]="selectedProject"
+  (closeModal)="closeModal()"
+></app-project-modal>
