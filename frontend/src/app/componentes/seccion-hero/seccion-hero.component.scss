@@ -203,6 +203,10 @@
     transition: opacity 0.3s ease;
     &:hover, &:focus-within { opacity: 1; }
   }
+  &__tw-controls-fade {
+    opacity: 0;
+    animation: twControlsFadeIn 0.5s ease forwards;
+  }
   &__tw-arrow {
     display: flex; align-items: center; justify-content: center;
     width: 1.5rem; height: 1.5rem;
@@ -365,6 +369,10 @@
 @keyframes heroFadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes twControlsFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 0.35; transform: translateY(0); }
 }
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
