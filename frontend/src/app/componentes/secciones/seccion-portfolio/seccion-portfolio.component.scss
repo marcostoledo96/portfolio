@@ -127,14 +127,19 @@
     }
   }
   &__filter-count {
-    margin-left: 0.25rem;
+    display: inline-block;
+    margin-left: 0.375rem;
+    padding: 1px 8px;
     font-size: 0.7rem;
-    color: rgba(var(--muted-foreground), 0.5);
-    opacity: 0.5;
+    font-weight: 500;
+    color: var(--portfolio-accent);
+    background: var(--portfolio-accent-glow);
+    border-radius: 9999px;
+    transition: background 0.2s, color 0.2s;
 
     &--active {
-      color: rgba(255, 255, 255, 0.6);
-      opacity: 1;
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
     }
   }
 
