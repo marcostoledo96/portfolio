@@ -161,20 +161,6 @@
               <!-- El widget se inyecta aquí; ocupa 0px cuando no hay desafío activo -->
               <div id="turnstile-container" class="contact__captcha-widget"></div>
 
-              <!-- Indicador de estado del CAPTCHA integrado al diseño del formulario -->
-              <div class="contact__captcha-status" [class.contact__captcha-status--ok]="turnstileToken">
-                @if (!turnstileToken) {
-                  <!-- Spinner mientras Cloudflare evalúa en background -->
-                  <span class="contact__captcha-spinner" aria-hidden="true"></span>
-                  <span class="contact__captcha-status-text">Verificando...</span>
-                } @else {
-                  <!-- Check verde cuando el token fue emitido -->
-                  <i data-lucide="shield-check" class="contact__captcha-status-icon" aria-hidden="true"></i>
-                  <span class="contact__captcha-status-text">Protección activa</span>
-                }
-                <span class="contact__captcha-brand" aria-label="Verificado por Cloudflare">Cloudflare</span>
-              </div>
-
               <!-- Botón de envío: deshabilitado mientras se está enviando o el CAPTCHA no pasó -->
               <button type="submit" class="contact__submit" [disabled]="sending || !turnstileToken">
                 <i data-lucide="send" class="contact__submit-icon"></i>
@@ -228,16 +214,7 @@
               </div>
               <div class="contact__link-info">
                 <span class="contact__link-label">{{ link.label }}</span>
-                @if (link.icon === 'mail') {
-                  <!-- SVG inline: el texto del email no aparece como string en el DOM parseado por bots -->
-                  <span class="contact__link-value">
-                    <svg viewBox="0 0 210 16" width="210" height="1em" style="display:block; overflow:visible" aria-label="marcostoledo96@gmail.com" role="img">
-                      <text x="0" y="13" fill="currentColor" font-size="13.5">marcostoledo96&#64;gmail.com</text>
-                    </svg>
-                  </span>
-                } @else {
-                  <span class="contact__link-value">{{ link.value }}</span>
-                }
+                <span class="contact__link-value">{{ link.value }}</span>
               </div>
               <!-- Flecha decorativa que se resalta en hover -->
               <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
