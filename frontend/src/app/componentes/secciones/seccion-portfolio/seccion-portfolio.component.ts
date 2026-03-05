@@ -174,15 +174,24 @@ const FILTERS: FilterDef[] = [
   styleUrls: ['./seccion-portfolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos
   animations: [
-    trigger('cardAnim', [
-      // Tarjeta que aparece al filtrar: desliza desde abajo con fade
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(25px)' }),
-        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
-      ]),
-      // Tarjeta que desaparece al filtrar: encoge con fade
-      transition(':leave', [
-        animate('250ms ease-in', style({ opacity: 0, transform: 'scale(0.95)' })),
+    // Trigger en el CONTENEDOR del grid: detecta :enter/:leave de los cards hijos
+    // Las fases son secuenciales (como AnimatePresence mode="popLayout"):
+    //   1. Cards que salen se encogen y desvanecen (250ms)
+    //   2. Cards que entran aparecen con stagger de 50ms desde abajo (400ms)
+    trigger('listAnim', [
+      transition('* => *', [
+        // Fase 1: salida — todas las tarjetas que desaparecen a la vez
+        query(':leave', [
+          animate('200ms ease-in', style({ opacity: 0, transform: 'scale(0.9)' })),
+        ], { optional: true }),
+        // Fase 2: entrada — tarjetas nuevas con stagger escalonado
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(30px) scale(0.95)' }),
+          stagger('50ms', [
+            animate('400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              style({ opacity: 1, transform: 'translateY(0) scale(1)' })),
+          ]),
+        ], { optional: true }),
       ]),
     ]),
   ],

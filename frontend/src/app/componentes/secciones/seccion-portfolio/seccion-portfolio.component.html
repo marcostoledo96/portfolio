@@ -39,12 +39,11 @@
       </div>
     </div>
 
-    <!-- Grilla de proyectos; @cardAnim anima la entrada y salida al cambiar filtro -->
-    <div class="port__grid">
+    <!-- Grilla de proyectos; @listAnim en el contenedor coordina la salida y entrada con stagger -->
+    <div class="port__grid" [@listAnim]="activeFilter">
       @for (project of filteredProjects; track project.title; let i = $index) {
         <div
           class="port__card-wrap"
-          @cardAnim
         >
           <!-- cardEl se pasa a onMouseMove/onMouseLeave para el efecto tilt 3D -->
           <div
