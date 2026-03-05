@@ -205,7 +205,7 @@
   }
   &__tw-controls-fade {
     opacity: 0;
-    animation: twControlsFadeIn 0.5s ease forwards;
+    animation: twControlsFadeIn 0.5s ease;
   }
   &__tw-arrow {
     display: flex; align-items: center; justify-content: center;
