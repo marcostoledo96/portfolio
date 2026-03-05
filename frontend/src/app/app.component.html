@@ -30,7 +30,7 @@
   <main class="layout__main" id="contenido-principal" #mainContent>
     <app-seccion-hero></app-seccion-hero>
     <app-seccion-sobre-mi></app-seccion-sobre-mi>
-    @defer (on viewport; prefetch on idle) {
+    @defer (when forceHabilidades(); on viewport; prefetch on idle) {
       <app-seccion-habilidades-tecnicas></app-seccion-habilidades-tecnicas>
     } @placeholder {
       <app-lazy-section
@@ -43,7 +43,7 @@
     <app-seccion-idiomas></app-seccion-idiomas>
     <app-seccion-experiencia></app-seccion-experiencia>
     <app-seccion-educacion></app-seccion-educacion>
-    @defer (on viewport; prefetch on idle) {
+    @defer (when forcePortfolio(); on viewport; prefetch on idle) {
       <app-seccion-portfolio></app-seccion-portfolio>
     } @placeholder {
       <app-lazy-section
@@ -52,7 +52,7 @@
         minHeight="700px"
       ></app-lazy-section>
     }
-    @defer (on viewport; prefetch on idle) {
+    @defer (when forceContacto(); on viewport; prefetch on idle) {
       <app-seccion-contacto></app-seccion-contacto>
     } @placeholder {
       <app-lazy-section
@@ -68,7 +68,7 @@
 
         <!-- Mini-sitemap -->
         <nav class="footer__sitemap" aria-label="Mapa del sitio">
-          <button class="footer__sitemap-link" (click)="handleNavClick('inicio')">Inicio</button>
+          <button class="footer__sitemap-link" (click)="handleNavClick('hero')">Inicio</button>
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
           <button class="footer__sitemap-link" (click)="handleNavClick('sobre-mi')">Sobre mí</button>
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>

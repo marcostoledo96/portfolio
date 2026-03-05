@@ -70,6 +70,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   showScrollTop = false;        // Muestra el botón de scroll-to-top después de 400px
   isDrawerOpen = false;         // Estado del menú lateral en mobile
 
+  // Señales para forzar la carga inmediata de lazy sections (bypasea el trigger 'on viewport')
+  // Se ponen a true antes del scroll programático para evitar saltos de layout
+  readonly forceHabilidades = signal(false);
+  readonly forcePortfolio   = signal(false);
+  readonly forceContacto    = signal(false);
+
   @ViewChild('mainContent', { static: true }) mainRef!: ElementRef<HTMLElement>; // Referencia al <main> scrollable
 
   private sectionIds = NAV_ITEMS.map(n => n.id); // IDs de las secciones en orden de navegación
