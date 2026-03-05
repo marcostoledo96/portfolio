@@ -297,34 +297,36 @@
 
   // --- Cloudflare Turnstile — contenedor del widget (interaction-only = 0px cuando no hay desafío) ---
   &__captcha-widget {
-    // El iframe se inyecta aquí; con interaction-only no ocupa espacio visible en condiciones normales
+    // El iframe se inyecta aquí por JS; colapsa a 0 cuando no hay desafío activo
+    height: 0;
     overflow: hidden;
     transition: height 0.3s ease;
   }
 
-  // Nota de seguridad estática: informa al visitante que el formulario está protegido por Cloudflare
+  // Nota de seguridad: barra prominente con escudo verde + texto + badge Cloudflare
   &__security-note {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
-    font-size: 0.72rem;
-    color: var(--muted-foreground);
-    opacity: 0.65;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--foreground);
+    opacity: 0.8;
   }
   &__security-icon {
-    width: 13px; height: 13px;
+    width: 15px; height: 15px;
     flex-shrink: 0;
     color: #10b981;
-    opacity: 0.9;
   }
   &__security-text {
     flex: 1;
+    font-weight: 500;
   }
   &__security-brand {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    opacity: 0.5;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--portfolio-accent);
+    opacity: 0.85;
     flex-shrink: 0;
   }
 

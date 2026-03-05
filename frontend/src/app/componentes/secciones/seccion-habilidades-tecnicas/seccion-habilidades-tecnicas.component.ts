@@ -104,6 +104,9 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
 
   toggleFlip(index: number): void {
     this.clearTimers();
+    // Cerrar la tarjeta de Proactividad si estaba abierta
+    this.proactividadFlipped = false;
+    this.proactividadHover   = false;
 
     if (!this.isMobile) {
       // Desktop: flip inmediato al hacer clic
@@ -154,7 +157,10 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
   // Flip de la tarjeta especial Proactividad — misma lógica mobile/desktop que toggleFlip
   toggleProactividad(): void {
     if (this.proactHoverTimer) { clearTimeout(this.proactHoverTimer); this.proactHoverTimer = null; }
-
+    // Cerrar cualquier tarjeta de skill que estuviera abierta
+    this.flippedIndex        = null;
+    this.activeHoverIndex    = null;
+    this.clearTimers();
     if (!this.isMobile) {
       this.proactividadFlipped = !this.proactividadFlipped;
       return;
