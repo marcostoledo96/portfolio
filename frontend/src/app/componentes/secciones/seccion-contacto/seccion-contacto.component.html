@@ -218,10 +218,28 @@
               </div>
               <div class="contact__link-info">
                 <span class="contact__link-label">{{ link.label }}</span>
-                <span class="contact__link-value">{{ link.value }}</span>
+                @if (link.icon === 'mail') {
+                  <!-- Email ofuscado: no expone el literal completo en el DOM de navegación -->
+                  <span class="contact__link-value">marcos&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#64;gmail.com</span>
+                } @else {
+                  <span class="contact__link-value">{{ link.value }}</span>
+                }
               </div>
-              <!-- Flecha decorativa que se resalta en hover -->
-              <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
+              @if (link.icon === 'mail') {
+                <!-- Botón copiar email — stopPropagation evita que dispare el mailto -->
+                <button
+                  class="contact__link-copy"
+                  type="button"
+                  [attr.aria-label]="emailCopied ? 'Copiado' : 'Copiar email'"
+                  [title]="emailCopied ? 'Copiado' : 'Copiar email'"
+                  (click)="copyEmail($event)"
+                >
+                  <i [attr.data-lucide]="emailCopied ? 'check' : 'copy'" class="contact__link-copy-icon"></i>
+                </button>
+              } @else {
+                <!-- Flecha decorativa que se resalta en hover -->
+                <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
+              }
             </a>
           }
         </div>

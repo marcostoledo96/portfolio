@@ -112,7 +112,12 @@
   </div>
 
   <!-- Scroll indicator -->
-  <div class="hero__scroll-indicator hero__fade" style="animation-delay: 0.8s">
+  <div class="hero__scroll-indicator hero__fade" style="animation-delay: 0.8s"
+       role="button" tabindex="0"
+       aria-label="Ir a la siguiente sección"
+       (click)="scrollTo('sobre-mi', 'center')"
+       (keydown.enter)="scrollTo('sobre-mi', 'center')"
+       (keydown.space)="$event.preventDefault(); scrollTo('sobre-mi', 'center')">
     <span class="hero__scroll-text">SCROLL</span>
     <i data-lucide="chevron-down" class="hero__scroll-icon"></i>
   </div>

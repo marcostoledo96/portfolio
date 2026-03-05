@@ -84,6 +84,10 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
   // Honeypot: campo invisible; si un bot lo rellena, bloqueamos el envío
   honeypotValue = '';
 
+  // Estado del botón de copiar email
+  emailCopied = false;
+  private copyTimer: any;
+
   // Set de campos que el usuario ya tocó — activa la validación visual solo tras blur
   touchedFields: Set<string> = new Set();
 
@@ -91,6 +95,22 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
   onBlur(field: string): void {
     this.touchedFields.add(field);
     this.cdr.markForCheck();
+  }
+
+  /** Copia la dirección de email al portapapeles sin activar el mailto. */
+  copyEmail(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const email = ["marcostoledo96", "gmail.com"].join("@");
+    navigator.clipboard.writeText(email).then(() => {
+      this.emailCopied = true;
+      this.cdr.markForCheck();
+      clearTimeout(this.copyTimer);
+      this.copyTimer = setTimeout(() => {
+        this.emailCopied = false;
+        this.cdr.markForCheck();
+      }, 2000);
+    });
   }
 
   /**
@@ -235,5 +255,6 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
     if (this.turnstileWidgetId !== null) {
       try { turnstile.remove(this.turnstileWidgetId); } catch { /* ya destruido */ }
     }
+    clearTimeout(this.copyTimer);
   }
 }
