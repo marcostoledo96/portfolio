@@ -50,6 +50,11 @@ export class ImageLightboxComponent implements OnInit {
     setTimeout(() => {
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
+    // Precarga todas las imágenes del lightbox al abrirse
+    this.images.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
   }
 
   /** Navega circularmente a cualquier índice */
@@ -57,11 +62,7 @@ export class ImageLightboxComponent implements OnInit {
     const len = this.images.length;
     this.currentIndex = ((idx % len) + len) % len;
     this.cdr.markForCheck();
-    setTimeout(() => {
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    });
   }
-
   prev(event: MouseEvent): void { event.stopPropagation(); this.goTo(this.currentIndex - 1); }
   next(event: MouseEvent): void { event.stopPropagation(); this.goTo(this.currentIndex + 1); }
 

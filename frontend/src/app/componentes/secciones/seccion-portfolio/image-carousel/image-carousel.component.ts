@@ -1,7 +1,7 @@
 // Carousel reutilizable de imágenes con crossfade, flechas, puntos y botón de zoom.
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy, ChangeDetectorRef, OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -31,7 +31,7 @@ declare const lucide: any;
     ]),
   ],
 })
-export class ImageCarouselComponent {
+export class ImageCarouselComponent implements OnInit {
   @Input() images: string[] = [];
   @Input() title: string = '';
   /** Emite el índice de la imagen actual para abrir el lightbox */
@@ -41,15 +41,29 @@ export class ImageCarouselComponent {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
+  ngOnInit(): void {
+    // Precarga las primeras imágenes al abrir para que estén en caché
+    this.images.slice(0, 3).forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
+
   /** Navega a un índice dado de forma circular */
   goTo(idx: number): void {
     const len = this.images.length;
     this.currentIndex = ((idx % len) + len) % len;
     this.cdr.markForCheck();
-    // Re-renderiza los íconos Lucide (flechas pueden cambiar de estado)
-    setTimeout(() => {
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    });
+    // Precarga la imagen siguiente y anterior para eliminar latencia en la próxima navegación
+    this.preload((this.currentIndex + 1) % len);
+    this.preload(((this.currentIndex - 1) + len) % len);
+  }
+
+  private preload(idx: number): void {
+    if (this.images[idx]) {
+      const img = new Image();
+      img.src = this.images[idx];
+    }
   }
 
   prev(event: MouseEvent): void {

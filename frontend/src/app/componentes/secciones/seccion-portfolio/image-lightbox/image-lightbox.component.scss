@@ -22,6 +22,7 @@
     user-select: none;
     cursor: default;
     box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
+    will-change: opacity; // GPU layer para la transición
   }
 
   // ------------------------------------------------------------------
