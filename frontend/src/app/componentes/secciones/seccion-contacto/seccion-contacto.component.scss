@@ -244,6 +244,19 @@
     animation: contactFadeIn 0.2s ease-out;
   }
 
+  // Contador de caracteres del textarea: Fira Code, color dinámico según cercanía al límite
+  &__char-counter {
+    font-size: 0.72rem;
+    font-family: 'Fira Code', monospace;
+    color: var(--muted-foreground);
+    text-align: right;
+    margin-top: 0.25rem;
+    transition: color 0.2s ease;
+
+    &--warn   { color: #f59e0b; } // amber-500: 800–949 chars
+    &--danger { color: #ef4444; } // red-500:   950+ chars
+  }
+
   @keyframes contactFadeIn {
     from { opacity: 0; transform: translateY(-4px); }
     to   { opacity: 1; transform: translateY(0); }

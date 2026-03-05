@@ -138,6 +138,7 @@
                     (blur)="focusedField = null; onBlur('message')"
                     [attr.aria-invalid]="getFieldStatus('message') === 'invalid'"
                     aria-describedby="error-message"
+                    [maxlength]="maxLength"
                   ></textarea>
                   @if (getFieldStatus('message') === 'valid') {
                     <i data-lucide="check-circle" class="contact__field-status-icon contact__field-status-icon--valid contact__field-status-icon--top" aria-hidden="true"></i>
@@ -148,6 +149,12 @@
                 @if (getFieldStatus('message') === 'invalid') {
                   <p id="error-message" class="contact__field-error">El mensaje es obligatorio (mínimo 10 caracteres)</p>
                 }
+                <!-- Contador de caracteres: cambia de color al acercarse al límite -->
+                <p class="contact__char-counter"
+                   [class.contact__char-counter--warn]="formData.message.length >= 800 && formData.message.length < 950"
+                   [class.contact__char-counter--danger]="formData.message.length >= 950"
+                   aria-live="polite"
+                   aria-atomic="true">{{ formData.message.length }}/{{ maxLength }}</p>
               </div>
 
               <!-- Cloudflare Turnstile — interaction-only: invisible para usuarios legítimos -->

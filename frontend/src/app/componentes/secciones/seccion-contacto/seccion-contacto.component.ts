@@ -75,6 +75,7 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
   formData: DatosContacto = { name: '', email: '', message: '' };
   errors: FormErrors = {}; // Errores de validación por campo
   sending = false;         // Deshabilita el botón mientras se envía
+  readonly maxLength = 1000; // Límite de caracteres del textarea
   sent = false;            // Muestra el estado de éxito al enviar
   focusedField: string | null = null; // Controla el estilo "focused" en el input activo
 
