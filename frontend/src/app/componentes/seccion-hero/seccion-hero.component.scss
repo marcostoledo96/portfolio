@@ -296,7 +296,7 @@
   &__socials {
     display: flex; align-items: center; gap: 0.75rem;
     // Separar del scroll indicator en mobile (position:absolute bottom:2rem)
-    @include mobile-only { margin-bottom: 3.5rem; }
+    @include mobile-only { margin-bottom: 3.5rem; width: 100%; }
   }
   &__social-btn {
     position: relative;
@@ -316,23 +316,14 @@
       box-shadow: 0 4px 16px var(--portfolio-accent-glow);
     }
     &:hover .hero__social-tooltip { opacity: 1; }
-    // Ocultar tooltip en mobile (se usa el label fijo debajo del icóno)
+    // En mobile: columna, ancho igual para todos, ocultar tooltip
     @include mobile-only {
+      flex: 1;
       flex-direction: column;
       width: auto;
       height: auto;
-      padding: 0.45rem 0.6rem;
+      padding: 0.5rem 0.25rem;
       .hero__social-tooltip { display: none !important; }
-    }
-    // Mostrar tooltip en desktop cuando el botón está en estado "confirmar" (no aplica mobile)
-    &--confirmed .hero__social-tooltip { opacity: 1; pointer-events: none; }
-    // Resaltar visualmente el botón confirmado (ring de acento)
-    &--confirmed {
-      border-color: var(--portfolio-accent);
-      color: var(--portfolio-accent);
-      background: var(--portfolio-accent-glow);
-      box-shadow: 0 0 0 2px var(--portfolio-accent-glow), 0 4px 16px var(--portfolio-accent-glow);
-      .hero__social-label { color: var(--portfolio-accent); }
     }
   }
   &__social-tooltip {
