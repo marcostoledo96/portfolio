@@ -76,12 +76,18 @@
   }
   .accent { color: var(--portfolio-accent); }
 
-  // --- Grilla: flex-wrap con cards de tamaño fijo, se apilan en más filas según el ancho disponible ---
+  // --- Grilla: columnas de 150px fijas; el número de columnas sube con el ancho ---
+  // mobile (<640): 2 col | sm (640): 3 col | md (768): 4 col | lg (1024): 5 col | xl (1280): 6 col
   &__grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
     gap: 1rem;
-    justify-content: center;
+    justify-content: center; // centra el bloque de columnas si sobra espacio
+
+    @include sm { grid-template-columns: repeat(3, 150px); gap: 1.25rem; }
+    @include md { grid-template-columns: repeat(4, 150px); gap: 1.25rem; }
+    @include lg { grid-template-columns: repeat(5, 150px); gap: 1.25rem; }
+    @include xl { grid-template-columns: repeat(6, 150px); gap: 1.5rem;  }
   }
 
   // --- Leyenda de colores: punto verde = práctica, punto morado = en formación ---
@@ -126,8 +132,8 @@
 // Tarjeta 3D con flip: perspective en el contenedor, rotateY en __inner
 // ═══════════════════════════════════════
 .flip-card {
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 150px;
   flex-shrink: 0;
   perspective: 800px;
   cursor: pointer;
@@ -174,11 +180,11 @@
     opacity: 0.45;
     transition: opacity 0.3s ease, transform 0.3s ease;
 
-    svg { width: 48px; height: 48px; }
-    img { width: 48px; height: 48px; object-fit: contain; }
+    svg { width: 56px; height: 56px; }
+    img { width: 56px; height: 56px; object-fit: contain; }
   }
   &__name {
-    font-size: 0.78rem; font-weight: 600;
+    font-size: 0.85rem; font-weight: 600;
     color: var(--foreground);
     text-align: center;
     line-height: 1.2;
