@@ -152,6 +152,7 @@
     line-height: 1.7;
     color: var(--muted-foreground);
     margin: 0;
+    white-space: pre-line; // Respeta \n en los strings de TypeScript
   }
 
   // Chips de tecnologías
