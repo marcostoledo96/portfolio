@@ -190,7 +190,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!el) return;
 
     // Secciones cortas: quedan mejor centradas verticalmente que pegadas al top
-    const centerSections = ['idiomas', 'contacto'];
+    const centerSections = ['idiomas', 'contacto', 'sobre-mi'];
     const block: ScrollLogicalPosition = centerSections.includes(sectionId) ? 'center' : 'start';
 
     this.isScrolling = true; // Bloqueo detecci\u00f3n mientras el scroll animado termina

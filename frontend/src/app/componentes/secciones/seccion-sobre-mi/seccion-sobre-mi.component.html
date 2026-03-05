@@ -61,36 +61,6 @@
         </div>
       </div>
 
-      <!-- APRENDIENDO: chips violeta; 2 col en mobile, 1 col en desktop -->
-      <div class="about__card about__card--tags animate-on-scroll" appAnimateOnScroll [animateDelay]="0.3">
-        <div class="about__card-icon-box about__card-icon-box--shrink">
-          <i data-lucide="book-open" class="about__card-icon"></i>
-        </div>
-        <div class="about__card-tags-body">
-          <p class="about__card-label">APRENDIENDO</p>
-          <div class="about__chips">
-            @for (item of learning; track item) {
-              <span class="about__chip about__chip--purple">{{ item }}</span>
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- STACK ACTUAL: chips azul-acento; ocupa 2 columnas siempre -->
-      <div class="about__card about__card--tags about__card--stack animate-on-scroll" appAnimateOnScroll [animateDelay]="0.35">
-        <div class="about__card-icon-box about__card-icon-box--shrink">
-          <i data-lucide="zap" class="about__card-icon"></i>
-        </div>
-        <div class="about__card-tags-body">
-          <p class="about__card-label">STACK ACTUAL</p>
-          <div class="about__chips">
-            @for (tech of currentStack; track tech) {
-              <span class="about__chip about__chip--accent">{{ tech }}</span>
-            }
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>

@@ -29,10 +29,10 @@ const SOFT_SKILLS: SoftSkill[] = [
     accent: '#f59e0b',
   },
   {
-    icon: 'heart-handshake',
-    name: 'Voluntariado: Grupo Scout',
-    description: 'Dirigente de jóvenes (11-17 años). Facilito espacios de formación en valores, liderazgo, planificación y gestión de proyectos.',
-    accent: '#4f46e5',
+    icon: 'book-open',
+    name: 'Aprendizaje autónomo',
+    description: 'Me capacito continuamente en nuevas tecnologías y metodologías, integrando IA en mi flujo de trabajo para potenciar la productividad.',
+    accent: '#10b981',
   },
   {
     icon: 'target',
@@ -47,10 +47,10 @@ const SOFT_SKILLS: SoftSkill[] = [
     accent: '#8b5cf6',
   },
   {
-    icon: 'book-open',
-    name: 'Aprendizaje autónomo',
-    description: 'Me capacito continuamente en nuevas tecnologías y metodologías, integrando IA en mi flujo de trabajo para potenciar la productividad.',
-    accent: '#10b981',
+    icon: 'heart-handshake',
+    name: 'Voluntariado: Grupo Scout',
+    description: 'Dirigente de jóvenes (11-17 años). Facilito espacios de formación en valores, liderazgo, planificación y gestión de proyectos.',
+    accent: '#4f46e5',
   },
 ];
 
