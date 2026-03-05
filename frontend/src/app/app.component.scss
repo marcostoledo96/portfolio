@@ -52,9 +52,37 @@
   font-family: 'Inter', sans-serif;
 
   &__inner {
-    max-width: 28rem;
+    max-width: 38rem;
     margin: 0 auto;
     text-align: center;
+  }
+
+  // Mini-sitemap
+  &__sitemap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  &__sitemap-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 4px;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    transition: color 0.2s;
+    &:hover { color: var(--portfolio-accent); }
+  }
+
+  &__sitemap-sep {
+    font-size: 0.75rem;
+    color: color-mix(in srgb, var(--muted-foreground) 40%, transparent);
+    pointer-events: none;
+    padding: 0 2px;
   }
 
   // Fila de íconos de redes sociales
@@ -96,7 +124,7 @@
     margin: 0;
   }
 
-  // Leyenda "Hecho en Argentina" con opacidad reducida
+  // Leyenda "Hecho con ❤ en Buenos Aires" con opacidad reducida
   &__made {
     display: flex;
     align-items: center;
@@ -106,6 +134,11 @@
     color: var(--muted-foreground);
     opacity: 0.5;
     margin-top: 0.5rem;
+  }
+
+  &__made-heart {
+    color: var(--portfolio-accent);
+    font-style: normal;
   }
 
   &__heart {

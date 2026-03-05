@@ -32,6 +32,27 @@ body {
 // Grilla de puntos global desactivada: cada sección usa su propio @include dot-grid
 // para evitar un repintado en todo el viewport en cada frame de scroll.
 
+// --- Skip-to-content: enlace de accesibilidad visible al hacer foco con teclado ---
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  border-radius: 0 0 8px 8px;
+  background: var(--portfolio-accent);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 0;
+  }
+}
+
 // --- Selección de texto con color de acento ---
 ::selection {
   background: rgba(79, 70, 229, 0.2);

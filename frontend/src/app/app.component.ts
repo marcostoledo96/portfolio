@@ -3,12 +3,16 @@
 import {
   Component, OnInit, OnDestroy, AfterViewInit,
   ViewChild, ElementRef, NgZone, ChangeDetectionStrategy,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { TemaService } from './servicios/tema.service';
+import { SeoService } from './servicios/seo.service';
+import { SplashScreenComponent } from './componentes/splash-screen/splash-screen.component';
+import { PaletaComandosComponent } from './componentes/paleta-comandos/paleta-comandos.component';
 import { BarraLateralComponent, NAV_ITEMS } from './componentes/barra-lateral/barra-lateral.component';
 import { EncabezadoMovilComponent } from './componentes/encabezado-movil/encabezado-movil.component';
 import { BotonScrollArribaComponent } from './componentes/boton-scroll-arriba/boton-scroll-arriba.component';
@@ -21,6 +25,7 @@ import { SeccionExperienciaComponent } from './componentes/secciones/seccion-exp
 import { SeccionEducacionComponent } from './componentes/secciones/seccion-educacion/seccion-educacion.component';
 import { SeccionPortfolioComponent } from './componentes/secciones/seccion-portfolio/seccion-portfolio.component';
 import { SeccionContactoComponent } from './componentes/secciones/seccion-contacto/seccion-contacto.component';
+import { LazySectionComponent } from './componentes/lazy-section/lazy-section.component';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
@@ -31,6 +36,8 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
     CommonModule,
     HttpClientModule,
     FormsModule,
+    SplashScreenComponent,
+    PaletaComandosComponent,
     BarraLateralComponent,
     EncabezadoMovilComponent,
     BotonScrollArribaComponent,
@@ -43,6 +50,7 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
     SeccionEducacionComponent,
     SeccionPortfolioComponent,
     SeccionContactoComponent,
+    LazySectionComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -50,6 +58,9 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   title = 'Portfolio - Marcos Ezequiel Toledo';
+
+  // Controla si el splash screen ya terminó (signal para detectar el cambio con OnPush)
+  splashDone = signal(false);
 
   activeSection = 'sobre-mi';   // ID de la sección visible en pantalla
   scrollProgress = 0;           // Ratio 0-1 para la barra de progreso del sidebar
@@ -65,7 +76,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private ngZone: NgZone,
     private temaService: TemaService,
-  ) {}
+    seoService: SeoService,
+  ) {
+    seoService.init();
+  }
 
   ngOnInit(): void {
     // Registro el listener fuera de NgZone para que el scroll no dispare change detection en cada frame

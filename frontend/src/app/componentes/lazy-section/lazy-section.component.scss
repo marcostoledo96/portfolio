@@ -1,0 +1,150 @@
+// lazy-section.component.scss
+// Skeleton placeholder para secciones diferidas con @defer.
+
+// ── Animación shimmer ─────────────────────────────────────────────────────────
+@keyframes shimmerSlide {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// ── Clase utilitaria compartida ───────────────────────────────────────────────
+:host {
+  display: block;
+}
+
+.skeleton-shimmer {
+  background-color: var(--border);
+  background-image: linear-gradient(
+    -90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--portfolio-accent) 6%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.8s ease-in-out infinite;
+  border-radius: 6px;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+// ── Contenedor base ───────────────────────────────────────────────────────────
+.ls {
+  padding: 5rem 2rem 4rem;
+  max-width: 68rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+.ls__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+// ── Barras genéricas ──────────────────────────────────────────────────────────
+.ls__bar {
+  border-radius: 6px;
+
+  &--title    { width: 260px; height: 28px; }
+  &--subtitle { width: 380px; height: 16px; opacity: 0.6; }
+  &--label    { width: 80px;  height: 12px; margin-bottom: 6px; }
+  &--md       { width: 70%;   height: 14px; }
+  &--sm       { width: 50%;   height: 12px; margin-top: 6px; }
+  &--xs       { width: 35%;   height: 10px; margin-top: 4px; }
+  &--input    { width: 100%;  height: 40px; margin-bottom: 1rem; border-radius: 8px; }
+  &--textarea { width: 100%;  height: 110px; margin-bottom: 1rem; border-radius: 8px; }
+  &--btn      { width: 130px; height: 42px; border-radius: 8px; }
+}
+
+// ── Fila de filtros ───────────────────────────────────────────────────────────
+.ls__filter-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.ls__filter {
+  width: 90px;
+  height: 34px;
+  border-radius: 9999px;
+}
+
+// ── Tech Skills ───────────────────────────────────────────────────────────────
+.ls__grid--tech {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1rem;
+}
+
+.ls__tech-card {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+}
+
+// ── Portfolio ─────────────────────────────────────────────────────────────────
+.ls__grid--portfolio {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.ls__port-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.ls__port-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+
+.ls__port-body {
+  padding: 0.875rem;
+}
+
+// ── Contacto ──────────────────────────────────────────────────────────────────
+.ls__two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ls__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.ls__contact-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--border);
+}
+
+.ls__contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.ls__contact-lines {
+  flex: 1;
+}

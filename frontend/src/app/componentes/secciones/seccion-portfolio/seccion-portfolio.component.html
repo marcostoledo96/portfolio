@@ -5,8 +5,8 @@
     <div class="port__bg-dots"></div>
     <div class="port__bg-blob port__bg-blob--top"></div>
     <div class="port__bg-blob port__bg-blob--bottom"></div>
-    <div class="port__bg-shape port__bg-shape--1"></div>
-    <div class="port__bg-shape port__bg-shape--2"></div>
+    <div class="port__bg-shape port__bg-shape--1" [appParallax]="0.1"></div>
+    <div class="port__bg-shape port__bg-shape--2" [appParallax]="0.15"></div>
   </div>
 
   <div class="port__container">
@@ -55,7 +55,12 @@
           >
             <!-- Imagen de portada con overlay y badges visibles en hover -->
             <div class="port__card-img-wrap">
-              <img [src]="project.image" [alt]="project.title" class="port__card-img" loading="lazy" />
+              <app-imagen-fallback
+                [src]="project.image"
+                [alt]="project.title"
+                className="port__card-img"
+                loading="lazy"
+              ></app-imagen-fallback>
               <div class="port__card-overlay"></div>
 
               <!-- Badge "Destacado" (solo si project.featured es true) -->

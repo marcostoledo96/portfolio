@@ -1,0 +1,23 @@
+<!-- Overlay de splash: cubre toda la pantalla (position fixed) mientras carga.
+     aria-hidden porque es puramente decorativo y no contiene contenido útil. -->
+<div
+  class="splash"
+  [class.splash--exit]="exiting()"
+  [class.splash--reduced]="reducedMotion"
+  aria-hidden="true"
+>
+  <div class="splash__content">
+
+    <!-- Iniciales con animación de revelado clip-path izquierda → derecha -->
+    <div class="splash__initials">
+      <span class="splash__letter splash__letter--m">M</span>
+      <span class="splash__letter splash__letter--t">T</span>
+    </div>
+
+    <!-- Barra de progreso: aparece a los 500ms y se llena en 700ms -->
+    <div class="splash__track">
+      <div class="splash__bar"></div>
+    </div>
+
+  </div>
+</div>

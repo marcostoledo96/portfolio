@@ -6,12 +6,12 @@
     <div class="hero__blob hero__blob--3"></div>
     <div class="hero__dot-grid"></div>
     <!-- Floating geometric shapes -->
-    <div class="hero__shape hero__shape--1"></div>
-    <div class="hero__shape hero__shape--2"></div>
-    <div class="hero__shape hero__shape--3"></div>
-    <div class="hero__shape hero__shape--4"></div>
-    <div class="hero__shape hero__shape--5"></div>
-    <div class="hero__shape hero__shape--6"></div>
+    <div class="hero__shape hero__shape--1" [appParallax]="0.08"></div>
+    <div class="hero__shape hero__shape--2" [appParallax]="0.12"></div>
+    <div class="hero__shape hero__shape--3" [appParallax]="0.1"></div>
+    <div class="hero__shape hero__shape--4" [appParallax]="0.15"></div>
+    <div class="hero__shape hero__shape--5" [appParallax]="0.09"></div>
+    <div class="hero__shape hero__shape--6" [appParallax]="0.13"></div>
   </div>
 
   <div class="hero__content">
@@ -41,12 +41,43 @@
       </span>
     </div>
 
+    <!-- Typewriter controls -->
+    <div class="hero__tw-controls hero__fade" style="animation-delay: 0.45s">
+      <button class="hero__tw-arrow" (click)="goPrev()" aria-label="Frase anterior">
+        <i data-lucide="chevron-left"></i>
+      </button>
+      <div class="hero__tw-dots">
+        <button
+          *ngFor="let phrase of phrases; let i = index"
+          class="hero__tw-dot"
+          [class.hero__tw-dot--active]="i === phraseIdx"
+          (click)="goTo(i)"
+          [attr.aria-label]="'Ir a frase ' + (i + 1)"
+        ></button>
+      </div>
+      <button class="hero__tw-arrow" (click)="goNext()" aria-label="Frase siguiente">
+        <i data-lucide="chevron-right"></i>
+      </button>
+    </div>
+
     <!-- Description -->
     <p class="hero__desc hero__fade" style="animation-delay: 0.5s">
       Combino desarrollo web, testing y soporte técnico para construir
       soluciones digitales que realmente impactan. Me motiva la calidad, la
       automatización y el uso de herramientas de IA para optimizar procesos.
     </p>
+
+    <!-- CTA Buttons -->
+    <div class="hero__ctas hero__fade" style="animation-delay: 0.55s">
+      <button class="hero__cta hero__cta--primary" (click)="scrollTo('portfolio')" aria-label="Ver mis proyectos">
+        <i data-lucide="folder-open"></i>
+        Ver mis proyectos
+      </button>
+      <button class="hero__cta hero__cta--outline" (click)="scrollTo('contacto')" aria-label="Contactame">
+        <i data-lucide="message-circle"></i>
+        Contactame
+      </button>
+    </div>
 
     <!-- Stats -->
     <div class="hero__stats hero__fade" style="animation-delay: 0.6s" #statsEl>

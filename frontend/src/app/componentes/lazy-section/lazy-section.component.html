@@ -1,0 +1,104 @@
+<!-- Skeleton placeholder — se muestra mientras el @defer no ha activado la sección real -->
+
+@switch (variant) {
+
+  <!-- ═══════════════════════════════════════════════════════
+       TECH SKILLS: header + grid 4×3 de tarjetas cuadradas
+       ═══════════════════════════════════════════════════════ -->
+  @case ('tech-skills') {
+    <div class="ls ls--tech-skills">
+      <div class="ls__header">
+        <div class="ls__bar ls__bar--title skeleton-shimmer"></div>
+        <div class="ls__bar ls__bar--subtitle skeleton-shimmer"></div>
+      </div>
+      <div class="ls__filter-row">
+        <div class="ls__filter skeleton-shimmer"></div>
+        <div class="ls__filter skeleton-shimmer"></div>
+        <div class="ls__filter skeleton-shimmer"></div>
+        <div class="ls__filter skeleton-shimmer"></div>
+      </div>
+      <div class="ls__grid ls__grid--tech">
+        @for (item of techItems; track $index) {
+          <div class="ls__tech-card skeleton-shimmer"></div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ═══════════════════════════════════════════════════════
+       PORTFOLIO: header + filtros + grid 3×2 de cards
+       ═══════════════════════════════════════════════════════ -->
+  @case ('portfolio') {
+    <div class="ls ls--portfolio">
+      <div class="ls__header">
+        <div class="ls__bar ls__bar--title skeleton-shimmer"></div>
+        <div class="ls__bar ls__bar--subtitle skeleton-shimmer"></div>
+      </div>
+      <div class="ls__filter-row">
+        <div class="ls__filter skeleton-shimmer"></div>
+        <div class="ls__filter skeleton-shimmer"></div>
+        <div class="ls__filter skeleton-shimmer"></div>
+      </div>
+      <div class="ls__grid ls__grid--portfolio">
+        @for (item of portfolioCards; track $index) {
+          <div class="ls__port-card">
+            <div class="ls__port-img skeleton-shimmer"></div>
+            <div class="ls__port-body">
+              <div class="ls__bar ls__bar--md skeleton-shimmer"></div>
+              <div class="ls__bar ls__bar--sm skeleton-shimmer"></div>
+              <div class="ls__bar ls__bar--xs skeleton-shimmer"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACTO: 2 columnas — form a la izquierda, info a la derecha
+       ═══════════════════════════════════════════════════════ -->
+  @case ('contacto') {
+    <div class="ls ls--contacto">
+      <div class="ls__header">
+        <div class="ls__bar ls__bar--title skeleton-shimmer"></div>
+        <div class="ls__bar ls__bar--subtitle skeleton-shimmer"></div>
+      </div>
+      <div class="ls__two-cols">
+        <!-- Columna izquierda: campos de formulario -->
+        <div class="ls__col">
+          <div class="ls__bar ls__bar--label skeleton-shimmer"></div>
+          <div class="ls__bar ls__bar--input skeleton-shimmer"></div>
+          <div class="ls__bar ls__bar--label skeleton-shimmer"></div>
+          <div class="ls__bar ls__bar--input skeleton-shimmer"></div>
+          <div class="ls__bar ls__bar--label skeleton-shimmer"></div>
+          <div class="ls__bar ls__bar--textarea skeleton-shimmer"></div>
+          <div class="ls__bar ls__bar--btn skeleton-shimmer"></div>
+        </div>
+        <!-- Columna derecha: tarjetas de info de contacto -->
+        <div class="ls__col">
+          @for (item of contactCards; track $index) {
+            <div class="ls__contact-card">
+              <div class="ls__contact-icon skeleton-shimmer"></div>
+              <div class="ls__contact-lines">
+                <div class="ls__bar ls__bar--md skeleton-shimmer"></div>
+                <div class="ls__bar ls__bar--sm skeleton-shimmer"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- ═══════════════════════════════════════════════════════
+       GENERIC: solo header shimmer genérico
+       ═══════════════════════════════════════════════════════ -->
+  @default {
+    <div class="ls ls--generic">
+      <div class="ls__header">
+        <div class="ls__bar ls__bar--title skeleton-shimmer"></div>
+        <div class="ls__bar ls__bar--subtitle skeleton-shimmer"></div>
+      </div>
+    </div>
+  }
+}

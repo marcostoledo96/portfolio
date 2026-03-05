@@ -1,0 +1,28 @@
+// imagen-fallback.component.scss
+// El host actúa como contenedor inline-block; hereda dimensiones de los @Input si se pasan.
+:host {
+  display: contents; // transparente para el layout — no agrega caja extra
+}
+
+img {
+  display: block; // evita espacio extra debajo de la imagen
+}
+
+.img-fallback {
+  // Dimensiones: 100% del padre si no se pasan width/height por Input
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--border);
+  border-radius: inherit; // hereda el border-radius del contenedor padre
+
+  &__icon {
+    color: var(--muted-foreground);
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+}

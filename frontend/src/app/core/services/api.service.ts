@@ -11,6 +11,7 @@ export interface DatosContacto {
     name: string;
     email: string;
     message: string;
+    turnstileToken?: string; // Token de verificación Cloudflare Turnstile (enviado al backend)
 }
 
 // Respuesta genérica del backend; T tipifica el campo data según el endpoint

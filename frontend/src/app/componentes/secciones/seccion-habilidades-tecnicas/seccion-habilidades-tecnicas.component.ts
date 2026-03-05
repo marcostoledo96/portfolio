@@ -2,6 +2,7 @@
 import { Component, AfterViewInit, OnDestroy, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
+import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
@@ -42,7 +43,7 @@ const ALL_SKILLS: Skill[] = [
 @Component({
   selector: 'app-seccion-habilidades-tecnicas',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective],
   templateUrl: './seccion-habilidades-tecnicas.component.html',
   styleUrls: ['./seccion-habilidades-tecnicas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

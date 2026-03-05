@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
+import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
+import { ImagenFallbackComponent } from '../../imagen-fallback/imagen-fallback.component';
 import {
   trigger, transition, style, animate, query, stagger,
 } from '@angular/animations'; // Animación de entrada/salida de tarjetas al cambiar filtro
@@ -167,7 +169,7 @@ const FILTERS: FilterDef[] = [
 @Component({
   selector: 'app-seccion-portfolio',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ImagenFallbackComponent],
   templateUrl: './seccion-portfolio.component.html',
   styleUrls: ['./seccion-portfolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

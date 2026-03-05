@@ -10,7 +10,29 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS  // debe ser un App Password de Google, no la contraseña de cuenta
   }
 });
-
+/**
+ * Verifica el token de Cloudflare Turnstile llamando a la API siteverify.
+ * Devuelve true si el token es válido (usuario real), false si es un bot o token inválido.
+ * La Secret Key viene de la variable de entorno TURNSTILE_SECRET — configurar en Vercel.
+ */
+async function verificarTurnstile(token, remoteIp) {
+  if (!token) return false;
+  try {
+    const resp = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET,
+        response: token,
+        remoteip: remoteIp, // Opcional pero mejora la precisión del análisis de Cloudflare
+      }),
+    });
+    const data = await resp.json();
+    return data.success === true;
+  } catch {
+    return false; // Error de red: rechazar por seguridad
+  }
+}
 // Reglas de validación aplicadas antes de procesar cada request.
 const validadores = [
   body('name')
@@ -65,7 +87,15 @@ export default async function handler(req, res) {
     });
   }
 
-  const { name, email, message } = req.body;
+  const { name, email, message, turnstileToken } = req.body;
+
+  // Verifico el token de Cloudflare Turnstile ANTES de procesar el formulario.
+  // Esto ocurre en el servidor: el bot no puede falsificar el resultado.
+  const remoteIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '';
+  const captchaOk = await verificarTurnstile(turnstileToken, remoteIp);
+  if (!captchaOk) {
+    return res.status(400).json({ success: false, message: 'Verificación CAPTCHA fallida. Recargá la página e intentá de nuevo.' });
+  }
 
   // Armo el email que recibiré en mi cuenta personal.
   const mailOptions = {

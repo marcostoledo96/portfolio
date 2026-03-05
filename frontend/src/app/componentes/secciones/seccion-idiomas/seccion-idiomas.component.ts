@@ -3,6 +3,7 @@ import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // Necesario para insertar SVG de bandera de forma segura
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
+import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
@@ -50,7 +51,7 @@ const LANGUAGES: Language[] = [
 @Component({
   selector: 'app-seccion-idiomas',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective],
   templateUrl: './seccion-idiomas.component.html',
   styleUrls: ['./seccion-idiomas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

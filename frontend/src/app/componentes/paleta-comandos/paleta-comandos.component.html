@@ -1,0 +1,100 @@
+<!-- Overlay: cubre toda la pantalla con blur. Click en él cierra la paleta. -->
+@if (isOpen()) {
+  <div class="palette-overlay" (click)="close()" role="dialog" aria-modal="true" aria-label="Paleta de comandos">
+
+    <!-- Panel principal: centrado, stopPropagation para no cerrar al hacer click interno -->
+    <div
+      class="palette-panel"
+      role="combobox"
+      aria-haspopup="listbox"
+      aria-expanded="true"
+      (click)="$event.stopPropagation()"
+    >
+
+      <!-- Campo de búsqueda con ícono de lupa -->
+      <div class="palette-search">
+        <span class="palette-search__icon" aria-hidden="true">
+          <i data-lucide="search"></i>
+        </span>
+        <input
+          #searchInput
+          class="palette-search__input"
+          type="text"
+          placeholder="Buscar sección, proyecto o acción..."
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Buscar sección, proyecto o acción"
+          [ngModel]="query()"
+          (ngModelChange)="onQueryChange($event)"
+        />
+        <!-- Hint de Escape para cerrar -->
+        <button
+          class="palette-search__esc"
+          (click)="close()"
+          aria-label="Cerrar paleta"
+        >Esc</button>
+      </div>
+
+      <!-- Lista de resultados agrupada por categoría -->
+      <div class="palette-list" #listContainer role="listbox">
+
+        @if (filteredItems().length === 0) {
+          <!-- Estado vacío: sin resultados -->
+          <div class="palette-empty">
+            <i data-lucide="search-x" aria-hidden="true"></i>
+            <span>Sin resultados para "{{ query() }}"</span>
+          </div>
+        } @else {
+          <!-- Itero sobre las categorías en orden fijo -->
+          @for (cat of categories; track cat) {
+            @if (filteredByCategory()[cat]) {
+              <!-- Encabezado de grupo -->
+              <div class="palette-group__label" role="presentation">{{ cat }}</div>
+
+              <!-- Ítems de la categoría -->
+              @for (item of filteredByCategory()[cat]; track item.id) {
+                <button
+                  class="palette-item"
+                  [class.palette-item--selected]="isSelected(item)"
+                  role="option"
+                  [attr.aria-selected]="isSelected(item)"
+                  [attr.aria-label]="item.label"
+                  (mouseenter)="onItemHover(item)"
+                  (click)="executeItem(item)"
+                >
+                  <!-- Ícono con fondo accent cuando está seleccionado -->
+                  <span class="palette-item__icon" [class.palette-item__icon--active]="isSelected(item)" aria-hidden="true">
+                    <i [attr.data-lucide]="item.icon"></i>
+                  </span>
+                  <!-- Texto del ítem -->
+                  <span class="palette-item__label">{{ item.label }}</span>
+                  <!-- Badge de categoría (solo para Acciones) -->
+                  @if (item.category === 'Acciones') {
+                    <span class="palette-item__badge">Acción</span>
+                  }
+                </button>
+              }
+            }
+          }
+        }
+
+      </div>
+
+      <!-- Footer con hints de atajos de teclado -->
+      <div class="palette-footer" aria-hidden="true">
+        <span class="palette-footer__hint">
+          <kbd>↑</kbd><kbd>↓</kbd> navegar
+        </span>
+        <span class="palette-footer__divider"></span>
+        <span class="palette-footer__hint">
+          <kbd>Enter</kbd> seleccionar
+        </span>
+        <span class="palette-footer__divider"></span>
+        <span class="palette-footer__hint">
+          <kbd>Esc</kbd> cerrar
+        </span>
+      </div>
+
+    </div>
+  </div>
+}

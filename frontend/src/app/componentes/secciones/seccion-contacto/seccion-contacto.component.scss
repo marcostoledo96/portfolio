@@ -246,6 +246,15 @@
     transition: transform 0.2s;
   }
 
+  // --- Cloudflare Turnstile CAPTCHA — contenedor del iframe real ---
+  &__captcha-widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 65px; // Reserva espacio mientras el script async carga el iframe
+    width: 100%;
+  }
+
   // --- Estado de éxito: reemplaza al formulario por 5 segundos tras el envío ---
   &__success {
     display: flex; flex-direction: column;

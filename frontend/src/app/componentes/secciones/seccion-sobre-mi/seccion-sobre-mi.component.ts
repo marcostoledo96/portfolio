@@ -2,13 +2,14 @@
 import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
+import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
 @Component({
   selector: 'app-seccion-sobre-mi',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective],
   templateUrl: './seccion-sobre-mi.component.html',
   styleUrls: ['./seccion-sobre-mi.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

@@ -1,5 +1,12 @@
-﻿<!-- Layout principal: sidebar fijo (desktop) + encabezado móvil + contenido scrollable -->
+﻿<!-- Splash screen: overlay fijo que se muestra al cargar. Se oculta tras la animación de salida. -->
+@if (!splashDone()) {
+  <app-splash-screen (finished)="splashDone.set(true)"></app-splash-screen>
+}
+
+<!-- Layout principal: sidebar fijo (desktop) + encabezado móvil + contenido scrollable -->
 <div class="layout">
+  <!-- Accesibilidad: enlace visible al hacer Tab, lleva directo al contenido principal -->
+  <a href="#contenido-principal" class="skip-to-content">Ir al contenido principal</a>
   <!-- Sidebar de navegación (solo visible en desktop, oculto en mobile) -->
   <div class="layout__sidebar">
     <app-barra-lateral
@@ -20,20 +27,66 @@
   </div>
 
   <!-- Área principal scrollable; #mainContent es la referencia usada para detectar scroll -->
-  <main class="layout__main" #mainContent>
+  <main class="layout__main" id="contenido-principal" #mainContent>
     <app-seccion-hero></app-seccion-hero>
     <app-seccion-sobre-mi></app-seccion-sobre-mi>
-    <app-seccion-habilidades-tecnicas></app-seccion-habilidades-tecnicas>
+    @defer (on viewport; prefetch on idle) {
+      <app-seccion-habilidades-tecnicas></app-seccion-habilidades-tecnicas>
+    } @placeholder {
+      <app-lazy-section
+        variant="tech-skills"
+        sectionId="habilidades-tecnicas"
+        minHeight="600px"
+      ></app-lazy-section>
+    }
     <app-seccion-habilidades-blandas></app-seccion-habilidades-blandas>
     <app-seccion-idiomas></app-seccion-idiomas>
     <app-seccion-experiencia></app-seccion-experiencia>
     <app-seccion-educacion></app-seccion-educacion>
-    <app-seccion-portfolio></app-seccion-portfolio>
-    <app-seccion-contacto></app-seccion-contacto>
+    @defer (on viewport; prefetch on idle) {
+      <app-seccion-portfolio></app-seccion-portfolio>
+    } @placeholder {
+      <app-lazy-section
+        variant="portfolio"
+        sectionId="portfolio"
+        minHeight="700px"
+      ></app-lazy-section>
+    }
+    @defer (on viewport; prefetch on idle) {
+      <app-seccion-contacto></app-seccion-contacto>
+    } @placeholder {
+      <app-lazy-section
+        variant="contacto"
+        sectionId="contacto"
+        minHeight="550px"
+      ></app-lazy-section>
+    }
 
     <!-- Footer con redes sociales y copyright -->
     <footer class="footer">
       <div class="footer__inner">
+
+        <!-- Mini-sitemap -->
+        <nav class="footer__sitemap" aria-label="Mapa del sitio">
+          <button class="footer__sitemap-link" (click)="handleNavClick('inicio')">Inicio</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('sobre-mi')">Sobre mí</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('habilidades-tecnicas')">Habilidades técnicas</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('habilidades-blandas')">Habilidades blandas</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('idiomas')">Idiomas</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('experiencia')">Experiencia</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('educacion')">Educación</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('portfolio')">Portfolio</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('contacto')">Contacto</button>
+        </nav>
+
         <!-- Íconos de redes sociales -->
         <div class="footer__socials">
           <a href="https://github.com/marcostoledo96" target="_blank" rel="noopener noreferrer" class="footer__social-btn" aria-label="GitHub">
@@ -51,7 +104,7 @@
           &copy; 2026 Marcos Toledo. Todos los derechos reservados.
         </p>
         <p class="footer__made">
-          Hecho en Argentina.
+          Hecho con <span class="footer__made-heart">&hearts;</span> en Buenos Aires
         </p>
       </div>
     </footer>
@@ -63,3 +116,6 @@
   [visible]="showScrollTop"
   (clicked)="scrollToTop()"
 ></app-boton-scroll-arriba>
+
+<!-- Paleta de comandos: overlay tipo VS Code activado con Ctrl+K / Cmd+K -->
+<app-paleta-comandos (navRequest)="handleNavClick($event)"></app-paleta-comandos>

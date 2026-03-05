@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ParallaxDirective } from '../../core/directivas/parallax.directive';
 
 declare const lucide: any;
 
@@ -28,7 +29,7 @@ const STATS = [
 @Component({
   selector: 'app-seccion-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ParallaxDirective],
   templateUrl: './seccion-hero.component.html',
   styleUrls: ['./seccion-hero.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,14 +37,15 @@ const STATS = [
 export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
   socials = SOCIALS;
   stats = STATS;
+  phrases = PHRASES;
+  phraseIdx = 0;
   displayText = '';
   counters: number[] = [0, 0];
 
-  private phrases = PHRASES;
-  private phraseIdx = 0;
   private charIdx = 0;
   private deleting = false;
   private timer: any;
+  private pauseTimer: any;
   private countersStarted = false;
 
   constructor(private cdr: ChangeDetectorRef) {}
@@ -62,10 +64,33 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     clearTimeout(this.timer);
+    clearTimeout(this.pauseTimer);
+  }
+
+  goTo(index: number): void {
+    clearTimeout(this.timer);
+    clearTimeout(this.pauseTimer);
+    this.phraseIdx = index;
+    this.charIdx = this.phrases[index].length;
+    this.deleting = false;
+    this.displayText = this.phrases[index];
+    this.cdr.markForCheck();
+    this.pauseTimer = setTimeout(() => {
+      this.deleting = true;
+      this.tick();
+    }, 4000);
+  }
+
+  goNext(): void {
+    this.goTo((this.phraseIdx + 1) % this.phrases.length);
+  }
+
+  goPrev(): void {
+    this.goTo((this.phraseIdx - 1 + this.phrases.length) % this.phrases.length);
   }
 
   private tick(): void {
-    const current = this.phrases[this.phraseIdx];
+    const current = this.phrases[this.phraseIdx] ?? '';
     if (!this.deleting) {
       if (this.charIdx < current.length) {
         this.charIdx++;
@@ -118,5 +143,9 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isDownload(href: string): boolean {
     return href.startsWith('assets/');
+  }
+
+  scrollTo(sectionId: string): void {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   }
 }

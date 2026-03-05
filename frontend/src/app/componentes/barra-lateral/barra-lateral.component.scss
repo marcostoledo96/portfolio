@@ -128,8 +128,33 @@
     padding: 0 0.75rem;
     position: relative;
     z-index: 1;
-    ul { display: flex; flex-direction: column; gap: 6px; }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative; // Contiene el pill absoluto
+    }
   }
+
+  // Pill deslizante: indica la sección activa con fondo accent sólido
+  &__nav-pill {
+    position:      absolute;
+    left:          0;
+    right:         0;
+    background:    var(--portfolio-accent);
+    border-radius: 0.75rem;
+    box-shadow:    0 4px 12px var(--portfolio-accent-glow);
+    z-index:       0;          // Debajo de los botones (z-index 1)
+    pointer-events: none;
+    // Transición suave entre posiciones al cambiar de sección
+    transition:
+      top    300ms cubic-bezier(0.4, 0, 0.2, 1),
+      height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Si prefers-reduced-motion: sin transición
+    &--no-transition { transition: none; }
+  }
+
   &__nav-btn {
     width: 100%;
     display: flex;
@@ -141,18 +166,16 @@
     font-weight: 400;
     color: var(--foreground);
     // Solo transiciono las propiedades que cambian, nunca 'all'
-    transition: background-color $transition-base, color $transition-base, box-shadow $transition-base;
+    transition: color $transition-base;
     cursor: pointer;
     position: relative;
+    z-index: 1;  // Encima del pill (z-index 0)
     &:hover { // Realce suave con el color de acento
-      background-color: var(--portfolio-accent-glow);
       color: var(--portfolio-accent);
     }
-    &.active { // Angular agrega esta clase cuando la sección es la visible
-      background-color: var(--portfolio-accent);
+    &.active { // Pill provee el fondo; aquí solo ajusto el texto
       color: white;
       font-weight: 600;
-      box-shadow: 0 4px 12px var(--portfolio-accent-glow);
       .sidebar__nav-icon { color: white !important; }
     }
   }
@@ -231,4 +254,46 @@
   0%, 100% { transform: translate(0, 0) scale(1); }
   33%       { transform: translate(-20px, -30px) scale(1.1); }
   66%       { transform: translate(15px, -15px) scale(0.85); }
+}
+
+// Animación de entrada del tooltip: desliza desde -4px hacia la derecha
+@keyframes tooltipSlideIn {
+  from { transform: translateY(-50%) translateX(-4px); }
+  to   { transform: translateY(-50%) translateX(0); }
+}
+
+// Tooltip de navegación (position: fixed para salir del contexto del aside)
+.sidebar__tooltip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  animation: tooltipSlideIn 150ms ease-out forwards;
+
+  // Sin animación si prefers-reduced-motion
+  &--no-anim {
+    animation: none;
+    transform: translateY(-50%);
+  }
+
+  // Flecha triangular apuntando hacia la izquierda
+  &::before {
+    content: '';
+    display: block;
+    flex-shrink: 0;
+    border: 5px solid transparent;
+    border-right-color: var(--foreground);
+  }
+
+  // Cuerpo del tooltip
+  &__label {
+    background: var(--foreground);
+    color: var(--background);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
 }

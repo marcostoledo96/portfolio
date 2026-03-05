@@ -16,7 +16,11 @@
   <!-- 3. Avatar: foto circular con punto verde que indica disponibilidad -->
   <div class="sidebar__avatar-wrap">
     <div class="sidebar__avatar">
-      <img src="assets/img/Foto_Perfil.webp" alt="Marcos Ezequiel Toledo" loading="eager" />
+      <app-imagen-fallback
+        src="assets/img/Foto_Perfil.webp"
+        alt="Marcos Ezequiel Toledo"
+        loading="eager"
+      ></app-imagen-fallback>
     </div>
     <div class="sidebar__status-dot"></div>
   </div>
@@ -37,13 +41,25 @@
     - [attr.data-lucide] asigna el ícono Lucide dinámicamente
   -->
   <nav class="sidebar__nav" aria-label="Navegación principal">
-    <ul>
+    <ul #navList>
+      <!-- Pill deslizante: se posiciona debajo de los botones (z-index 0) -->
+      <div
+        class="sidebar__nav-pill"
+        [class.sidebar__nav-pill--no-transition]="reducedMotion"
+        [style.top.px]="pillPos().top"
+        [style.height.px]="pillPos().height"
+        aria-hidden="true"
+      ></div>
+
       <li *ngFor="let item of navItems">
         <button
+          #navBtn
           class="sidebar__nav-btn"
           [class.active]="activeSection === item.id"
           [attr.aria-current]="activeSection === item.id ? 'true' : null"
-          (click)="onNavClick(item.id)">
+          (click)="onNavClick(item.id)"
+          (mouseenter)="onMouseEnter(item, $event)"
+          (mouseleave)="onMouseLeave()">
           <i [attr.data-lucide]="item.icon" class="sidebar__nav-icon"></i>
           <span>{{ item.label }}</span>
         </button>
@@ -80,3 +96,15 @@
   </div>
 
 </aside>
+
+<!-- Tooltip de navegación: position:fixed, fuera del flujo del aside -->
+<div
+  *ngIf="tooltip()"
+  class="sidebar__tooltip"
+  [class.sidebar__tooltip--no-anim]="reducedMotion"
+  [style.top.px]="tooltip()!.top"
+  [style.left.px]="tooltip()!.left"
+  aria-hidden="true"
+  role="tooltip">
+  <span class="sidebar__tooltip__label">{{ tooltip()!.label }}</span>
+</div>

@@ -1,0 +1,154 @@
+// Splash screen: overlay fijo con las iniciales y barra de progreso.
+// Las animaciones usan CSS puro (sin librerías externas).
+
+// ── Overlay principal ──────────────────────────────────────────────────────
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+
+  // Salida: fade + ligero scale hacia arriba
+  &--exit {
+    animation: splashFadeOut 400ms ease-in forwards;
+  }
+}
+
+// ── Contenido centrado ─────────────────────────────────────────────────────
+.splash__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+// ── Iniciales ─────────────────────────────────────────────────────────────
+.splash__initials {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  user-select: none;
+}
+
+.splash__letter {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  display: inline-block;
+  // Estado inicial: letra oculta (inset recorta todo desde la derecha)
+  clip-path: inset(0 100% 0 0);
+}
+
+// M en color accent, se revela primero
+.splash__letter--m {
+  color: var(--portfolio-accent);
+  animation: splashRevealLetter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 100ms forwards;
+}
+
+// T en foreground, se revela 200ms después
+.splash__letter--t {
+  color: var(--foreground);
+  animation: splashRevealLetter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 300ms forwards;
+}
+
+// ── Barra de progreso ──────────────────────────────────────────────────────
+.splash__track {
+  width: 120px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: var(--border);
+  overflow: hidden;
+  // Aparece invisible y hace fade-in junto con el llenado
+  opacity: 0;
+  animation: splashProgressAppear 200ms ease-out 500ms forwards;
+}
+
+.splash__bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 3px;
+  background-color: var(--portfolio-accent);
+  // Llena de 0% a 100% en 700ms con delay de 500ms
+  animation: splashProgressFill 700ms cubic-bezier(0.4, 0, 0.2, 1) 500ms forwards;
+}
+
+// ── Modo sin animaciones (clase ligada a prefers-reduced-motion en TS) ────
+.splash--reduced {
+  .splash__letter {
+    clip-path: none !important;
+    animation: none !important;
+  }
+
+  .splash__track {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .splash__bar {
+    width: 100% !important;
+    animation: none !important;
+  }
+
+  // Exit instantáneo para no bloquear al usuario
+  &.splash--exit {
+    animation: splashFadeOutReduced 0.01ms forwards !important;
+  }
+}
+
+// ── Fallback CSS media query (por si el check de TS falla) ────────────────
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    .splash__letter {
+      clip-path: none;
+      animation: none;
+    }
+
+    .splash__track {
+      opacity: 1;
+      animation: none;
+    }
+
+    .splash__bar {
+      width: 100%;
+      animation: none;
+    }
+
+    &--exit {
+      animation: splashFadeOutReduced 0.01ms forwards !important;
+    }
+  }
+}
+
+// ── Keyframes ──────────────────────────────────────────────────────────────
+
+// Revela cada letra de izquierda a derecha recortando con clip-path
+@keyframes splashRevealLetter {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0%   0 0); }
+}
+
+// Fade-out del overlay con leve zoom al salir
+@keyframes splashFadeOut {
+  0%   { opacity: 1; transform: scale(1);    }
+  100% { opacity: 0; transform: scale(1.05); }
+}
+
+// El track de la barra aparece con un fade suave
+@keyframes splashProgressAppear {
+  to { opacity: 1; }
+}
+
+// Rellena la barra de progreso de 0% a 100%
+@keyframes splashProgressFill {
+  0%   { width: 0%;   }
+  100% { width: 100%; }
+}
+
+// Exit minimal para reduced motion (prácticamente instantáneo)
+@keyframes splashFadeOutReduced {
+  to { opacity: 0; }
+}

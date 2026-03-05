@@ -5,8 +5,8 @@
     <div class="contact__bg-dots"></div>
     <div class="contact__bg-blob contact__bg-blob--top"></div>
     <div class="contact__bg-blob contact__bg-blob--bottom"></div>
-    <div class="contact__bg-shape contact__bg-shape--1"></div>
-    <div class="contact__bg-shape contact__bg-shape--2"></div>
+    <div class="contact__bg-shape contact__bg-shape--1" [appParallax]="0.1"></div>
+    <div class="contact__bg-shape contact__bg-shape--2" [appParallax]="0.15"></div>
   </div>
 
   <div class="contact__container">
@@ -47,6 +47,15 @@
           } @else {
             <!-- Formulario: novalidate desactiva la validación nativa del browser -->
             <form (ngSubmit)="onSubmit()" novalidate class="contact__form">
+              <!-- Honeypot: campo trampa invisible para bots (un bot real lo llenaría) -->
+              <input
+                name="website"
+                tabindex="-1"
+                aria-hidden="true"
+                autocomplete="off"
+                [(ngModel)]="honeypotValue"
+                style="position:absolute;left:-9999px;opacity:0;height:0;width:0;"
+              />
               <!-- Fila de nombre y email: en desktop se muestran lado a lado -->
               <div class="contact__form-row">
                 <div class="contact__field">
@@ -114,8 +123,11 @@
                 }
               </div>
 
-              <!-- Botón de envío: deshabilitado mientras se está enviando -->
-              <button type="submit" class="contact__submit" [disabled]="sending">
+              <!-- Cloudflare Turnstile CAPTCHA real — el widget se inyecta aquí dinámicamente -->
+              <div id="turnstile-container" class="contact__captcha-widget"></div>
+
+              <!-- Botón de envío: deshabilitado mientras se está enviando o el CAPTCHA no pasó -->
+              <button type="submit" class="contact__submit" [disabled]="sending || !turnstileToken">
                 <i data-lucide="send" class="contact__submit-icon"></i>
                 {{ sending ? 'Enviando...' : 'Enviar mensaje' }}
               </button>

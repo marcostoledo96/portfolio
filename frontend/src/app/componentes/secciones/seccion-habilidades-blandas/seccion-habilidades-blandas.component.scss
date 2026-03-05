@@ -2,6 +2,17 @@
 @use '../../../../styles/variables' as *;
 @use '../../../../styles/mixins' as *;
 
+// Registrar CSS custom property para animar el ángulo del conic-gradient
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes softSkillRotate {
+  to { --angle: 360deg; }
+}
+
 :host { display: block; } // El selector host ocupa el bloque completo
 
 .soft {
@@ -86,26 +97,67 @@
     @include lg { grid-template-columns: repeat(3, 1fr); }
   }
 
-  // Tarjeta con hover elevado; en hover también revela la línea de acento y escala el ícono
-  &__card {
+  // === CAPA 1: Wrapper — 1px de padding crea el "hueco" visible como borde ===
+  &__card-wrapper {
     position: relative;
+    padding: 1px;
     border-radius: $radius-2xl;
-    background: var(--portfolio-card-bg);
-    border: 1px solid var(--portfolio-card-border);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    // Fondo del wrapper = color del borde en reposo
+    background: var(--portfolio-card-border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+      box-shadow: 0 4px 24px color-mix(in srgb, var(--skill-accent-color) 15%, transparent);
     }
+    // Revelar capa cónica y línea de acento al hover del wrapper
+    &:hover .soft__conic-layer  { opacity: 1; }
     &:hover .soft__card-accent-line { opacity: 1; }
-    &:hover .soft__icon-wrap { transform: scale(1.1); }
+    &:hover .soft__icon-wrap    { transform: scale(1.1); }
   }
 
-  // Línea de 2px en la parte superior: opacity:0 en reposo, se revela en hover via .card:hover
+  // === CAPA 2: Gradiente cónico giratorio — absoluto dentro del wrapper ===
+  &__conic-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-2xl;
+    // Gradiente que gira; el color individual viene de --skill-accent-color del wrapper
+    background: conic-gradient(
+      from var(--angle),
+      transparent 30%,
+      var(--skill-accent-color) 50%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: softSkillRotate 3s linear infinite;
+
+    // Desactivar animación si el usuario prefiere movimiento reducido
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  // Fallback para navegadores sin soporte de conic-gradient
+  @supports not (background: conic-gradient(from 0deg, red, blue)) {
+    &__card-wrapper:hover {
+      outline: 1px solid var(--skill-accent-color);
+    }
+    &__conic-layer { display: none; }
+  }
+
+  // === CAPA 3: Inner card — z-index 1 para quedar sobre el gradiente ===
+  &__card {
+    position: relative;
+    z-index: 1;
+    border-radius: calc(#{$radius-2xl} - 1px);
+    background: var(--portfolio-card-bg);
+    overflow: hidden;
+  }
+
+  // Línea de 2px en la parte superior: opacity:0 en reposo, se revela en hover via .wrapper:hover
   &__card-accent-line {
     position: absolute;
     top: 0; left: 0; right: 0;
