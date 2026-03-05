@@ -23,9 +23,9 @@ const PROJECTS: Project[] = [
       'Plataforma integral para la gesti\u00f3n de historias cl\u00ednicas, turnos y pacientes, con una interfaz moderna, segura y escalable.',
     longDescription:
       'Sistema integral de gestión para consultorios médicos, desarrollado para optimizar los flujos de trabajo en salud.\n\nLa arquitectura del backend está construida con Node.js, Express y PostgreSQL, utilizando Prisma como ORM para una gestión eficiente de la base de datos. Implementa un control de acceso estricto mediante JWT y Angular Guards, diferenciando rutas y permisos para roles de Administrador, Médico y Secretario, protegiendo así la confidencialidad de los datos.\n\nEl sistema permite gestionar agendas multi-profesional, automatizar el envío de recordatorios de turnos por email y administrar historias clínicas digitales. Las consultas incluyen la evolución del paciente, selección de diagnósticos y la capacidad de adjuntar archivos de estudios médicos, garantizando un registro detallado y seguro. Actualmente en fase de desarrollo.',
-    image: 'assets/img/historias-clinicas.webp',
+    image: 'assets/img/portfolio/historias-clinicas.webp',
     images: [
-      'assets/img/historias-clinicas.webp',
+      'assets/img/portfolio/historias-clinicas.webp',
       'assets/img/portfolio/consultorios_0.png',
       'assets/img/portfolio/consultorios_1.png',
       'assets/img/portfolio/consultorios_2.png',
@@ -46,9 +46,9 @@ const PROJECTS: Project[] = [
       'Portal web institucional con gesti\u00f3n de usuarios por roles, panel de noticias interactivo, biblioteca digital y galer\u00eda multimedia.',
     longDescription:
       'Rediseño integral y modernización de una web con más de 20 años de antigüedad, transformada en una plataforma dinámica para una comunidad de más de 170 miembros activos.\n\nEste proyecto fue desarrollado en dupla junto a mi hermano. Lideré el diseño UI/UX planificando la arquitectura en Figma y me encargué del desarrollo Frontend utilizando Blazor y Bootstrap, además de brindar soporte en el Backend. Mi hermano estuvo a cargo de la arquitectura principal de la API (ASP.NET, Entity Framework, SQL Server).\n\nLa plataforma resuelve necesidades administrativas y educativas: incluye un sistema de autenticación con roles, control de asistencia y progresiones de los scouts, panel de noticias interactivo y una biblioteca digital con más de 400 documentos. Además, integré APIs públicas (huellas de animales, botánica) para enriquecer el contenido educativo estático. El proyecto se encuentra desplegado en IIS.',
-    image: 'assets/img/portfolio/gruposcout_0.png',
+    image: 'assets/img/portfolio/pagina_grupo.webp',
     images: [
-      'assets/img/portfolio/gruposcout_0.png',
+      'assets/img/portfolio/pagina_grupo.webp',
       'assets/img/portfolio/gruposcout_1.png',
       'assets/img/portfolio/gruposcout_2.png',
       'assets/img/portfolio/gruposcout_3.png',
@@ -68,8 +68,9 @@ const PROJECTS: Project[] = [
       'Sitio web oficial del instituto, dise\u00f1ado para optimizar la comunicaci\u00f3n institucional y el acceso a recursos acad\u00e9micos.',
     longDescription:
       'Rediseño y modernización de la plataforma institucional (reemplazando su antigua versión en Google Sites). Este proyecto fue desarrollado en un equipo de dos personas. \n\nEstuve a cargo de liderar el diseño UI/UX utilizando Figma y la maquetación Frontend en Angular, logrando una interfaz moderna, limpia, completamente responsiva y con un rendimiento optimizado. Mi compañero se enfocó en el desarrollo de la API y el Backend para la gestión dinámica y el funcionamiento de los formularios de contacto. \n\nEl proyecto cuenta con aprobación institucional y actualmente se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub, listo para su lanzamiento a producción mientras se finalizan los trámites del dominio oficial y la documentación final.',
-    image: 'assets/img/portfolio/ifts26_0.png',
+    image: 'assets/img/portfolio/ifts26.webp',
     images: [
+      'assets/img/portfolio/ifts26.webp',
       'assets/img/portfolio/ifts26_0.png',
       'assets/img/portfolio/ifts26_1.png',
       'assets/img/portfolio/ifts26_2.png',
