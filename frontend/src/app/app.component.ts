@@ -183,13 +183,23 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     const el = document.getElementById(sectionId);
     if (!el) return;
 
-    this.isScrolling = true; // Bloqueo detección mientras el scroll animado termina
+    // Secciones cortas: quedan mejor centradas verticalmente que pegadas al top
+    const centerSections = ['idiomas', 'contacto'];
+    const block: ScrollLogicalPosition = centerSections.includes(sectionId) ? 'center' : 'start';
+
+    this.isScrolling = true; // Bloqueo detecci\u00f3n mientras el scroll animado termina
     this.activeSection = sectionId;
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.scrollIntoView({ behavior: 'smooth', block });
+
+    // Re-scroll de correcci\u00f3n: si lazy sections cambiaron el layout durante el primer scroll
+    setTimeout(() => {
+      const target = document.getElementById(sectionId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block });
+    }, 500);
 
     setTimeout(() => {
-      this.isScrolling = false; // Libero la detección tras ~800ms (duración estimada del scroll suave)
-    }, 800);
+      this.isScrolling = false; // Libero la detecci\u00f3n tras ~1400ms (cubre el re-scroll de 500ms)
+    }, 1400);
   }
 
   // Abre/cierra el drawer móvil y agrega/quita la clase en body para bloquear el scroll de fondo
