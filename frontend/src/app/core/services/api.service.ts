@@ -51,6 +51,10 @@ export class ApiService {
         }
 
         console.error('ApiService error:', mensajeError);
+        // Debug temporal: si el backend incluye detalle del CAPTCHA, lo muestro
+        if (error.error?.debug) {
+            console.error('ApiService CAPTCHA debug:', error.error.debug);
+        }
         return throwError(() => new Error(mensajeError));
     }
 }

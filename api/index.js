@@ -16,12 +16,11 @@ const transporter = nodemailer.createTransport({
  * La Secret Key viene de la variable de entorno TURNSTILE_SECRET — configurar en Vercel.
  */
 async function verificarTurnstile(token, remoteIp) {
-  if (!token) return false;
+  if (!token) return { ok: false, detail: 'token-vacio' };
 
-  // Si no hay secret configurada (variable de entorno faltante), logueamos y rechazamos
   if (!process.env.TURNSTILE_SECRET) {
     console.error('❌ TURNSTILE_SECRET no configurada en las variables de entorno de Vercel.');
-    return false;
+    return { ok: false, detail: 'secret-no-configurada' };
   }
 
   try {
@@ -36,12 +35,13 @@ async function verificarTurnstile(token, remoteIp) {
     });
     const data = await resp.json();
     if (!data.success) {
-      console.error('❌ Turnstile rechazó el token:', data['error-codes']);
+      console.error('❌ Turnstile rechazó el token:', JSON.stringify(data));
+      return { ok: false, detail: (data['error-codes'] || []).join(', ') || 'desconocido', raw: data };
     }
-    return data.success === true;
+    return { ok: true };
   } catch (err) {
     console.error('❌ Error llamando a Turnstile siteverify:', err);
-    return false;
+    return { ok: false, detail: 'fetch-error: ' + err.message };
   }
 }
 // Reglas de validación aplicadas antes de procesar cada request.
@@ -103,9 +103,13 @@ export default async function handler(req, res) {
   // Verifico el token de Cloudflare Turnstile ANTES de procesar el formulario.
   // Esto ocurre en el servidor: el bot no puede falsificar el resultado.
   const remoteIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '';
-  const captchaOk = await verificarTurnstile(turnstileToken, remoteIp);
-  if (!captchaOk) {
-    return res.status(400).json({ success: false, message: 'Verificación CAPTCHA fallida. Recargá la página e intentá de nuevo.' });
+  const captchaResult = await verificarTurnstile(turnstileToken, remoteIp);
+  if (!captchaResult.ok) {
+    return res.status(400).json({
+      success: false,
+      message: 'Verificación CAPTCHA fallida. Recargá la página e intentá de nuevo.',
+      debug: captchaResult.detail // Temporal: muestra el error exacto de Cloudflare
+    });
   }
 
   // Armo el email que recibiré en mi cuenta personal.
