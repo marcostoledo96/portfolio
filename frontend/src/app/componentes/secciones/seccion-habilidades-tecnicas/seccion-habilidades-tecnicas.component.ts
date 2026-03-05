@@ -76,7 +76,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
     'Java':         'assets/img/java.webp',
     'Node.js':      'assets/img/nodejs.webp',
     'Express':      'assets/img/express.webp',
-    'MySQL':        'assets/img/mysql.png',
+    'MySQL':        'assets/img/mysql.webp',
     'PostgreSQL':   'assets/img/postgresql.svg',
     'SQL Server':   'assets/img/sql_server.webp',
     'C#':           'assets/img/c_.webp',

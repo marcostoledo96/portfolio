@@ -376,6 +376,11 @@
     transition: color 0.25s ease, opacity 0.25s ease;
     outline: none;
     user-select: none;
+    // En mobile usar left/right para evitar descentrado por scrollbar/viewport
+    @include mobile-only {
+      left: 0; right: 0;
+      transform: none;
+    }
     &:hover, &:focus-visible {
       color: var(--foreground);
       opacity: 1 !important;
