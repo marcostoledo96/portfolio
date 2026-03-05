@@ -76,18 +76,16 @@
   }
   .accent { color: var(--portfolio-accent); }
 
-  // --- Grilla: columnas de 150px fijas; el número de columnas sube con el ancho ---
-  // mobile (<640): 2 col | sm (640): 3 col | md (768): 4 col | lg (1024): 5 col | xl (1280): 6 col
+  // --- Grilla: flex-wrap con cards de 150px fijos, centradas en todas las filas ---
+  // El número de columnas va de 2 (mobile) hasta 6 (xl) según el espacio disponible
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 150px);
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-    justify-content: center; // centra el bloque de columnas si sobra espacio
+    justify-content: center;
 
-    @include sm { grid-template-columns: repeat(3, 150px); gap: 1.25rem; }
-    @include md { grid-template-columns: repeat(4, 150px); gap: 1.25rem; }
-    @include lg { grid-template-columns: repeat(5, 150px); gap: 1.25rem; }
-    @include xl { grid-template-columns: repeat(6, 150px); gap: 1.5rem;  }
+    @include sm { gap: 1.25rem; }
+    @include xl { gap: 1.5rem;  }
   }
 
   // --- Leyenda de colores: punto verde = práctica, punto morado = en formación ---
