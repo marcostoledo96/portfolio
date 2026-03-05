@@ -6,6 +6,8 @@
     [class]="className"
     [style]="sizeStyle"
     [loading]="loading"
+    [attr.width]="width ?? null"
+    [attr.height]="height ?? null"
     (error)="onError()"
   />
 }
