@@ -1,0 +1,109 @@
+// Estilos BEM del componente ImageLightbox.
+// Bloque: .lbox (lightbox)
+
+.lbox {
+  // Overlay fullscreen fijo, encima de todo
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // ------------------------------------------------------------------
+  // Imagen principal centrada con tamaño máximo
+  // ------------------------------------------------------------------
+  &__img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 4px;
+    user-select: none;
+    cursor: default;
+    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
+  }
+
+  // ------------------------------------------------------------------
+  // Botón cerrar — top-right fijo
+  // ------------------------------------------------------------------
+  &__close {
+    position: fixed;
+    top: 1rem; right: 1rem;
+    z-index: 201;
+    display: flex; align-items: center; justify-content: center;
+    width: 2.5rem; height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: scale(1.08);
+    }
+  }
+  &__close-icon { width: 18px; height: 18px; }
+
+  // ------------------------------------------------------------------
+  // Flechas prev / next — centradas verticalmente, fijas
+  // ------------------------------------------------------------------
+  &__arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 201;
+    display: flex; align-items: center; justify-content: center;
+    width: 2.75rem; height: 2.75rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+
+    &--prev { left: 1rem; }
+    &--next { right: 1rem; }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-50%) scale(1.08);
+    }
+  }
+  &__arrow-icon { width: 20px; height: 20px; }
+
+  // ------------------------------------------------------------------
+  // Puntos indicadores — bottom-center fijos
+  // ------------------------------------------------------------------
+  &__dots {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 0; right: 0;
+    z-index: 201;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  &__dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+
+    &--active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+
+    &:hover:not(&--active) {
+      background: rgba(255, 255, 255, 0.65);
+    }
+  }
+}

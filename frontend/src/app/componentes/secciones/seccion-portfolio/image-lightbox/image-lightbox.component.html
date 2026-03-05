@@ -1,0 +1,53 @@
+<!-- Overlay fullscreen con fade de entrada/salida -->
+<div class="lbox" [@lightboxFade] (click)="onBackdropClick()">
+
+  <!-- Imagen centrada; stopPropagation para no cerrar al hacer clic en ella -->
+  <img
+    [@imgFade]="currentIndex"
+    [src]="images[currentIndex]"
+    alt="Imagen de proyecto"
+    class="lbox__img"
+    (click)="$event.stopPropagation()"
+    draggable="false"
+  />
+
+  <!-- Botón cerrar — top-right -->
+  <button class="lbox__close" (click)="close.emit()" aria-label="Cerrar visor" type="button">
+    <i data-lucide="x" class="lbox__close-icon"></i>
+  </button>
+
+  <!-- Flechas de navegación; solo si hay más de una imagen -->
+  @if (images.length > 1) {
+    <button
+      class="lbox__arrow lbox__arrow--prev"
+      (click)="prev($event)"
+      aria-label="Imagen anterior"
+      type="button"
+    >
+      <i data-lucide="chevron-left" class="lbox__arrow-icon"></i>
+    </button>
+
+    <button
+      class="lbox__arrow lbox__arrow--next"
+      (click)="next($event)"
+      aria-label="Imagen siguiente"
+      type="button"
+    >
+      <i data-lucide="chevron-right" class="lbox__arrow-icon"></i>
+    </button>
+
+    <!-- Puntos indicadores — bottom-center -->
+    <div class="lbox__dots" (click)="$event.stopPropagation()">
+      @for (img of images; track $index) {
+        <button
+          class="lbox__dot"
+          [class.lbox__dot--active]="$index === currentIndex"
+          (click)="goTo($index)"
+          [attr.aria-label]="'Ir a imagen ' + ($index + 1)"
+          type="button"
+        ></button>
+      }
+    </div>
+  }
+
+</div>
