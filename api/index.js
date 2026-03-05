@@ -24,14 +24,18 @@ async function verificarTurnstile(token, remoteIp) {
   }
 
   try {
+    // Usamos URLSearchParams (form-urlencoded) — formato recomendado por Cloudflare para siteverify.
+    // Algunos edge cases con application/json provocan "invalid-input-response".
+    const params = new URLSearchParams();
+    params.append('secret', process.env.TURNSTILE_SECRET);
+    params.append('response', token);
+    if (remoteIp) params.append('remoteip', remoteIp);
+
+    console.log('[Turnstile] Token recibido (longitud):', token?.length, '| Primeros 20 chars:', token?.substring(0, 20));
+
     const resp = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret: process.env.TURNSTILE_SECRET,
-        response: token,
-        remoteip: remoteIp,
-      }),
+      body: params,
     });
     const data = await resp.json();
     if (!data.success) {
