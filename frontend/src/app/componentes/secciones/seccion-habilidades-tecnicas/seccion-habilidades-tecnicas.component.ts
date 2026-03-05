@@ -6,8 +6,8 @@ import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
-// 'active' = tengo experiencia práctica; 'learning' = en formación activa
-type SkillTag = 'active' | 'learning';
+// 'active' = tengo experiencia práctica; 'learning' = en formación activa; 'inactive' = experiencia pasada
+type SkillTag = 'active' | 'learning' | 'inactive';
 
 // Estructura de cada habilidad técnica
 interface Skill {
@@ -20,24 +20,25 @@ interface Skill {
 
 // Lista completa de habilidades; el orden define la posición en la grilla
 const ALL_SKILLS: Skill[] = [
-  { name: 'HTML',          tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Maquetado semántico y accesible para sitios y aplicaciones web.', level: 5 },
-  { name: 'CSS',           tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Diseño responsive, Flexbox, Grid y animaciones fluidas.',         level: 4 },
-  { name: 'JavaScript',    tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Lógica de negocio, manipulación del DOM e integración de APIs.',  level: 4 },
-  { name: 'TypeScript',    tag: 'learning', tagLabel: 'En formación',         context: 'Tipado estricto para código escalable en Angular y React.',       level: 3 },
-  { name: 'Angular',       tag: 'learning', tagLabel: 'En formación',         context: 'Desarrollo de SPAs robustas y modulares (Ej: IFTS N°26).',        level: 3 },
-  { name: 'React',         tag: 'learning', tagLabel: 'En formación',         context: 'Creación de interfaces dinámicas y componentes reutilizables.',   level: 2 },
-  { name: 'React Native',  tag: 'learning', tagLabel: 'En formación',         context: 'Desarrollo de aplicaciones móviles multiplataforma.',             level: 2 },
-  { name: 'Java',          tag: 'learning', tagLabel: 'En formación',         context: 'Programación Orientada a Objetos y patrones de diseño.',          level: 2 },
-  { name: 'Node.js',       tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Desarrollo de APIs REST y automatización de procesos backend.',   level: 2 },
-  { name: 'Express',       tag: 'learning', tagLabel: 'En formación',         context: 'Creación de servidores y enrutamiento eficiente.',                level: 2 },
-  { name: 'PostgreSQL',    tag: 'learning', tagLabel: 'En formación',         context: 'Modelado de datos relacionales y consultas optimizadas.',         level: 3 },
-  { name: 'SQL Server',    tag: 'learning', tagLabel: 'En formación',         context: 'Gestión de bases de datos para entornos empresariales.',          level: 2 },
-  { name: 'C#',            tag: 'learning', tagLabel: 'En formación',         context: 'Desarrollo de software robusto y aplicaciones de escritorio.',    level: 1 },
-  { name: 'ASP.NET',       tag: 'learning', tagLabel: 'En formación',         context: 'Construcción de aplicaciones web escalables con .NET.',           level: 2 },
-  { name: 'Git',           tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Control de versiones, flujos de trabajo y trabajo colaborativo.', level: 4 },
-  { name: 'Figma',         tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Diseño UI/UX, wireframes y prototipado interactivo.',             level: 4 },
-  { name: 'Jira',          tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Metodologías ágiles, gestión de sprints y reporte de bugs.',      level: 4 },
-  { name: 'UML',           tag: 'active',   tagLabel: 'Experiencia práctica', context: 'Análisis y diseño de sistemas mediante diagramas estandarizados.', level: 4 },
+  { name: 'HTML',          tag: 'active',   tagLabel: 'En práctica',        context: 'Maquetado semántico y accesible para sitios y apps web.',              level: 4 },
+  { name: 'CSS',           tag: 'active',   tagLabel: 'En práctica',        context: 'Diseño responsive, Flexbox, Grid y animaciones fluidas.',              level: 4 },
+  { name: 'JavaScript',    tag: 'active',   tagLabel: 'En práctica',        context: 'Lógica de negocio, manejo del DOM e integración de APIs.',             level: 3 },
+  { name: 'TypeScript',    tag: 'learning', tagLabel: 'En formación',       context: 'Tipado estricto para código escalable en Angular y React.',            level: 2 },
+  { name: 'Angular',       tag: 'learning', tagLabel: 'En formación',       context: 'Desarrollo de SPAs modulares (Ej: sitio IFTS N°26).',                 level: 3 },
+  { name: 'React',         tag: 'learning', tagLabel: 'En formación',       context: 'Proyectos grupales en la tecnicatura y portfolio personal.',           level: 2 },
+  { name: 'React Native',  tag: 'learning', tagLabel: 'En formación',       context: 'Apps móviles multiplataforma (Ej: GeoDespertador).',                  level: 2 },
+  { name: 'Java',          tag: 'inactive', tagLabel: 'Experiencia previa', context: 'POO aplicada en la materia de Programación del instituto.',            level: 2 },
+  { name: 'Node.js',       tag: 'active',   tagLabel: 'En práctica',        context: 'Backend principal para APIs en proyectos personales.',                 level: 2 },
+  { name: 'Express',       tag: 'learning', tagLabel: 'En formación',       context: 'Servidor y rutas REST con Node.js en la tecnicatura.',                level: 2 },
+  { name: 'MySQL',         tag: 'active',   tagLabel: 'En práctica',        context: 'Primer motor de BD relacional que aprendí a usar.',                   level: 3 },
+  { name: 'PostgreSQL',    tag: 'learning', tagLabel: 'En práctica',        context: 'Deploy de BD en la nube con Neon y Supabase.',                        level: 2 },
+  { name: 'SQL Server',    tag: 'learning', tagLabel: 'En formación',       context: 'BD para el proyecto en equipo del Grupo Scout.',                      level: 2 },
+  { name: 'C#',            tag: 'learning', tagLabel: 'En formación',       context: 'Desarrollo de software robusto junto a ASP.NET.',                     level: 1 },
+  { name: 'ASP.NET',       tag: 'learning', tagLabel: 'En formación',       context: 'Framework .NET junto a C# para la web del Grupo Scout.',              level: 2 },
+  { name: 'Git',           tag: 'active',   tagLabel: 'En práctica',        context: 'Control de versiones y flujos colaborativos en proyectos.',            level: 4 },
+  { name: 'Figma',         tag: 'active',   tagLabel: 'En práctica',        context: 'Diseño de interfaces y prototipos para agilizar desarrollos.',        level: 4 },
+  { name: 'UML',           tag: 'active',   tagLabel: 'En práctica',        context: 'Diagramas para planificar y organizar proyectos en equipo.',          level: 4 },
+  { name: 'Jira',          tag: 'active',   tagLabel: 'En práctica',        context: 'Gestión ágil como Scrum Master en proyectos del instituto.',          level: 4 },
 ];
 
 @Component({
@@ -69,6 +70,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
     'Java':         'assets/img/java.webp',
     'Node.js':      'assets/img/nodejs.webp',
     'Express':      'assets/img/express.webp',
+    'MySQL':        'assets/img/mysql.webp',
     'PostgreSQL':   'assets/img/postgresql.svg',
     'SQL Server':   'assets/img/sql_server.webp',
     'C#':           'assets/img/c_.webp',

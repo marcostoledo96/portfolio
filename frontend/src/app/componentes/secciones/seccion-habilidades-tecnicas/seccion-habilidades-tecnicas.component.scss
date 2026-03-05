@@ -230,9 +230,13 @@
       border-color: rgba(139, 92, 246, 0.35);
       box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.14);
     }
+    &--inactive {
+      border-color: rgba(100, 116, 139, 0.25);
+      box-shadow: inset 0 0 40px rgba(100, 116, 139, 0.08);
+    }
   }
 
-  // Badge de tag: verde para 'active', morado para 'learning'
+  // Badge de tag: verde para 'active', morado para 'learning', gris para 'inactive'
   &__tag {
     display: inline-flex; align-items: center; justify-content: center;
     border-radius: $radius-full;
@@ -254,6 +258,11 @@
       color: #7c3aed;
       background: rgba(139, 92, 246, 0.18);
       border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+    &--inactive {
+      color: #64748b;
+      background: rgba(100, 116, 139, 0.12);
+      border: 1px solid rgba(100, 116, 139, 0.25);
     }
   }
 

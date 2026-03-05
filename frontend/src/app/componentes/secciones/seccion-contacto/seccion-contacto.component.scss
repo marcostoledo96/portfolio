@@ -302,6 +302,32 @@
     transition: height 0.3s ease;
   }
 
+  // Nota de seguridad estática: informa al visitante que el formulario está protegido por Cloudflare
+  &__security-note {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    color: var(--muted-foreground);
+    opacity: 0.65;
+  }
+  &__security-icon {
+    width: 13px; height: 13px;
+    flex-shrink: 0;
+    color: #10b981;
+    opacity: 0.9;
+  }
+  &__security-text {
+    flex: 1;
+  }
+  &__security-brand {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
   // Indicador de estado de Turnstile: fila sutil entre textarea y botón submit
   &__captcha-status {
     display: flex;

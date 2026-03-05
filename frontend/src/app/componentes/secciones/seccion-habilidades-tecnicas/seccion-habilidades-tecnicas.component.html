@@ -42,11 +42,13 @@
             <div class="flip-card__back"
               [class.flip-card__back--active]="skill.tag === 'active'"
               [class.flip-card__back--learning]="skill.tag === 'learning'"
+              [class.flip-card__back--inactive]="skill.tag === 'inactive'"
             >
-              <!-- Badge verde = experiencia práctica; morado = en formación -->
+              <!-- Badge verde = experiencia práctica; morado = en formación; gris = experiencia previa -->
               <span class="flip-card__tag"
                 [class.flip-card__tag--active]="skill.tag === 'active'"
                 [class.flip-card__tag--learning]="skill.tag === 'learning'"
+                [class.flip-card__tag--inactive]="skill.tag === 'inactive'"
               >{{ skill.tagLabel }}</span>
               <p class="flip-card__context">{{ skill.context }}</p>
               <!-- Estrellas: starsArray retorna [true/false x5] según el nivel -->

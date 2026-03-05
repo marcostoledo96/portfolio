@@ -161,6 +161,13 @@
               <!-- El widget se inyecta aquí; ocupa 0px cuando no hay desafío activo -->
               <div id="turnstile-container" class="contact__captcha-widget"></div>
 
+              <!-- Nota de seguridad: informa al visitante que el formulario está protegido -->
+              <div class="contact__security-note">
+                <i data-lucide="shield-check" class="contact__security-icon" aria-hidden="true"></i>
+                <span class="contact__security-text">Este formulario está protegido contra spam y envíos automatizados</span>
+                <span class="contact__security-brand">Cloudflare</span>
+              </div>
+
               <!-- Botón de envío: deshabilitado mientras se está enviando o el CAPTCHA no pasó -->
               <button type="submit" class="contact__submit" [disabled]="sending || !turnstileToken">
                 <i data-lucide="send" class="contact__submit-icon"></i>
