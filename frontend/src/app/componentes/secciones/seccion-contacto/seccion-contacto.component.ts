@@ -45,7 +45,7 @@ const CONTACT_LINKS: ContactLink[] = [
   {
     icon: 'mail',
     label: 'E-mail',
-    value: '',  // Sin texto plano — se renderiza como SVG en el template
+    value: 'marcostoledo96@gmail.com',
     href: '',   // Sin literal mailto — se construye dinámicamente con mailtoHref
     color: '#ea580c',
   },

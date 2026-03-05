@@ -199,7 +199,7 @@
     display: flex; align-items: center; gap: 0.5rem;
     padding-left: 1.1rem;
     margin-bottom: 2rem;
-    opacity: 0;
+    opacity: 0.35;
     transition: opacity 0.3s ease;
     &:hover, &:focus-within { opacity: 1; }
   }

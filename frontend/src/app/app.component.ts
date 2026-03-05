@@ -186,26 +186,48 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    const el = document.getElementById(sectionId);
-    if (!el) return;
+    // Force-load all lazy sections up to and including the target
+    const lazySections: { id: string; signal: ReturnType<typeof signal<boolean>> }[] = [
+      { id: 'habilidades-tecnicas', signal: this.forceHabilidades },
+      { id: 'portfolio',            signal: this.forcePortfolio },
+      { id: 'contacto',             signal: this.forceContacto },
+    ];
+    const allSectionOrder = [
+      'hero','sobre-mi','habilidades-tecnicas','habilidades-blandas',
+      'idiomas','experiencia','educacion','portfolio','contacto',
+    ];
+    const targetIdx = allSectionOrder.indexOf(sectionId);
+    for (const ls of lazySections) {
+      if (allSectionOrder.indexOf(ls.id) <= targetIdx) {
+        ls.signal.set(true);
+      }
+    }
 
     // Secciones cortas: quedan mejor centradas verticalmente que pegadas al top
     const centerSections = ['idiomas', 'contacto', 'sobre-mi'];
     const block: ScrollLogicalPosition = centerSections.includes(sectionId) ? 'center' : 'start';
 
-    this.isScrolling = true; // Bloqueo detecci\u00f3n mientras el scroll animado termina
-    this.activeSection = sectionId;
-    el.scrollIntoView({ behavior: 'smooth', block });
+    // Esperar doble rAF para que Angular renderice las secciones forzadas
+    requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
 
-    // Re-scroll de correcci\u00f3n: si lazy sections cambiaron el layout durante el primer scroll
-    setTimeout(() => {
-      const target = document.getElementById(sectionId);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block });
-    }, 500);
+      this.isScrolling = true;
+      this.activeSection = sectionId;
+      el.scrollIntoView({ behavior: 'smooth', block });
 
-    setTimeout(() => {
-      this.isScrolling = false; // Libero la detecci\u00f3n tras ~1400ms (cubre el re-scroll de 500ms)
-    }, 1400);
+      // Re-scroll de corrección: si lazy sections cambiaron el layout durante el primer scroll
+      setTimeout(() => {
+        const target = document.getElementById(sectionId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block });
+      }, 500);
+
+      setTimeout(() => {
+        this.isScrolling = false;
+      }, 1400);
+    });
+    });  // cierra doble rAF
   }
 
   // Abre/cierra el drawer móvil y agrega/quita la clase en body para bloquear el scroll de fondo
