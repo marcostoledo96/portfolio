@@ -451,7 +451,9 @@
   }
   &__avail-dot-wrap {
     position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
     width: 8px; height: 8px;
+    flex-shrink: 0;
   }
   &__avail-dot-ping {
     position: absolute; inset: 0;
@@ -461,9 +463,7 @@
     animation: avail-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; // Onda expansiva sobre el punto
   }
   &__avail-dot {
-    position: relative;
-    display: inline-block;
-    width: 8px; height: 8px;
+    position: absolute; inset: 0;
     border-radius: 50%;
     background: #10b981;
   }

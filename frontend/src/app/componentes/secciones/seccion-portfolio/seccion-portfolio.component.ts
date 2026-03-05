@@ -18,13 +18,20 @@ declare const lucide: any; // Lucide cargado desde CDN
 // Lista completa de proyectos; para agregar uno nuevo sólo agrego una entrada aquí
 const PROJECTS: Project[] = [
   {
-    title: 'Historias Cl\u00ednicas',
+    title: 'Turnos e Historias Cl\u00ednicas',
     description:
       'Plataforma integral para la gesti\u00f3n de historias cl\u00ednicas, turnos y pacientes, con una interfaz moderna, segura y escalable.',
     longDescription:
       'Sistema integral de gestión para consultorios médicos, desarrollado para optimizar los flujos de trabajo en salud.\n\nLa arquitectura del backend está construida con Node.js, Express y PostgreSQL, utilizando Prisma como ORM para una gestión eficiente de la base de datos. Implementa un control de acceso estricto mediante JWT y Angular Guards, diferenciando rutas y permisos para roles de Administrador, Médico y Secretario, protegiendo así la confidencialidad de los datos.\n\nEl sistema permite gestionar agendas multi-profesional, automatizar el envío de recordatorios de turnos por email y administrar historias clínicas digitales. Las consultas incluyen la evolución del paciente, selección de diagnósticos y la capacidad de adjuntar archivos de estudios médicos, garantizando un registro detallado y seguro. Actualmente en fase de desarrollo.',
     image: 'assets/img/historias-clinicas.webp',
-    images: ['assets/img/historias-clinicas.webp'],
+    images: [
+      'assets/img/portfolio/consultorios_0.png',
+      'assets/img/portfolio/consultorios_1.png',
+      'assets/img/portfolio/consultorios_2.png',
+      'assets/img/portfolio/consultorios_3.png',
+      'assets/img/portfolio/consultorios_4.png',
+      'assets/img/portfolio/consultorios_5.png',
+    ],
     status: 'in-dev',
     statusLabel: 'En desarrollo',
     teamType: 'individual',
@@ -38,8 +45,15 @@ const PROJECTS: Project[] = [
       'Portal web institucional con gesti\u00f3n de usuarios por roles, panel de noticias interactivo, biblioteca digital y galer\u00eda multimedia.',
     longDescription:
       'Rediseño integral y modernización de una web con más de 20 años de antigüedad, transformada en una plataforma dinámica para una comunidad de más de 170 miembros activos.\n\nEste proyecto fue desarrollado en dupla junto a mi hermano. Lideré el diseño UI/UX planificando la arquitectura en Figma y me encargué del desarrollo Frontend utilizando Blazor y Bootstrap, además de brindar soporte en el Backend. Mi hermano estuvo a cargo de la arquitectura principal de la API (ASP.NET, Entity Framework, SQL Server).\n\nLa plataforma resuelve necesidades administrativas y educativas: incluye un sistema de autenticación con roles, control de asistencia y progresiones de los scouts, panel de noticias interactivo y una biblioteca digital con más de 400 documentos. Además, integré APIs públicas (huellas de animales, botánica) para enriquecer el contenido educativo estático. El proyecto se encuentra desplegado en IIS.',
-    image: 'assets/img/pagina_grupo.webp',
-    images: ['assets/img/pagina_grupo.webp'],
+    image: 'assets/img/portfolio/gruposcout_0.png',
+    images: [
+      'assets/img/portfolio/gruposcout_0.png',
+      'assets/img/portfolio/gruposcout_1.png',
+      'assets/img/portfolio/gruposcout_2.png',
+      'assets/img/portfolio/gruposcout_3.png',
+      'assets/img/portfolio/gruposcout_4.png',
+      'assets/img/portfolio/gruposcout_5.png',
+    ],
     status: 'in-dev',
     statusLabel: 'En desarrollo',
     teamType: 'team',
@@ -53,8 +67,13 @@ const PROJECTS: Project[] = [
       'Sitio web oficial del instituto, dise\u00f1ado para optimizar la comunicaci\u00f3n institucional y el acceso a recursos acad\u00e9micos.',
     longDescription:
       'Rediseño y modernización de la plataforma institucional (reemplazando su antigua versión en Google Sites). Este proyecto fue desarrollado en un equipo de dos personas. \n\nEstuve a cargo de liderar el diseño UI/UX utilizando Figma y la maquetación Frontend en Angular, logrando una interfaz moderna, limpia, completamente responsiva y con un rendimiento optimizado. Mi compañero se enfocó en el desarrollo de la API y el Backend para la gestión dinámica y el funcionamiento de los formularios de contacto. \n\nEl proyecto cuenta con aprobación institucional y actualmente se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub, listo para su lanzamiento a producción mientras se finalizan los trámites del dominio oficial y la documentación final.',
-    image: 'assets/img/ifts26.webp',
-    images: ['assets/img/ifts26.webp'],
+    image: 'assets/img/portfolio/ifts26_0.png',
+    images: [
+      'assets/img/portfolio/ifts26_0.png',
+      'assets/img/portfolio/ifts26_1.png',
+      'assets/img/portfolio/ifts26_2.png',
+      'assets/img/portfolio/ifts26_3.png',
+    ],
     status: 'finished',
     statusLabel: 'Finalizado',
     teamType: 'team',
@@ -70,8 +89,16 @@ const PROJECTS: Project[] = [
       'E-commerce tem\u00e1tico desarrollado para un evento de caridad, con gesti\u00f3n de pedidos en tiempo real y dise\u00f1o responsivo.',
     longDescription:
       'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático. Operó con éxito bajo presión, procesando más de 60 ventas reales simultáneas.\n\nEl sistema cuenta con dos interfaces: una experiencia mobile-first en React para los usuarios, donde exploraban el menú inmersivo y adjuntaban comprobantes de pago por transferencia; y un panel de administración para gestionar los estados del pedido (Abonado, Listo, Retirado).\n\nEl backend en Node.js, Express y PostgreSQL gestionó la lógica de inventario de forma robusta. Para optimizar la operación en vivo, integré notificaciones automáticas vía WhatsApp para avisar a los clientes cuando su orden estaba lista, y sincronicé los datos en tiempo real con Google Sheets para el control operativo de la cocina.',
-    image: 'assets/img/sanpaholmes.webp',
-    images: ['assets/img/sanpaholmes.webp'],
+    image: 'assets/img/portfolio/sanpaholmes_0.png',
+    images: [
+      'assets/img/portfolio/sanpaholmes_0.png',
+      'assets/img/portfolio/sanpaholmes_1.png',
+      'assets/img/portfolio/sanpaholmes_2.png',
+      'assets/img/portfolio/sanpaholmes_3.png',
+      'assets/img/portfolio/sanpaholmes_4.png',
+      'assets/img/portfolio/sanpaholmes_5.png',
+      'assets/img/portfolio/sanpaholmes_6.png',
+    ],
     status: 'finished',
     statusLabel: 'Finalizado',
     teamType: 'individual',
@@ -87,8 +114,14 @@ const PROJECTS: Project[] = [
       'Plataforma de e-commerce con cat\u00e1logo din\u00e1mico, fichas de producto detalladas y un flujo de compra optimizado.',
     longDescription:
       'Plataforma de e-commerce de golosinas y confitería, desarrollada en equipo como proyecto para la tecnicatura.\n\nEn este proyecto asumí un doble rol. Como Scrum Master, gestioné el flujo de trabajo utilizando Jira, redactando historias de usuario por módulos y facilitando ceremonias ágiles como las retrospectivas. Como desarrollador, me enfoqué en pulir el diseño web en React, asegurar el funcionamiento de la API RESTful (Node.js y Express) y lograr el despliegue del proyecto.\n\nLa aplicación incluye un catálogo dinámico, carrito de compras manejado con Context API y un flujo de checkout. Además, este desarrollo marcó un hito técnico personal al ser mi primera experiencia alojando y gestionando una base de datos relacional (PostgreSQL) en la nube.',
-    image: 'assets/img/candyland.webp',
-    images: ['assets/img/candyland.webp'],
+    image: 'assets/img/portfolio/candyland_0.png',
+    images: [
+      'assets/img/portfolio/candyland_0.png',
+      'assets/img/portfolio/candyland_1.png',
+      'assets/img/portfolio/candyland_2.png',
+      'assets/img/portfolio/candyland_3.png',
+      'assets/img/portfolio/candyland_4.png',
+    ],
     status: 'finished',
     statusLabel: 'Finalizado',
     teamType: 'team',
@@ -104,8 +137,13 @@ const PROJECTS: Project[] = [
       'Aplicaci\u00f3n web para descubrir videojuegos, integrando b\u00fasqueda avanzada, filtros por categor\u00eda y vistas de detalle.',
     longDescription:
       'Aplicación web colaborativa desarrollada en dupla como proyecto para la tecnicatura, enfocada en la exploración y descubrimiento de videojuegos "free-to-play".\n\nEl proyecto destaca por estar construido íntegramente con HTML, CSS y JavaScript puro (Vanilla JS), demostrando bases sólidas en el desarrollo web y manipulación del DOM sin depender de frameworks. La plataforma permite buscar títulos, filtrar por género o plataforma y acceder a fichas detalladas.\n\nPara poblar el catálogo, se integró y consumió la API pública de FreeToGame, logrando una experiencia de usuario fluida y dinámica. Este desarrollo representó un hito importante en mi formación, siendo una de mis primeras experiencias exitosas consumiendo APIs externas y gestionando un despliegue en Vercel.',
-    image: 'assets/img/juegos.webp',
-    images: ['assets/img/juegos.webp'],
+    image: 'assets/img/portfolio/gamestore_0.png',
+    images: [
+      'assets/img/portfolio/gamestore_0.png',
+      'assets/img/portfolio/gamestore_1.png',
+      'assets/img/portfolio/gamestore_2.png',
+      'assets/img/portfolio/gamestore_3.png',
+    ],
     status: 'finished',
     statusLabel: 'Finalizado',
     teamType: 'team',
@@ -121,8 +159,14 @@ const PROJECTS: Project[] = [
       'Aplicación móvil interactiva de preguntas y respuestas, diseñada para fomentar el aprendizaje mediante gamificación.',
     longDescription:
       'Aplicación móvil gamificada de trivia y cultura scout, desarrollada con React Native y actualmente en etapa de codificación. Un proyecto personal orientado a fortalecer mis habilidades en desarrollo mobile y aportar una herramienta interactiva a mi comunidad.\n\nEl ciclo de vida del proyecto comenzó con una planificación exhaustiva y prototipado de interfaces (UI/UX) en Figma. A nivel técnico, la app destaca por su arquitectura "offline-first": utiliza una base de datos SQLite local en el dispositivo que permite jugar sin conexión en entornos de campamento. Al recuperar la conectividad, el sistema sincroniza los puntajes y descarga nuevas preguntas desde el servidor.\n\nCuenta con mecánicas de retención como rachas, insignias y un ranking entre patrullas. La distribución inicial será mediante APK para validación con usuarios reales, con proyección a ser publicada en la Google Play Store.',
-    image: 'assets/img/cultura_general.webp',
-    images: ['assets/img/cultura_general.webp'],
+    image: 'assets/img/portfolio/culturascout_0.png',
+    images: [
+      'assets/img/portfolio/culturascout_0.png',
+      'assets/img/portfolio/culturascout_1.png',
+      'assets/img/portfolio/culturascout_2.png',
+      'assets/img/portfolio/Culturascout_3.png',
+      'assets/img/portfolio/culturascout_4.png',
+    ],
     status: 'in-dev',
     statusLabel: 'En desarrollo',
     teamType: 'individual',
@@ -136,8 +180,15 @@ const PROJECTS: Project[] = [
       'Aplicación móvil basada en geolocalización que alerta al usuario al aproximarse a zonas configuradas en el mapa.',
     longDescription:
       'GeoDespertador: Aplicación móvil de utilidad desarrollada en React Native, con el objetivo de ser publicada en las tiendas oficiales. Diseñada para resolver el problema cotidiano de pasarse de parada en el transporte público, reemplaza las alarmas de tiempo por alertas geográficas basadas en radio de distancia.\n\nEl proyecto destaca por su fuerte enfoque en UI/UX, planificado íntegramente en Figma. Implementé un flujo de onboarding amigable para educar al usuario antes de solicitar permisos sensibles, como el acceso al GPS en segundo plano (background geolocation).\n\nA nivel técnico, integra mapas nativos interactivos para la selección de zonas y funciona de manera 100% offline. Las preferencias, radios de alerta y ubicaciones guardadas se persisten localmente mediante AsyncStorage, garantizando un bajo consumo de datos y batería al no depender de un servidor externo.',
-    image: 'assets/img/deoDespertador.webp',
-    images: ['assets/img/deoDespertador.webp'],
+    image: 'assets/img/portfolio/geodespertador_0.png',
+    images: [
+      'assets/img/portfolio/geodespertador_0.png',
+      'assets/img/portfolio/geodespertador_1.png',
+      'assets/img/portfolio/geodespertador_2.png',
+      'assets/img/portfolio/geodespertador_3.png',
+      'assets/img/portfolio/geodespertador_4.png',
+      'assets/img/portfolio/geodespertador_5.png',
+    ],
     status: 'in-dev',
     statusLabel: 'En desarrollo',
     teamType: 'individual',

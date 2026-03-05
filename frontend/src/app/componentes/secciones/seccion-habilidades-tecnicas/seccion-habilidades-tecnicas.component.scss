@@ -97,6 +97,7 @@
     display: flex; align-items: center; gap: 0.375rem;
   }
   &__legend-dot {
+    display: inline-block; flex-shrink: 0;
     width: 10px; height: 10px;
     border-radius: 50%;
 
