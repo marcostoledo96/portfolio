@@ -176,3 +176,25 @@ body.drawer-open {
     animation: none !important;
   }
 }
+
+// --- Skeleton shimmer: utilidad global para placeholders de carga (future-proofing para lazy loading) ---
+@keyframes shimmerSlide {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-shimmer {
+  background-color: var(--border);
+  background-image: linear-gradient(
+    -90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--portfolio-accent) 6%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.8s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
