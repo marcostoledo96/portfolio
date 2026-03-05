@@ -199,6 +199,8 @@
       border-color: #ef4444 !important; // Rojo de error; !important para sobreescribir --focused
       box-shadow: none !important;
     }
+    // Padding extra derecho para no solapar el ícono de estado
+    &--has-status { padding-right: 2.5rem; }
   }
   // Textarea sin redimensionado manual; crece con flex dentro de --grow
   &__textarea {
@@ -206,11 +208,45 @@
     flex: 1;
     min-height: 160px;
   }
+  // Wrapper relativo para posicionar el ícono de estado dentro del campo
+  &__field-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &--grow { flex: 1; } // Propaga el flex-grow del textarea
+  }
+
+  // Ícono de estado (valid/invalid) posicionado en el margen derecho del input
+  &__field-status-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    pointer-events: none;
+    flex-shrink: 0;
+
+    // Para el textarea: anclado al top en vez de centrado
+    &--top {
+      top: 0.8rem;
+      transform: none;
+    }
+    &--valid   { color: #10b981; } // emerald-500
+    &--invalid { color: #ef4444; } // red-500
+  }
+
   // Mensaje de error mostrado bajo el campo con validación fallida
   &__field-error {
     font-size: 0.75rem;
     color: #ef4444;
     margin-top: 0.375rem;
+    animation: contactFadeIn 0.2s ease-out;
+  }
+
+  @keyframes contactFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   // --- Botón de envío: sube en hover, se desactiva visualmente mientras envía ---

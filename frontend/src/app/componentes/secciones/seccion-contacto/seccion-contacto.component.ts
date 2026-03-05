@@ -79,6 +79,32 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
   turnstileToken = '';
   // Honeypot: campo invisible; si un bot lo rellena, bloqueamos el envío
   honeypotValue = '';
+
+  // Set de campos que el usuario ya tocó — activa la validación visual solo tras blur
+  touchedFields: Set<string> = new Set();
+
+  // Marca un campo como tocado al perder el foco
+  onBlur(field: string): void {
+    this.touchedFields.add(field);
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Retorna el estado visual del campo según si fue tocado y su valor actual.
+   * 'idle'    → campo intacto (sin tocar y sin error de submit)
+   * 'valid'   → campo tocado y válido
+   * 'invalid' → campo tocado (o submit fallido) con valor inválido
+   */
+  getFieldStatus(field: string): 'idle' | 'valid' | 'invalid' {
+    const hasSubmitError = !!(this.errors as any)[field];
+    if (!this.touchedFields.has(field) && !hasSubmitError) return 'idle';
+    switch (field) {
+      case 'name':    return this.formData.name.trim().length >= 2 ? 'valid' : 'invalid';
+      case 'email':   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.formData.email) ? 'valid' : 'invalid';
+      case 'message': return this.formData.message.trim().length >= 10 ? 'valid' : 'invalid';
+      default:        return 'idle';
+    }
+  }
   // ID del widget Turnstile para poder resetearlo y destruirlo
   private turnstileWidgetId: string | null = null;
 
@@ -164,7 +190,8 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
         this.sent = true;
         this.sending = false;
         this.formData = { name: '', email: '', message: '' }; // Limpio el formulario
-        this.turnstileToken = ''; // Invalido el token ya usado
+        this.turnstileToken = '';     // Invalido el token ya usado
+        this.touchedFields.clear();   // Reseteo el estado touched de todos los campos
         this.cdr.markForCheck();
         setTimeout(() => {
           this.sent = false;
