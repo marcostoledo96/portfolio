@@ -21,7 +21,7 @@ declare const lucide: any; // Librería de íconos cargada desde CDN
 })
 export class EncabezadoMovilComponent implements AfterViewInit {
   @Input() isDrawerOpen = false;        // true = drawer visible, false = oculto
-  @Input() activeSection = 'sobre-mi'; // Sección activa, se pasa a la sidebar interna
+  @Input() activeSection = 'hero';     // Sección activa, se pasa a la sidebar interna
   @Output() toggleDrawer = new EventEmitter<void>(); // Abre/cierra el drawer
   @Output() navClick = new EventEmitter<string>();   // Reenvía el clic de navegación al padre
 

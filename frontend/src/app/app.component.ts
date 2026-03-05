@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   // Controla si el splash screen ya terminó (signal para detectar el cambio con OnPush)
   splashDone = signal(false);
 
-  activeSection = 'sobre-mi';   // ID de la sección visible en pantalla
+  activeSection = 'hero';        // ID de la sección visible en pantalla
   scrollProgress = 0;           // Ratio 0-1 para la barra de progreso del sidebar
   showScrollTop = false;        // Muestra el botón de scroll-to-top después de 400px
   isDrawerOpen = false;         // Estado del menú lateral en mobile
@@ -123,8 +123,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       // Detección de sección activa (bloqueada durante scroll programático para evitar parpadeos)
       let currentSection = this.activeSection;
       if (!this.isScrolling) {
+        // Si el usuario está en el top absoluto, activo 'hero'
+        if (scrollTop < 10) {
+          currentSection = 'hero';
         // Si llegué al fondo del contenido, activo la última sección
-        if (scrollTop + clientHeight >= scrollHeight - 60) {
+        } else if (scrollTop + clientHeight >= scrollHeight - 60) {
           currentSection = this.sectionIds[this.sectionIds.length - 1];
         } else {
           // Activo la última sección cuyo top superó el 30% de la altura visible
@@ -167,6 +170,15 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   handleNavClick(sectionId: string): void {
     this.isDrawerOpen = false;
     document.body.classList.remove('drawer-open');
+
+    // 'hero' no tiene elemento en el DOM: scrolleamos al top del <main>
+    if (sectionId === 'hero') {
+      this.isScrolling = true;
+      this.activeSection = 'hero';
+      this.mainRef.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => { this.isScrolling = false; }, 800);
+      return;
+    }
 
     const el = document.getElementById(sectionId);
     if (!el) return;

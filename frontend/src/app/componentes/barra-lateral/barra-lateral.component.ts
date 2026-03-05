@@ -24,6 +24,7 @@ export interface NavItem {
 
 // Lista exportada para que otros componentes (ej: header móvil) la reutilicen
 export const NAV_ITEMS: NavItem[] = [
+  { id: 'hero',                 label: 'Inicio',               icon: 'home'           },
   { id: 'sobre-mi',             label: 'Sobre mí',             icon: 'user'           },
   { id: 'habilidades-tecnicas', label: 'Habilidades Técnicas', icon: 'code-2'         },
   { id: 'habilidades-blandas',  label: 'Habilidades Blandas',  icon: 'heart'          },
