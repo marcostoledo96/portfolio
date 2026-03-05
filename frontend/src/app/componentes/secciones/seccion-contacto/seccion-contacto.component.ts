@@ -45,8 +45,8 @@ const CONTACT_LINKS: ContactLink[] = [
   {
     icon: 'mail',
     label: 'E-mail',
-    value: 'marcostoledo96@gmail.com',
-    href: 'mailto:marcostoledo96@gmail.com',
+    value: '',  // Sin texto plano — se renderiza como SVG en el template
+    href: '',   // Sin literal mailto — se construye dinámicamente con mailtoHref
     color: '#ea580c',
   },
   {
@@ -67,6 +67,9 @@ const CONTACT_LINKS: ContactLink[] = [
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos
 })
 export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
+
+  // Mailto construido dinámicamente para dificultar scraping: no hay literales en el HTML compilado
+  readonly mailtoHref = ["ma","il","to:"].join("") + ["marcostoledo96","gmail.com"].join("@");
 
   // Modelo del formulario ligado con [(ngModel)]
   formData: DatosContacto = { name: '', email: '', message: '' };

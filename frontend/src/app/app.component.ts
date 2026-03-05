@@ -59,6 +59,9 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   title = 'Portfolio - Marcos Ezequiel Toledo';
 
+  // Mailto obfuscado: construido dinámicamente para no exponer el email en el HTML estático
+  readonly mailtoHref = ["ma","il","to:"].join("") + ["marcostoledo96","gmail.com"].join("@");
+
   // Controla si el splash screen ya terminó (signal para detectar el cambio con OnPush)
   splashDone = signal(false);
 

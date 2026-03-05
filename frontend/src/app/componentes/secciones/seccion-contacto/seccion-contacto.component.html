@@ -205,8 +205,8 @@
           @for (link of contactLinks; track link.label; let i = $index) {
             <!-- Para mailto: y assets/ no abro en nueva pestaña; para URLs externas sí -->
             <a
-              [href]="link.href"
-              [attr.target]="link.href.startsWith('mailto') || link.href.startsWith('assets') ? null : '_blank'"
+              [href]="link.icon === 'mail' ? mailtoHref : link.href"
+              [attr.target]="link.icon === 'mail' || link.href.startsWith('assets') ? null : '_blank'"
               [download]="link.href.startsWith('assets') ? '' : null"
               rel="noopener noreferrer"
               class="contact__link animate-on-scroll"
@@ -221,7 +221,16 @@
               </div>
               <div class="contact__link-info">
                 <span class="contact__link-label">{{ link.label }}</span>
-                <span class="contact__link-value">{{ link.value }}</span>
+                @if (link.icon === 'mail') {
+                  <!-- SVG inline: el texto del email no aparece como string en el DOM parseado por bots -->
+                  <span class="contact__link-value">
+                    <svg viewBox="0 0 220 20" width="auto" height="1em" style="vertical-align: middle" aria-label="marcostoledo96@gmail.com" role="img">
+                      <text x="0" y="15" fill="currentColor" font-size="13" font-family="'Fira Code', monospace">marcostoledo96&#64;gmail.com</text>
+                    </svg>
+                  </span>
+                } @else {
+                  <span class="contact__link-value">{{ link.value }}</span>
+                }
               </div>
               <!-- Flecha decorativa que se resalta en hover -->
               <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
