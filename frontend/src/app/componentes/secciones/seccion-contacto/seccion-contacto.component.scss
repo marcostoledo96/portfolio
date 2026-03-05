@@ -539,7 +539,15 @@
     transform: translate(0.5px, -0.5px);
   }
 
-  // Botón copiar email — reemplaza la flecha en la tarjeta de mail
+  // Contenedor de los dos botones de la card email (copiar + flecha mailto)
+  &__link-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  // Botón copiar email
   &__link-copy {
     display: flex;
     align-items: center;

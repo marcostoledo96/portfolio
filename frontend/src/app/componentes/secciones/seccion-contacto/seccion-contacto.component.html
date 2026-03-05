@@ -226,16 +226,19 @@
                 }
               </div>
               @if (link.icon === 'mail') {
-                <!-- Botón copiar email — stopPropagation evita que dispare el mailto -->
-                <button
-                  class="contact__link-copy"
-                  type="button"
-                  [attr.aria-label]="emailCopied ? 'Copiado' : 'Copiar email'"
-                  [title]="emailCopied ? 'Copiado' : 'Copiar email'"
-                  (click)="copyEmail($event)"
-                >
-                  <i [attr.data-lucide]="emailCopied ? 'check' : 'copy'" class="contact__link-copy-icon"></i>
-                </button>
+                <!-- Grupo derecho de la card email: copiar + abrir mailto -->
+                <div class="contact__link-actions">
+                  <button
+                    class="contact__link-copy"
+                    type="button"
+                    [attr.aria-label]="emailCopied ? 'Copiado' : 'Copiar email'"
+                    [title]="emailCopied ? 'Copiado' : 'Copiar email'"
+                    (click)="copyEmail($event)"
+                  >
+                    <i [attr.data-lucide]="emailCopied ? 'check' : 'copy'" class="contact__link-copy-icon"></i>
+                  </button>
+                  <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
+                </div>
               } @else {
                 <!-- Flecha decorativa que se resalta en hover -->
                 <i data-lucide="arrow-up-right" class="contact__link-arrow"></i>
