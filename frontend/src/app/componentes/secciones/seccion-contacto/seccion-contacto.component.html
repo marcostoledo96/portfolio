@@ -157,12 +157,9 @@
                    aria-atomic="true">{{ formData.message.length }}/{{ maxLength }}</p>
               </div>
 
-              <!-- Cloudflare Turnstile — interaction-only: invisible para usuarios legítimos -->
-              <!-- El widget se inyecta aquí; ocupa 0px cuando no hay desafío activo -->
-              <div id="turnstile-container" class="contact__captcha-widget"></div>
-
-              <!-- Nota de seguridad: informa al visitante que el formulario está protegido -->
-              <div class="contact__security-note">
+              <!-- Cloudflare Turnstile + nota de seguridad en el mismo contenedor -->
+              <!-- Cloudflare inyecta su iframe como hijo adicional; la nota siempre es visible -->
+              <div id="turnstile-container" class="contact__captcha-widget">
                 <i data-lucide="shield-check" class="contact__security-icon" aria-hidden="true"></i>
                 <span class="contact__security-text">Este formulario está protegido contra spam y envíos automatizados</span>
                 <span class="contact__security-brand">Cloudflare</span>

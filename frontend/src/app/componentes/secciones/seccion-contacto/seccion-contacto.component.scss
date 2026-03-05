@@ -295,22 +295,16 @@
     transition: transform 0.2s;
   }
 
-  // --- Cloudflare Turnstile — contenedor del widget (interaction-only = 0px cuando no hay desafío) ---
+  // --- Cloudflare Turnstile — muestra la nota de seguridad y contiene el iframe del widget ---
   &__captcha-widget {
-    // El iframe se inyecta aquí por JS; colapsa a 0 cuando no hay desafío activo
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease;
-  }
-
-  // Nota de seguridad: barra prominente con escudo verde + texto + badge Cloudflare
-  &__security-note {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.75rem;
     color: var(--foreground);
     opacity: 0.8;
+    overflow: hidden;
+    transition: height 0.3s ease;
   }
   &__security-icon {
     width: 15px; height: 15px;
