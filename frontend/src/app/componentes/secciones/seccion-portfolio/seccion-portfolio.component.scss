@@ -154,7 +154,9 @@
   }
 
   // Envoltorio de la tarjeta: necesario para que @cardAnim aplique :enter/:leave correctamente
-  &__card-wrap {}
+  &__card-wrap {
+    display: contents;
+  }
 
   // Tarjeta con tilt 3D via onMouseMove; will-change: transform para que el navegador la optimice
   &__card {

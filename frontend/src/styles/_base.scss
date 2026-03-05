@@ -198,3 +198,10 @@ body.drawer-open {
     animation: none;
   }
 }
+
+// Footer centrado al pie de cada sección para el indicador de scroll
+.section-scroll-footer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}

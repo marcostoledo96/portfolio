@@ -7,6 +7,7 @@ import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-sc
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 import { ImagenFallbackComponent } from '../../imagen-fallback/imagen-fallback.component';
 import { ProjectModalComponent } from './project-modal/project-modal.component';
+import { ScrollIndicatorComponent } from '../../scroll-indicator/scroll-indicator.component';
 import {
   trigger, transition, style, animate, query, stagger,
 } from '@angular/animations'; // Animación de entrada/salida de tarjetas al cambiar filtro
@@ -21,7 +22,7 @@ const PROJECTS: Project[] = [
     description:
       'Plataforma integral para la gesti\u00f3n de historias cl\u00ednicas, turnos y pacientes, con una interfaz moderna, segura y escalable.',
     longDescription:
-      'Sistema integral de gesti\u00f3n de historias cl\u00ednicas dise\u00f1ado como MVP para consultorios y centros m\u00e9dicos peque\u00f1os. Permite dar de alta pacientes con datos personales y de contacto, registrar consultas m\u00e9dicas con diagn\u00f3sticos y tratamientos, administrar turnos con un calendario visual interactivo y gestionar toda la informaci\u00f3n cl\u00ednica desde una interfaz moderna y responsiva. La arquitectura del backend incluye autenticaci\u00f3n basada en JWT, un esquema relacional en PostgreSQL optimizado para consultas frecuentes y una API RESTful documentada. Se implementaron validaciones tanto en frontend como en backend para garantizar la integridad de los datos sensibles.',
+      'Sistema integral de gestión para consultorios médicos, desarrollado para optimizar los flujos de trabajo en salud.\n\nLa arquitectura del backend está construida con Node.js, Express y PostgreSQL, utilizando Prisma como ORM para una gestión eficiente de la base de datos. Implementa un control de acceso estricto mediante JWT y Angular Guards, diferenciando rutas y permisos para roles de Administrador, Médico y Secretario, protegiendo así la confidencialidad de los datos.\n\nEl sistema permite gestionar agendas multi-profesional, automatizar el envío de recordatorios de turnos por email y administrar historias clínicas digitales. Las consultas incluyen la evolución del paciente, selección de diagnósticos y la capacidad de adjuntar archivos de estudios médicos, garantizando un registro detallado y seguro. Actualmente en fase de desarrollo.',
     image: 'assets/img/historias-clinicas.webp',
     images: ['assets/img/historias-clinicas.webp'],
     status: 'in-dev',
@@ -43,7 +44,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['C#', 'ASP.NET', 'SQL Server'],
+    technologies: ['C#', 'ASP.NET', 'Blazor', 'Bootstrap', 'SQL Server'],
     featured: true,
   },
   {
@@ -51,7 +52,7 @@ const PROJECTS: Project[] = [
     description:
       'Sitio web oficial del instituto, dise\u00f1ado para optimizar la comunicaci\u00f3n institucional y el acceso a recursos acad\u00e9micos.',
     longDescription:
-      'Rediseño y modernización de la plataforma institucional (reemplazando su antigua versión en Google Sites). Este proyecto fue desarrollado en un equipo de dos personas. Estuve a cargo de liderar el diseño UI/UX utilizando Figma y la maquetación Frontend en Angular, logrando una interfaz moderna, limpia, completamente responsiva y con un rendimiento optimizado. Mi compañero se enfocó en el desarrollo de la API y el Backend para la gestión dinámica y el funcionamiento de los formularios de contacto. El proyecto cuenta con aprobación institucional y actualmente se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub, listo para su lanzamiento a producción mientras se finalizan los trámites del dominio oficial y la documentación final.',
+      'Rediseño y modernización de la plataforma institucional (reemplazando su antigua versión en Google Sites). Este proyecto fue desarrollado en un equipo de dos personas. \n\nEstuve a cargo de liderar el diseño UI/UX utilizando Figma y la maquetación Frontend en Angular, logrando una interfaz moderna, limpia, completamente responsiva y con un rendimiento optimizado. Mi compañero se enfocó en el desarrollo de la API y el Backend para la gestión dinámica y el funcionamiento de los formularios de contacto. \n\nEl proyecto cuenta con aprobación institucional y actualmente se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub, listo para su lanzamiento a producción mientras se finalizan los trámites del dominio oficial y la documentación final.',
     image: 'assets/img/ifts26.webp',
     images: ['assets/img/ifts26.webp'],
     status: 'finished',
@@ -68,7 +69,7 @@ const PROJECTS: Project[] = [
     description:
       'E-commerce tem\u00e1tico desarrollado para un evento de caridad, con gesti\u00f3n de pedidos en tiempo real y dise\u00f1o responsivo.',
     longDescription:
-      'Aplicaci\u00f3n web desarrollada como tienda digital para un evento ben\u00e9fico del grupo Scout San Patricio, con una tem\u00e1tica inmersiva de casos criminales al estilo Sherlock Holmes. Los asistentes al evento pod\u00edan explorar el men\u00fa de comidas y bebidas desde sus celulares, realizar pedidos y seguir el estado de su orden en tiempo real. La app se us\u00f3 con \u00e9xito durante todo el evento, procesando decenas de pedidos simult\u00e1neos. El backend en Node.js con Express gestiona los pedidos y el inventario en PostgreSQL, mientras que el frontend en React ofrece una experiencia visual atrapante con animaciones tem\u00e1ticas y dise\u00f1o mobile-first.',
+      'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático. Operó con éxito bajo presión, procesando más de 60 ventas reales simultáneas.\n\nEl sistema cuenta con dos interfaces: una experiencia mobile-first en React para los usuarios, donde exploraban el menú inmersivo y adjuntaban comprobantes de pago por transferencia; y un panel de administración para gestionar los estados del pedido (Abonado, Listo, Retirado).\n\nEl backend en Node.js, Express y PostgreSQL gestionó la lógica de inventario de forma robusta. Para optimizar la operación en vivo, integré notificaciones automáticas vía WhatsApp para avisar a los clientes cuando su orden estaba lista, y sincronicé los datos en tiempo real con Google Sheets para el control operativo de la cocina.',
     image: 'assets/img/sanpaholmes.webp',
     images: ['assets/img/sanpaholmes.webp'],
     status: 'finished',
@@ -85,7 +86,7 @@ const PROJECTS: Project[] = [
     description:
       'Plataforma de e-commerce con cat\u00e1logo din\u00e1mico, fichas de producto detalladas y un flujo de compra optimizado.',
     longDescription:
-      'Plataforma de e-commerce desarrollada en equipo enfocada en golosinas y productos de confiter\u00eda. Cuenta con un cat\u00e1logo din\u00e1mico con filtros por categor\u00eda y rango de precios, fichas de producto detalladas con galer\u00eda de im\u00e1genes, sistema de carrito de compras con persistencia y un flujo de compra paso a paso. El backend expone una API RESTful con Node.js y Express, mientras que React maneja el estado global del carrito con Context API. Los datos de productos y \u00f3rdenes se almacenan en PostgreSQL con un modelo relacional dise\u00f1ado para escalar el inventario.',
+      'Plataforma de e-commerce de golosinas y confitería, desarrollada en equipo como proyecto para la tecnicatura.\n\nEn este proyecto asumí un doble rol. Como Scrum Master, gestioné el flujo de trabajo utilizando Jira, redactando historias de usuario por módulos y facilitando ceremonias ágiles como las retrospectivas. Como desarrollador, me enfoqué en pulir el diseño web en React, asegurar el funcionamiento de la API RESTful (Node.js y Express) y lograr el despliegue del proyecto.\n\nLa aplicación incluye un catálogo dinámico, carrito de compras manejado con Context API y un flujo de checkout. Además, este desarrollo marcó un hito técnico personal al ser mi primera experiencia alojando y gestionando una base de datos relacional (PostgreSQL) en la nube.',
     image: 'assets/img/candyland.webp',
     images: ['assets/img/candyland.webp'],
     status: 'finished',
@@ -102,7 +103,7 @@ const PROJECTS: Project[] = [
     description:
       'Aplicaci\u00f3n web para descubrir videojuegos, integrando b\u00fasqueda avanzada, filtros por categor\u00eda y vistas de detalle.',
     longDescription:
-      'Aplicaci\u00f3n web colaborativa para explorar y descubrir videojuegos. Permite realizar b\u00fasquedas por nombre, filtrar por g\u00e9nero, plataforma y a\u00f1o de lanzamiento, y acceder a fichas detalladas con descripci\u00f3n, capturas de pantalla, calificaci\u00f3n y plataformas disponibles. El proyecto consumi\u00f3 la API p\u00fablica de RAWG para obtener la base de datos de juegos, mientras que el backend en Node.js agrega una capa de cach\u00e9 para reducir latencia y controlar los l\u00edmites de uso. El frontend fue construido con HTML, CSS puro y JavaScript vanilla, demostrando que se puede lograr una UX fluida sin frameworks.',
+      'Aplicación web colaborativa desarrollada en dupla como proyecto para la tecnicatura, enfocada en la exploración y descubrimiento de videojuegos "free-to-play".\n\nEl proyecto destaca por estar construido íntegramente con HTML, CSS y JavaScript puro (Vanilla JS), demostrando bases sólidas en el desarrollo web y manipulación del DOM sin depender de frameworks. La plataforma permite buscar títulos, filtrar por género o plataforma y acceder a fichas detalladas.\n\nPara poblar el catálogo, se integró y consumió la API pública de FreeToGame, logrando una experiencia de usuario fluida y dinámica. Este desarrollo representó un hito importante en mi formación, siendo una de mis primeras experiencias exitosas consumiendo APIs externas y gestionando un despliegue en Vercel.',
     image: 'assets/img/juegos.webp',
     images: ['assets/img/juegos.webp'],
     status: 'finished',
@@ -117,9 +118,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Cultura General Scout',
     description:
-      'Aplicaci\u00f3n m\u00f3vil interactiva de preguntas y respuestas, dise\u00f1ada para fomentar el aprendizaje mediante gamificaci\u00f3n.',
+      'Aplicación móvil interactiva de preguntas y respuestas, diseñada para fomentar el aprendizaje mediante gamificación.',
     longDescription:
-      'Aplicaci\u00f3n m\u00f3vil para j\u00f3venes scouts que combina trivia, cultura general y conocimiento movimentista. El sistema de gamificaci\u00f3n incluye puntuaci\u00f3n acumulativa, rachas de aciertos, insignias desbloqueables y ranking entre integrantes de la misma patrulla. Las preguntas, clasificadas por nivel de dificultad y categor\u00eda, se obtienen de un backend en Node.js con base de datos SQLite. Desarrollada con React Native para funcionar tanto en Android como en iOS, con sincronizaci\u00f3n offline que permite jugar sin conexi\u00f3n y sincronizar puntajes al recuperar internet.',
+      'Aplicación móvil gamificada de trivia y cultura scout, desarrollada con React Native y actualmente en etapa de codificación. Un proyecto personal orientado a fortalecer mis habilidades en desarrollo mobile y aportar una herramienta interactiva a mi comunidad.\n\nEl ciclo de vida del proyecto comenzó con una planificación exhaustiva y prototipado de interfaces (UI/UX) en Figma. A nivel técnico, la app destaca por su arquitectura "offline-first": utiliza una base de datos SQLite local en el dispositivo que permite jugar sin conexión en entornos de campamento. Al recuperar la conectividad, el sistema sincroniza los puntajes y descarga nuevas preguntas desde el servidor.\n\nCuenta con mecánicas de retención como rachas, insignias y un ranking entre patrullas. La distribución inicial será mediante APK para validación con usuarios reales, con proyección a ser publicada en la Google Play Store.',
     image: 'assets/img/cultura_general.webp',
     images: ['assets/img/cultura_general.webp'],
     status: 'in-dev',
@@ -132,9 +133,9 @@ const PROJECTS: Project[] = [
   {
     title: 'GeoDespertador',
     description:
-      'Aplicaci\u00f3n m\u00f3vil basada en geolocalizaci\u00f3n que alerta al usuario al aproximarse a zonas configuradas en el mapa.',
+      'Aplicación móvil basada en geolocalización que alerta al usuario al aproximarse a zonas configuradas en el mapa.',
     longDescription:
-      'Aplicaci\u00f3n m\u00f3vil que reemplaza las alarmas tradicionales por alertas geogr\u00e1ficas. El usuario configura zonas en un mapa interactivo y elige si quiere recibir la alerta al entrar o al salir de cada zona. Ideal para dormirse en el transporte p\u00fablico sin pasarse de parada. Usa la API de geolocalalizaci\u00f3n en background de React Native para monitorear la posici\u00f3n incluso con la pantalla apagada. Los datos de zonas y preferencias del usuario se persisten localmente con AsyncStorage, sin necesidad de backend ni conexi\u00f3n a internet.',
+      'GeoDespertador: Aplicación móvil de utilidad desarrollada en React Native, con el objetivo de ser publicada en las tiendas oficiales. Diseñada para resolver el problema cotidiano de pasarse de parada en el transporte público, reemplaza las alarmas de tiempo por alertas geográficas basadas en radio de distancia.\n\nEl proyecto destaca por su fuerte enfoque en UI/UX, planificado íntegramente en Figma. Implementé un flujo de onboarding amigable para educar al usuario antes de solicitar permisos sensibles, como el acceso al GPS en segundo plano (background geolocation).\n\nA nivel técnico, integra mapas nativos interactivos para la selección de zonas y funciona de manera 100% offline. Las preferencias, radios de alerta y ubicaciones guardadas se persisten localmente mediante AsyncStorage, garantizando un bajo consumo de datos y batería al no depender de un servidor externo.',
     image: 'assets/img/deoDespertador.webp',
     images: ['assets/img/deoDespertador.webp'],
     status: 'in-dev',
@@ -147,16 +148,16 @@ const PROJECTS: Project[] = [
   {
     title: 'Portfolio personal',
     description:
-      'Aplicaci\u00f3n web de alto rendimiento desarrollada para exhibir mi trayectoria, proyectos y habilidades t\u00e9cnicas.',
+      'Aplicación web de alto rendimiento desarrollada para exhibir mi trayectoria, proyectos y habilidades técnicas.',
     longDescription:
-      'Portfolio profesional desarrollado con Angular 20 y arquitectura standalone, dise\u00f1ado con foco en rendimiento, accesibilidad y experiencia visual. Implementa lazy loading con @defer para las secciones pesadas, animaciones CSS y Angular Animations coordinadas, detección de scroll con requestAnimationFrame para 60fps, tema claro/oscuro persistente v\u00eda CSS custom properties y modo de movimiento reducido. Incluye integraci\u00f3n con Cloudflare Turnstile para el formulario de contacto protegido contra bots, SEO con metadatos din\u00e1micos, paleta de comandos Ctrl+K y soporte i18n. Desplegado en Vercel con CI/CD autom\u00e1tico desde GitHub.',
+      'Portfolio profesional (marcostoledo.cv) desarrollado con Angular 20 bajo una arquitectura standalone. El proceso comenzó con un diseño detallado de UI/UX en Figma, priorizando la accesibilidad y una experiencia visual adaptable, con soporte para tema claro/oscuro persistente y preferencias de movimiento reducido.\n\nA nivel de rendimiento frontend, implementa lazy loading avanzado con @defer para los componentes más pesados y animaciones fluidas a 60fps coordinadas con requestAnimationFrame. Además, la plataforma es completamente bilingüe (español e inglés) y cuenta con optimización SEO mediante metadatos dinámicos.\n\nPara la gestión del contacto, desarrollé un backend propio en Node.js que procesa el formulario de forma segura, protegido contra bots mediante la integración de Cloudflare Turnstile. Todo el ecosistema se encuentra desplegado en Vercel con pipelines de CI/CD automatizados desde GitHub.',
     image: 'assets/img/portfolio.webp',
     images: ['assets/img/portfolio.webp'],
     status: 'finished',
     statusLabel: 'Finalizado',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['Angular'],
+    technologies: ['Angular', 'Node.js'],
     featured: false,
     githubUrl: 'https://github.com/marcostoledo96/portfolio',
   },
@@ -178,7 +179,7 @@ const FILTERS: FilterDef[] = [
 @Component({
   selector: 'app-seccion-portfolio',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ImagenFallbackComponent, ProjectModalComponent],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ImagenFallbackComponent, ProjectModalComponent, ScrollIndicatorComponent],
   templateUrl: './seccion-portfolio.component.html',
   styleUrls: ['./seccion-portfolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

@@ -1,0 +1,10 @@
+<div class="scroll-indicator"
+     role="button"
+     tabindex="0"
+     [attr.aria-label]="'Ir a la siguiente sección'"
+     (click)="scrollToTarget()"
+     (keydown.enter)="scrollToTarget()"
+     (keydown.space)="$event.preventDefault(); scrollToTarget()">
+  <span class="scroll-indicator__text">{{ label }}</span>
+  <i data-lucide="chevron-down" class="scroll-indicator__icon"></i>
+</div>

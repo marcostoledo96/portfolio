@@ -3,6 +3,7 @@ import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
+import { ScrollIndicatorComponent } from '../../scroll-indicator/scroll-indicator.component';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
@@ -57,7 +58,7 @@ const SOFT_SKILLS: SoftSkill[] = [
 @Component({
   selector: 'app-seccion-habilidades-blandas',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ScrollIndicatorComponent],
   templateUrl: './seccion-habilidades-blandas.component.html',
   styleUrls: ['./seccion-habilidades-blandas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos

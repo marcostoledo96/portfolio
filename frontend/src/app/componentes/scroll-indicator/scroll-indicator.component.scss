@@ -1,0 +1,46 @@
+@use '../../../styles/variables' as *;
+
+// El host se comporta como bloque para ocupar el ancho del padre
+:host {
+  display: block;
+}
+
+// Contenedor centrado al pie de cada sección
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem 1.5rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  user-select: none;
+  transition: color 0.25s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--portfolio-accent);
+  }
+
+  &__text {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    font-family: $font-code;
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+    animation: scrollIndicatorBounce 2s ease-in-out infinite;
+    stroke-width: 1.5;
+  }
+}
+
+@keyframes scrollIndicatorBounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.4; }
+  50%       { transform: translateY(6px); opacity: 1;   }
+}

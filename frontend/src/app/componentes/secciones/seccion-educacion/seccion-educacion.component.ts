@@ -3,6 +3,7 @@ import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
+import { ScrollIndicatorComponent } from '../../scroll-indicator/scroll-indicator.component';
 
 declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 
@@ -23,7 +24,7 @@ interface Education {
 @Component({
   selector: 'app-seccion-educacion',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective],
+  imports: [CommonModule, AnimateOnScrollDirective, ParallaxDirective, ScrollIndicatorComponent],
   templateUrl: './seccion-educacion.component.html',
   styleUrls: ['./seccion-educacion.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos
