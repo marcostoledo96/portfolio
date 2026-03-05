@@ -110,8 +110,10 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
 
     this.turnstileWidgetId = turnstile.render('#turnstile-container', {
       sitekey: environment.turnstileSiteKey,
-      theme: 'auto', // Respeta el esquema claro/oscuro del sistema
-      // Token válido: se activa cuando el usuario pasa la verificación
+      theme: 'auto',
+      // interaction-only: invisible para usuarios normales, solo aparece ante actividad sospechosa
+      appearance: 'interaction-only',
+      // Token válido: Cloudflare emite el token automáticamente al detectar usuario legítimo
       callback: (token: string) => {
         this.ngZone.run(() => { this.turnstileToken = token; this.cdr.markForCheck(); });
       },

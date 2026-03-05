@@ -123,8 +123,23 @@
                 }
               </div>
 
-              <!-- Cloudflare Turnstile CAPTCHA real — el widget se inyecta aquí dinámicamente -->
+              <!-- Cloudflare Turnstile — interaction-only: invisible para usuarios legítimos -->
+              <!-- El widget se inyecta aquí; ocupa 0px cuando no hay desafío activo -->
               <div id="turnstile-container" class="contact__captcha-widget"></div>
+
+              <!-- Indicador de estado del CAPTCHA integrado al diseño del formulario -->
+              <div class="contact__captcha-status" [class.contact__captcha-status--ok]="turnstileToken">
+                @if (!turnstileToken) {
+                  <!-- Spinner mientras Cloudflare evalúa en background -->
+                  <span class="contact__captcha-spinner" aria-hidden="true"></span>
+                  <span class="contact__captcha-status-text">Verificando...</span>
+                } @else {
+                  <!-- Check verde cuando el token fue emitido -->
+                  <i data-lucide="shield-check" class="contact__captcha-status-icon" aria-hidden="true"></i>
+                  <span class="contact__captcha-status-text">Protección activa</span>
+                }
+                <span class="contact__captcha-brand" aria-label="Verificado por Cloudflare">Cloudflare</span>
+              </div>
 
               <!-- Botón de envío: deshabilitado mientras se está enviando o el CAPTCHA no pasó -->
               <button type="submit" class="contact__submit" [disabled]="sending || !turnstileToken">
