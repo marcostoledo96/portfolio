@@ -47,8 +47,9 @@
         >
           <!-- cardEl se pasa a onMouseMove/onMouseLeave para el efecto tilt 3D -->
           <div
-            class="port__card"
+            class="port__card port__card--clickable"
             #cardEl
+            (click)="openModal(project)"
             (mousemove)="onMouseMove($event, cardEl)"
             (mouseleave)="onMouseLeave(cardEl)"
           >
@@ -61,6 +62,14 @@
                 loading="lazy"
               ></app-imagen-fallback>
               <div class="port__card-overlay"></div>
+
+              <!-- Overlay de hover: aparece oscuro con label centrado al pasar el mouse -->
+              <div class="port__card-hover-overlay">
+                <span class="port__card-hover-label">
+                  <i data-lucide="zoom-in" class="port__card-hover-icon"></i>
+                  Ver proyecto
+                </span>
+              </div>
 
               <!-- Badge "Destacado" (solo si project.featured es true) -->
               @if (project.featured) {

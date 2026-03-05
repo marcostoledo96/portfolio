@@ -178,6 +178,9 @@
     &:hover .port__hover-badges { opacity: 1; }
   }
 
+  // Tarjeta clicable: cursor pointer
+  &__card--clickable { cursor: pointer; }
+
   // --- Imagen de portada con relación de aspecto fija 16:9 ---
   &__card-img-wrap {
     position: relative;
@@ -195,6 +198,38 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
+
+  // Overlay semitransparente centrado que aparece al hacer hover sobre la tarjeta
+  &__card-hover-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 3;
+  }
+  &__card:hover &__card-hover-overlay {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  // Pill pill pill de texto que sube desde abajo en el hover
+  &__card-hover-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 0.78rem; font-weight: 600;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  &__card:hover &__card-hover-label {
+    opacity: 1; transform: translateY(0);
+  }
+  &__card-hover-icon { width: 15px; height: 15px; }
 
   // Badge "Destacado" superpuesto en top-left de la imagen
   &__featured-badge {
