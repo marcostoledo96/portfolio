@@ -95,16 +95,18 @@
 
     <!-- Social buttons -->
     <div class="hero__socials hero__fade" style="animation-delay: 0.7s">
-      <a *ngFor="let s of socials"
+      <a *ngFor="let s of socials; let i = index"
         class="hero__social-btn"
+        [class.hero__social-btn--confirmed]="confirmedIdx === i"
         [href]="s.href"
         [target]="isExternal(s.href) ? '_blank' : null"
         [download]="isDownload(s.href) ? '' : null"
         rel="noopener noreferrer"
-        [attr.aria-label]="s.label">
+        [attr.aria-label]="s.label"
+        (click)="onSocialClick($event, i, s)">
         <i [attr.data-lucide]="s.icon"></i>
         <span class="hero__social-tooltip">
-          {{ s.label }}
+          {{ confirmedIdx === i ? 'Toca de nuevo ↵' : s.label }}
           <span class="hero__social-tooltip-arrow"></span>
         </span>
       </a>

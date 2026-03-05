@@ -42,10 +42,14 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
   displayText = '';
   counters: number[] = [0, 0];
 
+  /** Índice del botón social confirmado en mobile (null = ninguno) */
+  confirmedIdx: number | null = null;
+
   private charIdx = 0;
   private deleting = false;
   private timer: any;
   private pauseTimer: any;
+  private confirmTimer: any;
   private countersStarted = false;
 
   constructor(private cdr: ChangeDetectorRef) {}
@@ -65,6 +69,7 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     clearTimeout(this.timer);
     clearTimeout(this.pauseTimer);
+    clearTimeout(this.confirmTimer);
   }
 
   goTo(index: number): void {
@@ -143,6 +148,50 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isDownload(href: string): boolean {
     return href.startsWith('assets/');
+  }
+
+  /**
+   * En mobile (touch device o viewport < 1024px):
+   *   - Primer tap: muestra el tooltip de confirmación, bloquea la acción.
+   *   - Segundo tap en el mismo botón: ejecuta la acción (abrir URL / descargar).
+   * En desktop: no hace nada; el href nativo del <a> gestiona la acción.
+   */
+  onSocialClick(event: MouseEvent, index: number, social: { href: string; label: string }): void {
+    const isMobile = ('ontouchstart' in window) || window.innerWidth < 1024;
+    if (!isMobile) return;
+
+    // Siempre bloquar la acción nativa del <a> en mobile
+    event.preventDefault();
+
+    if (this.confirmedIdx === index) {
+      // Segundo tap: ejecutar acción
+      this.confirmedIdx = null;
+      clearTimeout(this.confirmTimer);
+      this.cdr.markForCheck();
+
+      if (this.isDownload(social.href)) {
+        const a = document.createElement('a');
+        a.href = social.href;
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else if (social.href.startsWith('mailto:')) {
+        window.location.href = social.href;
+      } else {
+        window.open(social.href, '_blank', 'noopener,noreferrer');
+      }
+      return;
+    }
+
+    // Primer tap: mostrar tooltip de confirmación durante 3 s
+    this.confirmedIdx = index;
+    this.cdr.markForCheck();
+    clearTimeout(this.confirmTimer);
+    this.confirmTimer = setTimeout(() => {
+      this.confirmedIdx = null;
+      this.cdr.markForCheck();
+    }, 3000);
   }
 
   scrollTo(sectionId: string, block: ScrollLogicalPosition = 'start'): void {
