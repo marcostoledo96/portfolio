@@ -13,8 +13,10 @@
     <div class="mobile-header__blob"></div>
   </div>
 
-  <!-- Logo: iniciales "MT" con colores diferenciados -->
-  <div class="mobile-header__logo">
+  <!-- Logo: iniciales "MT" — clic vuelve al inicio -->
+  <div class="mobile-header__logo" (click)="scrollToTop()" role="button" tabindex="0"
+    aria-label="Volver al inicio"
+    (keydown.enter)="scrollToTop()">
     <span class="mobile-header__logo-m">M</span>
     <span class="mobile-header__logo-t">T</span>
   </div>

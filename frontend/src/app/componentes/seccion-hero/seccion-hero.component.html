@@ -105,10 +105,13 @@
         [attr.aria-label]="s.label"
         (click)="onSocialClick($event, i, s)">
         <i [attr.data-lucide]="s.icon"></i>
+        <!-- Tooltip para desktop (hover) -->
         <span class="hero__social-tooltip">
-          {{ confirmedIdx === i ? 'Toca de nuevo ↵' : s.label }}
+          {{ s.label }}
           <span class="hero__social-tooltip-arrow"></span>
         </span>
+        <!-- Label siempre visible en mobile, cambia al confirmar -->
+        <span class="hero__social-label">{{ confirmedIdx === i ? 'Toca de nuevo' : s.label }}</span>
       </a>
     </div>
   </div>

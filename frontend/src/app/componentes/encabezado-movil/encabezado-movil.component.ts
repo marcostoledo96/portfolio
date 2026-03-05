@@ -32,6 +32,11 @@ export class EncabezadoMovilComponent implements AfterViewInit {
     }
   }
 
+  /** Desplaza suavemente la página al inicio */
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   // Emite el toggle al padre para que invierta el estado del drawer
   onToggle(): void {
     this.toggleDrawer.emit();

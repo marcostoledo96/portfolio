@@ -42,10 +42,14 @@
     animation: headerBlob 10s ease-in-out infinite;
   }
 
-  // Logo de iniciales: "M" en color acento, "T" en color de texto
+  // Logo de iniciales: "M" en color acento, "T" en color de texto — clic vuelve al inicio
   &__logo {
     display: flex; align-items: center; gap: 0.25rem;
     position: relative; z-index: 1;
+    cursor: pointer;
+    outline: none;
+    transition: opacity $transition-base;
+    &:hover, &:focus-visible { opacity: 0.75; }
     &-m { font-size: 1.5rem; font-weight: 700; color: var(--portfolio-accent); }
     &-t { font-size: 1.5rem; font-weight: 700; color: var(--foreground); }
   }

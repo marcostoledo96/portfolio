@@ -295,8 +295,8 @@
   // --- Socials ---
   &__socials {
     display: flex; align-items: center; gap: 0.75rem;
-    // Separar de scroll indicator en mobile (que es position:absolute bottom:2rem)
-    @include mobile-only { margin-bottom: 5rem; }
+    // Separar del scroll indicator en mobile (position:absolute bottom:2rem)
+    @include mobile-only { margin-bottom: 3.5rem; }
   }
   &__social-btn {
     position: relative;
@@ -316,7 +316,15 @@
       box-shadow: 0 4px 16px var(--portfolio-accent-glow);
     }
     &:hover .hero__social-tooltip { opacity: 1; }
-    // Mostrar tooltip en mobile cuando el botón está en estado "confirmar"
+    // Ocultar tooltip en mobile (se usa el label fijo debajo del icóno)
+    @include mobile-only {
+      flex-direction: column;
+      width: auto;
+      height: auto;
+      padding: 0.45rem 0.6rem;
+      .hero__social-tooltip { display: none !important; }
+    }
+    // Mostrar tooltip en desktop cuando el botón está en estado "confirmar" (no aplica mobile)
     &--confirmed .hero__social-tooltip { opacity: 1; pointer-events: none; }
     // Resaltar visualmente el botón confirmado (ring de acento)
     &--confirmed {
@@ -324,6 +332,7 @@
       color: var(--portfolio-accent);
       background: var(--portfolio-accent-glow);
       box-shadow: 0 0 0 2px var(--portfolio-accent-glow), 0 4px 16px var(--portfolio-accent-glow);
+      .hero__social-label { color: var(--portfolio-accent); }
     }
   }
   &__social-tooltip {
@@ -339,6 +348,22 @@
     opacity: 0; pointer-events: none;
     transition: opacity $transition-base;
     z-index: 10;
+  }
+  // Label fijo debajo del icóno — solo mobile
+  &__social-label {
+    display: none;
+    @include mobile-only {
+      display: block;
+      font-size: 0.58rem;
+      font-weight: 500;
+      font-family: $font-code;
+      text-align: center;
+      margin-top: 3px;
+      color: var(--muted-foreground);
+      white-space: nowrap;
+      line-height: 1;
+      pointer-events: none;
+    }
   }
   &__social-tooltip-arrow {
     position: absolute;
