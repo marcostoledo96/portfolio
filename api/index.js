@@ -17,6 +17,13 @@ const transporter = nodemailer.createTransport({
  */
 async function verificarTurnstile(token, remoteIp) {
   if (!token) return false;
+
+  // Si no hay secret configurada (variable de entorno faltante), logueamos y rechazamos
+  if (!process.env.TURNSTILE_SECRET) {
+    console.error('❌ TURNSTILE_SECRET no configurada en las variables de entorno de Vercel.');
+    return false;
+  }
+
   try {
     const resp = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
@@ -24,13 +31,17 @@ async function verificarTurnstile(token, remoteIp) {
       body: JSON.stringify({
         secret: process.env.TURNSTILE_SECRET,
         response: token,
-        remoteip: remoteIp, // Opcional pero mejora la precisión del análisis de Cloudflare
+        remoteip: remoteIp,
       }),
     });
     const data = await resp.json();
+    if (!data.success) {
+      console.error('❌ Turnstile rechazó el token:', data['error-codes']);
+    }
     return data.success === true;
-  } catch {
-    return false; // Error de red: rechazar por seguridad
+  } catch (err) {
+    console.error('❌ Error llamando a Turnstile siteverify:', err);
+    return false;
   }
 }
 // Reglas de validación aplicadas antes de procesar cada request.
