@@ -113,6 +113,7 @@
                   <a [href]="project.siteUrl" target="_blank" rel="noopener noreferrer"
                      class="port__action-btn port__action-btn--primary"
                      [class.port__action-btn--full]="!project.githubUrl"
+                     (click)="$event.stopPropagation()"
                   >
                     <i data-lucide="external-link" class="port__action-icon"></i>
                     Demo
@@ -123,6 +124,7 @@
                   <a [href]="project.githubUrl" target="_blank" rel="noopener noreferrer"
                      class="port__action-btn port__action-btn--secondary"
                      [class.port__action-btn--full]="!project.siteUrl"
+                     (click)="$event.stopPropagation()"
                   >
                     <i data-lucide="github" class="port__action-icon"></i>
                     Código

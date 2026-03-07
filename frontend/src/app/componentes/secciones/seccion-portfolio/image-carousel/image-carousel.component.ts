@@ -66,17 +66,17 @@ export class ImageCarouselComponent implements OnInit {
     }
   }
 
-  prev(event: MouseEvent): void {
+  prev(event: Event): void {
     event.stopPropagation();
     this.goTo(this.currentIndex - 1);
   }
 
-  next(event: MouseEvent): void {
+  next(event: Event): void {
     event.stopPropagation();
     this.goTo(this.currentIndex + 1);
   }
 
-  onZoom(event: MouseEvent): void {
+  onZoom(event: Event): void {
     event.stopPropagation();
     this.zoom.emit(this.currentIndex);
   }

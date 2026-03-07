@@ -1,22 +1,22 @@
 <!-- Contenedor principal del carousel; las flechas y el zoom aparecen en hover -->
 <div class="caro">
 
-  <!-- Imagen activa con animación crossfade al cambiar currentIndex -->
+  <!-- Imagen activa: clic directo la amplía en el lightbox -->
   <img
     [@imgFade]="currentIndex"
     [src]="images[currentIndex]"
     [alt]="title"
     class="caro__img"
     draggable="false"
+    (click)="onZoom($event)"
+    [attr.aria-label]="'Ampliar imagen ' + title"
+    role="button"
+    tabindex="0"
+    (keydown.enter)="onZoom($event)"
   />
 
   <!-- Gradiente oscuro en la parte inferior para mejorar la legibilidad de los controles -->
   <div class="caro__gradient"></div>
-
-  <!-- Botón de zoom — top-left, visible en hover del contenedor -->
-  <button class="caro__zoom-btn" (click)="onZoom($event)" [attr.aria-label]="'Ampliar imagen ' + title" type="button">
-    <i data-lucide="zoom-in" class="caro__zoom-icon"></i>
-  </button>
 
   <!-- Controles de navegación y contador; solo cuando hay más de una imagen -->
   @if (images.length > 1) {

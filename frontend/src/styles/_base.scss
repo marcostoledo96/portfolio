@@ -199,9 +199,23 @@ body.drawer-open {
   }
 }
 
+// En mobile, todas las secciones deben mostrar su inicio justo debajo del header fijo (56px)
+@media (max-width: 1023px) {
+  section[id] {
+    scroll-margin-top: 56px;  // $mobile-header-height — evita que el header tape el inicio
+  }
+}
+
 // Footer centrado al pie de cada sección para el indicador de scroll
 .section-scroll-footer {
   display: flex;
   justify-content: center;
   padding-bottom: 0.5rem;
+
+  // En mobile: sticky al block-start (pega bajo el header fijo cuando el usuario llega al final de la sección)
+  @media (max-width: 767px) {
+    position: sticky;
+    top: 56px;        // $mobile-header-height
+    z-index: 20;
+  }
 }

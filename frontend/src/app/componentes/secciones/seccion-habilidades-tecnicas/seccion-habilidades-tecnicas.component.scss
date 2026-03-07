@@ -76,16 +76,21 @@
   }
   .accent { color: var(--portfolio-accent); }
 
-  // --- Grilla: flex-wrap con cards de 150px fijos, centradas en todas las filas ---
-  // El número de columnas va de 2 (mobile) hasta 6 (xl) según el espacio disponible
+  // --- Grilla: siempre 2 columnas en mobile, más desde md en adelante ---
   &__grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  // Siempre 2 columnas en mobile
+    gap: 0.75rem;
+    justify-items: center;
 
     @include sm { gap: 1.25rem; }
-    @include xl { gap: 1.5rem;  }
+    @include md {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      justify-content: center;
+    }
+    @include xl { gap: 1.5rem; }
   }
 
   // --- Leyenda de colores: punto verde = práctica, punto morado = en formación ---
@@ -130,6 +135,18 @@
 }
 
 // ═══════════════════════════════════════
+// En mobile, las cards dentro de la grilla llenan la celda (2 columnas)
+// Las cards fuera de la grilla (Proactividad) mantienen su tamaño fijo
+// ═══════════════════════════════════════
+@media (max-width: 767px) {
+  .tech__grid .flip-card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+// ═══════════════════════════════════════
 // Tarjeta 3D con flip: perspective en el contenedor, rotateY en __inner
 // ═══════════════════════════════════════
 .flip-card {
@@ -140,6 +157,17 @@
   cursor: pointer;
   user-select: none;
   transition: transform 0.3s ease;
+
+  // En pantallas muy pequeñas, reduce el tamaño del contenido proporcionalmente
+  @media (max-width: 380px) {
+    .flip-card__icon-wrap img,
+    .flip-card__icon-wrap svg { width: 38px; height: 38px; }
+    .flip-card__name          { font-size: 0.72rem; }
+    .flip-card__context       { font-size: 0.62rem; }
+    .flip-card__tag           { font-size: 0.52rem; padding: 2px 6px; }
+    .flip-card__star          { width: 12px; height: 12px; }
+    .flip-card__trending-icon { width: 32px; height: 32px; }
+  }
 
   &:hover {
     transform: translateY(-4px);

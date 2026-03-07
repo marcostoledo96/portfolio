@@ -15,7 +15,7 @@
   @media (min-width: 640px) { height: 14rem; } // ~h-56
 
   // ------------------------------------------------------------------
-  // Imagen activa
+  // Imagen activa: cursor zoom-in indica que se puede ampliar con un clic
   // ------------------------------------------------------------------
   &__img {
     position: absolute; inset: 0;
@@ -23,6 +23,10 @@
     object-fit: cover;
     user-select: none;
     will-change: opacity; // GPU layer para la transición crossfade
+    cursor: zoom-in;
+    transition: transform 0.3s ease, opacity 0s;
+
+    &:hover { transform: scale(1.02); }
   }
 
   // ------------------------------------------------------------------
@@ -39,33 +43,6 @@
     pointer-events: none;
     z-index: 1;
   }
-
-  // ------------------------------------------------------------------
-  // Botón de zoom (top-left, visible en hover del host)
-  // ------------------------------------------------------------------
-  &__zoom-btn {
-    position: absolute; top: 0.75rem; left: 0.75rem;
-    z-index: 3;
-    display: flex; align-items: center; justify-content: center;
-    width: 2rem; height: 2rem;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #fff;
-    cursor: pointer;
-    opacity: 0;
-    transform: scale(0.85);
-    transition: opacity 0.25s, transform 0.25s, background 0.2s;
-
-    &:hover { background: rgba(0, 0, 0, 0.65); }
-  }
-  // Mostrar el botón zoom cuando se hace hover sobre el contenedor
-  &:hover &__zoom-btn {
-    opacity: 1;
-    transform: scale(1);
-  }
-  &__zoom-icon { width: 14px; height: 14px; }
 
   // ------------------------------------------------------------------
   // Counter badge "1 / 3" (top-right desplazado para no solapar con el

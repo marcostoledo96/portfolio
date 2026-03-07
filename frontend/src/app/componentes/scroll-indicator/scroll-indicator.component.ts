@@ -27,7 +27,10 @@ export class ScrollIndicatorComponent implements AfterViewInit {
   }
 
   scrollToTarget(): void {
-    const block = this.centerSections.includes(this.targetId) ? 'center' : 'start';
+    // En mobile (sin sidebar, < 1024px) siempre se va al start para mostrar desde el inicio
+    const isMobile = window.innerWidth < 1024;
+    const block = isMobile ? 'start'
+      : (this.centerSections.includes(this.targetId) ? 'center' : 'start');
     const el = document.getElementById(this.targetId);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block });

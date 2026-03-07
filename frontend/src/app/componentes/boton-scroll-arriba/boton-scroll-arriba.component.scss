@@ -4,12 +4,18 @@
   display: contents;
 }
 
-// Botón circular fijo en la esquina inferior derecha
+// Botón circular fijo en la esquina inferior derecha (desktop) / superior derecha (mobile)
 .scroll-top-btn {
   position: fixed;      // Se mantiene fijo respecto al viewport al hacer scroll
   bottom: 1.5rem;
   right: 1.5rem;
   z-index: 40;          // Por encima de la mayoría del contenido
+
+  // En mobile: reposiciona al block-start (debajo del header fijo)
+  @media (max-width: 767px) {
+    bottom: auto;
+    top: 4.25rem;        // Justo debajo del encabezado móvil
+  }
   width: 3rem;
   height: 3rem;
   border: none;

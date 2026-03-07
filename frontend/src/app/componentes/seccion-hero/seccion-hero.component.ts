@@ -145,7 +145,9 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
     return href.startsWith('assets/');
   }
 
-  scrollTo(sectionId: string, block: ScrollLogicalPosition = 'start'): void {
+  scrollTo(sectionId: string, desktopBlock: ScrollLogicalPosition = 'start'): void {
+    const isMobile = window.innerWidth < 1024;
+    const block: ScrollLogicalPosition = isMobile ? 'start' : desktopBlock;
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block });
   }
 }

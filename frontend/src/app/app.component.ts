@@ -203,9 +203,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
-    // Secciones cortas: quedan mejor centradas verticalmente que pegadas al top
+    // En mobile (sin sidebar) siempre se va al start; en desktop las secciones cortas se centran
     const centerSections = ['idiomas', 'contacto', 'sobre-mi'];
-    const block: ScrollLogicalPosition = centerSections.includes(sectionId) ? 'center' : 'start';
+    const isMobile = window.innerWidth < 1024;
+    const block: ScrollLogicalPosition =
+      isMobile ? 'start' : (centerSections.includes(sectionId) ? 'center' : 'start');
 
     // Esperar doble rAF para que Angular renderice las secciones forzadas
     requestAnimationFrame(() => {
