@@ -26,7 +26,7 @@ const ALL_SKILLS: Skill[] = [
   { name: 'JavaScript',    tag: 'active',   tagLabel: 'En práctica',        context: 'Lógica de negocio, manejo del DOM e integración de APIs.',             level: 3 },
   { name: 'TypeScript',    tag: 'learning', tagLabel: 'En formación',       context: 'Tipado estricto para código escalable en Angular y React.',            level: 2 },
   { name: 'Angular',       tag: 'learning', tagLabel: 'En formación',       context: 'Desarrollo de SPAs modulares (Ej: sitio IFTS N°26).',                 level: 3 },
-  { name: 'React',         tag: 'learning', tagLabel: 'En formación',       context: 'Proyectos grupales en la tecnicatura y portfolio personal.',           level: 2 },
+  { name: 'React',         tag: 'learning', tagLabel: 'En formación',       context: 'Proyectos grupales en la tecnicatura (Ej: Tienda CandyLand).',         level: 2 },
   { name: 'React Native',  tag: 'learning', tagLabel: 'En formación',       context: 'Apps móviles multiplataforma (Ej: GeoDespertador).',                  level: 2 },
   { name: 'Java',          tag: 'inactive', tagLabel: 'Experiencia previa', context: 'POO aplicada en la materia de Programación del instituto.',            level: 2 },
   { name: 'Node.js',       tag: 'active',   tagLabel: 'En práctica',        context: 'Backend principal para APIs en proyectos personales.',                 level: 2 },
