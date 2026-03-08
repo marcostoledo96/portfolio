@@ -39,7 +39,7 @@ const CONTACT_LINKS: ContactLink[] = [
     icon: 'linkedin',
     label: 'LinkedIn',
     value: 'Marcos Ezequiel Toledo',
-    href: 'https://linkedin.com/in/marcostoledo96',
+    href: 'https://www.linkedin.com/in/marcos-ezequiel-toledo',
     color: '#0a66c2',
   },
   {

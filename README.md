@@ -172,7 +172,7 @@ El deploy a Vercel se dispara automáticamente en cada push a `main`.
 ## Contacto
 
 - **GitHub:** [@marcostoledo96](https://github.com/marcostoledo96)
-- **LinkedIn:** [Marcos Ezequiel Toledo](https://linkedin.com/in/marcostoledo96)
+- **LinkedIn:** [Marcos Ezequiel Toledo](https://www.linkedin.com/in/marcos-ezequiel-toledo)
 - **Email:** marcostoledo96@gmail.com
 
 ---

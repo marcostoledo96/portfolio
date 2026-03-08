@@ -56,7 +56,7 @@ export class SeoService {
       url: SITE_URL,
       sameAs: [
         'https://github.com/marcostoledo96',
-        'https://linkedin.com/in/marcostoledo96',
+        'https://www.linkedin.com/in/marcos-ezequiel-toledo',
       ],
       address: {
         '@type': 'PostalAddress',

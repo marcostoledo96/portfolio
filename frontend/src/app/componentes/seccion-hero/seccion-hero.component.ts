@@ -16,7 +16,7 @@ const PHRASES = [
 
 const SOCIALS = [
   { icon: 'github', label: 'GitHub', href: 'https://github.com/marcostoledo96' },
-  { icon: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/marcostoledo96' },
+  { icon: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/marcos-ezequiel-toledo' },
   { icon: 'mail', label: 'Email', href: 'mailto:marcostoledo96@gmail.com' },
   { icon: 'download', label: 'Descargar CV', href: 'assets/doc/CV_ToledoMarcos_IT.pdf' },
 ];
