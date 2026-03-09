@@ -46,7 +46,7 @@
             "online": true,
             "tecnologias": ["React", "Node.js", "PostgreSQL"],
             "urlSitio": "https://demo-sanpaholmes.vercel.app/",
-            "urlGithub": "https://github.com/marcostoledo96/demo_sanpaholmes"
+            "urlGithub": "https://github.com/marcostoledo96/sanpaholmes"
         },
         {
             "id": "ifts26",

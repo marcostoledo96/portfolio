@@ -83,7 +83,7 @@ const PROJECTS: Project[] = [
     technologies: ['Angular'],
     featured: true,
     siteUrl: 'https://ifts26.netlify.app',
-    githubUrl: 'https://github.com/marcostoledo96/ifts26',
+    githubUrl: 'https://github.com/FedeOsorio/IFTS26',
   },
   {
     title: 'Tienda SanpaHolmes',
@@ -109,7 +109,7 @@ const PROJECTS: Project[] = [
     technologies: ['React', 'Node.js', 'PostgreSQL'],
     featured: true,
     siteUrl: 'https://demo-sanpaholmes.vercel.app',
-    githubUrl: 'https://github.com/marcostoledo96/tienda-sanpaholmes',
+    githubUrl: 'https://github.com/marcostoledo96/sanpaholmes',
   },
   {
     title: 'Tienda CandyLand',
@@ -133,7 +133,7 @@ const PROJECTS: Project[] = [
     technologies: ['React', 'Node.js', 'PostgreSQL'],
     featured: false,
     siteUrl: 'https://candy-land-mvp.vercel.app',
-    githubUrl: 'https://github.com/marcostoledo96/candy-land',
+    githubUrl: 'https://github.com/marcostoledo96/candyLand-mvp',
   },
   {
     title: 'Explorador de Juegos',
@@ -156,7 +156,7 @@ const PROJECTS: Project[] = [
     technologies: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
     featured: false,
     siteUrl: 'https://explorador-gamerstore.vercel.app',
-    githubUrl: 'https://github.com/marcostoledo96/explorador-juegos',
+    githubUrl: 'https://github.com/marcostoledo96/explorador_juegos',
   },
   {
     title: 'Cultura General Scout',
