@@ -1,4 +1,4 @@
-// Estilos de la sección Experiencia: tarjeta única con roles, métricas, responsabilidades y tecnologías.
+// Estilos de la sección Experiencia: acordeón con múltiples entradas expandibles.
 @use '../../../../styles/variables' as *;
 @use '../../../../styles/mixins' as *;
 
@@ -21,9 +21,9 @@
   }
   &__bg-dots {
     position: absolute; inset: 0;
-    opacity: 0.04; // Muy sutil para no competir con el contenido
+    opacity: 0.04;
     background-image: radial-gradient(circle, var(--foreground) 1px, transparent 1px);
-    background-size: 32px 32px; // Grilla de puntos espaciados
+    background-size: 32px 32px;
   }
   &__bg-blob {
     position: absolute;
@@ -52,21 +52,22 @@
     }
   }
 
-  // --- Contenedor centrado con z-index para quedar sobre el fondo ---
+  // --- Contenedor centrado ---
   &__container {
     position: relative; z-index: 1;
-    max-width: 76rem; margin: 0 auto;
+    max-width: 720px; margin: 0 auto; // Alineado con muestra (max-w-[720px])
   }
 
-  // --- Encabezado: ícono + título + línea decorativa ---
+  // --- Encabezado de sección ---
   &__header {
     display: flex; align-items: center; gap: 0.75rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 
-    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); }
+    &-icon { width: 24px; height: 24px; color: var(--portfolio-accent); flex-shrink: 0; }
     &-title {
       font-size: 1.5rem; font-weight: 600;
       color: var(--foreground);
+      white-space: nowrap;
     }
     &-line {
       flex: 1; height: 1px;
@@ -74,168 +75,251 @@
       margin-left: 0.5rem;
     }
   }
-  .accent { color: var(--portfolio-accent); }
+  &__accent { color: var(--portfolio-accent); }
 
-  // --- Tarjeta principal: hover con sombra y borde de acento ---
-  &__card {
+  // --- Lista de entradas del acordeón ---
+  &__list {
+    display: flex; flex-direction: column;
+    gap: 1rem; // Separación entre tarjetas como en muestra (space-y-4)
+  }
+
+  // --- Tarjeta de una experiencia ---
+  // El wrapper tiene border visible; al abrirse, el borde cambia de color sutilmente
+  &__entry {
     background: var(--portfolio-card-bg);
     border: 1px solid var(--portfolio-card-border);
     border-radius: $radius-2xl;
-    padding: 1.5rem;
+    overflow: hidden; // Necesario para que el expand/collapse no desborde la card
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color $transition-slow, box-shadow $transition-slow;
+
+    &--open {
+      border-color: rgba(var(--portfolio-accent-rgb), 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  // --- Header clickeable de cada entrada ---
+  &__entry-header {
+    width: 100%; text-align: left;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 0.75rem;
+    padding: 1.25rem;
+    background: transparent;
+    border: none; cursor: pointer;
+    transition: background $transition-base;
+
+    @include sm { padding: 1.5rem; }
 
     &:hover {
-      border-color: rgba(var(--portfolio-accent-rgb), 0.3);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      // Fondo muy sutil al hacer hover para indicar clickeabilidad
+      background: color-mix(in srgb, var(--portfolio-accent) 4%, transparent);
     }
-
-    @include sm { padding: 2rem; }
   }
 
-  // Nombre de la empresa: peso fuerte con tracking leve
+  // Columna con todos los datos textuales del header
+  &__entry-header-body {
+    flex: 1; min-width: 0;
+  }
+
+  // Fila con nombre de empresa y período
+  &__entry-top {
+    display: flex; flex-wrap: wrap;
+    align-items: center; gap: 0.5rem 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
   &__company {
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    font-size: 1.05rem; font-weight: 700;
+    letter-spacing: 0.01em;
     color: var(--foreground);
-    margin-bottom: 0.125rem;
   }
 
-  // Subtítulo descriptivo de la empresa (tipo y rubro)
-  &__subtitle {
-    font-size: 0.88rem;
-    color: var(--muted-foreground);
-    margin-bottom: 0.75rem;
+  &__period {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.74rem; color: var(--muted-foreground);
+    flex-shrink: 0;
+    i { width: 12px; height: 12px; color: var(--portfolio-accent); }
   }
 
-  // Fila de metadatos: ubicación y período con íconos pequeños
+  // Rol principal en color de acento
+  &__role {
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--portfolio-accent);
+    margin-bottom: 0.25rem;
+  }
+
+  // Subtítulo y ubicación en la misma línea
   &__meta {
     display: flex; flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem 1rem;
-    margin-bottom: 1.25rem;
-  }
-  &__meta-item {
-    display: inline-flex; align-items: center; gap: 0.375rem;
-    font-size: 0.8rem;
-    color: var(--muted-foreground);
-  }
-  &__meta-icon {
-    width: 14px; height: 14px;
-    color: var(--portfolio-accent);
-    flex-shrink: 0;
-  }
-
-  // Pills de rol: fondo sólido de acento, texto blanco
-  &__roles {
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  &__role {
-    padding: 0.25rem 0.75rem;
-    border-radius: $radius-full;
-    background: var(--portfolio-accent);
-    color: #fff;
-    font-size: 0.73rem; font-weight: 600;
-  }
-
-  // Bloque de métricas de impacto con encabezado y grilla de tarjetas
-  &__metrics-section {
-    margin-bottom: 1.5rem;
-  }
-  &__metrics-header {
-    display: flex; align-items: center; gap: 0.5rem;
+    align-items: center; gap: 0.375rem 0.75rem;
     margin-bottom: 0.75rem;
+  }
 
-    &-icon {
-      width: 14px; height: 14px;
+  &__subtitle {
+    font-size: 0.78rem; color: var(--muted-foreground);
+  }
+
+  &__location {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.74rem; color: var(--muted-foreground);
+    i { width: 11px; height: 11px; color: var(--portfolio-accent); }
+  }
+
+  // Métricas inline como badges compactos (visibles siempre en el header)
+  &__metrics {
+    display: flex; flex-wrap: wrap; gap: 0.375rem;
+  }
+
+  &__metric {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: $radius-md;
+    background: color-mix(in srgb, var(--portfolio-accent) 10%, transparent);
+    border: 1px solid rgba(var(--portfolio-accent-rgb), 0.1);
+    font-size: 0.68rem; font-weight: 600;
+
+    &-value { color: var(--portfolio-accent); }
+    &-label { color: var(--muted-foreground); }
+  }
+
+  // Chevron: flecha hacia abajo que rota 180° cuando la entrada está abierta
+  &__chevron {
+    width: 18px; height: 18px;
+    color: var(--muted-foreground);
+    flex-shrink: 0; margin-top: 0.125rem;
+    transition: transform 0.25s ease, color 0.2s ease;
+
+    &--open {
+      transform: rotate(180deg);
       color: var(--portfolio-accent);
     }
-    &-text {
-      font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--foreground);
-    }
   }
-  // Grilla de métricas: 2 columnas en mobile, 4 desde sm
-  &__metrics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
 
-    @include sm { grid-template-columns: repeat(4, 1fr); }
+  // Línea divisora entre header y cuerpo cuando está expandido
+  &__separator {
+    height: 1px;
+    background: var(--border);
+    margin: 0 1.25rem;
+    @include sm { margin: 0 1.5rem; }
   }
-  &__metric {
-    text-align: center;
-    padding: 0.75rem;
-    border-radius: $radius-xl;
-    background: rgba(var(--portfolio-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--portfolio-accent-rgb), 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  // Wrapper del cuerpo expandible (el trigger de Angular Animations se aplica aquí)
+  &__entry-body {
+    overflow: hidden; // overflow hidden durante la animación (lo controla el trigger)
+  }
+
+  // Padding interior del cuerpo (separado del wrapper para no interferir con la animación)
+  &__entry-body-inner {
+    padding: 1rem 1.25rem 1.25rem;
+    @include sm { padding: 1rem 1.5rem 1.5rem; }
+  }
+
+  // Links externos: badges con ícono de link externo
+  &__links {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: $radius-lg;
+    border: 1px solid rgba(var(--portfolio-accent-rgb), 0.3);
+    background: var(--portfolio-accent-glow);
+    color: var(--portfolio-accent);
+    font-size: 0.73rem; font-weight: 600;
+    font-family: $font-code;
+    text-decoration: none;
+    transition: background $transition-base, border-color $transition-base;
+
+    i { width: 11px; height: 11px; }
 
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 18px rgba(var(--portfolio-accent-rgb), 0.15);
-      border-color: rgba(var(--portfolio-accent-rgb), 0.3);
+      background: color-mix(in srgb, var(--portfolio-accent) 20%, transparent);
+      border-color: rgba(var(--portfolio-accent-rgb), 0.5);
     }
   }
-  &__metric-value {
-    display: block;
-    font-size: 1.3rem; font-weight: 800;
-    line-height: 1;
-    color: var(--portfolio-accent);
-  }
-  &__metric-label {
-    display: block;
-    font-size: 0.68rem; font-weight: 500;
+
+  // Descripción con borde izquierdo de acento: resalta el contexto del trabajo
+  &__description {
+    font-size: 0.82rem; line-height: 1.7;
     color: var(--muted-foreground);
-    margin-top: 0.25rem;
+    border-left: 3px solid var(--portfolio-accent);
+    padding-left: 0.75rem;
+    opacity: 0.85;
+    margin-bottom: 1rem;
   }
 
-  // Lista de responsabilidades: cada ítem tiene un bullet circular de color acento
+  // Lista de responsabilidades
   &__resp-list {
     display: flex; flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-    list-style: none;
-    padding: 0;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
+    list-style: none; padding: 0;
   }
+
   &__resp-item {
-    display: flex; gap: 0.75rem;
+    display: flex; gap: 0.625rem;
   }
+
   &__resp-bullet {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--portfolio-accent);
     flex-shrink: 0;
-    margin-top: 0.5rem;
+    margin-top: 0.4rem; // Alineado visualmente con la primera línea del texto
   }
+
   &__resp-text {
-    font-size: 0.84rem;
-    line-height: 1.7;
+    font-size: 0.82rem; line-height: 1.65;
     color: var(--muted-foreground);
   }
 
-  // Tags de tecnologías: borde de acento, fondo tenue, fuente monoespaciada
+  // Tags de tecnologías
   &__tech-title {
-    font-size: 0.78rem; font-weight: 600;
+    font-size: 0.72rem; font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--foreground);
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.5rem;
   }
+
   &__tech-tags {
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.375rem;
   }
+
   &__tech-tag {
-    padding: 0.25rem 0.75rem;
-    border-radius: $radius-lg;
+    padding: 0.2rem 0.625rem;
+    border-radius: $radius-md;
     border: 1px solid rgba(var(--portfolio-accent-rgb), 0.2);
     background: var(--portfolio-accent-glow);
     color: var(--portfolio-accent);
-    font-size: 0.73rem; font-weight: 500;
+    font-size: 0.7rem; font-weight: 500;
     font-family: $font-code;
   }
+
+  // Sugerencia sutil debajo del acordeón
+  &__hint {
+    text-align: center;
+    color: var(--muted-foreground);
+    font-size: 0.72rem;
+    opacity: 0.5;
+    margin-top: 1.5rem;
+  }
+}
+
+// --- Keyframes compartidos de la sección (background animations) ---
+@keyframes sectionBlob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-20px, -25px) scale(1.08); }
+}
+@keyframes sectionFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%       { transform: translate(8px, -10px) rotate(3deg); }
+  66%       { transform: translate(-5px, 6px) rotate(-2deg); }
+}
+@keyframes sectionFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(10px, -8px); }
 }

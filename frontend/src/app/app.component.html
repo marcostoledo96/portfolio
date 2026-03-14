@@ -28,7 +28,7 @@
 
   <!-- Área principal scrollable; #mainContent es la referencia usada para detectar scroll -->
   <main class="layout__main" id="contenido-principal" #mainContent>
-    <app-seccion-hero></app-seccion-hero>
+    <app-seccion-hero (navTo)="handleNavClick($event)"></app-seccion-hero>
     <app-seccion-sobre-mi></app-seccion-sobre-mi>
     @defer (when forceHabilidades(); on viewport; prefetch on idle) {
       <app-seccion-habilidades-tecnicas></app-seccion-habilidades-tecnicas>

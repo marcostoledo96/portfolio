@@ -59,8 +59,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['C#', 'ASP.NET', 'Blazor', 'Bootstrap', 'SQL Server'],
-    featured: true,
+    technologies: ['C#', 'ASP.NET', 'Blazor', 'Bootstrap', 'SQL Server'],    siteUrl: 'https://www.gruposcoutsanpatricio.com.ar/grupo/',    featured: true,
   },
   {
     title: 'IFTS N\u00b026 \u2013 Sitio Web Oficial',

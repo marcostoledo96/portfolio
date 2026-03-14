@@ -75,11 +75,11 @@
 
     <!-- CTA Buttons -->
     <div class="hero__ctas hero__fade" style="animation-delay: 0.55s">
-      <button class="hero__cta hero__cta--primary" (click)="scrollTo('portfolio')" aria-label="Ver mis proyectos">
+      <button class="hero__cta hero__cta--primary" (click)="navTo.emit('portfolio')" aria-label="Ver mis proyectos">
         <i data-lucide="folder-open"></i>
         Ver mis proyectos
       </button>
-      <button class="hero__cta hero__cta--outline" (click)="scrollTo('contacto')" aria-label="Contactame">
+      <button class="hero__cta hero__cta--outline" (click)="navTo.emit('contacto')" aria-label="Contactame">
         <i data-lucide="message-circle"></i>
         Contactame
       </button>

@@ -1,6 +1,7 @@
 import {
   Component, OnInit, OnDestroy, AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild
+  ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild,
+  Output, EventEmitter,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParallaxDirective } from '../../core/directivas/parallax.directive';
@@ -34,7 +35,9 @@ const STATS = [
   styleUrls: ['./seccion-hero.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {  // Emite el id de sección al padre (AppComponent) para que este maneje el scroll
+  // con la lógica completa de force-load de secciones lazy + espera de rAF.
+  @Output() navTo = new EventEmitter<string>();
   socials = SOCIALS;
   stats = STATS;
   phrases = PHRASES;
@@ -145,6 +148,8 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit {
     return href.startsWith('assets/');
   }
 
+  // scrollTo se mantiene para los scroll indicators internos (sobre-mi)
+  // que apuntan a secciones no-lazy. Los CTAs (portfolio, contacto) ya usan navTo.
   scrollTo(sectionId: string, desktopBlock: ScrollLogicalPosition = 'start'): void {
     const isMobile = window.innerWidth < 1024;
     const block: ScrollLogicalPosition = isMobile ? 'start' : desktopBlock;
