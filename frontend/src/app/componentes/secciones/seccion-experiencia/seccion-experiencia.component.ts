@@ -223,11 +223,13 @@ export class SeccionExperienciaComponent implements AfterViewInit {
   // Alterna el estado de una entrada por su ID. Solo una puede estar abierta a la vez.
   // El setTimeout re-inicializa Lucide luego de que Angular inserta el cuerpo del acordeón en el DOM,
   // porque los nodos con data-lucide son nuevos y Lucide no los reconoce automáticamente.
+  // La guarda typeof está DENTRO del callback para que se evalúe al momento de ejecución,
+  // no al de scheduling (evita ReferenceError si lucide fue limpiado entre ambos momentos).
   toggleExperience(id: string): void {
     this.openIndex.update(prev => (prev === id ? null : id));
-    if (typeof lucide !== 'undefined') {
-      setTimeout(() => lucide.createIcons(), 0);
-    }
+    setTimeout(() => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }, 0);
   }
 
   // Informa si la entrada con el ID dado está abierta (útil para bindings del template)
