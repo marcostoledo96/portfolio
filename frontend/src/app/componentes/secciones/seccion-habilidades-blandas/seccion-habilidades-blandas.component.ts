@@ -26,7 +26,7 @@ const SOFT_SKILLS: SoftSkill[] = [
   {
     icon: 'lightbulb',
     name: 'Resolución de problemas',
-    description: 'Analizo escenarios complejos y diseño soluciones pragmáticas fuertemente enfocadas en el usuario final, aportando una mirada analítica para optimizar procesos y garantizar la eficiencia operativa.',
+    description: 'Analizo escenarios complejos y diseño soluciones pragmáticas fuertemente, aportando una mirada analítica para optimizar procesos y garantizar la eficiencia operativa.',
     accent: '#f59e0b',
   },
   {
