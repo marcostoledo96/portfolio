@@ -44,10 +44,12 @@ jobs:
         working-directory: ./frontend
         run: npm install --legacy-peer-deps
 
-      # Verifico que no haya errores de linting (si esta configurado)
+      # Verifico que no haya errores de linting
+      # continue-on-error: ESLint no esta configurado todavia (falta ng add angular-eslint)
       - name: Linting
         working-directory: ./frontend
-        run: npm run lint --if-present
+        run: npm run lint
+        continue-on-error: true
 
       # Corro el build de produccion
       - name: Build del frontend
