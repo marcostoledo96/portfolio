@@ -19,24 +19,30 @@ interface Metric {
   label: string;
 }
 
-// Enlace externo opcional para proyectos con presencia web
+// Enlace externo opcional para proyectos con presencia web.
+// icon: nombre del ícono Lucide a mostrar (globe para sitios, github para repos).
 interface ExpLink {
   label: string;
-  url: string;
+  url:   string;
+  icon?: string; // Ícono Lucide; default 'external-link' si no se especifica
 }
 
-// Estructura completa de una experiencia laboral
+// Estructura completa de una experiencia laboral.
+// Cuando tiene subEntries es un grupo de roles en la misma empresa;
+// en ese caso los campos de contenido son opcionales (están en cada sub-entry).
 interface Experience {
-  company:          string;
-  role:             string;        // Rol principal, en una línea descriptiva
-  subtitle:         string;        // Tipo de empresa o contexto del proyecto
-  location:         string;
-  period:           string;
-  description:      string;        // Párrafo introductorio del trabajo realizado
-  responsibilities: string[];      // Lista de logros y responsabilidades con bullet
-  technologies:     string[];      // Tags de tecnologías utilizadas
-  metrics:          Metric[];      // Indicadores de impacto visibles en el header
-  links?:           ExpLink[];     // Links externos opcionales (sitio, repo, demo)
+  id:                string;         // Identificador único para el toggle
+  company:           string;
+  role?:             string;         // Rol principal (opcional en grupos)
+  subtitle:          string;         // Tipo de empresa o contexto del proyecto
+  location:          string;
+  period:            string;
+  description?:      string;         // Párrafo introductorio (opcional en grupos)
+  responsibilities?: string[];       // Lista de logros (opcional en grupos)
+  technologies?:     string[];       // Tags de tecnologías (opcional en grupos)
+  metrics?:          Metric[];       // Indicadores de impacto (opcional en grupos)
+  links?:            ExpLink[];      // Links externos opcionales (sitio, repo, demo)
+  subEntries?:       Experience[];   // Sub-entries cuando una misma empresa tiene múltiples roles
 }
 
 // Animación de entrada y salida del cuerpo expandible del acordeón.
@@ -53,38 +59,70 @@ const EXPAND_COLLAPSE = trigger('expandCollapse', [
   ]),
 ]);
 
-// Listado completo de experiencias. Orden: AEROTEST, Grupo Scout Modernización,
+// Listado completo de experiencias. Orden: AEROTEST (grupo), Grupo Scout Modernización,
 // IFTS N°26, Grupo Scout Plataforma Evento.
 const EXPERIENCES: Experience[] = [
+  // --- BLOQUE AEROTEST ---
   {
+    id:       'aerotest',
     company:  'AEROTEST',
-    role:     'Desarrollador Web & QA Tester | Soporte Técnico',
     subtitle: 'Consultorio y Laboratorio Médico',
     location: 'Belgrano, CABA',
     period:   'Ene 2022 – Actualidad',
-    description:
-      'Desempeño múltiples roles técnicos en un consultorio médico, abarcando desde pruebas de calidad web hasta desarrollo de herramientas internas y capacitación del equipo.',
-    responsibilities: [
-      'Ejecuté pruebas funcionales y no funcionales (QA) en el sitio web aerotest.com.ar, documentando más de 30 errores, lo que optimizó drásticamente los procesos operativos.',
-      'Brindo soporte técnico de Nivel 1 (Tier 1), identificando y resolviendo bugs de primera mano en la plataforma web y equipos del consultorio, reduciendo los tiempos de espera del soporte externo.',
-      'Estoy en proceso de desarrollo de una aplicación web de gestión de historias clínicas con Node.js y base de datos PostgreSQL, implementando roles de usuario, autenticación segura y sistema CRUD de pacientes.',
-      'Implementé un chatbot automatizado con más de 40 flujos de respuestas, reduciendo el tiempo de atención en un 80% (actualmente en proceso de integración con WhatsApp Cloud API oficial de Meta).',
-      'Automaticé y optimicé la gestión de Google Workspace, implementando filtros de limpieza que liberaron más del 80% del almacenamiento en la nube.',
-      'Capacité a más de 10 personas del equipo en herramientas digitales, creando instructivos técnicos para mejorar la productividad.',
-    ],
-    technologies: ['Google Workspace', 'HTML', 'CSS', 'JavaScript', 'Node.js', 'PostgreSQL', 'WhatsApp Cloud API'],
-    metrics: [
-      { value: '30+', label: 'Bugs detectados'    },
-      { value: '80%', label: 'Reducción tiempos'  },
-      { value: '40+', label: 'Flujos automáticos' },
-      { value: '10+', label: 'Capacitados'        },
+    subEntries: [
+      {
+        id:          'aerotest-qa',
+        company:     'AEROTEST',
+        role:        'QA Tester & Desarrollador Web | Soporte IT',
+        subtitle:    'Consultorio y Laboratorio Médico',
+        location:    'Belgrano, CABA',
+        period:      'Ene 2022 – Actualidad',
+        description: 'Lidero la transformación digital del consultorio, asegurando la calidad del software, desarrollando herramientas internas y optimizando procesos mediante automatización.',
+        responsibilities: [
+          'Ejecuté pruebas funcionales y no funcionales (QA) en el sitio web aerotest.com.ar, documentando más de 30 errores para optimizar la operación.',
+          'Desarrollo en curso de una web app de historias clínicas desde cero utilizando Node.js y PostgreSQL, implementando roles de usuario, login y sistema CRUD.',
+          'Implementé un chatbot automatizado reduciendo tiempos de atención en un 80% (actualmente integrando WhatsApp Cloud API).',
+          'Brindo soporte técnico de Nivel 1 y optimicé la gestión de Google Workspace, liberando más del 80% de almacenamiento en la nube.',
+          'Capacité a más de 10 personas del equipo en herramientas digitales mediante instructivos técnicos.',
+        ],
+        technologies: ['QA Testing', 'Node.js', 'PostgreSQL', 'WhatsApp Cloud API', 'Google Workspace'],
+        metrics: [
+          { value: '+30', label: 'Bugs documentados'  },
+          { value: '80%', label: 'Reducción tiempos'  },
+          { value: '+40', label: 'Flujos automáticos' },
+          { value: '+10', label: 'Capacitados'        },
+        ],
+      },
+      {
+        id:          'aerotest-sec',
+        company:     'AEROTEST',
+        role:        'Secretario Médico & Técnico de Laboratorio',
+        subtitle:    'Consultorio y Laboratorio Médico',
+        location:    'Belgrano, CABA',
+        period:      'Ene 2022 – Actualidad',
+        description: 'Gestión integral administrativa y técnica del laboratorio, brindando atención directa al paciente y operando sistemas de salud complejos.',
+        responsibilities: [
+          'Analizo y redacto informes técnicos de test de aire espirado (SIBO, Intolerancias, Helicobacter Pylori).',
+          'Gestiono la liquidación mensual de prestaciones médicas de más de 12 coberturas de salud, operando portales de gestión (Traditum, Apligem, Swiss Medical).',
+          'Administro la admisión de pacientes y la coordinación general de la agenda médica del consultorio.',
+          'Produzco y edito material didáctico audiovisual (utilizando CapCut) para instruir a los pacientes sobre la correcta preparación para sus estudios clínicos.',
+        ],
+        technologies: ['Traditum', 'Apligem', 'Nomenclador Nacional', 'CapCut', 'Gestión Médica'],
+        metrics: [
+          { value: '+1500', label: 'Informes procesados' },
+          { value: '+12',   label: 'Coberturas médicas'  },
+          { value: '4',     label: 'Videos instructivos' },
+          { value: '+4',    label: 'Años operativos'     },
+        ],
+      },
     ],
   },
   {
+    id:       'scout-mod',
     company:  'Grupo Scout N°91 "San Patricio"',
     role:     'Desarrollador Frontend & UI/UX | Soporte Backend (.NET)',
     subtitle: 'Institución Scout — Modernización web',
-    location: 'Buenos Aires',
+    location: 'Belgrano, CABA',
     period:   'Dic 2025 – Actualidad',
     description:
       'Rediseño integral y modernización de una plataforma web con más de 20 años de antigüedad, transformada en un sistema de gestión dinámica para una comunidad de más de 170 miembros activos. Trabajo en dupla bajo el liderazgo técnico de un Desarrollador Backend Senior, aplicando metodologías de trabajo colaborativo. El lanzamiento del MVP está programado para abril de 2026.',
@@ -98,20 +136,21 @@ const EXPERIENCES: Experience[] = [
     ],
     technologies: ['Blazor', 'Bootstrap', 'C#', 'ASP.NET', 'SQL Server', 'Figma', 'GitHub'],
     metrics: [
-      { value: '170+', label: 'Miembros activos' },
-      { value: '400+', label: 'Docs digitales'   },
-      { value: '20+',  label: 'Años de legado'   },
-      { value: 'MVP',  label: 'Abril 2026'        },
+      { value: '+170', label: 'Miembros activos' },
+      { value: '+400', label: 'Docs digitales'   },
+      { value: '+20',  label: 'Años de legado'   },
+      { value: 'MVP',  label: 'Abril 2026'       },
     ],
     links: [
-      { label: 'Página oficial', url: 'https://www.gruposcoutsanpatricio.com.ar/grupo/' },
+      { label: 'Página oficial', icon: 'globe', url: 'https://www.gruposcoutsanpatricio.com.ar/grupo/' },
     ],
   },
   {
+    id:       'ifts26',
     company:  'Instituto de Formación Técnica Superior N°26',
     role:     'Desarrollador Frontend & UI/UX Designer',
     subtitle: 'Institución educativa — Rediseño web institucional',
-    location: 'CABA',
+    location: 'Chacarita, CABA',
     period:   'Ago 2025 – Dic 2025',
     description:
       'Rediseño y modernización de la plataforma web institucional oficial, migrando el sistema desde su antigua versión en Google Sites hacia una arquitectura web moderna y escalable. El proyecto cuenta con aprobación institucional.',
@@ -131,14 +170,15 @@ const EXPERIENCES: Experience[] = [
       { value: '✓',     label: 'Aprobación oficial' },
     ],
     links: [
-      { label: 'Ver sitio', url: 'https://ifts26.netlify.app/inicio' },
+      { label: 'Ver sitio en vivo', icon: 'globe', url: 'https://ifts26.netlify.app/inicio' },
     ],
   },
   {
+    id:       'scout-evento',
     company:  'Grupo Scout N°91 "San Patricio"',
     role:     'Desarrollador Full-Stack',
     subtitle: 'Proyecto propio — Plataforma evento benéfico',
-    location: 'Buenos Aires',
+    location: 'Belgrano, CABA',
     period:   'Jul 2025 – Sep 2025',
     description:
       'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático de recaudación de fondos. Tomé la iniciativa de diseñar esta plataforma para reemplazar un formulario básico, logrando un sistema que operó con éxito bajo presión procesando más de 60 ventas reales simultáneas.',
@@ -151,14 +191,14 @@ const EXPERIENCES: Experience[] = [
     ],
     technologies: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Neon', 'Vercel', 'Google Sheets API'],
     metrics: [
-      { value: '60+',       label: 'Ventas simultáneas' },
+      { value: '+60',       label: 'Ventas simultáneas' },
       { value: '3',         label: 'Capas (Full-Stack)' },
       { value: 'Real-time', label: 'Sincronización'     },
       { value: 'Mobile',    label: 'First approach'     },
     ],
     links: [
-      { label: 'Web demo',    url: 'https://demo-sanpaholmes.vercel.app/'              },
-      { label: 'Repositorio', url: 'https://github.com/marcostoledo96/sanpaholmes'     },
+      { label: 'Ver demo',        icon: 'globe',  url: 'https://demo-sanpaholmes.vercel.app/'          },
+      { label: 'Ver en GitHub',   icon: 'github', url: 'https://github.com/marcostoledo96/sanpaholmes' },
     ],
   },
 ];
@@ -174,21 +214,25 @@ const EXPERIENCES: Experience[] = [
 })
 export class SeccionExperienciaComponent implements AfterViewInit {
 
-  // Índice de la entrada actualmente abierta. null = todas cerradas.
-  readonly openIndex = signal<number | null>(null);
+  // ID de la entrada actualmente abierta. null = todas cerradas.
+  readonly openIndex = signal<string | null>(null);
 
   // Lista de experiencias disponible desde el template
   readonly experiences = EXPERIENCES;
 
-  // Alterna el estado de una entrada: si ya estaba abierta, se cierra; si no, se abre.
-  // Solo una entrada puede estar abierta a la vez.
-  toggleExperience(index: number): void {
-    this.openIndex.update(prev => (prev === index ? null : index));
+  // Alterna el estado de una entrada por su ID. Solo una puede estar abierta a la vez.
+  // El setTimeout re-inicializa Lucide luego de que Angular inserta el cuerpo del acordeón en el DOM,
+  // porque los nodos con data-lucide son nuevos y Lucide no los reconoce automáticamente.
+  toggleExperience(id: string): void {
+    this.openIndex.update(prev => (prev === id ? null : id));
+    if (typeof lucide !== 'undefined') {
+      setTimeout(() => lucide.createIcons(), 0);
+    }
   }
 
-  // Informa si una entrada en particular está abierta (útil para bindings del template)
-  isOpen(index: number): boolean {
-    return this.openIndex() === index;
+  // Informa si la entrada con el ID dado está abierta (útil para bindings del template)
+  isOpen(id: string): boolean {
+    return this.openIndex() === id;
   }
 
   // Inicializo los íconos de Lucide después de que el DOM esté listo

@@ -34,23 +34,23 @@ export class SeccionEducacionComponent implements AfterViewInit {
   // Lista de formaciones académicas, ordenadas de más reciente a más antigua
   educations: Education[] = [
     {
-      career: 'T\u00e9cnico Superior en Desarrollo de Software',
-      institution: 'IFTS N\u00ba16',
+      career: 'Técnico Superior en Desarrollo de Software',
+      institution: 'IFTS N°16',
       description:
-        'Carrera de 2 a\u00f1os y medio. Cursando el \u00faltimo cuatrimestre. Pr\u00e1cticas profesionalizantes enfocadas en soluciones digitales para el sistema de salud, con foco en calidad, documentaci\u00f3n y trabajo colaborativo.',
+        'Último cuatrimestre. Formación integral en arquitectura de software, bases de datos y metodologías ágiles. Prácticas profesionalizantes con fuerte enfoque en QA Testing, documentación técnica y desarrollo Full Stack.',
       status: 'in-progress',
       statusLabel: 'En curso',
-      period: '2024 \u2013 Actualidad',
+      period: '2024 – Actualidad',
       average: 9.19,
       averageLabel: 'Promedio actual',
       icon: 'graduation-cap',
       color: '#3b82f6',
     },
     {
-      career: 'T\u00e9cnico Superior en Radiolog\u00eda',
+      career: 'Técnico Superior en Radiología',
       institution: 'Instituto Superior de Ciencias de la Salud',
       description:
-        'Formaci\u00f3n con base hospitalaria que permite detectar oportunidades de mejora para pacientes y equipos m\u00e9dicos desde una mirada integral.',
+        'Título que consolida mi perfil HealthTech. Sólida base clínica y hospitalaria que me permite entender los flujos de trabajo médicos reales y diseñar software empático y centrado en el paciente.',
       status: 'completed',
       statusLabel: 'Completado',
       period: 'Finalizado',

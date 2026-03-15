@@ -20,37 +20,37 @@ const SOFT_SKILLS: SoftSkill[] = [
   {
     icon: 'users',
     name: 'Liderazgo y trabajo en equipo',
-    description: 'Coordino y acompaño a equipos multidisciplinarios, fomentando la comunicación asertiva para alcanzar los objetivos del proyecto.',
+    description: 'Acompaño a equipos multidisciplinarios y facilito la comunicación asertiva para alcanzar los objetivos, asumiendo roles como Scrum Master cuando el proyecto lo requiere.',
     accent: '#3b82f6',
   },
   {
     icon: 'lightbulb',
     name: 'Resolución de problemas',
-    description: 'Analizo escenarios complejos y diseño soluciones pragmáticas, apoyándome en herramientas de IA para optimizar tiempos y resultados.',
+    description: 'Analizo escenarios complejos y diseño soluciones pragmáticas fuertemente enfocadas en el usuario final, aportando una mirada analítica para optimizar procesos y garantizar la eficiencia operativa.',
     accent: '#f59e0b',
   },
   {
     icon: 'book-open',
     name: 'Aprendizaje autónomo',
-    description: 'Me capacito continuamente en nuevas tecnologías y metodologías, integrando IA en mi flujo de trabajo para potenciar la productividad.',
+    description: 'Me capacito continuamente en nuevas tecnologías y metodologías, integrando herramientas de Inteligencia Artificial en mi flujo de trabajo para potenciar la productividad.',
     accent: '#10b981',
   },
   {
     icon: 'target',
     name: 'Atención al detalle (QA)',
-    description: 'Aseguro la calidad de cada entrega mediante testing riguroso, garantizando accesibilidad y una excelente experiencia de usuario.',
+    description: 'Aseguro la calidad de cada entrega mediante un testing riguroso y documentación clara, garantizando productos estables y una excelente experiencia de usuario.',
     accent: '#ef4444',
   },
   {
     icon: 'calendar-check',
     name: 'Organización y planificación',
-    description: 'Gestiono tareas mediante metodologías ágiles, priorizando entregables críticos para mantener la calidad en entornos dinámicos.',
+    description: 'Gestiono ciclos de vida de desarrollo mediante metodologías ágiles (Scrum, Kanban), priorizando entregables críticos en entornos dinámicos y de alta presión.',
     accent: '#8b5cf6',
   },
   {
     icon: 'heart-handshake',
     name: 'Voluntariado: Grupo Scout',
-    description: 'Dirigente de jóvenes (11-17 años). Facilito espacios de formación en valores, liderazgo, planificación y gestión de proyectos.',
+    description: 'Dirigente de jóvenes (11-17 años). Más de 8 años facilitando espacios de formación en valores, liderazgo proactivo y gestión colaborativa de proyectos.',
     accent: '#4f46e5',
   },
 ];

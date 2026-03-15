@@ -42,12 +42,12 @@ describe('SeccionExperienciaComponent', () => {
       expect(component.openIndex()).toBeNull();
     });
 
-    it('isOpen(0) retorna false antes de cualquier interacción', () => {
-      expect(component.isOpen(0)).toBeFalse();
+    it('isOpen("aerotest-qa") retorna false antes de cualquier interacción', () => {
+      expect(component.isOpen('aerotest-qa')).toBeFalse();
     });
 
-    it('isOpen(3) retorna false antes de cualquier interacción', () => {
-      expect(component.isOpen(3)).toBeFalse();
+    it('isOpen("scout-evento") retorna false antes de cualquier interacción', () => {
+      expect(component.isOpen('scout-evento')).toBeFalse();
     });
 
     it('el array experiences tiene exactamente 4 entradas', () => {
@@ -74,7 +74,21 @@ describe('SeccionExperienciaComponent', () => {
       expect(component.experiences[3].company).toBe('Grupo Scout N°91 "San Patricio"');
     });
 
-    it('AEROTEST no tiene links externos', () => {
+    it('AEROTEST es un grupo con 2 sub-entradas', () => {
+      const aerotest = component.experiences[0];
+      expect(aerotest.subEntries).toBeDefined();
+      expect(aerotest.subEntries!.length).toBe(2);
+    });
+
+    it('la primera sub-entry de AEROTEST es el rol de QA Tester & Desarrollador', () => {
+      expect(component.experiences[0].subEntries![0].role).toBe('QA Tester & Desarrollador Web | Soporte IT');
+    });
+
+    it('la segunda sub-entry de AEROTEST es el rol de Secretario Médico', () => {
+      expect(component.experiences[0].subEntries![1].role).toBe('Secretario Médico & Técnico de Laboratorio');
+    });
+
+    it('AEROTEST grupo no tiene links externos (los links van en sub-entries si los hubiera)', () => {
       expect(component.experiences[0].links).toBeUndefined();
     });
 
@@ -98,21 +112,33 @@ describe('SeccionExperienciaComponent', () => {
       expect(plataforma.links!.length).toBe(2);
     });
 
-    it('todas las experiencias tienen al menos una responsabilidad', () => {
+    it('todas las sub-entries y entries normales tienen al menos una responsabilidad', () => {
       component.experiences.forEach(exp => {
-        expect(exp.responsibilities.length).toBeGreaterThan(0);
+        if (exp.subEntries) {
+          exp.subEntries.forEach(sub => expect(sub.responsibilities!.length).toBeGreaterThan(0));
+        } else {
+          expect(exp.responsibilities!.length).toBeGreaterThan(0);
+        }
       });
     });
 
-    it('todas las experiencias tienen al menos una tecnología', () => {
+    it('todas las sub-entries y entries normales tienen al menos una tecnología', () => {
       component.experiences.forEach(exp => {
-        expect(exp.technologies.length).toBeGreaterThan(0);
+        if (exp.subEntries) {
+          exp.subEntries.forEach(sub => expect(sub.technologies!.length).toBeGreaterThan(0));
+        } else {
+          expect(exp.technologies!.length).toBeGreaterThan(0);
+        }
       });
     });
 
-    it('todas las experiencias tienen exactamente 4 métricas', () => {
+    it('todas las sub-entries y entries normales tienen exactamente 4 métricas', () => {
       component.experiences.forEach(exp => {
-        expect(exp.metrics.length).toBe(4);
+        if (exp.subEntries) {
+          exp.subEntries.forEach(sub => expect(sub.metrics!.length).toBe(4));
+        } else {
+          expect(exp.metrics!.length).toBe(4);
+        }
       });
     });
   });
@@ -120,48 +146,56 @@ describe('SeccionExperienciaComponent', () => {
   // ─── Lógica de acordeón ────────────────────────────────────────────────────
 
   describe('toggleExperience()', () => {
-    it('abre la entrada 0 al llamar toggleExperience(0)', () => {
-      component.toggleExperience(0);
-      expect(component.openIndex()).toBe(0);
-      expect(component.isOpen(0)).toBeTrue();
+    it('abre "scout-mod" al llamar toggleExperience("scout-mod")', () => {
+      component.toggleExperience('scout-mod');
+      expect(component.openIndex()).toBe('scout-mod');
+      expect(component.isOpen('scout-mod')).toBeTrue();
     });
 
-    it('cierra la entrada 0 al llamarla dos veces consecutivas', () => {
-      component.toggleExperience(0);
-      component.toggleExperience(0);
+    it('cierra "scout-mod" al llamarla dos veces consecutivas', () => {
+      component.toggleExperience('scout-mod');
+      component.toggleExperience('scout-mod');
       expect(component.openIndex()).toBeNull();
-      expect(component.isOpen(0)).toBeFalse();
+      expect(component.isOpen('scout-mod')).toBeFalse();
     });
 
-    it('abrir la entrada 1 cierra automáticamente la entrada 0', () => {
-      component.toggleExperience(0);
-      component.toggleExperience(1);
-      expect(component.isOpen(0)).toBeFalse();
-      expect(component.isOpen(1)).toBeTrue();
+    it('abrir "ifts26" cierra automáticamente "scout-mod"', () => {
+      component.toggleExperience('scout-mod');
+      component.toggleExperience('ifts26');
+      expect(component.isOpen('scout-mod')).toBeFalse();
+      expect(component.isOpen('ifts26')).toBeTrue();
     });
 
-    it('solo la entrada abierta retorna true en isOpen; el resto retorna false', () => {
-      component.toggleExperience(2);
-      expect(component.isOpen(0)).toBeFalse();
-      expect(component.isOpen(1)).toBeFalse();
-      expect(component.isOpen(2)).toBeTrue();
-      expect(component.isOpen(3)).toBeFalse();
+    it('solo la entry abierta retorna true en isOpen; el resto retorna false', () => {
+      component.toggleExperience('scout-evento');
+      expect(component.isOpen('aerotest-qa')).toBeFalse();
+      expect(component.isOpen('scout-mod')).toBeFalse();
+      expect(component.isOpen('ifts26')).toBeFalse();
+      expect(component.isOpen('scout-evento')).toBeTrue();
     });
 
-    it('openIndex refleja el último índice abierto', () => {
-      component.toggleExperience(0);
-      expect(component.openIndex()).toBe(0);
-      component.toggleExperience(3);
-      expect(component.openIndex()).toBe(3);
+    it('openIndex refleja el último ID abierto', () => {
+      component.toggleExperience('scout-mod');
+      expect(component.openIndex()).toBe('scout-mod');
+      component.toggleExperience('scout-evento');
+      expect(component.openIndex()).toBe('scout-evento');
+    });
+
+    it('puede abrir sub-entries dentro del grupo AEROTEST de forma independiente', () => {
+      component.toggleExperience('aerotest-qa');
+      expect(component.isOpen('aerotest-qa')).toBeTrue();
+      component.toggleExperience('aerotest-sec');
+      expect(component.isOpen('aerotest-qa')).toBeFalse();
+      expect(component.isOpen('aerotest-sec')).toBeTrue();
     });
   });
 
   // ─── Interacción DOM ───────────────────────────────────────────────────────
 
   describe('renderizado en el DOM', () => {
-    it('renderiza 4 botones de header (uno por cada experiencia)', () => {
+    it('renderiza 5 botones de header (2 sub-entries AEROTEST + 3 entries normales)', () => {
       const headers = fixture.nativeElement.querySelectorAll('.exp__entry-header');
-      expect(headers.length).toBe(4);
+      expect(headers.length).toBe(5);
     });
 
     it('no hay cuerpos expandidos en el estado inicial', () => {
@@ -169,24 +203,24 @@ describe('SeccionExperienciaComponent', () => {
       expect(bodies.length).toBe(0);
     });
 
-    it('el click en el header del primer entry actualiza el estado', () => {
+    it('el click en el primer header actualiza el estado de "aerotest-qa"', () => {
       const headers = fixture.nativeElement.querySelectorAll('.exp__entry-header');
       (headers[0] as HTMLButtonElement).click();
       fixture.detectChanges();
-      expect(component.isOpen(0)).toBeTrue();
+      expect(component.isOpen('aerotest-qa')).toBeTrue();
     });
 
-    it('el cuerpo de la primera entrada es visible en el DOM tras abrirla', () => {
-      component.toggleExperience(0);
+    it('el cuerpo de una entrada es visible en el DOM tras abrirla', () => {
+      component.toggleExperience('aerotest-qa');
       fixture.detectChanges();
       const body = fixture.nativeElement.querySelector('.exp__entry-body');
       expect(body).not.toBeNull();
     });
 
     it('el cuerpo desaparece del DOM al cerrar la entrada', fakeAsync(() => {
-      component.toggleExperience(0);
+      component.toggleExperience('scout-mod');
       fixture.detectChanges();
-      component.toggleExperience(0); // Cierro
+      component.toggleExperience('scout-mod'); // Cierro
       fixture.detectChanges();
       flush(); // Espero que la animación :leave de Angular Animations complete su ciclo
       fixture.detectChanges();
@@ -201,7 +235,7 @@ describe('SeccionExperienciaComponent', () => {
     });
 
     it('el botón del header tiene aria-expanded=true cuando está abierto', () => {
-      component.toggleExperience(0);
+      component.toggleExperience('aerotest-qa');
       fixture.detectChanges();
       const btn = fixture.nativeElement.querySelector('.exp__entry-header') as HTMLButtonElement;
       expect(btn.getAttribute('aria-expanded')).toBe('true');

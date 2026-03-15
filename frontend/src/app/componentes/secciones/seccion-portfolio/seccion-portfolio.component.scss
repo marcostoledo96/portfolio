@@ -175,7 +175,7 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
     }
 
-    &:hover .port__card-img { transform: scale(1.05); }
+    &:hover .port__card-img-wrap ::ng-deep img { transform: scale(1.05); }
     &:hover .port__card-overlay { opacity: 1; }
     &:hover .port__hover-badges { opacity: 1; }
   }
@@ -188,11 +188,17 @@
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-  }
-  &__card-img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
+
+    // ::ng-deep: necesario porque <img> vive dentro de app-imagen-fallback,
+    // un componente separado con su propia encapsulación. Los estilos scoped del
+    // padre no llegan al <img> del hijo sin este modificador.
+    ::ng-deep img {
+      display: block;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s;
+    }
   }
   &__card-overlay {
     position: absolute; inset: 0;

@@ -42,24 +42,14 @@
     </div>
 
     <!-- Typewriter controls -->
-    <div
-      class="hero__tw-controls hero__fade"
-      style="animation-delay: 0.45s"
-      (animationend)="$any($event.currentTarget).style.opacity = '0.25'"
-      (mouseenter)="$any($event.currentTarget).style.opacity = '1'"
-      (mouseleave)="$any($event.currentTarget).style.opacity = '0.25'"
-    >
+    <div class="hero__tw-controls hero__fade" style="animation-delay: 0.45s">
       <button class="hero__tw-arrow" (click)="goPrev()" aria-label="Frase anterior">
         <i data-lucide="chevron-left"></i>
       </button>
       <div class="hero__tw-dots">
-        <button
-          *ngFor="let phrase of phrases; let i = index"
-          class="hero__tw-dot"
-          [class.hero__tw-dot--active]="i === phraseIdx"
-          (click)="goTo(i)"
-          [attr.aria-label]="'Ir a frase ' + (i + 1)"
-        ></button>
+        <button *ngFor="let phrase of phrases; let i = index" class="hero__tw-dot"
+          [class.hero__tw-dot--active]="i === phraseIdx" (click)="goTo(i)"
+          [attr.aria-label]="'Ir a frase ' + (i + 1)"></button>
       </div>
       <button class="hero__tw-arrow" (click)="goNext()" aria-label="Frase siguiente">
         <i data-lucide="chevron-right"></i>
@@ -68,12 +58,12 @@
 
     <!-- Description -->
     <p class="hero__desc hero__fade" style="animation-delay: 0.5s">
-      Combino desarrollo web, testing y soporte técnico para construir
-      soluciones digitales que realmente impactan. Me motiva la calidad, la
-      automatización y el uso de herramientas de IA para optimizar procesos.
+      Combino mi experiencia en salud (HealthTech) con el desarrollo web y el QA testing para construir soluciones
+      digitales que realmente impactan. Me motiva asegurar la calidad del software, automatizar flujos de trabajo y
+      utilizar herramientas de IA para optimizar procesos.
     </p>
 
-    <!-- CTA Buttons -->
+    <!-- CTA Buttons -->Una 
     <div class="hero__ctas hero__fade" style="animation-delay: 0.55s">
       <button class="hero__cta hero__cta--primary" (click)="navTo.emit('portfolio')" aria-label="Ver mis proyectos">
         <i data-lucide="folder-open"></i>
@@ -95,13 +85,9 @@
 
     <!-- Social buttons -->
     <div class="hero__socials hero__fade" style="animation-delay: 0.7s">
-      <a *ngFor="let s of socials; let i = index"
-        class="hero__social-btn"
-        [href]="s.href"
-        [target]="isExternal(s.href) ? '_blank' : null"
-        [download]="isDownload(s.href) ? '' : null"
-        rel="noopener noreferrer"
-        [attr.aria-label]="s.label">
+      <a *ngFor="let s of socials; let i = index" class="hero__social-btn" [href]="s.href"
+        [target]="isExternal(s.href) ? '_blank' : null" [download]="isDownload(s.href) ? '' : null"
+        rel="noopener noreferrer" [attr.aria-label]="s.label">
         <i [attr.data-lucide]="s.icon"></i>
         <!-- Tooltip para desktop (hover) -->
         <span class="hero__social-tooltip">
@@ -115,12 +101,10 @@
   </div>
 
   <!-- Scroll indicator -->
-  <div class="hero__scroll-indicator hero__fade" style="animation-delay: 0.8s"
-       role="button" tabindex="0"
-       aria-label="Ir a la siguiente sección"
-       (click)="scrollTo('sobre-mi', 'center')"
-       (keydown.enter)="scrollTo('sobre-mi', 'center')"
-       (keydown.space)="$event.preventDefault(); scrollTo('sobre-mi', 'center')">
+  <div class="hero__scroll-indicator hero__fade" style="animation-delay: 0.8s" role="button" tabindex="0"
+    aria-label="Ir a la siguiente sección" (click)="scrollTo('sobre-mi', 'center')"
+    (keydown.enter)="scrollTo('sobre-mi', 'center')"
+    (keydown.space)="$event.preventDefault(); scrollTo('sobre-mi', 'center')">
     <span class="hero__scroll-text">SCROLL</span>
     <i data-lucide="chevron-down" class="hero__scroll-icon"></i>
   </div>

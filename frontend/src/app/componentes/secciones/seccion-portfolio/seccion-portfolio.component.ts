@@ -18,11 +18,11 @@ declare const lucide: any; // Lucide cargado desde CDN
 // Lista completa de proyectos; para agregar uno nuevo sólo agrego una entrada aquí
 const PROJECTS: Project[] = [
   {
-    title: 'Turnos e Historias Cl\u00ednicas',
+    title: 'Turnos e Historias Clínicas',
     description:
-      'Plataforma integral para la gesti\u00f3n de historias cl\u00ednicas, turnos y pacientes, con una interfaz moderna, segura y escalable.',
+      'Plataforma integral para la gestión de historias clínicas, turnos y pacientes, con una interfaz moderna, segura y escalable.',
     longDescription:
-      'Sistema integral de gestión para consultorios médicos, desarrollado para optimizar los flujos de trabajo en salud.\n\nLa arquitectura del backend está construida con Node.js, Express y PostgreSQL, utilizando Prisma como ORM para una gestión eficiente de la base de datos. Implementa un control de acceso estricto mediante JWT y Angular Guards, diferenciando rutas y permisos para roles de Administrador, Médico y Secretario, protegiendo así la confidencialidad de los datos.\n\nEl sistema permite gestionar agendas multi-profesional, automatizar el envío de recordatorios de turnos por email y administrar historias clínicas digitales. Las consultas incluyen la evolución del paciente, selección de diagnósticos y la capacidad de adjuntar archivos de estudios médicos, garantizando un registro detallado y seguro. Actualmente en fase de desarrollo.',
+      'Sistema integral de gestión para consultorios médicos, desarrollado para optimizar los flujos de trabajo en salud.\n\nLa arquitectura del backend está construida con Node.js, Express y PostgreSQL, utilizando Prisma como ORM para una gestión eficiente de la base de datos. Implementa un control de acceso estricto mediante JWT y Angular Guards, diferenciando rutas y permisos para roles de Administrador, Médico y Secretario, protegiendo así la confidencialidad de los datos.\n\nEl sistema permite gestionar agendas multi-profesional, automatizar el envío de recordatorios de turnos por email y administrar historias clínicas digitales. Como parte del ciclo de vida, diseño y ejecuto pruebas funcionales (QA) para asegurar la integridad de los datos médicos. Actualmente en fase de desarrollo.',
     image: 'assets/img/portfolio/historias-clinicas.webp',
     images: [
       'assets/img/portfolio/historias-clinicas.webp',
@@ -37,15 +37,15 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['Angular', 'Node.js', 'PostgreSQL'],
+    technologies: ['Angular', 'Node.js', 'PostgreSQL', 'QA Testing'],
     featured: true,
   },
   {
-    title: 'P\u00e1gina web Scout San Patricio',
+    title: 'Página web Scout San Patricio',
     description:
-      'Portal web institucional con gesti\u00f3n de usuarios por roles, panel de noticias interactivo, biblioteca digital y galer\u00eda multimedia.',
+      'Portal web institucional con gestión de usuarios por roles, panel de noticias interactivo, biblioteca digital y galería multimedia.',
     longDescription:
-      'Rediseño integral y modernización de una web con más de 20 años de antigüedad, transformada en una plataforma dinámica para una comunidad de más de 170 miembros activos.\n\nEste proyecto fue desarrollado en dupla junto a mi hermano. Lideré el diseño UI/UX planificando la arquitectura en Figma y me encargué del desarrollo Frontend utilizando Blazor y Bootstrap, además de brindar soporte en el Backend. Mi hermano estuvo a cargo de la arquitectura principal de la API (ASP.NET, Entity Framework, SQL Server).\n\nLa plataforma resuelve necesidades administrativas y educativas: incluye un sistema de autenticación con roles, control de asistencia y progresiones de los scouts, panel de noticias interactivo y una biblioteca digital con más de 400 documentos. Además, integré APIs públicas (huellas de animales, botánica) para enriquecer el contenido educativo estático. El proyecto se encuentra desplegado en IIS.',
+      'Rediseño integral y modernización de una web con más de 20 años de antigüedad, transformada en una plataforma dinámica para una comunidad de más de 170 miembros activos.\n\nEste proyecto fue desarrollado en dupla junto a mi hermano. Diseñé las interfaces (UI/UX) en Figma y construí el Frontend responsivo utilizando Blazor y Bootstrap, además de brindar soporte en el Backend. Mi hermano estuvo a cargo de la arquitectura principal de la API (ASP.NET, Entity Framework, SQL Server).\n\nLa plataforma resuelve necesidades administrativas y educativas: incluye un sistema de autenticación con roles, control de asistencia y progresiones de los scouts, panel de noticias interactivo y una biblioteca digital con más de 400 documentos. Además, integré APIs públicas (huellas de animales, botánica) para enriquecer el contenido educativo estático. El proyecto se encuentra desplegado en IIS.',
     image: 'assets/img/portfolio/pagina_grupo.webp',
     images: [
       'assets/img/portfolio/pagina_grupo.webp',
@@ -59,12 +59,14 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['C#', 'ASP.NET', 'Blazor', 'Bootstrap', 'SQL Server'],    siteUrl: 'https://www.gruposcoutsanpatricio.com.ar/grupo/',    featured: true,
+    technologies: ['C#', 'ASP.NET', 'Blazor', 'Bootstrap', 'SQL Server'],
+    siteUrl: 'https://www.gruposcoutsanpatricio.com.ar/grupo/',
+    featured: true,
   },
   {
-    title: 'IFTS N\u00b026 \u2013 Sitio Web Oficial',
+    title: 'IFTS N°26 – Sitio Web Oficial',
     description:
-      'Sitio web oficial del instituto, dise\u00f1ado para optimizar la comunicaci\u00f3n institucional y el acceso a recursos acad\u00e9micos.',
+      'Sitio web oficial del instituto, diseñado para optimizar la comunicación institucional y el acceso a recursos académicos.',
     longDescription:
       'Rediseño y modernización de la plataforma institucional (reemplazando su antigua versión en Google Sites). Este proyecto fue desarrollado en un equipo de dos personas. \n\nEstuve a cargo de liderar el diseño UI/UX utilizando Figma y la maquetación Frontend en Angular, logrando una interfaz moderna, limpia, completamente responsiva y con un rendimiento optimizado. Mi compañero se enfocó en el desarrollo de la API y el Backend para la gestión dinámica y el funcionamiento de los formularios de contacto. \n\nEl proyecto cuenta con aprobación institucional y actualmente se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub, listo para su lanzamiento a producción mientras se finalizan los trámites del dominio oficial y la documentación final.',
     image: 'assets/img/portfolio/ifts26.webp',
@@ -79,7 +81,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['Angular'],
+    technologies: ['Angular', 'Figma', 'CI/CD'],
     featured: true,
     siteUrl: 'https://ifts26.netlify.app',
     githubUrl: 'https://github.com/FedeOsorio/IFTS26',
@@ -87,9 +89,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Tienda SanpaHolmes',
     description:
-      'E-commerce tem\u00e1tico desarrollado para un evento de caridad, con gesti\u00f3n de pedidos en tiempo real y dise\u00f1o responsivo.',
+      'E-commerce temático desarrollado para un evento de caridad, con gestión de pedidos en tiempo real y diseño responsivo.',
     longDescription:
-      'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático. Operó con éxito bajo presión, procesando más de 60 ventas reales simultáneas.\n\nEl sistema cuenta con dos interfaces: una experiencia mobile-first en React para los usuarios, donde exploraban el menú inmersivo y adjuntaban comprobantes de pago por transferencia; y un panel de administración para gestionar los estados del pedido (Abonado, Listo, Retirado).\n\nEl backend en Node.js, Express y PostgreSQL gestionó la lógica de inventario de forma robusta. Para optimizar la operación en vivo, integré notificaciones automáticas vía WhatsApp para avisar a los clientes cuando su orden estaba lista, y sincronicé los datos en tiempo real con Google Sheets para el control operativo de la cocina.',
+      'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático. Operó con éxito bajo presión, procesando más de 60 ventas reales simultáneas, tras superar rigurosas pruebas de carga y funcionales (QA) previas al evento.\n\nEl sistema cuenta con dos interfaces: una experiencia mobile-first en React para los usuarios, donde exploraban el menú inmersivo y adjuntaban comprobantes de pago por transferencia; y un panel de administración para gestionar los estados del pedido (Abonado, Listo, Retirado).\n\nEl backend en Node.js, Express y PostgreSQL gestionó la lógica de inventario de forma robusta. Para optimizar la operación en vivo, integré notificaciones automáticas vía WhatsApp para avisar a los clientes cuando su orden estaba lista, y sincronicé los datos en tiempo real con Google Sheets para el control operativo de la cocina.',
     image: 'assets/img/portfolio/sanpaholmes.webp',
     images: [
       'assets/img/portfolio/sanpaholmes.webp',
@@ -105,7 +107,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['React', 'Node.js', 'PostgreSQL'],
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'QA Testing'],
     featured: true,
     siteUrl: 'https://demo-sanpaholmes.vercel.app',
     githubUrl: 'https://github.com/marcostoledo96/sanpaholmes',
@@ -113,9 +115,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Tienda CandyLand',
     description:
-      'Plataforma de e-commerce con cat\u00e1logo din\u00e1mico, fichas de producto detalladas y un flujo de compra optimizado.',
+      'Plataforma de e-commerce con catálogo dinámico, fichas de producto detalladas y un flujo de compra optimizado.',
     longDescription:
-      'Plataforma de e-commerce de golosinas y confitería, desarrollada en equipo como proyecto para la tecnicatura.\n\nEn este proyecto asumí un doble rol. Como Scrum Master, gestioné el flujo de trabajo utilizando Jira, redactando historias de usuario por módulos y facilitando ceremonias ágiles como las retrospectivas. Como desarrollador, me enfoqué en pulir el diseño web en React, asegurar el funcionamiento de la API RESTful (Node.js y Express) y lograr el despliegue del proyecto.\n\nLa aplicación incluye un catálogo dinámico, carrito de compras manejado con Context API y un flujo de checkout. Además, este desarrollo marcó un hito técnico personal al ser mi primera experiencia alojando y gestionando una base de datos relacional (PostgreSQL) en la nube.',
+      'Plataforma de e-commerce de golosinas y confitería, desarrollada en equipo como proyecto para la tecnicatura.\n\nEn este proyecto asumí un doble rol. Como Scrum Master, gestioné el flujo de trabajo utilizando Jira, redactando historias de usuario por módulos y facilitando ceremonias ágiles como las retrospectivas. Como desarrollador, me enfoqué en pulir el diseño web en React, asegurar el funcionamiento de la API RESTful (Node.js y Express), ejecutar pruebas funcionales (QA) del flujo de compra y lograr el despliegue del proyecto.\n\nLa aplicación incluye un catálogo dinámico, carrito de compras manejado con Context API y un flujo de checkout. Además, este desarrollo marcó un hito técnico personal al ser mi primera experiencia alojando y gestionando una base de datos relacional (PostgreSQL) en la nube.',
     image: 'assets/img/portfolio/candyland.webp',
     images: [
       'assets/img/portfolio/candyland.webp',
@@ -129,7 +131,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['React', 'Node.js', 'PostgreSQL'],
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Jira'],
     featured: false,
     siteUrl: 'https://candy-land-mvp.vercel.app',
     githubUrl: 'https://github.com/marcostoledo96/candyLand-mvp',
@@ -137,9 +139,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Explorador de Juegos',
     description:
-      'Aplicaci\u00f3n web para descubrir videojuegos, integrando b\u00fasqueda avanzada, filtros por categor\u00eda y vistas de detalle.',
+      'Aplicación web para descubrir videojuegos, integrando búsqueda avanzada, filtros por categoría y vistas de detalle.',
     longDescription:
-      'Aplicación web colaborativa desarrollada en dupla como proyecto para la tecnicatura, enfocada en la exploración y descubrimiento de videojuegos "free-to-play".\n\nEl proyecto destaca por estar construido íntegramente con HTML, CSS y JavaScript puro (Vanilla JS), demostrando bases sólidas en el desarrollo web y manipulación del DOM sin depender de frameworks. La plataforma permite buscar títulos, filtrar por género o plataforma y acceder a fichas detalladas.\n\nPara poblar el catálogo, se integró y consumió la API pública de FreeToGame, logrando una experiencia de usuario fluida y dinámica. Este desarrollo representó un hito importante en mi formación, siendo una de mis primeras experiencias exitosas consumiendo APIs externas y gestionando un despliegue en Vercel.',
+      'Aplicación web colaborativa desarrollada en dupla como proyecto para la tecnicatura, enfocada en la exploración y descubrimiento de videojuegos "free-to-play".\n\nEl proyecto destaca por estar construido íntegramente con HTML, CSS y JavaScript puro (Vanilla JS), demostrando bases sólidas en el desarrollo web y manipulación del DOM sin depender de frameworks. La plataforma permite buscar títulos, filtrar por género o plataforma y acceder a fichas detalladas.\n\nPara poblar el catálogo, se integró y consumió la API pública de FreeToGame. Además, desarrollé un microservicio en Node.js para dar funcionalidad al formulario de contacto. Este desarrollo representó un hito importante en mi formación, siendo una de mis primeras experiencias exitosas consumiendo APIs externas y gestionando un despliegue en Vercel.',
     image: 'assets/img/portfolio/juegos.webp',
     images: [
       'assets/img/portfolio/juegos.webp',
@@ -176,7 +178,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['React Native', 'Node.js', 'SQLite'],
+    technologies: ['React Native', 'Figma', 'SQLite'],
     featured: false,
   },
   {
@@ -199,7 +201,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['React Native', 'Node.js', 'AsyncStorage'],
+    technologies: ['React Native', 'Figma', 'AsyncStorage'],
     featured: false,
   },
   {
@@ -207,14 +209,14 @@ const PROJECTS: Project[] = [
     description:
       'Aplicación web de alto rendimiento desarrollada para exhibir mi trayectoria, proyectos y habilidades técnicas.',
     longDescription:
-      'Portfolio profesional (marcostoledo.cv) desarrollado con Angular 20 bajo una arquitectura standalone. El proceso comenzó con un diseño detallado de UI/UX en Figma, priorizando la accesibilidad y una experiencia visual adaptable, con soporte para tema claro/oscuro persistente y preferencias de movimiento reducido.\n\nA nivel de rendimiento frontend, implementa lazy loading avanzado con @defer para los componentes más pesados y animaciones fluidas a 60fps coordinadas con requestAnimationFrame. Además, la plataforma es completamente bilingüe (español e inglés) y cuenta con optimización SEO mediante metadatos dinámicos.\n\nPara la gestión del contacto, desarrollé un backend propio en Node.js que procesa el formulario de forma segura, protegido contra bots mediante la integración de Cloudflare Turnstile. Todo el ecosistema se encuentra desplegado en Vercel con pipelines de CI/CD automatizados desde GitHub.',
+      'Portfolio profesional (marcostoledo.cv) desarrollado con las últimas versiones de Angular bajo una arquitectura standalone. El proceso comenzó con un diseño detallado de UI/UX en Figma, priorizando la accesibilidad y una experiencia visual adaptable, con soporte para tema claro/oscuro persistente y preferencias de movimiento reducido.\n\nA nivel de rendimiento frontend, implementa lazy loading avanzado con @defer para los componentes más pesados y animaciones fluidas a 60fps coordinadas con requestAnimationFrame. Además, la plataforma es completamente bilingüe (español e inglés) y cuenta con optimización SEO mediante metadatos dinámicos.\n\nPara la gestión del contacto, desarrollé un backend propio en Node.js que procesa el formulario de forma segura, protegido contra bots mediante la integración de Cloudflare Turnstile. Todo el ecosistema se encuentra desplegado en Vercel con pipelines de CI/CD automatizados desde GitHub.',
     image: 'assets/img/portfolio.webp',
     images: ['assets/img/portfolio.webp'],
     status: 'finished',
     statusLabel: 'Finalizado',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['Angular', 'Node.js'],
+    technologies: ['Angular', 'Node.js', 'Figma', 'CI/CD'],
     featured: false,
     githubUrl: 'https://github.com/marcostoledo96/portfolio',
   },

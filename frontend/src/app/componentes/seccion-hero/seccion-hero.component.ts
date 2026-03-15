@@ -9,10 +9,11 @@ import { ParallaxDirective } from '../../core/directivas/parallax.directive';
 declare const lucide: any;
 
 const PHRASES = [
-  'Desarrollador Full Stack & QA Tester.',
-  'Apasionado por la calidad y el código limpio.',
-  'Potenciando el desarrollo con Inteligencia Artificial.',
-  'Transformando ideas en soluciones digitales.',
+  'QA Tester & Desarrollador Full Stack.',
+  'Especializado en Transformación Digital en Salud (HealthTech).',
+  'Apasionado por la calidad del software y el código limpio.',
+  'Potenciando la eficiencia y calidad con Inteligencia Artificial.',
+  'Construyendo interfaces modernas con Angular y React.',
 ];
 
 const SOCIALS = [

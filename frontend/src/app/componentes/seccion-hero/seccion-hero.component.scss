@@ -201,6 +201,15 @@
     margin-bottom: 2rem;
     transition: opacity 0.3s ease;
     cursor: pointer;
+    // Usa animacion propia que termina en 0.25 en vez de heroFadeIn (que termina en 1)
+    &.hero__fade {
+      animation-name: heroFadeInDim;
+    }
+    &:hover {
+      // !important necesario: animation-fill-mode: forwards tiene mayor prioridad
+      // en la cascada CSS que las reglas de autor normales
+      opacity: 1 !important;
+    }
   }
   &__tw-arrow {
     display: flex; align-items: center; justify-content: center;
@@ -407,6 +416,12 @@
 @keyframes heroFadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+// Variante para los controles del typewriter: termina en 0.25 (semi-transparente)
+@keyframes heroFadeInDim {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 0.25; transform: translateY(0); }
 }
 
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }

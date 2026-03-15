@@ -22,121 +22,238 @@
 
     <!-- Lista de experiencias: acordeón; solo una entrada abierta a la vez -->
     <div class="exp__list">
-      @for (exp of experiences; track exp.company + exp.period; let i = $index) {
+      @for (exp of experiences; track exp.id; let i = $index) {
 
-        <div
-          class="exp__entry animate-on-scroll"
-          appAnimateOnScroll
-          [animateDelay]="i * 0.1"
-          [class.exp__entry--open]="isOpen(i)"
-        >
+        @if (exp.subEntries) {
 
-          <!-- ── Header (siempre visible, clickeable) ── -->
-          <button
-            class="exp__entry-header"
-            type="button"
-            (click)="toggleExperience(i)"
-            [attr.aria-expanded]="isOpen(i)"
-            [attr.aria-label]="'Expandir experiencia en ' + exp.company"
+          <!-- ── Bloque grupo: múltiples roles en la misma empresa ── -->
+          <div
+            class="exp__group animate-on-scroll"
+            appAnimateOnScroll
+            [animateDelay]="i * 0.1"
+            role="group"
+            [attr.aria-label]="'Experiencias en ' + exp.company"
           >
-            <div class="exp__entry-header-body">
 
-              <!-- Fila 1: Puesto + Período -->
-              <div class="exp__entry-top">
-                <h3 class="exp__company">{{ exp.role }}</h3>
+            <!-- Header informativo del grupo (no clickeable) -->
+            <div class="exp__group-header">
+              <div class="exp__group-header-row">
+                <span class="exp__group-company">{{ exp.company }}</span>
                 <span class="exp__period">
                   <i data-lucide="calendar" aria-hidden="true"></i>
                   {{ exp.period }}
                 </span>
               </div>
-
-              <!-- Fila 2: Lugar de trabajo -->
-              <p class="exp__role">{{ exp.company }}</p>
-
-              <!-- Fila 3: Subtítulo + Ubicación -->
-              <div class="exp__meta">
+              <div class="exp__group-header-meta">
                 <span class="exp__subtitle">{{ exp.subtitle }}</span>
                 <span class="exp__location">
                   <i data-lucide="map-pin" aria-hidden="true"></i>
                   {{ exp.location }}
                 </span>
               </div>
-
-              <!-- Fila 4: Métricas de impacto como badges inline -->
-              <div class="exp__metrics">
-                @for (m of exp.metrics; track m.label) {
-                  <span class="exp__metric">
-                    <span class="exp__metric-value">{{ m.value }}</span>
-                    <span class="exp__metric-label">{{ m.label }}</span>
-                  </span>
-                }
-              </div>
-
             </div>
 
-            <!-- Chevron: rota 180° cuando la entrada está abierta -->
-            <i
-              data-lucide="chevron-down"
-              class="exp__chevron"
-              [class.exp__chevron--open]="isOpen(i)"
-              aria-hidden="true"
-            ></i>
-          </button>
+            <!-- Sub-entries del grupo -->
+            <div class="exp__group-entries">
+              @for (sub of exp.subEntries; track sub.id) {
 
-          <!-- ── Cuerpo expandible (Angular Animations para height: auto real) ── -->
-          @if (isOpen(i)) {
-            <div class="exp__entry-body" [@expandCollapse]>
+                <div
+                  class="exp__entry exp__entry--sub"
+                  [class.exp__entry--open]="isOpen(sub.id)"
+                >
 
-              <!-- Línea divisora entre header y cuerpo -->
-              <div class="exp__separator" aria-hidden="true"></div>
+                  <!-- ── Header de la sub-entry (clickeable) ── -->
+                  <button
+                    class="exp__entry-header"
+                    type="button"
+                    (click)="toggleExperience(sub.id)"
+                    [attr.aria-expanded]="isOpen(sub.id)"
+                    [attr.aria-label]="'Expandir rol ' + sub.role"
+                  >
+                    <div class="exp__entry-header-body">
 
-              <div class="exp__entry-body-inner">
+                      <!-- Solo el rol (company/period/location están en el grupo) -->
+                      <div class="exp__entry-top">
+                        <h3 class="exp__company">{{ sub.role }}</h3>
+                      </div>
 
-                <!-- Links externos (solo si la experiencia los tiene) -->
-                @if (exp.links && exp.links.length > 0) {
-                  <div class="exp__links">
-                    @for (link of exp.links; track link.url) {
-                      <a
-                        class="exp__link"
-                        [href]="link.url"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <i data-lucide="external-link" aria-hidden="true"></i>
-                        {{ link.label }}
-                      </a>
-                    }
-                  </div>
-                }
+                      <!-- Métricas de impacto -->
+                      <div class="exp__metrics">
+                        @for (m of sub.metrics!; track m.label) {
+                          <span class="exp__metric">
+                            <span class="exp__metric-value">{{ m.value }}</span>
+                            <span class="exp__metric-label">{{ m.label }}</span>
+                          </span>
+                        }
+                      </div>
 
-                <!-- Descripción: párrafo con borde izquierdo de acento -->
-                <p class="exp__description">{{ exp.description }}</p>
+                    </div>
 
-                <!-- Lista de responsabilidades con bullet circular de color acento -->
-                <ul class="exp__resp-list">
-                  @for (item of exp.responsibilities; track item; let j = $index) {
-                    <li class="exp__resp-item">
-                      <span class="exp__resp-bullet" aria-hidden="true"></span>
-                      <p class="exp__resp-text">{{ item }}</p>
-                    </li>
+                    <i
+                      data-lucide="chevron-down"
+                      class="exp__chevron"
+                      [class.exp__chevron--open]="isOpen(sub.id)"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+
+                  <!-- ── Cuerpo expandible ── -->
+                  @if (isOpen(sub.id)) {
+                    <div class="exp__entry-body" [@expandCollapse]>
+
+                      <div class="exp__separator" aria-hidden="true"></div>
+
+                      <div class="exp__entry-body-inner">
+
+                        <p class="exp__description">{{ sub.description }}</p>
+
+                        <ul class="exp__resp-list">
+                          @for (item of sub.responsibilities!; track item) {
+                            <li class="exp__resp-item">
+                              <span class="exp__resp-bullet" aria-hidden="true"></span>
+                              <p class="exp__resp-text">{{ item }}</p>
+                            </li>
+                          }
+                        </ul>
+
+                        <div class="exp__tech">
+                          <p class="exp__tech-title">Tecnologías</p>
+                          <div class="exp__tech-tags">
+                            @for (tech of sub.technologies!; track tech) {
+                              <span class="exp__tech-tag">{{ tech }}</span>
+                            }
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   }
-                </ul>
 
-                <!-- Tags de tecnologías en fuente monoespaciada -->
-                <div class="exp__tech">
-                  <p class="exp__tech-title">Tecnologías</p>
-                  <div class="exp__tech-tags">
-                    @for (tech of exp.technologies; track tech) {
-                      <span class="exp__tech-tag">{{ tech }}</span>
-                    }
-                  </div>
+                </div><!-- /exp__entry--sub -->
+
+              }
+            </div><!-- /exp__group-entries -->
+
+          </div><!-- /exp__group -->
+
+        } @else {
+
+          <!-- ── Entry normal ── -->
+          <div
+            class="exp__entry animate-on-scroll"
+            appAnimateOnScroll
+            [animateDelay]="i * 0.1"
+            [class.exp__entry--open]="isOpen(exp.id)"
+          >
+
+            <!-- ── Header (siempre visible, clickeable) ── -->
+            <button
+              class="exp__entry-header"
+              type="button"
+              (click)="toggleExperience(exp.id)"
+              [attr.aria-expanded]="isOpen(exp.id)"
+              [attr.aria-label]="'Expandir experiencia en ' + exp.company"
+            >
+              <div class="exp__entry-header-body">
+
+                <!-- Fila 1: Puesto + Período -->
+                <div class="exp__entry-top">
+                  <h3 class="exp__company">{{ exp.role }}</h3>
+                  <span class="exp__period">
+                    <i data-lucide="calendar" aria-hidden="true"></i>
+                    {{ exp.period }}
+                  </span>
+                </div>
+
+                <!-- Fila 2: Lugar de trabajo -->
+                <p class="exp__role">{{ exp.company }}</p>
+
+                <!-- Fila 3: Subtítulo + Ubicación -->
+                <div class="exp__meta">
+                  <span class="exp__subtitle">{{ exp.subtitle }}</span>
+                  <span class="exp__location">
+                    <i data-lucide="map-pin" aria-hidden="true"></i>
+                    {{ exp.location }}
+                  </span>
+                </div>
+
+                <!-- Fila 4: Métricas de impacto como badges inline -->
+                <div class="exp__metrics">
+                  @for (m of exp.metrics!; track m.label) {
+                    <span class="exp__metric">
+                      <span class="exp__metric-value">{{ m.value }}</span>
+                      <span class="exp__metric-label">{{ m.label }}</span>
+                    </span>
+                  }
                 </div>
 
               </div>
-            </div>
-          }
 
-        </div><!-- /exp__entry -->
+              <!-- Chevron: rota 180° cuando la entrada está abierta -->
+              <i
+                data-lucide="chevron-down"
+                class="exp__chevron"
+                [class.exp__chevron--open]="isOpen(exp.id)"
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            <!-- ── Cuerpo expandible (Angular Animations para height: auto real) ── -->
+            @if (isOpen(exp.id)) {
+              <div class="exp__entry-body" [@expandCollapse]>
+
+                <!-- Línea divisora entre header y cuerpo -->
+                <div class="exp__separator" aria-hidden="true"></div>
+
+                <div class="exp__entry-body-inner">
+
+                  <!-- Links externos (solo si la experiencia los tiene) -->
+                  @if (exp.links && exp.links.length > 0) {
+                    <div class="exp__links">
+                      @for (link of exp.links; track link.url) {
+                        <a
+                          class="exp__link"
+                          [href]="link.url"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i [attr.data-lucide]="link.icon ?? 'external-link'" aria-hidden="true"></i>
+                          {{ link.label }}
+                        </a>
+                      }
+                    </div>
+                  }
+
+                  <!-- Descripción: párrafo con borde izquierdo de acento -->
+                  <p class="exp__description">{{ exp.description }}</p>
+
+                  <!-- Lista de responsabilidades con bullet circular de color acento -->
+                  <ul class="exp__resp-list">
+                    @for (item of exp.responsibilities!; track item; let j = $index) {
+                      <li class="exp__resp-item">
+                        <span class="exp__resp-bullet" aria-hidden="true"></span>
+                        <p class="exp__resp-text">{{ item }}</p>
+                      </li>
+                    }
+                  </ul>
+
+                  <!-- Tags de tecnologías en fuente monoespaciada -->
+                  <div class="exp__tech">
+                    <p class="exp__tech-title">Tecnologías</p>
+                    <div class="exp__tech-tags">
+                      @for (tech of exp.technologies!; track tech) {
+                        <span class="exp__tech-tag">{{ tech }}</span>
+                      }
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            }
+
+          </div><!-- /exp__entry -->
+
+        }
 
       }
     </div><!-- /exp__list -->

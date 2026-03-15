@@ -17,15 +17,6 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 })
 export class SeccionSobreMiComponent implements AfterViewInit {
 
-  // Tecnologías del stack actual (chips azul-acento en la tarjeta Stack)
-  currentStack = [
-    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'Angular', 'React',
-    'Node.js', 'Express', 'PostgreSQL', 'Git', 'Figma', 'Jira',
-  ];
-
-  // Items en aprendizaje (chips violeta en la tarjeta Aprendiendo)
-  learning = ['C#', 'ASP.NET', 'Java', 'React Native', 'SQL Server', 'Testing & QA', 'CI/CD'];
-
   // Inicializo íconos de Lucide después de que el DOM esté listo
   ngAfterViewInit(): void {
     if (typeof lucide !== 'undefined') {

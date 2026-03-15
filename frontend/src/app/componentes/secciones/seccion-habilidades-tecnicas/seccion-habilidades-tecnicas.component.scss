@@ -76,6 +76,47 @@
   }
   .accent { color: var(--portfolio-accent); }
 
+  // --- Pills de filtro por categoría ---
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  &__filter-pill {
+    padding: 6px 14px;
+    border-radius: $radius-full;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background-color: var(--portfolio-card-bg);
+    color: var(--muted-foreground);
+    border: 1px solid var(--portfolio-card-border);
+    cursor: pointer;
+    transition: all $transition-base;
+    line-height: 1;
+
+    &:hover:not(&--active) {
+      border-color: var(--portfolio-accent);
+      color: var(--foreground);
+    }
+
+    &--active {
+      font-weight: 600;
+      background-color: var(--portfolio-accent);
+      color: var(--accent-foreground, #ffffff);
+      border-color: var(--portfolio-accent);
+      box-shadow: 0 2px 12px var(--portfolio-accent-glow);
+    }
+  }
+  &__filter-count {
+    margin-left: 5px;
+    font-size: 0.68rem;
+    opacity: 0.5;
+
+    // Cuando la pill está activa, el contador es más visible
+    .tech__filter-pill--active & { opacity: 0.85; }
+  }
+
   // --- Grilla: siempre 2 columnas en mobile, más desde md en adelante ---
   &__grid {
     display: grid;
@@ -211,6 +252,11 @@
 
     svg { width: 56px; height: 56px; }
     img { width: 56px; height: 56px; object-fit: contain; }
+  }
+  // Ícono Lucide usado como fallback cuando no hay imagen .webp (QA Testing, Postman)
+  &__lucide-icon {
+    width: 48px; height: 48px;
+    color: var(--portfolio-accent);
   }
   &__name {
     font-size: 0.85rem; font-weight: 600;

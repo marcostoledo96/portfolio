@@ -18,94 +18,101 @@
       <div class="tech__header-line"></div>
     </div>
 
-    <!-- Grilla de tarjetas flip; el delay escalonado (i * 0.03s) genera aparición en cascada -->
-    <div class="tech__grid">
-      @for (skill of skills; track skill.name; let i = $index) {
-        <!-- --flipped activa la rotación 3D; --mobile-hover simula el estado hover en touch -->
-        <div
-          class="flip-card animate-on-scroll"
-          [class.flip-card--flipped]="flippedIndex === i"
-          [class.flip-card--mobile-hover]="activeHoverIndex === i"
-          (click)="toggleFlip(i)"
-          appAnimateOnScroll
-          [animateDelay]="i * 0.03"
-        >
-          <div class="flip-card__inner">
-            <!-- CARA FRONTAL: imagen + nombre de la habilidad -->
-            <div class="flip-card__front">
-              <div class="flip-card__icon-wrap">
-                <img [src]="imgMap[skill.name]" [alt]="skill.name" width="48" height="48">
-              </div>
-              <span class="flip-card__name">{{ skill.name }}</span>
-            </div>
-            <!-- CARA POSTERIOR: badge de tag, contexto y estrellas de nivel -->
-            <div class="flip-card__back"
-              [class.flip-card__back--active]="skill.tag === 'active'"
-              [class.flip-card__back--learning]="skill.tag === 'learning'"
-              [class.flip-card__back--inactive]="skill.tag === 'inactive'"
-            >
-              <!-- Badge verde = experiencia práctica; morado = en formación; gris = experiencia previa -->
-              <span class="flip-card__tag"
-                [class.flip-card__tag--active]="skill.tag === 'active'"
-                [class.flip-card__tag--learning]="skill.tag === 'learning'"
-                [class.flip-card__tag--inactive]="skill.tag === 'inactive'"
-              >{{ skill.tagLabel }}</span>
-              <p class="flip-card__context">{{ skill.context }}</p>
-              <!-- Estrellas: starsArray retorna [true/false x5] según el nivel -->
-              <div class="flip-card__stars">
-                @for (filled of starsArray(skill.level); track $index) {
-                  <i data-lucide="star"
-                    class="flip-card__star"
-                    [class.flip-card__star--filled]="filled"
-                    [class.flip-card__star--empty]="!filled"
-                  ></i>
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- Pills de filtro por categoría -->
+    <div class="tech__filters animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1"
+      role="tablist" aria-label="Filtrar habilidades por categoría">
+      @for (tab of filterTabs; track tab) {
+        <button
+          class="tech__filter-pill"
+          [class.tech__filter-pill--active]="tab === activeFilter()"
+          (click)="setFilter(tab)"
+          role="tab"
+          [attr.aria-selected]="tab === activeFilter()">
+          {{ tab }}
+          <span class="tech__filter-count">{{ getFilterCount(tab) }}</span>
+        </button>
       }
     </div>
 
-    <!-- Tarjeta especial: Proactividad / Superación constante (centrada, fuera de la grilla) -->
-    <div class="tech__proactividad">
-      <div
-        class="flip-card animate-on-scroll"
-        [class.flip-card--flipped]="proactividadFlipped"
-        [class.flip-card--mobile-hover]="proactividadHover"
-        (click)="toggleProactividad()"
+    <!-- Grilla de tarjetas flip -->
+    <div class="tech__grid">
+      @for (skill of filteredSkills(); track skill.name; let i = $index) {
+      <!-- --flipped activa la rotación 3D; --mobile-hover simula el estado hover en touch -->
+      <!-- getGlobalIndex asegura que flippedIndex apunte al índice correcto en ALL_SKILLS -->
+      <div class="flip-card animate-on-scroll"
+        [class.flip-card--flipped]="flippedIndex === getGlobalIndex(skill)"
+        [class.flip-card--mobile-hover]="activeHoverIndex === getGlobalIndex(skill)"
+        (click)="toggleFlip(getGlobalIndex(skill))"
         appAnimateOnScroll
-        [animateDelay]="0.1"
-        role="button"
-        tabindex="0"
-        aria-label="Ver detalles de Superación constante"
-        [attr.aria-expanded]="proactividadFlipped"
-        (keydown.enter)="toggleProactividad()"
-        (keydown.space)="$event.preventDefault(); toggleProactividad()"
-      >
+        [animateDelay]="i * 0.03">
+        <div class="flip-card__inner">
+          <!-- CARA FRONTAL: imagen o ícono + nombre de la habilidad -->
+          <div class="flip-card__front">
+            <div class="flip-card__icon-wrap">
+              @if (skill.iconName) {
+                <!-- Ícono Lucide para skills sin imagen .webp disponible (QA Testing, Postman) -->
+                <i [attr.data-lucide]="skill.iconName" class="flip-card__lucide-icon"></i>
+              } @else {
+                <img [src]="imgMap[skill.name]" [alt]="skill.name" width="48" height="48">
+              }
+            </div>
+            <span class="flip-card__name">{{ skill.name }}</span>
+          </div>
+          <!-- CARA POSTERIOR: badge de tag, contexto y estrellas de nivel -->
+          <div class="flip-card__back" [class.flip-card__back--active]="skill.tag === 'active'"
+            [class.flip-card__back--learning]="skill.tag === 'learning'"
+            [class.flip-card__back--inactive]="skill.tag === 'inactive'">
+            <!-- Badge verde = experiencia práctica; morado = en formación; gris = experiencia previa -->
+            <span class="flip-card__tag" [class.flip-card__tag--active]="skill.tag === 'active'"
+              [class.flip-card__tag--learning]="skill.tag === 'learning'"
+              [class.flip-card__tag--inactive]="skill.tag === 'inactive'">{{ skill.tagLabel }}</span>
+            <p class="flip-card__context">{{ skill.context }}</p>
+            <!-- Estrellas: starsArray retorna [true/false x5] según el nivel -->
+            <div class="flip-card__stars">
+              @for (filled of starsArray(skill.level); track $index) {
+              <i data-lucide="star" class="flip-card__star" [class.flip-card__star--filled]="filled"
+                [class.flip-card__star--empty]="!filled"></i>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Tarjeta especial Proactividad: solo visible en el filtro 'Todas' -->
+    @if (activeFilter() === 'Todas') {
+      <div class="tech__proactividad">
+      <div class="flip-card animate-on-scroll" [class.flip-card--flipped]="proactividadFlipped"
+        [class.flip-card--mobile-hover]="proactividadHover" (click)="toggleProactividad()" appAnimateOnScroll
+        [animateDelay]="0.1" role="button" tabindex="0" aria-label="Ver detalles de Superación constante"
+        [attr.aria-expanded]="proactividadFlipped" (keydown.enter)="toggleProactividad()"
+        (keydown.space)="$event.preventDefault(); toggleProactividad()">
         <div class="flip-card__inner">
           <!-- Cara frontal: ícono TrendingUp + texto + subtítulo acento -->
           <div class="flip-card__front flip-card__front--proactividad">
             <div class="flip-card__icon-wrap">
               <i data-lucide="trending-up" class="flip-card__trending-icon"></i>
             </div>
-            <span class="flip-card__name">Superación</span>
-            <span class="flip-card__sub-accent">CONSTANTE</span>
+            <span class="flip-card__name">Mejora</span>
+            <span class="flip-card__sub-accent">CONTINUA</span>
           </div>
           <!-- Cara posterior: texto motivacional + 5 estrellas llenas -->
           <div class="flip-card__back flip-card__back--proactividad">
             <p class="flip-card__context flip-card__context--italic">
-              Siempre busco superarme, aprender algo nuevo y dar lo mejor de mí en cada proyecto.
+              Mi prioridad es la calidad. Analizo procesos y documento mejoras para que cada sistema funcione a la
+              perfección.
             </p>
             <div class="flip-card__stars">
               @for (star of [1,2,3,4,5]; track star) {
-                <i data-lucide="star" class="flip-card__star flip-card__star--filled"></i>
+              <i data-lucide="star" class="flip-card__star flip-card__star--filled"></i>
               }
             </div>
           </div>
         </div>
       </div>
     </div>
+    }
 
     <!-- Leyenda de colores del badge -->
     <div class="tech__legend animate-on-scroll" appAnimateOnScroll [animateDelay]="0.3">
