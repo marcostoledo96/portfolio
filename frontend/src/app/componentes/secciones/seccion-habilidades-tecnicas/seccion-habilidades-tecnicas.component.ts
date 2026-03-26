@@ -1,6 +1,6 @@
 // Sección de habilidades técnicas: grilla de tarjetas con efecto flip 3D, contexto y estrellas.
-import { Component, AfterViewInit, OnDestroy, NgZone, ChangeDetectionStrategy, ChangeDetectorRef, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, AfterViewInit, OnDestroy, NgZone, ChangeDetectionStrategy, ChangeDetectorRef, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
 import { ScrollIndicatorComponent } from '../../scroll-indicator/scroll-indicator.component';
@@ -129,6 +129,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
   };
 
   private resizeCleanup?: () => void;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {
     this.checkMobile();
@@ -136,6 +137,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
 
   ngAfterViewInit(): void {
     if (typeof lucide !== 'undefined') lucide.createIcons();
+    if (!this.isBrowser) return; // Sin resize listener durante prerendering
     // Escucho resize fuera de la zona de Angular para no disparar change detection innecesario
     this.ngZone.runOutsideAngular(() => {
       const handler = () => this.checkMobile();
@@ -219,7 +221,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
 
   // Actualizo isMobile según el ancho de ventana (umbral: 640px = breakpoint sm)
   private checkMobile(): void {
-    this.isMobile = window.innerWidth < 640;
+    this.isMobile = this.isBrowser ? window.innerWidth < 640 : false;
   }
 
   // Flip de la tarjeta especial Proactividad — misma lógica mobile/desktop que toggleFlip

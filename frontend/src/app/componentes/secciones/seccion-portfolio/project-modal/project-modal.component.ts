@@ -2,8 +2,9 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, OnDestroy,
   ChangeDetectionStrategy, ChangeDetectorRef, HostListener, SimpleChanges,
+  inject, PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Project } from '../project.model';
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
@@ -48,13 +49,15 @@ export class ProjectModalComponent implements OnChanges, OnDestroy {
   /** Índice de imagen a mostrar en el lightbox (null = cerrado) */
   lightboxIndex: number | null = null;
 
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['project']) {
       if (this.project) {
         // Bloquea el scroll del body al abrir el modal
-        document.body.style.overflow = 'hidden';
+        if (this.isBrowser) document.body.style.overflow = 'hidden';
         this.lightboxIndex = null;
         // Renderiza los íconos Lucide del modal tras un tick
         setTimeout(() => {
@@ -62,13 +65,13 @@ export class ProjectModalComponent implements OnChanges, OnDestroy {
         });
       } else {
         // Restaura el scroll al cerrar
-        document.body.style.overflow = '';
+        if (this.isBrowser) document.body.style.overflow = '';
       }
     }
   }
 
   ngOnDestroy(): void {
-    document.body.style.overflow = '';
+    if (this.isBrowser) document.body.style.overflow = '';
   }
 
   openLightbox(idx: number): void {

@@ -10,6 +10,9 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(), // requerido por ApiService para realizar llamadas HTTP
   ],
 }).then(() => {
+  // Durante prerendering no hay DOM real — salteo la inicialización del observer
+  if (typeof document === 'undefined') return;
+
   // Pausa animaciones de fondo en secciones fuera de pantalla para reducir carga de GPU.
   // Agrega/quita la clase 'section-in-view' en cada <section id="..."> según su visibilidad.
   const io = new IntersectionObserver(

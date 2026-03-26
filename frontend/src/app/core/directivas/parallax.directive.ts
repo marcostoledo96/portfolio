@@ -1,8 +1,9 @@
 // Directiva de parallax: aplica translateY proporcional al scroll para las figuras decorativas flotantes.
 // Corre fuera de NgZone y usa rAF para no cargar el change detection.
 import {
-  Directive, ElementRef, Input, OnInit, OnDestroy, NgZone,
+  Directive, ElementRef, Input, OnInit, OnDestroy, NgZone, inject, PLATFORM_ID,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appParallax]',
@@ -19,12 +20,16 @@ export class ParallaxDirective implements OnInit, OnDestroy {
   private ticking = false;                       // Evita múltiples rAF en cola
   private reducedMotion = false;                 // Respeta prefers-reduced-motion
 
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   constructor(
     private el: ElementRef<HTMLElement>,
     private ngZone: NgZone,
   ) {}
 
   ngOnInit(): void {
+    if (!this.isBrowser) return; // Sin DOM durante prerendering
+
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (this.reducedMotion) return; // Sin efecto si el sistema pide menos movimiento
 

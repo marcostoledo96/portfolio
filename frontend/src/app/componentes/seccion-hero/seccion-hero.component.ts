@@ -1,9 +1,9 @@
 import {
   Component, OnInit, OnDestroy, AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild,
-  Output, EventEmitter,
+  Output, EventEmitter, inject, PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ParallaxDirective } from '../../core/directivas/parallax.directive';
 
 declare const lucide: any;
@@ -51,10 +51,17 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit { 
   private timer: any;
   private pauseTimer: any;
   private countersStarted = false;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    if (!this.isBrowser) {
+      // Durante prerendering: muestro la primera frase completa y los valores finales
+      this.displayText = PHRASES[0];
+      this.counters = STATS.map(s => s.value);
+      return;
+    }
     this.tick();
     // Hero is above-the-fold: start counter after fade-in completes
     setTimeout(() => this.onStatsVisible(), 800);
@@ -152,6 +159,7 @@ export class SeccionHeroComponent implements OnInit, OnDestroy, AfterViewInit { 
   // scrollTo se mantiene para los scroll indicators internos (sobre-mi)
   // que apuntan a secciones no-lazy. Los CTAs (portfolio, contacto) ya usan navTo.
   scrollTo(sectionId: string, desktopBlock: ScrollLogicalPosition = 'start'): void {
+    if (!this.isBrowser) return;
     const isMobile = window.innerWidth < 1024;
     const block: ScrollLogicalPosition = isMobile ? 'start' : desktopBlock;
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block });

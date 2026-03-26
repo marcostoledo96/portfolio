@@ -1,6 +1,6 @@
 // Sección de contacto: formulario de mensaje + tarjeta de links (GitHub, LinkedIn, mail, CV).
-import { Component, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, NgZone } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Necesario para [(ngModel)]
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
@@ -101,6 +101,7 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
   copyEmail(event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
+    if (!this.isBrowser) return;
     const email = ["marcostoledo96", "gmail.com"].join("@");
     navigator.clipboard.writeText(email).then(() => {
       this.emailCopied = true;
@@ -131,6 +132,7 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
   }
   // ID del widget Turnstile para poder resetearlo y destruirlo
   private turnstileWidgetId: string | null = null;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   contactLinks = CONTACT_LINKS; // Lista de links de la columna derecha
 
@@ -145,6 +147,7 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
    * Reintenta cada 200ms hasta 15 veces si el script aún no cargó (carga async).
    */
   private initTurnstile(attempts = 0): void {
+    if (!this.isBrowser) return; // Sin widget durante prerendering
     if (typeof turnstile === 'undefined') {
       if (attempts < 15) setTimeout(() => this.initTurnstile(attempts + 1), 200);
       return;

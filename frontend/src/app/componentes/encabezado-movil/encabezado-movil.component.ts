@@ -3,9 +3,9 @@
 
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, AfterViewInit
+  ChangeDetectionStrategy, AfterViewInit, inject, PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { BarraLateralComponent } from '../barra-lateral/barra-lateral.component'; // Reutilizo la sidebar dentro del drawer
 
 declare const lucide: any; // Librería de íconos cargada desde CDN
@@ -25,6 +25,8 @@ export class EncabezadoMovilComponent implements AfterViewInit {
   @Output() toggleDrawer = new EventEmitter<void>(); // Abre/cierra el drawer
   @Output() navClick = new EventEmitter<string>();   // Reenvía el clic de navegación al padre
 
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   // Inicializo Lucide cuando la vista está lista (los <i data-lucide> ya existen en el DOM)
   ngAfterViewInit(): void {
     if (typeof lucide !== 'undefined') {
@@ -34,6 +36,7 @@ export class EncabezadoMovilComponent implements AfterViewInit {
 
   /** Desplaza suavemente la página al inicio (scroll en #contenido-principal, no en window) */
   scrollToTop(): void {
+    if (!this.isBrowser) return;
     document.getElementById('contenido-principal')?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

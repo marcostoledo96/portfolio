@@ -4,8 +4,9 @@ import {
   Component, ChangeDetectionStrategy, HostListener,
   signal, computed, ViewChild, ElementRef,
   Output, EventEmitter, AfterViewChecked, OnDestroy,
+  inject, PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TemaService } from '../../servicios/tema.service';
@@ -67,6 +68,7 @@ export class PaletaComandosComponent implements AfterViewChecked, OnDestroy {
   // Flags internos para tareas post-render
   private shouldFocus     = false;
   private needsIconRefresh = false;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   // Lista completa de ítems (se construye una sola vez)
   private readonly allItems: PaletaItem[];
@@ -120,7 +122,7 @@ export class PaletaComandosComponent implements AfterViewChecked, OnDestroy {
         icon:     'download',
         category: 'Acciones',
         action: () => {
-          window.open('assets/doc/CV_ToledoMarcos_IT.pdf', '_blank');
+          if (this.isBrowser) window.open('assets/doc/CV_ToledoMarcos_IT.pdf', '_blank');
           this.close();
         },
       },
@@ -204,12 +206,12 @@ export class PaletaComandosComponent implements AfterViewChecked, OnDestroy {
     this.isOpen.set(true);
     this.shouldFocus     = true;
     this.needsIconRefresh = true;
-    document.body.style.overflow = 'hidden'; // Bloqueo scroll de fondo
+    if (this.isBrowser) document.body.style.overflow = 'hidden'; // Bloqueo scroll de fondo
   }
 
   close(): void {
     this.isOpen.set(false);
-    document.body.style.overflow = '';
+    if (this.isBrowser) document.body.style.overflow = '';
   }
 
   onQueryChange(value: string): void {
@@ -271,6 +273,6 @@ export class PaletaComandosComponent implements AfterViewChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    document.body.style.overflow = ''; // Limpieza por si se destruye con la paleta abierta
+    if (this.isBrowser) document.body.style.overflow = ''; // Limpieza por si se destruye con la paleta abierta
   }
 }

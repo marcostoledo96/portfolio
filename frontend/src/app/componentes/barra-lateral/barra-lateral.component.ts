@@ -6,9 +6,9 @@ import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, AfterViewInit,
   ViewChild, ViewChildren, QueryList,
-  ElementRef, OnChanges, SimpleChanges, signal,
+  ElementRef, OnChanges, SimpleChanges, signal, inject, PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Para usar *ngFor en la plantilla
+import { CommonModule, isPlatformBrowser } from '@angular/common'; // Para usar *ngFor en la plantilla
 import { TemaService } from '../../servicios/tema.service'; // Gestiona el tema claro/oscuro
 import { ImagenFallbackComponent } from '../imagen-fallback/imagen-fallback.component';
 
@@ -70,7 +70,10 @@ export class BarraLateralComponent implements AfterViewInit, OnChanges {
   private tooltipTimer: ReturnType<typeof setTimeout> | null = null;
 
   // Respeta prefers-reduced-motion: sin transición si está activo
-  readonly reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  readonly reducedMotion = this.isBrowser
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
 
   navItems = NAV_ITEMS; // Lista de ítems disponible para el *ngFor de la plantilla
 
@@ -96,6 +99,7 @@ export class BarraLateralComponent implements AfterViewInit, OnChanges {
     if (typeof lucide !== 'undefined') {
       lucide.createIcons(); // Convierte cada <i data-lucide="..."> en su SVG
     }
+    if (!this.isBrowser) return; // Sin layout durante prerendering
     // Posición inicial del pill (sin transición para que aparezca directo)
     this.updatePill();
     // Segunda medición tras 800ms para compensar animaciones de entrada del layout
@@ -114,6 +118,7 @@ export class BarraLateralComponent implements AfterViewInit, OnChanges {
 
   // Muestra el tooltip tras 400ms si el ítem no es el activo
   onMouseEnter(item: NavItem, event: MouseEvent): void {
+    if (!this.isBrowser) return;
     if (item.id === this.activeSection) return;
     this.clearTooltipTimer();
     const btn = event.currentTarget as HTMLElement;
@@ -146,6 +151,7 @@ export class BarraLateralComponent implements AfterViewInit, OnChanges {
 
   // Mide la posición del botón activo relativa al <ul> y actualiza el signal del pill
   private updatePill(): void {
+    if (!this.isBrowser) return; // Sin layout durante prerendering
     if (!this.navListRef || !this.navBtns?.length) return;
 
     const activeIndex = this.navItems.findIndex(n => n.id === this.activeSection);

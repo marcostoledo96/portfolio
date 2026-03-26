@@ -3,9 +3,9 @@
 import {
   Component, OnInit, OnDestroy, AfterViewInit,
   ViewChild, ElementRef, NgZone, ChangeDetectionStrategy,
-  signal,
+  signal, inject, PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -81,6 +81,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   private sectionIds = NAV_ITEMS.map(n => n.id); // IDs de las secciones en orden de navegación
   private isScrolling = false;  // Bloqueo temporal durante scroll programático (handleNavClick)
   private ticking = false;      // Evita múltiples rAF en cola (patrón throttle con requestAnimationFrame)
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(
     private ngZone: NgZone,
@@ -91,6 +92,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (!this.isBrowser) return; // Sin scroll listener durante prerendering
     // Registro el listener fuera de NgZone para que el scroll no dispare change detection en cada frame
     this.ngZone.runOutsideAngular(() => {
       this.mainRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
@@ -99,6 +101,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    if (!this.isBrowser) return;
     this.mainRef.nativeElement.removeEventListener('scroll', this.onScroll); // Evito memory leaks
   }
 
@@ -175,7 +178,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   // Navega a una sección: cierra el drawer, activa la sección y bloquea la detección 800ms
   handleNavClick(sectionId: string): void {
     this.isDrawerOpen = false;
-    document.body.classList.remove('drawer-open');
+    if (this.isBrowser) document.body.classList.remove('drawer-open');
 
     // 'hero' no tiene elemento en el DOM: scrolleamos al top del <main>
     if (sectionId === 'hero') {
@@ -205,7 +208,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // En mobile (sin sidebar) siempre se va al start; en desktop las secciones cortas se centran
     const centerSections = ['idiomas', 'contacto', 'sobre-mi'];
-    const isMobile = window.innerWidth < 1024;
+    const isMobile = this.isBrowser ? window.innerWidth < 1024 : true;
     const block: ScrollLogicalPosition =
       isMobile ? 'start' : (centerSections.includes(sectionId) ? 'center' : 'start');
 
@@ -235,6 +238,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   // Abre/cierra el drawer móvil y agrega/quita la clase en body para bloquear el scroll de fondo
   toggleDrawer(): void {
     this.isDrawerOpen = !this.isDrawerOpen;
+    if (!this.isBrowser) return;
     if (this.isDrawerOpen) {
       document.body.classList.add('drawer-open');
     } else {

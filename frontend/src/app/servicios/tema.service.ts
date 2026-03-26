@@ -1,11 +1,14 @@
 // Servicio de tema: persiste la preferencia light/dark en localStorage y la aplica al <html>.
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 type Theme = 'light' | 'dark';
 
 @Injectable({ providedIn: 'root' }) // Singleton global
 export class TemaService {
   private readonly STORAGE_KEY = 'portfolio-theme'; // Clave usada para persistir el tema
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private readonly doc = inject(DOCUMENT);
 
   // Signal reactivo: los componentes que lo lean se actualizan automáticamente al cambiar el tema
   readonly theme = signal<Theme>(this.getInitialTheme());
@@ -23,13 +26,15 @@ export class TemaService {
 
   // Si hay un tema guardado lo uso; si no, arranco en dark por defecto
   private getInitialTheme(): Theme {
+    if (!this.isBrowser) return 'dark'; // Sin localStorage durante prerendering
     const stored = localStorage.getItem(this.STORAGE_KEY) as Theme | null;
     return stored ?? 'dark';
   }
 
   // Agrego o quito la clase 'dark' en <html> y persisto la elección en localStorage
   private applyTheme(theme: Theme): void {
-    const root = document.documentElement;
+    if (!this.isBrowser) return; // Sin DOM durante prerendering
+    const root = this.doc.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {

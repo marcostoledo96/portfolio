@@ -1,6 +1,7 @@
 // Directiva que agrega la clase 'visible' cuando el elemento entra en el viewport.
 // Usa IntersectionObserver fuera de NgZone para no disparar change detection en cada evento de scroll.
-import { Directive, ElementRef, Input, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, OnDestroy, NgZone, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[appAnimateOnScroll]',
@@ -12,12 +13,18 @@ export class AnimateOnScrollDirective implements OnInit, OnDestroy {
 
   private observer: IntersectionObserver | null = null;
 
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   constructor(
     private el: ElementRef<HTMLElement>,
     private ngZone: NgZone,
   ) {}
 
   ngOnInit(): void {
+    // Durante prerendering: no agrego la clase animate-on-scroll para que el contenido
+    // sea visible en el HTML estático (los crawlers ven todo el contenido directamente)
+    if (!this.isBrowser) return;
+
     const element = this.el.nativeElement;
     element.classList.add('animate-on-scroll'); // Estado inicial: opacidad 0, listo para animar
     if (this.animateDelay > 0) {

@@ -1,7 +1,7 @@
 // Indicador de scroll reutilizable: botón SCROLL + chevron animado al pie de cada sección.
 // Al hacer clic desplaza suavemente hasta la sección indicada por `targetId`.
-import { Component, Input, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, AfterViewInit, ChangeDetectionStrategy, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 declare const lucide: any;
 
@@ -21,12 +21,14 @@ export class ScrollIndicatorComponent implements AfterViewInit {
 
   // Secciones que se alinean al centro de la ventana (igual que handleNavClick en app.component.ts)
   private readonly centerSections = ['idiomas', 'contacto', 'sobre-mi'];
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   ngAfterViewInit(): void {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
   scrollToTarget(): void {
+    if (!this.isBrowser) return; // Sin DOM durante prerendering
     // En mobile (sin sidebar, < 1024px) siempre se va al start para mostrar desde el inicio
     const isMobile = window.innerWidth < 1024;
     const block = isMobile ? 'start'
