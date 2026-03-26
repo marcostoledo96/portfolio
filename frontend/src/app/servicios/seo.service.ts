@@ -4,7 +4,7 @@ import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
-const SITE_URL   = 'https://marcostoledo.dev';
+const SITE_URL   = 'https://www.marcostoledo.cv';
 const FULL_TITLE = 'Marcos Ezequiel Toledo — Desarrollador de Software & QA Tester';
 const DESCRIPTION =
   'Portfolio de Marcos Ezequiel Toledo, Desarrollador Full Stack Jr. y QA Tester. ' +

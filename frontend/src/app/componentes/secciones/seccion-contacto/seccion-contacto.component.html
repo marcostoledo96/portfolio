@@ -76,6 +76,7 @@
                       (blur)="focusedField = null; onBlur('name')"
                       [attr.aria-invalid]="getFieldStatus('name') === 'invalid'"
                       aria-describedby="error-name"
+                      required
                     />
                     @if (getFieldStatus('name') === 'valid') {
                       <i data-lucide="check-circle" class="contact__field-status-icon contact__field-status-icon--valid" aria-hidden="true"></i>
@@ -106,6 +107,7 @@
                       (blur)="focusedField = null; onBlur('email')"
                       [attr.aria-invalid]="getFieldStatus('email') === 'invalid'"
                       aria-describedby="error-email"
+                      required
                     />
                     @if (getFieldStatus('email') === 'valid') {
                       <i data-lucide="check-circle" class="contact__field-status-icon contact__field-status-icon--valid" aria-hidden="true"></i>
@@ -139,6 +141,7 @@
                     [attr.aria-invalid]="getFieldStatus('message') === 'invalid'"
                     aria-describedby="error-message"
                     [maxlength]="maxLength"
+                    required
                   ></textarea>
                   @if (getFieldStatus('message') === 'valid') {
                     <i data-lucide="check-circle" class="contact__field-status-icon contact__field-status-icon--valid contact__field-status-icon--top" aria-hidden="true"></i>

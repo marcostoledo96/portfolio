@@ -149,7 +149,11 @@
   }
 
   // --- Name ---
+  &__name {
+    margin-bottom: 1.25rem;
+  }
   &__firstname {
+    display: block;
     color: var(--foreground);
     font-size: clamp(2.2rem, 5.5vw, 3.5rem);
     font-weight: 300;
@@ -158,11 +162,11 @@
     margin-bottom: 0.5rem;
   }
   &__lastname {
+    display: block;
     font-size: clamp(2.2rem, 5.5vw, 3.5rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    margin-bottom: 1.25rem;
     background: linear-gradient(135deg, var(--portfolio-accent) 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
