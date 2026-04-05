@@ -28,9 +28,9 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'sobre-mi',             label: 'Sobre mí',             icon: 'user'           },
   { id: 'habilidades-tecnicas', label: 'Habilidades Técnicas', icon: 'code-2'         },
   { id: 'habilidades-blandas',  label: 'Habilidades Blandas',  icon: 'heart'          },
-  { id: 'idiomas',              label: 'Idiomas',              icon: 'languages'      },
   { id: 'experiencia',          label: 'Experiencia',          icon: 'briefcase'      },
   { id: 'educacion',            label: 'Educación',            icon: 'graduation-cap' },
+  { id: 'idiomas',              label: 'Idiomas',              icon: 'languages'      },
   { id: 'portfolio',            label: 'Portfolio',            icon: 'folder-open'    },
   { id: 'contacto',             label: 'Contacto',             icon: 'mail'           },
 ];

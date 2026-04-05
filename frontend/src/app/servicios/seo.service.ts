@@ -11,7 +11,8 @@ const DESCRIPTION =
   'Proyectos con Angular, React, Node.js, TypeScript y más. Buenos Aires, Argentina.';
 const KEYWORDS =
   'desarrollador web, QA tester, portfolio, Angular, React, Node.js, TypeScript, ' +
-  'JavaScript, full stack, Buenos Aires, Argentina, Marcos Toledo';
+  'JavaScript, full stack, Buenos Aires, Argentina, Marcos Toledo, ' +
+  'marcos ezequiel toledo, cv marcos toledo, desarrollador de software';
 const OG_IMAGE = `${SITE_URL}/assets/img/og-preview.png`;
 
 @Injectable({ providedIn: 'root' })
@@ -35,8 +36,11 @@ export class SeoService {
     this.setProperty('og:title',       FULL_TITLE);
     this.setProperty('og:description', DESCRIPTION);
     this.setProperty('og:image',       OG_IMAGE);
+    this.setProperty('og:image:width', '1200');
+    this.setProperty('og:image:height','630');
     this.setProperty('og:url',         SITE_URL);
     this.setProperty('og:locale',      'es_AR');
+    this.setProperty('og:site_name',   'Marcos Ezequiel Toledo');
 
     // ── 4. Twitter Card ──────────────────────────────────────────────────────
     this.setMeta('twitter:card',        'summary_large_image');
@@ -47,23 +51,60 @@ export class SeoService {
     // ── 5. Canonical ─────────────────────────────────────────────────────────
     this.ensureCanonical(SITE_URL);
 
-    // ── 6. JSON-LD (schema.org Person) ───────────────────────────────────────
-    this.ensureJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: 'Marcos Ezequiel Toledo',
-      jobTitle: 'Desarrollador de Software & QA Tester',
-      url: SITE_URL,
-      sameAs: [
-        'https://github.com/marcostoledo96',
-        'https://www.linkedin.com/in/marcos-ezequiel-toledo',
-      ],
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Buenos Aires',
-        addressCountry: 'AR',
+    // ── 6. hreflang alternates (español, inglés, x-default) ──────────────────
+    this.ensureHreflang('es', SITE_URL);
+    this.ensureHreflang('en', `${SITE_URL}/en`);
+    this.ensureHreflang('x-default', SITE_URL);
+
+    // ── 7. JSON-LD (schema.org ProfilePage + WebSite) ────────────────────────
+    this.ensureJsonLd([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ProfilePage',
+        mainEntity: {
+          '@type': 'Person',
+          '@id': `${SITE_URL}/#person`,
+          name: 'Marcos Ezequiel Toledo',
+          givenName: 'Marcos Ezequiel',
+          familyName: 'Toledo',
+          jobTitle: 'Desarrollador de Software & QA Tester',
+          description: DESCRIPTION,
+          url: SITE_URL,
+          image: `${SITE_URL}/assets/img/Foto_Perfil.webp`,
+          email: 'mailto:marcostoledo96@gmail.com',
+          knowsAbout: [
+            'Angular', 'React', 'TypeScript', 'JavaScript', 'Node.js',
+            'HTML', 'CSS', 'SCSS', 'PostgreSQL', 'MySQL', 'SQL Server',
+            'QA Testing', 'Git', 'Figma', 'Jira', 'Scrum', 'UML',
+          ],
+          alumniOf: {
+            '@type': 'EducationalOrganization',
+            name: 'IFTS N°16',
+          },
+          worksFor: {
+            '@type': 'Organization',
+            name: 'AEROTEST',
+          },
+          sameAs: [
+            'https://github.com/marcostoledo96',
+            'https://www.linkedin.com/in/marcos-ezequiel-toledo',
+          ],
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Buenos Aires',
+            addressCountry: 'AR',
+          },
+        },
       },
-    });
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Marcos Ezequiel Toledo — Portfolio',
+        url: SITE_URL,
+        inLanguage: ['es', 'en'],
+        author: { '@id': `${SITE_URL}/#person` },
+      },
+    ]);
   }
 
   // ── Helpers privados ────────────────────────────────────────────────────────
@@ -96,8 +137,19 @@ export class SeoService {
     head.appendChild(link);
   }
 
+  /** Inserta <link rel="alternate" hreflang="..."> si no existe */
+  private ensureHreflang(lang: string, url: string): void {
+    const head = this.document.head;
+    if (head.querySelector(`link[hreflang="${lang}"]`)) return;
+    const link = this.document.createElement('link');
+    link.setAttribute('rel', 'alternate');
+    link.setAttribute('hreflang', lang);
+    link.setAttribute('href', url);
+    head.appendChild(link);
+  }
+
   /** Inserta un <script type="application/ld+json"> si no existe */
-  private ensureJsonLd(data: object): void {
+  private ensureJsonLd(data: object | object[]): void {
     const head = this.document.head;
     if (head.querySelector('script[type="application/ld+json"]')) return;
     const script = this.document.createElement('script');

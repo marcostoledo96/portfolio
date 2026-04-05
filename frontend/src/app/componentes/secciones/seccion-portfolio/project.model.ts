@@ -17,5 +17,6 @@ export interface Project {
   technologies: string[];
   featured: boolean;          // Muestra el badge "Destacado"
   siteUrl?: string;           // URL de demo (opcional)
+  siteLabel?: string;         // Texto personalizado del botón de demo (opcional, default: 'Demo')
   githubUrl?: string;         // URL del repositorio (opcional)
 }

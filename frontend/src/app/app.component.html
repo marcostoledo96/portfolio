@@ -40,9 +40,9 @@
       ></app-lazy-section>
     }
     <app-seccion-habilidades-blandas></app-seccion-habilidades-blandas>
-    <app-seccion-idiomas></app-seccion-idiomas>
     <app-seccion-experiencia></app-seccion-experiencia>
     <app-seccion-educacion></app-seccion-educacion>
+    <app-seccion-idiomas></app-seccion-idiomas>
     @defer (when forcePortfolio(); on viewport; prefetch on idle) {
       <app-seccion-portfolio></app-seccion-portfolio>
     } @placeholder {
@@ -76,11 +76,11 @@
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
           <button class="footer__sitemap-link" (click)="handleNavClick('habilidades-blandas')">Habilidades blandas</button>
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
-          <button class="footer__sitemap-link" (click)="handleNavClick('idiomas')">Idiomas</button>
-          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
           <button class="footer__sitemap-link" (click)="handleNavClick('experiencia')">Experiencia</button>
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
           <button class="footer__sitemap-link" (click)="handleNavClick('educacion')">Educación</button>
+          <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
+          <button class="footer__sitemap-link" (click)="handleNavClick('idiomas')">Idiomas</button>
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>
           <button class="footer__sitemap-link" (click)="handleNavClick('portfolio')">Portfolio</button>
           <span class="footer__sitemap-sep" aria-hidden="true">&middot;</span>

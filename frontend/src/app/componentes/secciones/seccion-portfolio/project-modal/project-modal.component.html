@@ -73,7 +73,7 @@
               <a [href]="project.siteUrl" target="_blank" rel="noopener noreferrer"
                  class="pmodal__link-btn pmodal__link-btn--primary">
                 <i data-lucide="external-link" class="pmodal__link-icon"></i>
-                Ver sitio
+                {{ project.siteLabel ?? 'Ver sitio' }}
               </a>
             }
             @if (project.githubUrl) {

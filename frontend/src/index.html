@@ -9,9 +9,17 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Portfolio de Marcos Ezequiel Toledo, Desarrollador Full Stack Jr. y QA Tester. Proyectos con Angular, React, Node.js, TypeScript y más. Buenos Aires, Argentina.">
+    <meta name="author" content="Marcos Ezequiel Toledo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0c1222" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f0f4f8" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/x-icon" href="assets/img/mt.ico">
     <!-- Canonical: URL canónica para que los crawlers identifiquen la versión principal del sitio -->
     <link rel="canonical" href="https://www.marcostoledo.cv">
+    <!-- hreflang: indica a Google las versiones en cada idioma para evitar contenido duplicado -->
+    <link rel="alternate" hreflang="es" href="https://www.marcostoledo.cv">
+    <link rel="alternate" hreflang="en" href="https://www.marcostoledo.cv/en">
+    <link rel="alternate" hreflang="x-default" href="https://www.marcostoledo.cv">
     <!-- Open Graph: tags estáticos para crawlers que no ejecutan JavaScript -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Marcos Ezequiel Toledo — Desarrollador de Software &amp; QA Tester">
@@ -19,29 +27,65 @@
     <meta property="og:image" content="https://www.marcostoledo.cv/assets/img/og-preview.png">
     <meta property="og:url" content="https://www.marcostoledo.cv">
     <meta property="og:locale" content="es_AR">
+    <meta property="og:site_name" content="Marcos Ezequiel Toledo">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
     <!-- Twitter Card: tags estáticos para previews en redes sociales -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Marcos Ezequiel Toledo — Desarrollador de Software &amp; QA Tester">
     <meta name="twitter:description" content="Portfolio de Marcos Ezequiel Toledo, Desarrollador Full Stack Jr. y QA Tester. Proyectos con Angular, React, Node.js, TypeScript y más. Buenos Aires, Argentina.">
     <meta name="twitter:image" content="https://www.marcostoledo.cv/assets/img/og-preview.png">
-    <!-- JSON-LD: datos estructurados para que Google muestre rich snippets -->
+    <!-- JSON-LD: datos estructurados para que Google muestre rich snippets (Knowledge Panel, sitelinks) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Marcos Ezequiel Toledo",
-      "jobTitle": "Desarrollador de Software & QA Tester",
-      "url": "https://www.marcostoledo.cv",
-      "sameAs": [
-        "https://github.com/marcostoledo96",
-        "https://www.linkedin.com/in/marcos-ezequiel-toledo"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Buenos Aires",
-        "addressCountry": "AR"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "mainEntity": {
+          "@type": "Person",
+          "@id": "https://www.marcostoledo.cv/#person",
+          "name": "Marcos Ezequiel Toledo",
+          "givenName": "Marcos Ezequiel",
+          "familyName": "Toledo",
+          "jobTitle": "Desarrollador de Software & QA Tester",
+          "description": "Desarrollador Full Stack Jr. y QA Tester especializado en HealthTech. Proyectos con Angular, React, Node.js, TypeScript y PostgreSQL.",
+          "url": "https://www.marcostoledo.cv",
+          "image": "https://www.marcostoledo.cv/assets/img/Foto_Perfil.webp",
+          "email": "mailto:marcostoledo96@gmail.com",
+          "knowsAbout": [
+            "Angular", "React", "TypeScript", "JavaScript", "Node.js",
+            "HTML", "CSS", "SCSS", "PostgreSQL", "MySQL", "SQL Server",
+            "QA Testing", "Git", "Figma", "Jira", "Scrum", "UML"
+          ],
+          "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "IFTS N°16"
+          },
+          "worksFor": {
+            "@type": "Organization",
+            "name": "AEROTEST"
+          },
+          "sameAs": [
+            "https://github.com/marcostoledo96",
+            "https://www.linkedin.com/in/marcos-ezequiel-toledo"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Buenos Aires",
+            "addressCountry": "AR"
+          }
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Marcos Ezequiel Toledo — Portfolio",
+        "url": "https://www.marcostoledo.cv",
+        "inLanguage": ["es", "en"],
+        "author": { "@id": "https://www.marcostoledo.cv/#person" }
       }
-    }
+    ]
     </script>
     <!-- preconnect establece la conexión TLS con Google Fonts de forma anticipada para reducir latencia -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +111,13 @@
 <body>
     <!-- Angular monta AppComponent aquí; todo el árbol de componentes vive dentro de este elemento -->
     <app-root></app-root>
+    <!-- Fallback para navegadores sin JavaScript o crawlers que no lo ejecutan -->
+    <noscript>
+        <p style="padding:2rem;text-align:center;font-family:sans-serif">
+            Este sitio requiere JavaScript para funcionar correctamente.
+            Por favor, habilitá JavaScript en tu navegador para ver el portfolio de Marcos Ezequiel Toledo.
+        </p>
+    </noscript>
 </body>
 
 </html>

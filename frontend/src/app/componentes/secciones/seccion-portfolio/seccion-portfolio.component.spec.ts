@@ -108,9 +108,9 @@ describe('SeccionPortfolioComponent', () => {
   });
 
   describe('proyectos destacados (featured)', () => {
-    it('exactamente 4 proyectos tienen featured = true', () => {
+    it('exactamente 5 proyectos tienen featured = true', () => {
       const featured = component.filteredProjects.filter(p => p.featured);
-      expect(featured.length).toBe(4);
+      expect(featured.length).toBe(5);
     });
   });
 

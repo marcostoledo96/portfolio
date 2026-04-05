@@ -64,6 +64,29 @@ const PROJECTS: Project[] = [
     featured: true,
   },
   {
+    title: 'Busca Empleos AI (AI Job Scraper)',
+    description:
+      'Sistema automatizado full-stack de recolección y filtrado inteligente de ofertas laborales utilizando Web Scraping y modelos de Inteligencia Artificial generativa.',
+    longDescription:
+      'Desarrollé una plataforma personal end-to-end diseñada para automatizar y optimizar mi búsqueda activa de empleo IT. El sistema extrae periódicamente cientos de ofertas laborales desde portales como LinkedIn, Computrabajo, Indeed, Bumeran, y más opciones de forma automatizada mediante la API de Apify, evadiendo bloqueos IP tradicionales.\n\nUna vez recolectadas, cada oferta es evaluada y discriminada por un modelo de lenguaje (DeepSeek AI). La IA analiza semánticamente si los requisitos técnicos, las tareas y los años de experiencia sugeridos hacen "match" real con mi perfil, logrando descartar falsos positivos y roles con títulos confusos (ej., QA en industrias de salud vs. QA de software). Finalmente, las ofertas filtradas y aprobadas se centralizan en una interfaz (dashboard) robusta que construí en Angular.\n\nEl backend fue desarrollado con Node.js y Express estructurado en servicios limpios, con un manejo de base de datos directa en PostgreSQL usando consultas parametrizadas (sin ORM), y tests de integración con Jest. Por motivos de seguridad y control de costos, el acceso a la plataforma es estrictamente privado: implementé un sistema de autenticación con Google Auth que restringe el ingreso de forma exclusiva a mi usuario para evitar el consumo no autorizado de los créditos de la API de DeepSeek. Además, la plataforma incluye vistas analíticas del estado de cada postulación.',image: 'assets/img/portfolio/busca_empleo0.webp',
+    images: [
+      'assets/img/portfolio/busca_empleo0.webp',
+      'assets/img/portfolio/busca_empleo1.webp',
+      'assets/img/portfolio/busca_empleo2.webp',
+      'assets/img/portfolio/busca_empleo3.webp',
+      'assets/img/portfolio/busca_empleo4.webp',
+    ],
+    status: 'finished',
+    statusLabel: 'Finalizado',
+    teamType: 'individual',
+    teamLabel: 'Individual',
+    technologies: ['Angular', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Apify API', 'DeepSeek AI', 'Firebase Auth', 'Jest'],
+    featured: true,
+    siteUrl: 'https://busca-empleos.vercel.app/login',
+    siteLabel: 'Demo (privado)',
+    githubUrl: 'https://github.com/marcostoledo96/busca_empleos',
+  },
+  {
     title: 'IFTS N°26 – Sitio Web Oficial',
     description:
       'Sitio web oficial del instituto, diseñado para optimizar la comunicación institucional y el acceso a recursos académicos.',
@@ -159,6 +182,8 @@ const PROJECTS: Project[] = [
     siteUrl: 'https://explorador-gamerstore.vercel.app',
     githubUrl: 'https://github.com/marcostoledo96/explorador_juegos',
   },
+  // TODO: descomentar cuando el proyecto esté listo para publicar.
+  /*
   {
     title: 'Cultura General Scout',
     description:
@@ -181,6 +206,7 @@ const PROJECTS: Project[] = [
     technologies: ['React Native', 'Figma', 'SQLite'],
     featured: false,
   },
+  */
   {
     title: 'GeoDespertador',
     description:

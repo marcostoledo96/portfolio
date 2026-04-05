@@ -11,7 +11,7 @@ describe('SeoService', () => {
   beforeEach(() => {
     // Limpio tags previos que pudieran haber quedado de tests anteriores
     document.head.querySelectorAll(
-      'meta[name], meta[property], link[rel="canonical"], script[type="application/ld+json"]'
+      'meta[name], meta[property], link[rel="canonical"], link[rel="alternate"], script[type="application/ld+json"]'
     ).forEach(el => el.remove());
 
     TestBed.configureTestingModule({
@@ -24,7 +24,7 @@ describe('SeoService', () => {
 
   afterEach(() => {
     document.head.querySelectorAll(
-      'meta[name], meta[property], link[rel="canonical"], script[type="application/ld+json"]'
+      'meta[name], meta[property], link[rel="canonical"], link[rel="alternate"], script[type="application/ld+json"]'
     ).forEach(el => el.remove());
   });
 
@@ -89,18 +89,45 @@ describe('SeoService', () => {
 
     it('el JSON-LD contiene los datos correctos de la persona', () => {
       const script = document.head.querySelector('script[type="application/ld+json"]');
-      const data = JSON.parse(script?.textContent ?? '{}');
-      expect(data['@type']).toBe('Person');
-      expect(data.name).toBe('Marcos Ezequiel Toledo');
-      expect(data.jobTitle).toBeTruthy();
-      expect(data.url).toBeTruthy();
+      const data = JSON.parse(script?.textContent ?? '[]');
+      expect(Array.isArray(data)).toBeTrue();
+      const profilePage = data.find((d: any) => d['@type'] === 'ProfilePage');
+      expect(profilePage).toBeTruthy();
+      const person = profilePage.mainEntity;
+      expect(person['@type']).toBe('Person');
+      expect(person.name).toBe('Marcos Ezequiel Toledo');
+      expect(person.jobTitle).toBeTruthy();
+      expect(person.url).toBeTruthy();
     });
 
     it('el JSON-LD incluye los links de sameAs', () => {
       const script = document.head.querySelector('script[type="application/ld+json"]');
-      const data = JSON.parse(script?.textContent ?? '{}');
-      expect(Array.isArray(data.sameAs)).toBeTrue();
-      expect(data.sameAs.some((url: string) => url.includes('github'))).toBeTrue();
+      const data = JSON.parse(script?.textContent ?? '[]');
+      const person = data.find((d: any) => d['@type'] === 'ProfilePage')?.mainEntity;
+      expect(Array.isArray(person?.sameAs)).toBeTrue();
+      expect(person.sameAs.some((url: string) => url.includes('github'))).toBeTrue();
+    });
+
+    it('el JSON-LD incluye el schema WebSite', () => {
+      const script = document.head.querySelector('script[type="application/ld+json"]');
+      const data = JSON.parse(script?.textContent ?? '[]');
+      const website = data.find((d: any) => d['@type'] === 'WebSite');
+      expect(website).toBeTruthy();
+      expect(website.url).toBeTruthy();
+    });
+
+    it('inserta los hreflang alternates para es, en y x-default', () => {
+      const es = document.head.querySelector('link[hreflang="es"]');
+      const en = document.head.querySelector('link[hreflang="en"]');
+      const xDefault = document.head.querySelector('link[hreflang="x-default"]');
+      expect(es).toBeTruthy();
+      expect(en).toBeTruthy();
+      expect(xDefault).toBeTruthy();
+    });
+
+    it('crea og:site_name', () => {
+      const meta = document.head.querySelector('meta[property="og:site_name"]');
+      expect(meta).toBeTruthy();
     });
 
     it('inserta el link canonical', () => {
@@ -120,6 +147,9 @@ describe('SeoService', () => {
 
       const scripts = document.head.querySelectorAll('script[type="application/ld+json"]');
       expect(scripts.length).toBe(1);
+
+      const hreflangEs = document.head.querySelectorAll('link[hreflang="es"]');
+      expect(hreflangEs.length).toBe(1);
     });
   });
 });

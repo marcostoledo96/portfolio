@@ -143,14 +143,12 @@
     }
   }
 
-  // --- Grilla responsive: 1 col mobile → 2 desde sm → 3 desde lg ---
+  // --- Grilla responsive: 1 col mobile → 2 desde sm → 3 desde lg (flex para centrar fila incompleta) ---
   &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.5rem;
-
-    @include sm { grid-template-columns: repeat(2, 1fr); }
-    @include lg { grid-template-columns: repeat(3, 1fr); }
   }
 
   // Envoltorio de la tarjeta: necesario para que @cardAnim aplique :enter/:leave correctamente
@@ -160,7 +158,11 @@
 
   // Tarjeta con tilt 3D via onMouseMove; will-change: transform para que el navegador la optimice
   &__card {
+    width: 100%;
     border-radius: $radius-2xl;
+
+    @include sm { width: calc(50% - 0.75rem); }
+    @include lg { width: calc(33.333% - 1rem); }
     overflow: hidden;
     background: var(--portfolio-card-bg);
     border: 1px solid var(--portfolio-card-border);

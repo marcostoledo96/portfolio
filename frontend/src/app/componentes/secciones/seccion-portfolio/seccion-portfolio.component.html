@@ -116,7 +116,7 @@
                      (click)="$event.stopPropagation()"
                   >
                     <i data-lucide="external-link" class="port__action-icon"></i>
-                    Demo
+                    {{ project.siteLabel ?? 'Demo' }}
                   </a>
                 }
                 <!-- Si no hay demo, el botón Código ocupa todo el ancho (--full) -->
