@@ -308,13 +308,16 @@
   // --- Socials ---
   &__socials {
     display: flex; align-items: center; gap: 0.75rem;
-    // Separar del scroll indicator en mobile (position:absolute bottom:2rem)
     @include mobile-only { margin-bottom: 3.5rem; width: 100%; }
   }
   &__social-btn {
     position: relative;
     display: flex; align-items: center; justify-content: center;
-    width: 44px; height: 44px;
+    flex-direction: column;
+    min-width: 3.75rem;
+    height: auto;
+    padding: 0.5rem 0.25rem;
+    @include mobile-only { flex: 1; }
     border-radius: $radius-xl;
     border: 1px solid var(--portfolio-card-border);
     background: rgba(var(--portfolio-accent-rgb), 0.03);
@@ -328,46 +331,23 @@
       background: var(--portfolio-accent-glow);
       box-shadow: 0 4px 16px var(--portfolio-accent-glow);
     }
-    &:hover .hero__social-tooltip { opacity: 1; }
-    // En mobile: columna, ancho igual para todos, ocultar tooltip
-    @include mobile-only {
-      flex: 1;
-      flex-direction: column;
-      width: auto;
-      height: auto;
-      padding: 0.5rem 0.25rem;
-      .hero__social-tooltip { display: none !important; }
-    }
   }
+  // Tooltip — oculto, ya no se usa (el label siempre está visible)
   &__social-tooltip {
-    position: absolute;
-    bottom: calc(100% + 0.5rem); left: 50%;
-    transform: translateX(-50%);
-    padding: 0.25rem 0.625rem;
-    border-radius: $radius-md;
-    background: var(--foreground);
-    color: var(--background);
-    white-space: nowrap;
-    font-size: 0.7rem;
-    opacity: 0; pointer-events: none;
-    transition: opacity $transition-base;
-    z-index: 10;
-  }
-  // Label fijo debajo del icóno — solo mobile
-  &__social-label {
     display: none;
-    @include mobile-only {
-      display: block;
-      font-size: 0.58rem;
-      font-weight: 500;
-      font-family: $font-code;
-      text-align: center;
-      margin-top: 3px;
-      color: var(--muted-foreground);
-      white-space: nowrap;
-      line-height: 1;
-      pointer-events: none;
-    }
+  }
+  // Label fijo debajo del icóno — siempre visible
+  &__social-label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 500;
+    font-family: $font-code;
+    text-align: center;
+    margin-top: 3px;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+    line-height: 1;
+    pointer-events: none;
   }
   &__social-tooltip-arrow {
     position: absolute;
