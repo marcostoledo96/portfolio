@@ -38,12 +38,12 @@ const LANGUAGES: Language[] = [
   },
   {
     name: 'Inglés',
-    level: 'Básico / Intermedio',
+    level: 'Elemental (A1 – A2)',
     flagSvg: FLAG_US,
     isNative: false,
     details: [
-      'Lectura de documentación técnica',
-      'Comunicación oral básica',
+      'Lectura de documentación técnica (A2)',
+      'Comprensión auditiva básica (A1)',
       'Estudios actualmente en curso',
     ],
   },

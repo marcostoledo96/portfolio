@@ -31,6 +31,7 @@ const CATEGORIES: Array<'Secciones' | 'Proyectos' | 'Acciones'> = [
 // Datos de los 9 proyectos del portfolio con sus íconos
 const PROJECTS_DATA = [
   { title: 'Historias Clínicas',             icon: 'stethoscope'      },
+  { title: 'Busca Empleos AI',               icon: 'search'           },
   { title: 'Página web Scout San Patricio',  icon: 'flag'             },
   { title: 'IFTS N°26 – Sitio Web Oficial',  icon: 'school'           },
   { title: 'Tienda SanpaHolmes',             icon: 'shopping-bag'     },
@@ -38,6 +39,8 @@ const PROJECTS_DATA = [
   { title: 'Explorador de Juegos',           icon: 'gamepad-2'        },
   { title: 'Cultura General Scout',          icon: 'help-circle'      },
   { title: 'GeoDespertador',                 icon: 'map-pin'          },
+  { title: 'Web IFTS 2.0',                   icon: 'school'           },
+  { title: 'Mis Gastos',                     icon: 'wallet'           },
   { title: 'Portfolio personal',             icon: 'layout-dashboard' },
 ];
 

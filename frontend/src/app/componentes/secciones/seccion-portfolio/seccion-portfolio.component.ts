@@ -20,9 +20,10 @@ const PROJECTS: Project[] = [
   {
     title: 'Turnos e Historias Clínicas',
     description:
-      'Plataforma integral para la gestión de historias clínicas, turnos y pacientes, con una interfaz moderna, segura y escalable.',
+      'Plataforma web para gestión integral de consultorios médicos: historias clínicas digitales con CIE-10, agenda semanal por médico, sala de espera en tiempo real y portal público con turnos online. Implementa control de acceso por roles (Administrador, Médico, Secretario) con JWT y reportes exportables en CSV/PDF.',
+
     longDescription:
-      'Sistema integral de gestión para consultorios médicos, desarrollado para optimizar los flujos de trabajo en salud.\n\nLa arquitectura del backend está construida con Node.js, Express y PostgreSQL, utilizando Prisma como ORM para una gestión eficiente de la base de datos. Implementa un control de acceso estricto mediante JWT y Angular Guards, diferenciando rutas y permisos para roles de Administrador, Médico y Secretario, protegiendo así la confidencialidad de los datos.\n\nEl sistema permite gestionar agendas multi-profesional, automatizar el envío de recordatorios de turnos por email y administrar historias clínicas digitales. Como parte del ciclo de vida, diseño y ejecuto pruebas funcionales (QA) para asegurar la integridad de los datos médicos. Actualmente en fase de desarrollo.',
+      'Plataforma web EMR/EHR para gestión integral de consultorios médicos, con dos grandes áreas: un portal público institucional y un panel interno autenticado.\n\nEl portal público permite a los pacientes conocer los profesionales, sus especialidades y coberturas, y solicitar turnos online mediante un wizard guiado de 8 pasos con validación en tiempo real.\n\nEl panel interno implementa control de acceso por roles (Administrador, Médico, Secretario) con JWT y Angular Guards. Permite gestionar historias clínicas digitales con clasificación CIE-10, agenda semanal por médico, sala de espera en tiempo real, y reportes exportables en CSV/PDF.\n\nLa arquitectura backend usa Node.js 20/Express con PostgreSQL 15 y SQL parametrizado (sin ORM), Zod para validación de esquemas, Helmet + rate limiting y audit log completo. El frontend usa Angular 18, TailwindCSS 4, Angular Material 18 y NgRx Signals, con soporte de modo oscuro y WCAG 2.1 AA. Proyecto en desarrollo activo.',
     image: 'assets/img/portfolio/historias-clinicas.webp',
     images: [
       'assets/img/portfolio/historias-clinicas.webp',
@@ -37,15 +38,16 @@ const PROJECTS: Project[] = [
     statusLabel: 'En desarrollo',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['Angular', 'Node.js', 'PostgreSQL', 'QA Testing'],
+    technologies: ['Angular 18', 'TailwindCSS', 'Angular Material', 'NgRx', 'Node.js', 'Express', 'PostgreSQL', 'TypeScript'],
     featured: true,
   },
   {
     title: 'Página web Scout San Patricio',
     description:
-      'Portal web institucional con gestión de usuarios por roles, panel de noticias interactivo, biblioteca digital y galería multimedia.',
+      'Portal web institucional para una comunidad de más de 170 miembros activos, con autenticación por roles, panel de noticias, biblioteca digital de más de 400 documentos y galería multimedia. Modernización de un sitio con más de 20 años de antigüedad, actualmente en producción en Argentina Hosting.',
+
     longDescription:
-      'Rediseño integral y modernización de una web con más de 20 años de antigüedad, transformada en una plataforma dinámica para una comunidad de más de 170 miembros activos.\n\nEste proyecto fue desarrollado en dupla junto a mi hermano. Diseñé las interfaces (UI/UX) en Figma y construí el Frontend responsivo utilizando Blazor y Bootstrap, además de brindar soporte en el Backend. Mi hermano estuvo a cargo de la arquitectura principal de la API (ASP.NET, Entity Framework, SQL Server).\n\nLa plataforma resuelve necesidades administrativas y educativas: incluye un sistema de autenticación con roles, control de asistencia y progresiones de los scouts, panel de noticias interactivo y una biblioteca digital con más de 400 documentos. Además, integré APIs públicas (huellas de animales, botánica) para enriquecer el contenido educativo estático. El proyecto se encuentra desplegado en IIS.',
+      'Rediseño integral y modernización de una web con más de 20 años de antigüedad, transformada en una plataforma dinámica para una comunidad de más de 170 miembros activos.\n\nEste proyecto fue desarrollado en dupla junto a mi hermano. Diseñé las interfaces (UI/UX) en Figma y construí el Frontend responsivo utilizando Blazor y Bootstrap, además de brindar soporte en el Backend. Mi hermano estuvo a cargo de la arquitectura principal de la API (ASP.NET, Entity Framework, SQL Server).\n\nLa plataforma resuelve necesidades administrativas y educativas: incluye un sistema de autenticación con roles, control de asistencia y progresiones de los scouts, panel de noticias interactivo y una biblioteca digital con más de 400 documentos. Además, integré APIs públicas (huellas de animales, botánica) para enriquecer el contenido educativo estático. El MVP fue lanzado en producción el 10 de abril de 2026 y actualmente se encuentra operativo en Argentina Hosting.',
     image: 'assets/img/portfolio/pagina_grupo.webp',
     images: [
       'assets/img/portfolio/pagina_grupo.webp',
@@ -56,7 +58,7 @@ const PROJECTS: Project[] = [
       'assets/img/portfolio/gruposcout_5.webp',
     ],
     status: 'in-dev',
-    statusLabel: 'En desarrollo',
+    statusLabel: 'En producción',
     teamType: 'team',
     teamLabel: 'En equipo',
     technologies: ['C#', 'ASP.NET', 'Blazor', 'Bootstrap', 'SQL Server'],
@@ -68,7 +70,7 @@ const PROJECTS: Project[] = [
     description:
       'Sistema automatizado full-stack de recolección y filtrado inteligente de ofertas laborales utilizando Web Scraping y modelos de Inteligencia Artificial generativa.',
     longDescription:
-      'Desarrollé una plataforma personal end-to-end diseñada para automatizar y optimizar mi búsqueda activa de empleo IT. El sistema extrae periódicamente cientos de ofertas laborales desde portales como LinkedIn, Computrabajo, Indeed, Bumeran, y más opciones de forma automatizada mediante la API de Apify, evadiendo bloqueos IP tradicionales.\n\nUna vez recolectadas, cada oferta es evaluada y discriminada por un modelo de lenguaje (DeepSeek AI). La IA analiza semánticamente si los requisitos técnicos, las tareas y los años de experiencia sugeridos hacen "match" real con mi perfil, logrando descartar falsos positivos y roles con títulos confusos (ej., QA en industrias de salud vs. QA de software). Finalmente, las ofertas filtradas y aprobadas se centralizan en una interfaz (dashboard) robusta que construí en Angular.\n\nEl backend fue desarrollado con Node.js y Express estructurado en servicios limpios, con un manejo de base de datos directa en PostgreSQL usando consultas parametrizadas (sin ORM), y tests de integración con Jest. Por motivos de seguridad y control de costos, el acceso a la plataforma es estrictamente privado: implementé un sistema de autenticación con Google Auth que restringe el ingreso de forma exclusiva a mi usuario para evitar el consumo no autorizado de los créditos de la API de DeepSeek. Además, la plataforma incluye vistas analíticas del estado de cada postulación.',image: 'assets/img/portfolio/busca_empleo0.webp',
+      'Desarrollé una plataforma personal end-to-end diseñada para automatizar y optimizar mi búsqueda activa de empleo IT. El sistema extrae periódicamente cientos de ofertas laborales desde 8 portales (LinkedIn, Computrabajo, Indeed, Bumeran, Glassdoor, GetOnBrd, Jooble y Google Jobs) de forma automatizada mediante la API de Apify, evadiendo bloqueos IP tradicionales. El ciclo completo (scraping → normalización → carga en base de datos → evaluación IA) se ejecuta cada 72 horas orquestado con node-cron.\n\nUna vez recolectadas, cada oferta es evaluada y discriminada por un modelo de lenguaje (DeepSeek AI). La IA analiza semánticamente si los requisitos técnicos, las tareas y los años de experiencia sugeridos hacen "match" real con mi perfil, generando un score de compatibilidad del 0 al 100, logrando descartar falsos positivos y roles con títulos confusos (ej., QA en industrias de salud vs. QA de software). Finalmente, las ofertas filtradas y aprobadas se centralizan en una interfaz (dashboard) robusta construida con Angular 20 y PrimeNG (Aura theme).\n\nEl backend fue desarrollado con Node.js 22 y Express estructurado en servicios limpios, con un manejo de base de datos directa en PostgreSQL usando consultas parametrizadas (sin ORM), y tests de integración con Jest y Supertest. El deploy usa Railway para el backend y la base de datos, y Vercel para el frontend. Por motivos de seguridad y control de costos, el acceso a la plataforma es estrictamente privado: implementé un sistema de autenticación con Firebase Auth que restringe el ingreso de forma exclusiva a mi usuario para evitar el consumo no autorizado de los créditos de la API de DeepSeek. Además, la plataforma incluye vistas analíticas del estado de cada postulación.',image: 'assets/img/portfolio/busca_empleo0.webp',
     images: [
       'assets/img/portfolio/busca_empleo0.webp',
       'assets/img/portfolio/busca_empleo1.webp',
@@ -80,7 +82,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['Angular', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Apify API', 'DeepSeek AI', 'Firebase Auth', 'Jest'],
+    technologies: ['Angular', 'TypeScript', 'Node.js', 'Express', 'PostgreSQL', 'Apify API', 'DeepSeek AI', 'Firebase Auth'],
     featured: true,
     siteUrl: 'https://busca-empleos.vercel.app/login',
     siteLabel: 'Demo (privado)',
@@ -91,7 +93,7 @@ const PROJECTS: Project[] = [
     description:
       'Sitio web oficial del instituto, diseñado para optimizar la comunicación institucional y el acceso a recursos académicos.',
     longDescription:
-      'Rediseño y modernización de la plataforma institucional (reemplazando su antigua versión en Google Sites). Este proyecto fue desarrollado en un equipo de dos personas. \n\nEstuve a cargo de liderar el diseño UI/UX utilizando Figma y la maquetación Frontend en Angular, logrando una interfaz moderna, limpia, completamente responsiva y con un rendimiento optimizado. Mi compañero se enfocó en el desarrollo de la API y el Backend para la gestión dinámica y el funcionamiento de los formularios de contacto. \n\nEl proyecto cuenta con aprobación institucional y actualmente se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub, listo para su lanzamiento a producción mientras se finalizan los trámites del dominio oficial y la documentación final.',
+      'Rediseño y modernización de la plataforma web institucional del IFTS N°26 (reemplazando su antigua versión en Google Sites). Estuve a cargo de liderar el diseño UI/UX en Figma y desarrollé íntegramente las 30+ páginas del Frontend utilizando Angular 20, TypeScript, SCSS y CoreUI 5 como framework CSS, abarcando secciones de carreras (GIR y HyS), información para alumnos (horarios, becas, constancias, mesas de examen), recursos para docentes, datos institucionales, pre-inscripción y contacto con Google Maps.\n\nMi compañero Federico se encargó del Backend, la API para los formularios de contacto y la integración del CMS headless (Decap CMS + Netlify Identity), que permite a los administradores del instituto editar contenido sin tocar código. El proyecto cuenta con aprobación institucional y se encuentra desplegado en Netlify mediante CI/CD automático desde GitHub.',
     image: 'assets/img/portfolio/ifts26.webp',
     images: [
       'assets/img/portfolio/ifts26.webp',
@@ -104,7 +106,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['Angular', 'Figma', 'CI/CD'],
+    technologies: ['Angular 20', 'TypeScript', 'SCSS', 'CoreUI', 'Decap CMS', 'Figma', 'Netlify'],
     featured: true,
     siteUrl: 'https://ifts26.netlify.app',
     githubUrl: 'https://github.com/FedeOsorio/IFTS26',
@@ -112,9 +114,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Tienda SanpaHolmes',
     description:
-      'E-commerce temático desarrollado para un evento de caridad, con gestión de pedidos en tiempo real y diseño responsivo.',
+      'E-commerce Full-Stack para evento a beneficio, con autenticación JWT por roles, gestión de pedidos en tiempo real y diseño mobile-first.',
     longDescription:
-      'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático. Operó con éxito bajo presión, procesando más de 60 ventas reales simultáneas, tras superar rigurosas pruebas de carga y funcionales (QA) previas al evento.\n\nEl sistema cuenta con dos interfaces: una experiencia mobile-first en React para los usuarios, donde exploraban el menú inmersivo y adjuntaban comprobantes de pago por transferencia; y un panel de administración para gestionar los estados del pedido (Abonado, Listo, Retirado).\n\nEl backend en Node.js, Express y PostgreSQL gestionó la lógica de inventario de forma robusta. Para optimizar la operación en vivo, integré notificaciones automáticas vía WhatsApp para avisar a los clientes cuando su orden estaba lista, y sincronicé los datos en tiempo real con Google Sheets para el control operativo de la cocina.',
+      'Aplicación web Full-Stack desarrollada y desplegada en producción (Vercel) para un evento temático de recaudación de fondos. Operó con éxito bajo presión, procesando más de 60 ventas reales simultáneas, tras superar rigurosas pruebas de carga y funcionales (QA) previas al evento.\n\nEl sistema cuenta con dos interfaces: una experiencia mobile-first con React, TypeScript, Tailwind CSS y shadcn/ui para los usuarios, donde exploraban el menú inmersivo y adjuntaban comprobantes de pago; y un panel de administración para gestionar los estados del pedido (Abonado, Listo, Retirado).\n\nEl backend en Node.js, Express y PostgreSQL gestionó la lógica de inventario de forma robusta, con autenticación JWT y un sistema de 3 roles (admin, vendedor, visitador) con permisos granulares. Para optimizar la operación en vivo, integré notificaciones vía WhatsApp para avisar a los clientes cuando su orden estaba lista, y sincronicé los datos con Google Sheets para el control operativo de la cocina.',
     image: 'assets/img/portfolio/sanpaholmes.webp',
     images: [
       'assets/img/portfolio/sanpaholmes.webp',
@@ -130,7 +132,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'QA Testing'],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Node.js', 'Express', 'PostgreSQL', 'JWT', 'Vite', 'Vercel'],
     featured: true,
     siteUrl: 'https://demo-sanpaholmes.vercel.app',
     githubUrl: 'https://github.com/marcostoledo96/sanpaholmes',
@@ -138,9 +140,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Tienda CandyLand',
     description:
-      'Plataforma de e-commerce con catálogo dinámico, fichas de producto detalladas y un flujo de compra optimizado.',
+      'E-commerce fullstack con catálogo dinámico, checkout en 3 pasos y deploy serverless, desarrollado en equipo con Scrum.',
     longDescription:
-      'Plataforma de e-commerce de golosinas y confitería, desarrollada en equipo como proyecto para la tecnicatura.\n\nEn este proyecto asumí un doble rol. Como Scrum Master, gestioné el flujo de trabajo utilizando Jira, redactando historias de usuario por módulos y facilitando ceremonias ágiles como las retrospectivas. Como desarrollador, me enfoqué en pulir el diseño web en React, asegurar el funcionamiento de la API RESTful (Node.js y Express), ejecutar pruebas funcionales (QA) del flujo de compra y lograr el despliegue del proyecto.\n\nLa aplicación incluye un catálogo dinámico, carrito de compras manejado con Context API y un flujo de checkout. Además, este desarrollo marcó un hito técnico personal al ser mi primera experiencia alojando y gestionando una base de datos relacional (PostgreSQL) en la nube.',
+      'E-commerce fullstack de golosinas y confitería, desarrollado en equipo de 5 personas bajo metodología Scrum (3 sprints) como proyecto para la tecnicatura.\n\nAsumí un doble rol. Como Scrum Master, gestioné el backlog en Jira con épicas y user stories, facilité planning, dailies, reviews y retrospectivas (formato 4L). Como desarrollador, mi foco fue el backend y la integración: construí la API REST con Express y Prisma ORM sobre PostgreSQL (Neon), configuré el deploy serverless en Vercel con bridge serverless-http, y ejecuté pruebas funcionales (QA) del flujo de compra completo.\n\nLa aplicación incluye catálogo con infinite scroll y code splitting (React.lazy), carrito persistente sincronizado entre localStorage (UUID) y la base de datos, y un checkout guiado en 3 pasos (dirección → pago → confirmación con enlace a WhatsApp). Este desarrollo marcó un hito técnico personal al ser mi primera experiencia gestionando PostgreSQL en la nube y desplegando serverless.',
     image: 'assets/img/portfolio/candyland.webp',
     images: [
       'assets/img/portfolio/candyland.webp',
@@ -154,7 +156,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Jira'],
+    technologies: ['React 19', 'TypeScript', 'Vite', 'CSS Modules', 'Express', 'Prisma', 'PostgreSQL', 'Vercel', 'Jira'],
     featured: false,
     siteUrl: 'https://candy-land-mvp.vercel.app',
     githubUrl: 'https://github.com/marcostoledo96/candyLand-mvp',
@@ -162,9 +164,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Explorador de Juegos',
     description:
-      'Aplicación web para descubrir videojuegos, integrando búsqueda avanzada, filtros por categoría y vistas de detalle.',
+      'Catálogo interactivo de videojuegos free-to-play construido con HTML, CSS y JavaScript puro, con carruseles, filtros combinables y búsqueda en tiempo real.',
     longDescription:
-      'Aplicación web colaborativa desarrollada en dupla como proyecto para la tecnicatura, enfocada en la exploración y descubrimiento de videojuegos "free-to-play".\n\nEl proyecto destaca por estar construido íntegramente con HTML, CSS y JavaScript puro (Vanilla JS), demostrando bases sólidas en el desarrollo web y manipulación del DOM sin depender de frameworks. La plataforma permite buscar títulos, filtrar por género o plataforma y acceder a fichas detalladas.\n\nPara poblar el catálogo, se integró y consumió la API pública de FreeToGame. Además, desarrollé un microservicio en Node.js para dar funcionalidad al formulario de contacto. Este desarrollo representó un hito importante en mi formación, siendo una de mis primeras experiencias exitosas consumiendo APIs externas y gestionando un despliegue en Vercel.',
+      'Aplicación web desarrollada en dupla con Yamila García como proyecto para la tecnicatura, enfocada en la exploración y descubrimiento de videojuegos "free-to-play".\n\nEl proyecto destaca por estar construido íntegramente con HTML, CSS y JavaScript puro (Vanilla JS), demostrando bases sólidas en el desarrollo web y manipulación del DOM sin depender de frameworks. La página principal incluye carruseles interactivos de juegos populares y recientes con navegación prev/next, mientras que el catálogo ofrece filtros combinables (género + plataforma + búsqueda en tiempo real con debounce de 300ms + ordenamiento), cache de datos en memoria y lazy loading de imágenes.\n\nPara poblar el catálogo, se consumió la API pública de FreeToGame vía proxy (AllOrigins) para resolver CORS. Además, desarrollé un microservicio en Node.js con Express para dar funcionalidad al formulario de contacto. Este desarrollo representó un hito importante en mi formación, siendo una de mis primeras experiencias exitosas consumiendo APIs externas y gestionando un despliegue en Vercel.',
     image: 'assets/img/portfolio/juegos.webp',
     images: [
       'assets/img/portfolio/juegos.webp',
@@ -177,7 +179,7 @@ const PROJECTS: Project[] = [
     statusLabel: 'Finalizado',
     teamType: 'team',
     teamLabel: 'En equipo',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
+    technologies: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Google Fonts', 'Material Icons'],
     featured: false,
     siteUrl: 'https://explorador-gamerstore.vercel.app',
     githubUrl: 'https://github.com/marcostoledo96/explorador_juegos',
@@ -187,9 +189,9 @@ const PROJECTS: Project[] = [
   {
     title: 'Cultura General Scout',
     description:
-      'Aplicación móvil interactiva de preguntas y respuestas, diseñada para fomentar el aprendizaje mediante gamificación.',
+      'App móvil de trivia scout para iOS y Android: un coordinador maneja la partida en su dispositivo mientras las patrullas compiten en tiempo real. 205+ preguntas, 10 categorías, offline-first con SQLite y diseño completo en Figma.',
     longDescription:
-      'Aplicación móvil gamificada de trivia y cultura scout, desarrollada con React Native y actualmente en etapa de codificación. Un proyecto personal orientado a fortalecer mis habilidades en desarrollo mobile y aportar una herramienta interactiva a mi comunidad.\n\nEl ciclo de vida del proyecto comenzó con una planificación exhaustiva y prototipado de interfaces (UI/UX) en Figma. A nivel técnico, la app destaca por su arquitectura "offline-first": utiliza una base de datos SQLite local en el dispositivo que permite jugar sin conexión en entornos de campamento. Al recuperar la conectividad, el sistema sincroniza los puntajes y descarga nuevas preguntas desde el servidor.\n\nCuenta con mecánicas de retención como rachas, insignias y un ranking entre patrullas. La distribución inicial será mediante APK para validación con usuarios reales, con proyección a ser publicada en la Google Play Store.',
+      'Aplicación móvil nativa de trivia orientada a grupos scouts argentinos, desarrollada con React Native y Expo SDK 52 (TypeScript). Un coordinador o dirigente maneja la app en su dispositivo mientras las patrullas compiten respondiendo preguntas de cultura general — el juego es infinito: no hay límite de preguntas, el coordinador decide cuándo termina la partida.\n\nEl proyecto cuenta con 8 pantallas diseñadas íntegramente en Figma: splash animado, home con header de bosque SVG (árboles, estrellas, luciérnagas), pantalla de juego con dos modos de respuesta (oral manual y multiple choice interactivo), asignación de puntos por patrulla via bottom sheet, leaderboard en vivo, resultados con confetti y ranking final, historial de partidas expandible y panel de administración con CRUD de preguntas + import/export JSON.\n\nA nivel técnico, la arquitectura es offline-first con expo-sqlite (banco de 205+ preguntas built-in, 10 categorías: Geografía, Historia, Ciencia, Scoutismo, Cultura General, Naturaleza, Argentina, Deportes, Supervivencia, Medio Ambiente). Usa Zustand para state management, NativeWind (Tailwind para RN) para estilos, Reanimated + Moti para animaciones nativas, expo-av para efectos de sonido y expo-haptics para feedback táctil. Cada patrulla tiene nombre y 2 colores personalizables. Sistema de puntuación: +1/-1/0, multiplicador x2 y bonus x1.5 para preguntas difíciles, con undo de última respuesta y crash recovery vía SQLite.',
     image: 'assets/img/portfolio/cultura_general.webp',
     images: [
       'assets/img/portfolio/cultura_general.webp',
@@ -200,19 +202,19 @@ const PROJECTS: Project[] = [
       'assets/img/portfolio/culturascout_4.webp',
     ],
     status: 'in-dev',
-    statusLabel: 'En desarrollo',
+    statusLabel: 'En planeamiento',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['React Native', 'Figma', 'SQLite'],
+    technologies: ['React Native', 'Expo', 'TypeScript', 'Zustand', 'SQLite', 'Figma'],
     featured: false,
   },
   */
   {
     title: 'GeoDespertador',
     description:
-      'Aplicación móvil basada en geolocalización que alerta al usuario al aproximarse a zonas configuradas en el mapa.',
+      'App móvil que monitorea tu ubicación en segundo plano y te despierta al llegar a destino, con geofencing real, mapas nativos y 8 pantallas diseñadas en Figma.',
     longDescription:
-      'GeoDespertador: Aplicación móvil de utilidad desarrollada en React Native, con el objetivo de ser publicada en las tiendas oficiales. Diseñada para resolver el problema cotidiano de pasarse de parada en el transporte público, reemplaza las alarmas de tiempo por alertas geográficas basadas en radio de distancia.\n\nEl proyecto destaca por su fuerte enfoque en UI/UX, planificado íntegramente en Figma. Implementé un flujo de onboarding amigable para educar al usuario antes de solicitar permisos sensibles, como el acceso al GPS en segundo plano (background geolocation).\n\nA nivel técnico, integra mapas nativos interactivos para la selección de zonas y funciona de manera 100% offline. Las preferencias, radios de alerta y ubicaciones guardadas se persisten localmente mediante AsyncStorage, garantizando un bajo consumo de datos y batería al no depender de un servidor externo.',
+      'Aplicación móvil de utilidad desarrollada con React Native y Expo SDK 52 (TypeScript), con el objetivo de ser publicada en las tiendas oficiales (iOS + Android). Diseñada para resolver el problema cotidiano de pasarse de parada en el transporte público, reemplaza las alarmas de tiempo por alertas geográficas basadas en radio de distancia (100–5000 m).\n\nEl proyecto destaca por su fuerte enfoque en UI/UX, con 8 pantallas planificadas íntegramente en Figma: onboarding educativo (3 slides + permisos GPS), mapa principal con búsqueda y chips de favoritos, configuración del viaje (bottom sheet con 3 snap points), monitoreo activo con barra de progreso, pantalla de alarma inmersiva con slide-to-dismiss y haptics progresivos, gestión de lugares (CRUD con swipe-to-delete + undo), historial de viajes y configuración global.\n\nA nivel técnico, implementa geofencing real en background con expo-location y expo-task-manager (funciona con pantalla apagada), animaciones fluidas con react-native-reanimated, mapas nativos (react-native-maps), audio de alarma con expo-av y storage local síncrono con MMKV (~30× más rápido que AsyncStorage). Sin servidor, sin cuenta: 100% offline y privado.',
     image: 'assets/img/portfolio/deoDespertador.webp',
     images: [
       'assets/img/portfolio/deoDespertador.webp',
@@ -224,10 +226,10 @@ const PROJECTS: Project[] = [
       'assets/img/portfolio/geodespertador_5.webp',
     ],
     status: 'in-dev',
-    statusLabel: 'En desarrollo',
+    statusLabel: 'En planeamiento',
     teamType: 'individual',
     teamLabel: 'Individual',
-    technologies: ['React Native', 'Figma', 'AsyncStorage'],
+    technologies: ['React Native', 'Expo', 'TypeScript', 'MMKV', 'Figma'],
     featured: false,
   },
   {
@@ -246,6 +248,46 @@ const PROJECTS: Project[] = [
     featured: false,
     githubUrl: 'https://github.com/marcostoledo96/portfolio',
   },
+  // TODO: descomentar cuando el proyecto esté listo para publicar.
+  /*
+  {
+    title: 'Mis Gastos',
+    description:
+      'Aplicación web de finanzas personales adaptada al mercado argentino: seguimiento mensual de gastos, ingresos, deudas, ahorro y salario con dashboards analíticos, cotización del dólar en tiempo real y reportes exportables.',
+    longDescription:
+      'Sistema web de finanzas personales orientado al mercado argentino. Resuelve carencias de apps genéricas: soporte simultáneo de pesos y dólares con cotización Blue/Oficial/MEP/CCL en tiempo real (dolarapi.com), manejo de cuotas para deudas, múltiples lugares de trabajo con tarifa por hora y cálculo de aguinaldo semestral.\n\nEl frontend Angular implementa dashboard mensual navegable con indicator cards (ingreso, saldo, gasto fijo, ahorro — cada uno con delta % respecto al mes anterior), grilla semanal de gastos diarios coloreados por categoría (Víveres, Particular, Salidas), gráficos interactivos con ng-apexcharts (donut de distribución, barras de presupuesto con alerta al 90%, gasto acumulado vs ritmo ideal, evolución del ahorro), metas de ahorro con progress bars animadas, y módulos de deudas con pagos parciales y lista de deseos con dual currency ARS/USD.\n\nCaracterísticas transversales: Command Palette (Ctrl+K) con búsqueda fuzzy, Quick Expense modal (Ctrl+Shift+E) desde cualquier pantalla, historial comparativo multi-mes (4 gráficos + toggle tabla accesible), resumen anual con estadísticas consolidadas, exportación de reportes en PDF (jsPDF) y Excel (xlsx), onboarding de 4 pasos para nuevos usuarios, PWA instalable con Angular Service Worker y soporte offline.\n\nPanel de configuración con CRUD de gastos fijos y workplaces (drag & drop con Angular CDK), presupuestos default por categoría, recordatorios in-app, tema claro/oscuro persistido, export/import backup JSON.\n\nBackend Node.js + Express con PostgreSQL 16 (Prisma ORM — type-safe, migraciones automáticas). Autenticación JWT (access 15min + refresh 7d), validación con Zod, seguridad OWASP: helmet, CORS, rate limiting, bcrypt. Deploy en Railway (backend + PostgreSQL managed) + Vercel (frontend estático). Diseño completo de UI/UX realizado en Figma.',
+    image: 'assets/img/portfolio/mis_gastos.webp',
+    images: [
+      'assets/img/portfolio/mis_gastos.webp',
+    ],
+    status: 'in-dev',
+    statusLabel: 'En planeamiento',
+    teamType: 'individual',
+    teamLabel: 'Individual',
+    technologies: ['Angular', 'Node.js', 'Express', 'PostgreSQL', 'Prisma', 'Tailwind CSS', 'Railway', 'Figma'],
+    featured: false,
+  },
+  */
+  // TODO: descomentar cuando el proyecto esté listo para publicar.
+  /*
+  {
+    title: 'Web IFTS 2.0',
+    description:
+      'Plataforma web institucional universal para IFTS de CABA: un solo código base configurable para cualquier instituto, con 28 páginas públicas, panel admin de 19 módulos, theming dinámico y multi-tenancy.',
+    longDescription:
+      'Evolución del sitio estático del IFTS N°26 hacia un sistema web completo y universal para Institutos de Formación Técnica Superior de CABA. Cada instituto despliega su propia instancia con identidad visual, contenido y datos académicos propios sin modificar código — solo configuración desde el panel de administración.\n\nEl frontend Angular implementa 28 páginas públicas organizadas en features con lazy loading: home con 12 bloques dinámicos configurables (hero, features, stats con contadores animados, carreras, accesos rápidos, convenios, eventos, testimonios, CTA, contacto rápido y 2 bloques custom), detalle de carreras con plan de estudios interactivo y comparador, blog de noticias con filtros y paginación, calendario académico, horarios de cursada filtrables, mesas de exámen, FAQs con acordeón, contacto con Google Maps y búsqueda global (Ctrl+K) con full-text search en PostgreSQL (tsvector español).\n\nEl panel admin ofrece 19 módulos con CRUD completo: editor de instituto (colores con preview en vivo), gestor de páginas con drag & drop (Angular CDK), editor de bloques del home, CRUD de noticias con rich text, calendario, mesas de examen, carreras con plan de estudios inline, autoridades, contacto, enlaces externos, FAQs, textos i18n, catálogo de imágenes, upload de documentos PDF (multer, 10MB max), horarios editables, índice de búsqueda regenerable, páginas custom con contenido libre y configuración de cuenta. Incluye SaveBar sticky, toast notifications, optimistic updates, dirty state tracking y export/import JSON de toda la configuración.\n\nBackend Node.js + Express con PostgreSQL 16 (17 tablas, Knex.js para migraciones y queries). Autenticación JWT (access 15min + refresh 7d en httpOnly cookie con hash en DB). Seguridad OWASP: helmet, CORS restrictivo, rate limiting (100 req/min público, 30 login), bcrypt (rounds ≥12), express-validator, sanitize-html. Multi-tenancy por subdominio, variable de entorno o header custom. Docker Compose para desarrollo local (app + PostgreSQL).',
+    image: 'assets/img/portfolio/web_ifts.webp',
+    images: [
+      'assets/img/portfolio/web_ifts.webp',
+    ],
+    status: 'in-dev',
+    statusLabel: 'En planeamiento',
+    teamType: 'individual',
+    teamLabel: 'Individual',
+    technologies: ['Angular', 'Node.js', 'Express', 'PostgreSQL', 'TypeScript', 'Tailwind CSS', 'Docker', 'Figma'],
+    featured: false,
+  },
+  */
 ];
 
 // Definición de cada botón de filtro
