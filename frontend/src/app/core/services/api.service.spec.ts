@@ -57,6 +57,8 @@ describe('ApiService', () => {
         });
 
         it('deberia manejar errores del servidor (500)', () => {
+            const spyConsoleError = spyOn(console, 'error').and.stub();
+
             service.sendContactMessage(datosContacto).subscribe({
                 next: () => fail('Deberia haber fallado'),
                 error: (error) => {
@@ -70,9 +72,13 @@ describe('ApiService', () => {
                 { message: 'Error interno del servidor' },
                 { status: 500, statusText: 'Internal Server Error' }
             );
+
+            expect(spyConsoleError).toHaveBeenCalled();
         });
 
         it('deberia manejar errores de red', () => {
+            const spyConsoleError = spyOn(console, 'error').and.stub();
+
             service.sendContactMessage(datosContacto).subscribe({
                 next: () => fail('Deberia haber fallado'),
                 error: (error) => {
@@ -82,6 +88,8 @@ describe('ApiService', () => {
 
             const req = httpMock.expectOne(`${environment.apiUrl}/contact`);
             req.error(new ProgressEvent('error'));
+
+            expect(spyConsoleError).toHaveBeenCalled();
         });
 
         it('deberia enviar los datos con el formato correcto', () => {

@@ -91,8 +91,8 @@ describe('PaletaComandosComponent', () => {
 
   describe('búsqueda y filtrado', () => {
     it('sin query muestra todos los items (secciones + proyectos + acciones)', () => {
-      // 9 secciones + 9 proyectos + 3 acciones = 21
-      expect(component.filteredItems().length).toBe(21);
+      // 9 secciones + 12 proyectos + 3 acciones = 24
+      expect(component.filteredItems().length).toBe(24);
     });
 
     it('filtrar por "educacion" devuelve al menos un item', () => {
