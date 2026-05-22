@@ -1,5 +1,5 @@
 // Sección de habilidades técnicas: grilla de tarjetas con efecto flip 3D, contexto y estrellas.
-import { Component, AfterViewInit, OnDestroy, NgZone, ChangeDetectionStrategy, ChangeDetectorRef, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, NgZone, ChangeDetectionStrategy, ChangeDetectorRef, signal, computed, inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
@@ -11,7 +11,14 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
 type SkillTag = 'active' | 'learning' | 'inactive';
 
 // Categorías para filtrar la grilla de habilidades
-type SkillCategory = 'Fundamentos Web' | 'Frameworks' | 'Backend' | 'Bases de datos' | 'QA & Testing' | 'Herramientas';
+type SkillCategory =
+  | 'Fundamentos Web'
+  | 'Frameworks'
+  | 'Backend'
+  | 'Bases de datos'
+  | 'QA & Testing'
+  | 'Herramientas'
+  | 'IA aplicada';
 type SkillCategoryFilter = 'Todas' | SkillCategory;
 
 // Estructura de cada habilidad técnica
@@ -34,40 +41,185 @@ const FILTER_TABS: SkillCategoryFilter[] = [
   'Bases de datos',
   'QA & Testing',
   'Herramientas',
+  'IA aplicada',
 ];
 
 // Lista completa de habilidades; el orden define la posición en la grilla
 const ALL_SKILLS: Skill[] = [
   // --- FUNDAMENTOS WEB ---
-  { name: 'HTML',       tag: 'active',   tagLabel: 'En práctica',  context: 'Maquetado semántico y accesible para sitios y apps web.',                          level: 4, category: 'Fundamentos Web' },
-  { name: 'CSS',        tag: 'active',   tagLabel: 'En práctica',  context: 'Diseño responsive, Flexbox, Grid y animaciones fluidas.',                         level: 4, category: 'Fundamentos Web' },
-  { name: 'JavaScript', tag: 'active',   tagLabel: 'En práctica',  context: 'Lógica de negocio, manejo del DOM e integración de APIs.',                        level: 3, category: 'Fundamentos Web' },
-  { name: 'TypeScript', tag: 'learning', tagLabel: 'En formación', context: 'Comprensión de tipado estricto para proyectos escalables.',                       level: 2, category: 'Fundamentos Web' },
+  {
+    name: 'HTML',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Maquetado semántico y estructura accesible para sitios y aplicaciones web.',
+    level: 4,
+    category: 'Fundamentos Web',
+  },
+  {
+    name: 'CSS / SCSS',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Diseño responsive, Flexbox, Grid, animaciones y estilos mantenibles.',
+    level: 4,
+    category: 'Fundamentos Web',
+  },
+  {
+    name: 'JavaScript',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Lógica de interfaz, manejo de eventos, consumo de APIs e interacción con datos.',
+    level: 3,
+    category: 'Fundamentos Web',
+  },
+  {
+    name: 'TypeScript',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Tipado, modelos de datos e interfaces para proyectos frontend y backend más mantenibles.',
+    level: 3,
+    category: 'Fundamentos Web',
+  },
 
   // --- FRAMEWORKS ---
-  { name: 'Angular',      tag: 'learning', tagLabel: 'En formación', context: 'Maquetado y estructuración de componentes en proyectos reales.',          level: 3, category: 'Frameworks' },
-  { name: 'React',        tag: 'learning', tagLabel: 'En formación', context: 'Comprensión de interfaces, props y gestión de estados.',                   level: 2, category: 'Frameworks' },
-  { name: 'React Native', tag: 'learning', tagLabel: 'En formación', context: 'Nociones de desarrollo de apps móviles multiplataforma.',                  level: 2, category: 'Frameworks' },
+  {
+    name: 'Angular',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Desarrollo de SPAs con componentes, servicios, formularios, guards y consumo de APIs.',
+    level: 4,
+    category: 'Frameworks',
+  },
+  {
+    name: 'React',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Construcción de interfaces, componentes reutilizables, estado y flujos de usuario.',
+    level: 3,
+    category: 'Frameworks',
+  },
+  {
+    name: 'Blazor WebAssembly',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Frontend institucional en producción con componentes, páginas y panel administrativo.',
+    level: 3,
+    category: 'Frameworks',
+  },
 
   // --- BACKEND ---
-  { name: 'Node.js & Express', tag: 'active',   tagLabel: 'En práctica',  context: 'Comprensión de enrutamiento backend y conexión a bases de datos.',    level: 2, category: 'Backend' },
-  { name: 'ASP.NET',           tag: 'learning', tagLabel: 'En formación', context: 'Soporte y lectura de código en arquitecturas backend colaborativas.', level: 2, category: 'Backend' },
+  {
+    name: 'Node.js & Express',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'APIs REST, middlewares, autenticación, validaciones y conexión con BD.',
+    level: 3,
+    category: 'Backend',
+  },
+  {
+    name: 'APIs REST',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Diseño, consumo y validación de endpoints, auth, errores y contratos HTTP.',
+    level: 3,
+    category: 'Backend',
+  },
+  {
+    name: 'ASP.NET / .NET',
+    tag: 'learning',
+    tagLabel: 'En desarrollo',
+    context: 'Soporte y colaboración en backend .NET, lectura de código y funciones puntuales.',
+    level: 2,
+    category: 'Backend',
+  },
 
   // --- BASES DE DATOS ---
-  { name: 'MySQL',      tag: 'active',   tagLabel: 'En práctica',  context: 'Primer motor de BD relacional que aprendí a usar.',            level: 3, category: 'Bases de datos' },
-  { name: 'PostgreSQL', tag: 'learning', tagLabel: 'En formación', context: 'Deploy de BD en la nube con Neon y Supabase.',                  level: 2, category: 'Bases de datos' },
-  { name: 'SQL Server', tag: 'learning', tagLabel: 'En formación', context: 'BD para el proyecto en equipo del Grupo Scout.',               level: 2, category: 'Bases de datos' },
+  {
+    name: 'PostgreSQL',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Modelado relacional, consultas SQL, migraciones, seeds y bases locales/cloud.',
+    level: 4,
+    category: 'Bases de datos',
+  },
+  {
+    name: 'SQL Server',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Base de datos utilizada en proyectos institucionales con .NET y gestión relacional.',
+    level: 3,
+    category: 'Bases de datos',
+  },
 
   // --- QA & TESTING ---
-  // iconName usa ícono Lucide porque no hay imagen .webp disponible para estas herramientas
-  { name: 'QA Testing', tag: 'active',   tagLabel: 'En práctica',  context: 'Diseño y ejecución de pruebas funcionales (E2E) y reporte técnico de bugs.', level: 4, category: 'QA & Testing', iconName: 'shield-check' },
-  { name: 'Postman',    tag: 'learning', tagLabel: 'En formación', context: 'Validación básica y testeo de endpoints en APIs RESTful.',                     level: 2, category: 'QA & Testing' },
+  {
+    name: 'QA Testing',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Testing funcional, bugs, smoke/regression testing y validación de flujos.',
+    level: 4,
+    category: 'QA & Testing',
+    iconName: 'shield-check',
+  },
+  {
+    name: 'Postman',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Validación manual de endpoints, respuestas HTTP, auth, errores y contratos básicos.',
+    level: 3,
+    category: 'QA & Testing',
+  },
+  {
+    name: 'Jest + Supertest',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Tests de API REST, status codes, body shape, auth, rate limits y casos de borde.',
+    level: 3,
+    category: 'QA & Testing',
+  },
+  {
+    name: 'Vitest + TestBed',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Testing frontend Angular para servicios, formularios, componentes y lógica de UI.',
+    level: 3,
+    category: 'QA & Testing',
+  },
 
   // --- HERRAMIENTAS ---
-  { name: 'Jira & Scrum', tag: 'active', tagLabel: 'En práctica', context: 'Gestión ágil de equipos y tareas ocupando el rol de Scrum Master.', level: 4, category: 'Herramientas' },
-  { name: 'Git & GitHub', tag: 'active', tagLabel: 'En práctica', context: 'Control de versiones, flujos colaborativos y ramas de trabajo.',    level: 4, category: 'Herramientas' },
-  { name: 'Figma',        tag: 'active', tagLabel: 'En práctica', context: 'Diseño de interfaces y prototipos para agilizar desarrollos.',       level: 4, category: 'Herramientas' },
-  { name: 'UML',          tag: 'active', tagLabel: 'En práctica', context: 'Modelado y diagramación lógica para planificar arquitecturas.',      level: 4, category: 'Herramientas' },
+  {
+    name: 'Git & GitHub',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Control de versiones, ramas, pull requests, revisión de cambios y documentación.',
+    level: 4,
+    category: 'Herramientas',
+  },
+  {
+    name: 'Figma',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Diseño de interfaces, prototipado UI/UX y planificación visual de pantallas.',
+    level: 4,
+    category: 'Herramientas',
+  },
+  {
+    name: 'Jira',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'Backlog, épicas, user stories y sprints. Usado en CandyLand como Scrum Master del proyecto.',
+    level: 3,
+    category: 'Herramientas',
+  },
+
+  // --- IA APLICADA ---
+  {
+    name: 'OpenCode / Gentle AI',
+    tag: 'active',
+    tagLabel: 'En uso',
+    context: 'IA aplicada al desarrollo: specs, documentación, tests y verificación iterativa.',
+    level: 4,
+    category: 'IA aplicada',
+  },
 ];
 
 @Component({
@@ -100,6 +252,9 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
   proactividadFlipped = false;
   proactividadHover = false;
 
+  // Estado del modal explicativo de estrellas
+  showStarsInfo = false;
+
   private autoFlipTimer: any = null;
   private hoverTimer: any = null;
   private proactHoverTimer: any = null;
@@ -108,24 +263,24 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
   // Mapa nombre → ruta de imagen para cada habilidad
   readonly imgMap: Record<string, string> = {
     'HTML': 'assets/img/HTML.webp',
-    'CSS': 'assets/img/CSS.webp',
+    'CSS / SCSS': 'assets/img/CSS.webp',
     'JavaScript': 'assets/img/js.webp',
     'TypeScript': 'assets/img/typescript.webp',
     'Angular': 'assets/img/angular.webp',
     'React': 'assets/img/React-Logo-PNG.webp',
-    'React Native': 'assets/img/react_native.webp',
-    'Java': 'assets/img/java.webp',
+    'Blazor WebAssembly': 'assets/img/Blazor.webp',
     'Node.js & Express': 'assets/img/nodejs.webp',
-    'MySQL': 'assets/img/mysql.webp',
+    'ASP.NET / .NET': 'assets/img/net.webp',
     'PostgreSQL': 'assets/img/postgresql.svg',
     'SQL Server': 'assets/img/sql_server.webp',
-    'C#': 'assets/img/c_.webp',
-    'ASP.NET': 'assets/img/net.webp',
+    'Postman': 'assets/img/postman.webp',
     'Git & GitHub': 'assets/img/git.webp',
     'Figma': 'assets/img/figma.svg',
-    'Jira & Scrum': 'assets/img/jira.webp',
-    'UML': 'assets/img/uml.webp',
-    'Postman': 'assets/img/postman.webp',
+    'Jira': 'assets/img/jira.webp',
+    'APIs REST': 'assets/img/api_rest.webp',
+    'Jest + Supertest': 'assets/img/Jest.webp',
+    'Vitest + TestBed': 'assets/img/vitest.webp',
+    'OpenCode / Gentle AI': 'assets/img/opencode.webp',
   };
 
   private resizeCleanup?: () => void;
@@ -267,5 +422,25 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
       clearTimeout(this.proactHoverTimer);
       this.proactHoverTimer = null;
     }
+  }
+
+  // --- Modal explicativo de estrellas ---
+
+  openStarsInfo(): void {
+    this.showStarsInfo = true;
+    this.cdr.markForCheck();
+    setTimeout(() => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  }
+
+  closeStarsInfo(): void {
+    this.showStarsInfo = false;
+    this.cdr.markForCheck();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.showStarsInfo) this.closeStarsInfo();
   }
 }

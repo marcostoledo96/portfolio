@@ -18,8 +18,17 @@
       <div class="tech__header-line"></div>
     </div>
 
+    <!-- Pista para el usuario sobre la interacción de flip -->
+    <div class="tech__hint-wrap animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1">
+      <p class="tech__hint">Hacé clic en una tarjeta para ver más detalles</p>
+      <button class="tech__stars-info-btn" type="button" (click)="openStarsInfo()" aria-label="Abrir modal de ayuda sobre el significado de las estrellas">
+        <i data-lucide="help-circle" class="tech__stars-info-icon"></i>
+        ¿Cómo leer las estrellas?
+      </button>
+    </div>
+
     <!-- Pills de filtro por categoría -->
-    <div class="tech__filters animate-on-scroll" appAnimateOnScroll [animateDelay]="0.1"
+    <div class="tech__filters animate-on-scroll" appAnimateOnScroll [animateDelay]="0.15"
       role="tablist" aria-label="Filtrar habilidades por categoría">
       @for (tab of filterTabs; track tab) {
         <button
@@ -78,11 +87,9 @@
         </div>
       </div>
       }
-    </div>
 
-    <!-- Tarjeta especial Proactividad: solo visible en el filtro 'Todas' -->
-    @if (activeFilter() === 'Todas') {
-      <div class="tech__proactividad">
+      <!-- Tarjeta especial Proactividad: visible solo en el filtro 'Todas', dentro del mismo grid -->
+      @if (activeFilter() === 'Todas') {
       <div class="flip-card animate-on-scroll" [class.flip-card--flipped]="proactividadFlipped"
         [class.flip-card--mobile-hover]="proactividadHover" (click)="toggleProactividad()" appAnimateOnScroll
         [animateDelay]="0.1" role="button" tabindex="0" aria-label="Ver detalles de Superación constante"
@@ -111,18 +118,18 @@
           </div>
         </div>
       </div>
+      }
     </div>
-    }
 
     <!-- Leyenda de colores del badge -->
     <div class="tech__legend animate-on-scroll" appAnimateOnScroll [animateDelay]="0.3">
       <div class="tech__legend-item">
         <span class="tech__legend-dot tech__legend-dot--active"></span>
-        <span class="tech__legend-label">En práctica</span>
+        <span class="tech__legend-label">En uso</span>
       </div>
       <div class="tech__legend-item">
         <span class="tech__legend-dot tech__legend-dot--learning"></span>
-        <span class="tech__legend-label">En formación</span>
+        <span class="tech__legend-label">En desarrollo</span>
       </div>
       <div class="tech__legend-item">
         <span class="tech__legend-dot tech__legend-dot--inactive"></span>
@@ -130,12 +137,78 @@
       </div>
     </div>
 
-    <!-- Pista para el usuario sobre la interacción de flip -->
-    <p class="tech__hint animate-on-scroll" appAnimateOnScroll [animateDelay]="0.4">
-      Hacé clic en una tarjeta para ver más detalles
-    </p>
   </div>
   <div class="section-scroll-footer">
     <app-scroll-indicator targetId="habilidades-blandas" />
   </div>
 </section>
+
+<!-- Modal explicativo de estrellas -->
+@if (showStarsInfo) {
+  <div class="tech__stars-modal-backdrop" role="presentation" (click)="closeStarsInfo()">
+    <div class="tech__stars-modal" role="dialog" aria-modal="true" aria-labelledby="stars-modal-title" (click)="$event.stopPropagation()">
+      <button type="button" class="tech__stars-modal-close" aria-label="Cerrar explicación" (click)="closeStarsInfo()">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="tech__stars-modal-header">
+        <i data-lucide="sparkles" class="tech__stars-modal-icon"></i>
+        <h3 id="stars-modal-title" class="tech__stars-modal-title">
+          ¿Cómo interpreto las estrellas?
+        </h3>
+      </div>
+
+      <div class="tech__stars-modal-body">
+        <p class="tech__stars-modal-desc">
+          Las estrellas representan mi nivel de uso práctico en proyectos, no una certificación formal ni una medida absoluta de dominio.
+        </p>
+
+        <div class="tech__stars-scale">
+          <div class="tech__stars-row">
+            <span class="tech__stars-visual">★★★★★</span>
+            <div class="tech__stars-copy">
+              <strong>Muy fuerte / uso real sostenido</strong>
+              <span>Uso frecuente, sostenido y aplicado en varios contextos o proyectos.</span>
+            </div>
+          </div>
+
+          <div class="tech__stars-row">
+            <span class="tech__stars-visual">★★★★☆</span>
+            <div class="tech__stars-copy">
+              <strong>Uso real en proyectos importantes</strong>
+              <span>Aplicado en proyectos relevantes, con autonomía y resolución de problemas.</span>
+            </div>
+          </div>
+
+          <div class="tech__stars-row">
+            <span class="tech__stars-visual">★★★☆☆</span>
+            <div class="tech__stars-copy">
+              <strong>Uso práctico intermedio</strong>
+              <span>Uso funcional en proyectos o tareas concretas, con margen de profundización.</span>
+            </div>
+          </div>
+
+          <div class="tech__stars-row">
+            <span class="tech__stars-visual">★★☆☆☆</span>
+            <div class="tech__stars-copy">
+              <strong>Conocimiento básico o apoyo puntual</strong>
+              <span>Conocimiento inicial, colaboración puntual o uso acompañado.</span>
+            </div>
+          </div>
+
+          <div class="tech__stars-row">
+            <span class="tech__stars-visual">★☆☆☆☆</span>
+            <div class="tech__stars-copy">
+              <strong>Exploratorio</strong>
+              <span>Primer contacto, pruebas, estudio o uso muy limitado.</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="tech__stars-modal-note">
+          La escala busca mostrar experiencia práctica de forma honesta y contextual.
+        </p>
+      </div>
+    </div>
+  </div>
+}
