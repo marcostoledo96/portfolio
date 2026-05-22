@@ -56,6 +56,38 @@
           <p class="pmodal__desc">{{ project.longDescription }}</p>
         </div>
 
+        <!-- Mi rol en el proyecto -->
+        @if (project.roleDescription) {
+          <div class="pmodal__section">
+            <h4 class="pmodal__section-title">MI ROL</h4>
+            <p class="pmodal__desc">{{ project.roleDescription }}</p>
+          </div>
+        }
+
+        <!-- Problema o necesidad que resolvía -->
+        @if (project.problem) {
+          <div class="pmodal__section">
+            <h4 class="pmodal__section-title">PROBLEMA</h4>
+            <p class="pmodal__desc">{{ project.problem }}</p>
+          </div>
+        }
+
+        <!-- Solución construida -->
+        @if (project.solution) {
+          <div class="pmodal__section">
+            <h4 class="pmodal__section-title">SOLUCIÓN</h4>
+            <p class="pmodal__desc">{{ project.solution }}</p>
+          </div>
+        }
+
+        <!-- Impacto o resultado -->
+        @if (project.impact) {
+          <div class="pmodal__section">
+            <h4 class="pmodal__section-title">IMPACTO</h4>
+            <p class="pmodal__desc">{{ project.impact }}</p>
+          </div>
+        }
+
         <!-- Chips de tecnologías -->
         <div class="pmodal__section">
           <h4 class="pmodal__section-title">TECNOLOGÍAS</h4>

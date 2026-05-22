@@ -1,5 +1,5 @@
-// AppComponent Tests: verifica la estructura básica, las secciones definidas,
-// el splash screen y la integración con TemaService/SeoService.
+// AppComponent Tests: verifica la estructura básica, las secciones definidas
+// y la integración con TemaService/SeoService.
 
 import {
   TestBed, ComponentFixture,
@@ -57,8 +57,8 @@ describe('AppComponent', () => {
   });
 
   it('define 9 secciones de navegación', () => {
-    // sectionIds es privado pero NAV_ITEMS es el origen; verifico via splashDone
-    // Importo NAV_ITEMS indirectamente comprobando que el componente se construye bien
+    // sectionIds es privado pero NAV_ITEMS es el origen
+    // Compruebo que el componente se construye con el título correcto
     expect(component.title).toContain('Marcos');
   });
 
@@ -73,7 +73,6 @@ describe('AppComponent', () => {
   });
 
   it('splashDone pasa a true al llamar splashDone.set(true)', () => {
-    // La plantilla llama a splashDone.set(true) directamente en el (finished) binding
     component.splashDone.set(true);
     expect(component.splashDone()).toBeTrue();
   });

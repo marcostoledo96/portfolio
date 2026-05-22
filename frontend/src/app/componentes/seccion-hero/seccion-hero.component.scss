@@ -317,13 +317,13 @@
     min-width: 3.75rem;
     height: auto;
     padding: 0.5rem 0.25rem;
-    @include mobile-only { flex: 1; }
     border-radius: $radius-xl;
     border: 1px solid var(--portfolio-card-border);
     background: rgba(var(--portfolio-accent-rgb), 0.03);
     backdrop-filter: blur(4px);
     color: var(--muted-foreground);
     transition: border-color $transition-slow, color $transition-slow, background $transition-slow, box-shadow $transition-slow;
+    @include mobile-only { flex: 1; }
     i { width: 18px; height: 18px; }
     &:hover {
       border-color: var(--portfolio-accent);
@@ -345,9 +345,14 @@
     text-align: center;
     margin-top: 3px;
     color: var(--muted-foreground);
-    white-space: nowrap;
     line-height: 1;
     pointer-events: none;
+
+    @include mobile-only {
+      white-space: normal;
+      overflow-wrap: anywhere;
+      line-height: 1.2;
+    }
   }
   &__social-tooltip-arrow {
     position: absolute;

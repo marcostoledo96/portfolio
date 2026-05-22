@@ -9,23 +9,24 @@ import { ParallaxDirective } from '../../core/directivas/parallax.directive';
 declare const lucide: any;
 
 const PHRASES = [
-  'QA Tester & Desarrollador Full Stack.',
-  'Especializado en Transformación Digital en Salud (HealthTech).',
-  'Apasionado por la calidad del software y el código limpio.',
-  'Potenciando la eficiencia y calidad con Inteligencia Artificial.',
-  'Construyendo interfaces modernas con Angular y React.',
+  'Desarrollador Frontend / Full Stack.',
+  'QA Manual con criterio funcional.',
+  'Angular · React · Node.js · PostgreSQL.',
+  'Construyo soluciones web para usuarios reales.',
+  'HealthTech, QA e IA aplicada al desarrollo.',
 ];
 
 const SOCIALS = [
   { icon: 'github', label: 'GitHub', href: 'https://github.com/marcostoledo96' },
   { icon: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/marcos-ezequiel-toledo' },
   { icon: 'mail', label: 'Email', href: 'mailto:marcostoledo96@gmail.com' },
-  { icon: 'download', label: 'Descargar CV', href: 'assets/doc/CV_ToledoMarcos_IT.pdf' },
+  { icon: 'download', label: 'CV Desarrollador', href: 'assets/doc/Toledo_Marcos_CV_Dev.pdf' },
+  { icon: 'download', label: 'CV QA Tester', href: 'assets/doc/Toledo_Marcos_CV_QA.pdf' },
 ];
 
 const STATS = [
-  { value: 8, suffix: '+', label: 'Proyectos' },
-  { value: 18, suffix: '',  label: 'Tecnologías' },
+  { value: 6, suffix: '+', label: 'Proyectos' },
+  { value: 80, suffix: '+', label: 'Bugs documentados' },
 ];
 
 @Component({

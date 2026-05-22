@@ -37,7 +37,7 @@ export class SeccionEducacionComponent implements AfterViewInit {
       career: 'Técnico Superior en Desarrollo de Software',
       institution: 'IFTS N°16',
       description:
-        'Último cuatrimestre. Formación integral en arquitectura de software, bases de datos y metodologías ágiles. Prácticas profesionalizantes con fuerte enfoque en QA Testing, documentación técnica y desarrollo Full Stack.',
+        'Último cuatrimestre en curso. Formación orientada a desarrollo Full Stack, arquitectura de software, bases de datos, QA Testing, metodologías ágiles y documentación técnica.',
       status: 'in-progress',
       statusLabel: 'En curso',
       period: '2024 – Actualidad',
@@ -50,10 +50,10 @@ export class SeccionEducacionComponent implements AfterViewInit {
       career: 'Técnico Superior en Radiología',
       institution: 'Instituto Superior de Ciencias de la Salud',
       description:
-        'Título que consolida mi perfil HealthTech. Sólida base clínica y hospitalaria que me permite entender los flujos de trabajo médicos reales y diseñar software empático y centrado en el paciente.',
+        'Formación finalizada que fortalece mi perfil HealthTech. Me aporta base clínica para comprender procesos médicos reales, necesidades del paciente y flujos de trabajo en entornos de salud.',
       status: 'completed',
       statusLabel: 'Completado',
-      period: 'Finalizado',
+      period: 'Finalizado en 2024',
       average: 8.28,
       averageLabel: 'Promedio final',
       icon: 'award',

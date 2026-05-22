@@ -1,4 +1,4 @@
-// Sección de contacto: formulario de mensaje + tarjeta de links (GitHub, LinkedIn, mail, CV).
+// Sección de contacto: formulario de mensaje + tarjeta de links (GitHub, LinkedIn, mail, CVs).
 import { Component, AfterViewInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Necesario para [(ngModel)]
@@ -51,10 +51,17 @@ const CONTACT_LINKS: ContactLink[] = [
   },
   {
     icon: 'file-down',
-    label: 'Curriculum Vitae',
+    label: 'CV Desarrollador',
     value: 'Descargar PDF',
-    href: 'assets/doc/CV_ToledoMarcos_IT.pdf',
+    href: 'assets/doc/Toledo_Marcos_CV_Dev.pdf',
     color: '#8b5cf6',
+  },
+  {
+    icon: 'file-down',
+    label: 'CV QA Tester',
+    value: 'Descargar PDF',
+    href: 'assets/doc/Toledo_Marcos_CV_QA.pdf',
+    color: '#10b981',
   },
 ];
 
@@ -188,7 +195,7 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
     if (!this.formData.email.trim()) {
       e.email = 'El email es obligatorio.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.formData.email)) {
-      e.email = 'Ingres\u00e1 un email v\u00e1lido.';
+      e.email = 'Ingresá un email válido.';
     }
     if (!this.formData.message.trim()) e.message = 'El mensaje es obligatorio.';
     return e;

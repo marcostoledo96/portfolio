@@ -1,5 +1,5 @@
 // Sección "Sobre mí": bento grid con bio, ubicación, objetivo, stack actual y tecnologías en aprendizaje.
-import { Component, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollDirective } from '../../../core/directivas/animate-on-scroll.directive';
 import { ParallaxDirective } from '../../../core/directivas/parallax.directive';
@@ -16,6 +16,8 @@ declare const lucide: any; // Lucide cargado desde CDN via script en index.html
   changeDetection: ChangeDetectionStrategy.OnPush, // Solo re-renderizo ante cambios explícitos
 })
 export class SeccionSobreMiComponent implements AfterViewInit {
+
+  @Output() navTo = new EventEmitter<string>();
 
   // Inicializo íconos de Lucide después de que el DOM esté listo
   ngAfterViewInit(): void {

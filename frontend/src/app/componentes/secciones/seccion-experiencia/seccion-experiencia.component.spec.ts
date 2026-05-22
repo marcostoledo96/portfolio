@@ -66,12 +66,12 @@ describe('SeccionExperienciaComponent', () => {
       expect(component.experiences[1].company).toBe('Grupo Scout N°91 "San Patricio"');
     });
 
-    it('la tercera experiencia es Instituto de Formación Técnica Superior N°26', () => {
-      expect(component.experiences[2].company).toBe('Instituto de Formación Técnica Superior N°26');
+    it('la tercera experiencia es Grupo Scout N°91 San Patricio (SanPa Holmes)', () => {
+      expect(component.experiences[2].company).toBe('Grupo Scout N°91 "San Patricio"');
     });
 
-    it('la cuarta experiencia es Grupo Scout N°91 San Patricio (Plataforma Evento)', () => {
-      expect(component.experiences[3].company).toBe('Grupo Scout N°91 "San Patricio"');
+    it('la cuarta experiencia es Instituto de Formación Técnica Superior N°26', () => {
+      expect(component.experiences[3].company).toBe('Instituto de Formación Técnica Superior N°26');
     });
 
     it('AEROTEST es un grupo con 2 sub-entradas', () => {
@@ -80,8 +80,8 @@ describe('SeccionExperienciaComponent', () => {
       expect(aerotest.subEntries!.length).toBe(2);
     });
 
-    it('la primera sub-entry de AEROTEST es el rol de QA Tester & Desarrollador', () => {
-      expect(component.experiences[0].subEntries![0].role).toBe('QA Tester & Desarrollador Web | Soporte IT');
+    it('la primera sub-entry de AEROTEST es el rol de QA Tester, Soporte IT y Desarrollo', () => {
+      expect(component.experiences[0].subEntries![0].role).toBe('QA Tester | Soporte IT | Desarrollador Web');
     });
 
     it('la segunda sub-entry de AEROTEST es el rol de Secretario Médico', () => {
@@ -100,14 +100,14 @@ describe('SeccionExperienciaComponent', () => {
     });
 
     it('IFTS N°26 tiene exactamente 1 link externo apuntando al sitio', () => {
-      const ifts = component.experiences[2];
+      const ifts = component.experiences[3];
       expect(ifts.links).toBeDefined();
       expect(ifts.links!.length).toBe(1);
       expect(ifts.links![0].url).toContain('ifts26.netlify.app');
     });
 
-    it('Grupo Scout Plataforma Evento tiene exactamente 2 links externos', () => {
-      const plataforma = component.experiences[3];
+    it('SanPa Holmes (scout-evento) tiene exactamente 2 links externos', () => {
+      const plataforma = component.experiences[2];
       expect(plataforma.links).toBeDefined();
       expect(plataforma.links!.length).toBe(2);
     });

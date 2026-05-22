@@ -5,14 +5,15 @@ import { Meta, Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
 const SITE_URL   = 'https://www.marcostoledo.cv';
-const FULL_TITLE = 'Marcos Ezequiel Toledo — Desarrollador de Software & QA Tester';
+const FULL_TITLE = 'Marcos Ezequiel Toledo — Desarrollador Frontend / Full Stack Jr | Angular · Node.js · PostgreSQL';
 const DESCRIPTION =
-  'Portfolio de Marcos Ezequiel Toledo, Desarrollador Full Stack Jr. y QA Tester. ' +
-  'Proyectos con Angular, React, Node.js, TypeScript y más. Buenos Aires, Argentina.';
+  'Portfolio de Marcos Ezequiel Toledo, Desarrollador Frontend / Full Stack Jr. con ' +
+  'experiencia en QA Testing, soporte IT y HealthTech. Proyectos con Angular, React, ' +
+  'Node.js, TypeScript y más. Buenos Aires, Argentina.';
 const KEYWORDS =
-  'desarrollador web, QA tester, portfolio, Angular, React, Node.js, TypeScript, ' +
-  'JavaScript, full stack, Buenos Aires, Argentina, Marcos Toledo, ' +
-  'marcos ezequiel toledo, cv marcos toledo, desarrollador de software';
+  'desarrollador frontend, desarrollador full stack, QA tester, soporte IT, portfolio, ' +
+  'Angular, React, Node.js, TypeScript, JavaScript, full stack, Buenos Aires, Argentina, ' +
+  'Marcos Toledo, marcos ezequiel toledo, cv marcos toledo, desarrollador de software, HealthTech';
 const OG_IMAGE = `${SITE_URL}/assets/img/og-preview.png`;
 
 @Injectable({ providedIn: 'root' })
@@ -67,7 +68,7 @@ export class SeoService {
           name: 'Marcos Ezequiel Toledo',
           givenName: 'Marcos Ezequiel',
           familyName: 'Toledo',
-          jobTitle: 'Desarrollador de Software & QA Tester',
+          jobTitle: 'Desarrollador Frontend / Full Stack Jr.',
           description: DESCRIPTION,
           url: SITE_URL,
           image: `${SITE_URL}/assets/img/Foto_Perfil.webp`,
@@ -75,7 +76,7 @@ export class SeoService {
           knowsAbout: [
             'Angular', 'React', 'TypeScript', 'JavaScript', 'Node.js',
             'HTML', 'CSS', 'SCSS', 'PostgreSQL', 'MySQL', 'SQL Server',
-            'QA Testing', 'Git', 'Figma', 'Jira', 'Scrum', 'UML',
+            'QA Testing', 'Soporte IT', 'Git', 'Figma', 'Jira', 'Scrum', 'UML',
           ],
           alumniOf: {
             '@type': 'EducationalOrganization',

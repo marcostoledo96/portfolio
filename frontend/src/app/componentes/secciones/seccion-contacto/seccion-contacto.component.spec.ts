@@ -254,4 +254,23 @@ describe('SeccionContactoComponent', () => {
       expect(component.mailtoHref).toContain('@');
     });
   });
+
+  describe('links de contacto', () => {
+    it('incluye link de descarga para CV Dev con la ruta actualizada', () => {
+      const cvDev = component.contactLinks.find(link => link.label === 'CV Desarrollador');
+      expect(cvDev).toBeTruthy();
+      expect(cvDev!.href).toBe('assets/doc/Toledo_Marcos_CV_Dev.pdf');
+    });
+
+    it('incluye link de descarga para CV QA con la ruta actualizada', () => {
+      const cvQA = component.contactLinks.find(link => link.label === 'CV QA Tester');
+      expect(cvQA).toBeTruthy();
+      expect(cvQA!.href).toBe('assets/doc/Toledo_Marcos_CV_QA.pdf');
+    });
+
+    it('mantiene exactamente dos links de CV', () => {
+      const cvLinks = component.contactLinks.filter(link => link.href.startsWith('assets/doc/Toledo_Marcos_CV_'));
+      expect(cvLinks.length).toBe(2);
+    });
+  });
 });

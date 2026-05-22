@@ -125,7 +125,7 @@ export class PaletaComandosComponent implements AfterViewChecked, OnDestroy {
         icon:     'download',
         category: 'Acciones',
         action: () => {
-          if (this.isBrowser) window.open('assets/doc/CV_ToledoMarcos_IT.pdf', '_blank');
+          if (this.isBrowser) window.open('assets/doc/Toledo_Marcos_CV_Dev.pdf', '_blank');
           this.close();
         },
       },

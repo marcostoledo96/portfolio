@@ -31,20 +31,20 @@ const LANGUAGES: Language[] = [
     flagSvg: FLAG_AR,
     isNative: true,
     details: [
-      'Lengua materna',
-      'Comunicación técnica oral y escrita',
-      'Redacción de documentación y guías',
+      'Comunicación clara con usuarios, equipos y entornos de trabajo',
+      'Redacción de documentación, guías e instructivos',
+      'Facilidad para explicar procesos técnicos de forma simple',
     ],
   },
   {
     name: 'Inglés',
-    level: 'Elemental (A1 – A2)',
+    level: 'Básico técnico (A1 – A2)',
     flagSvg: FLAG_US,
     isNative: false,
     details: [
-      'Lectura de documentación técnica (A2)',
-      'Comprensión auditiva básica (A1)',
-      'Estudios actualmente en curso',
+      'Lectura de documentación técnica, errores y guías de herramientas',
+      'Comprensión básica de APIs, repositorios y recursos IT',
+      'En formación continua para mejorar lectura, escritura y conversación',
     ],
   },
 ];

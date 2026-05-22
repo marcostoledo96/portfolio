@@ -221,3 +221,61 @@
     }
   }
 }
+
+/* ==========================================================================
+   CTA Buttons
+   ========================================================================== */
+
+.about__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 2.5rem;
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.about__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 14px 28px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
+
+  i { width: 17px; height: 17px; flex-shrink: 0; }
+
+  @media (max-width: 400px) { width: 100%; justify-content: center; }
+
+  &--primary {
+    background: linear-gradient(135deg, var(--portfolio-accent), #8b5cf6);
+    color: #fff;
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+      box-shadow: 0 15px 35px -5px color-mix(in srgb, var(--portfolio-accent) 35%, transparent);
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    color: var(--portfolio-accent);
+    border: 1.5px solid var(--portfolio-accent);
+
+    &:hover {
+      background: var(--portfolio-accent-glow);
+      box-shadow: 0 8px 20px -5px color-mix(in srgb, var(--portfolio-accent) 15%, transparent);
+    }
+  }
+}

@@ -19,4 +19,9 @@ export interface Project {
   siteUrl?: string;           // URL de demo (opcional)
   siteLabel?: string;         // Texto personalizado del botón de demo (opcional, default: 'Demo')
   githubUrl?: string;         // URL del repositorio (opcional)
+  roleDescription?: string;   // Mi rol en el proyecto (opcional)
+  problem?: string;           // Problema o necesidad que resolvía (opcional)
+  solution?: string;          // Solución construida (opcional)
+  impact?: string;            // Resultado, aprendizaje o métricas principales (opcional)
+  showInDevWhileInProd?: boolean; // Muestra el proyecto también en el filtro "En desarrollo" aunque esté en producción (opcional)
 }
