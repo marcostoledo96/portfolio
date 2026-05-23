@@ -98,7 +98,7 @@
   // --- Grilla de dos columnas: mobile apilado, desktop 3fr/2fr ---
   &__grid {
     display: grid;
-    grid-template-columns: 1fr; // Mobile: una columna
+    grid-template-columns: minmax(0, 1fr); // Mobile: una columna que puede encogerse
     gap: 2rem;
 
     @include lg {
@@ -127,8 +127,10 @@
   // Franja superior colorida de la tarjeta del formulario
   &__form-strip {
     display: flex; align-items: center; gap: 0.625rem;
-    padding: 1rem 1.75rem;
+    padding: 0.875rem 1.25rem;
     border-bottom: 1px solid var(--portfolio-card-border);
+
+    @include sm { padding: 1rem 1.75rem; }
 
     &-icon { width: 18px; height: 18px; color: var(--portfolio-accent); }
     &-text {
@@ -137,7 +139,7 @@
     }
   }
   &__form-body {
-    padding: 1.75rem;
+    padding: 1.25rem;
     flex: 1;
     display: flex;
     flex-direction: column;

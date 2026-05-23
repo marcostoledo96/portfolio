@@ -308,7 +308,13 @@
   // --- Socials ---
   &__socials {
     display: flex; align-items: center; gap: 0.75rem;
-    @include mobile-only { margin-bottom: 3.5rem; width: 100%; }
+
+    @media (max-width: 510px) {
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3.5rem;
+      width: 100%;
+    }
   }
   &__social-btn {
     position: relative;
@@ -323,13 +329,40 @@
     backdrop-filter: blur(4px);
     color: var(--muted-foreground);
     transition: border-color $transition-slow, color $transition-slow, background $transition-slow, box-shadow $transition-slow;
-    @include mobile-only { flex: 1; }
+    @media (max-width: 510px) {
+      flex: 0 1 auto;
+      min-width: 0;
+
+      &:nth-child(-n + 3) {
+        width: calc((100% - 1.5rem) / 3);
+      }
+
+      &:nth-child(n + 4) {
+        width: calc((100% - 0.75rem) / 2);
+        max-width: calc((100% - 0.75rem) / 2);
+      }
+    }
     i { width: 18px; height: 18px; }
     &:hover {
       border-color: var(--portfolio-accent);
       color: var(--portfolio-accent);
       background: var(--portfolio-accent-glow);
       box-shadow: 0 4px 16px var(--portfolio-accent-glow);
+    }
+
+    &:nth-child(4),
+    &:nth-child(5) {
+      width: 7.5rem;
+      min-width: 7.5rem;
+    }
+
+    @media (max-width: 510px) {
+      &:nth-child(4),
+      &:nth-child(5) {
+        width: calc((100% - 0.75rem) / 2);
+        min-width: 0;
+        max-width: calc((100% - 0.75rem) / 2);
+      }
     }
   }
   // Tooltip — oculto, ya no se usa (el label siempre está visible)
@@ -348,7 +381,7 @@
     line-height: 1;
     pointer-events: none;
 
-    @include mobile-only {
+    @media (max-width: 510px) {
       white-space: normal;
       overflow-wrap: anywhere;
       line-height: 1.2;
