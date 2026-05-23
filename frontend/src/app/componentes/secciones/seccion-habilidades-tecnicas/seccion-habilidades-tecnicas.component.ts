@@ -216,7 +216,7 @@ const ALL_SKILLS: Skill[] = [
     name: 'OpenCode',
     tag: 'active',
     tagLabel: 'En uso',
-    context: 'IA aplicada al desarrollo: multiagentes, specs, documentación, tests y verificación iterativa.',
+    context: 'IA aplicada: multiagentes, specs, documentación, tests y verificación iterativa.',
     level: 4,
     category: 'IA aplicada',
   },
@@ -261,6 +261,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
   private isMobile = false; // Determina si uso comportamiento táctil o de mouse
 
   // Mapa nombre → ruta de imagen para cada habilidad
+  // IMPORTANTE: la key debe coincidir EXACTAMENTE con skill.name de ALL_SKILLS
   readonly imgMap: Record<string, string> = {
     'HTML': 'assets/img/HTML.webp',
     'CSS / SCSS': 'assets/img/CSS.webp',
