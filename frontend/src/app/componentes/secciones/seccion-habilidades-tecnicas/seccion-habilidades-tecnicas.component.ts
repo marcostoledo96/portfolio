@@ -280,7 +280,7 @@ export class SeccionHabilidadesTecnicasComponent implements AfterViewInit, OnDes
     'APIs REST': 'assets/img/api_rest.webp',
     'Jest + Supertest': 'assets/img/Jest.webp',
     'Vitest + TestBed': 'assets/img/vitest.webp',
-    'OpenCode / Gentle AI': 'assets/img/opencode.webp',
+    'OpenCode': 'assets/img/opencode.webp',
   };
 
   private resizeCleanup?: () => void;

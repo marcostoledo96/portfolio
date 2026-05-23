@@ -85,8 +85,15 @@ describe('SeccionHabilidadesTecnicasComponent', () => {
       expect(component.getFilterCount('Herramientas')).toBe(3);
     });
 
-    it('"IA aplicada" retorna 1 (OpenCode / Gentle AI)', () => {
-      expect(component.getFilterCount('IA aplicada')).toBe(1);
+    it('"IA aplicada" retorna 1 (OpenCode)', () => {
+      component.setFilter('IA aplicada');
+      expect(component.filteredSkills().length).toBe(1);
+    });
+
+    it('el skill de "IA aplicada" es OpenCode', () => {
+      component.setFilter('IA aplicada');
+      const nombres = component.filteredSkills().map(s => s.name);
+      expect(nombres).toContain('OpenCode');
     });
 
     it('la suma de todas las categorías es igual al total de skills', () => {
