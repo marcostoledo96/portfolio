@@ -186,10 +186,10 @@ describe('SeccionHabilidadesTecnicasComponent', () => {
       expect(nombres).toContain('SQL Server');
     });
 
-    it('el skill de "IA aplicada" es OpenCode / Gentle AI', () => {
+    it('el skill de "IA aplicada" es OpenCode', () => {
       component.setFilter('IA aplicada');
       const nombres = component.filteredSkills().map(s => s.name);
-      expect(nombres).toContain('OpenCode / Gentle AI');
+      expect(nombres).toContain('OpenCode');
     });
 
     it('los skills de "Herramientas" son Git & GitHub, Figma y Jira', () => {
