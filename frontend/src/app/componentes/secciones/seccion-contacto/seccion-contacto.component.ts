@@ -227,6 +227,10 @@ export class SeccionContactoComponent implements AfterViewInit, OnDestroy {
         this.turnstileToken = '';     // Invalido el token ya usado
         this.touchedFields.clear();   // Reseteo el estado touched de todos los campos
         this.cdr.markForCheck();
+        // El icono de éxito se inyecta dinámicamente; necesito inicializar Lucide después del render
+        if (typeof lucide !== 'undefined') {
+          setTimeout(() => lucide.createIcons(), 0);
+        }
         setTimeout(() => {
           this.sent = false;
           this.cdr.markForCheck();
