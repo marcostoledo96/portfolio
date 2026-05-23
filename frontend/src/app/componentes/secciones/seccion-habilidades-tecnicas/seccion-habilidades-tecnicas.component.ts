@@ -213,10 +213,10 @@ const ALL_SKILLS: Skill[] = [
 
   // --- IA APLICADA ---
   {
-    name: 'OpenCode / Gentle AI',
+    name: 'OpenCode',
     tag: 'active',
     tagLabel: 'En uso',
-    context: 'IA aplicada al desarrollo: multiagenes, specs, documentación, tests y verificación iterativa.',
+    context: 'IA aplicada al desarrollo: multiagentes, specs, documentación, tests y verificación iterativa.',
     level: 4,
     category: 'IA aplicada',
   },
